@@ -13,7 +13,7 @@ class Register extends Component {
   render() {
     return (
       <div className="login-register-wrapper">
-        <div className="header">Register</div>
+        <div className="header">Sign Up</div>
         <div className="form-wrapper">
           <form onSubmit={this.handleSubmit}>
             <div className="input-wrapper">

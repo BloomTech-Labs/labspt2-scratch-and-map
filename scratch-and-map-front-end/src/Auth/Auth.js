@@ -37,7 +37,7 @@ class Auth extends Component {
             }
             onClick={this.showRegister}
           >
-            Register
+            Sign Up
           </div>
           <div
             className={
@@ -46,7 +46,7 @@ class Auth extends Component {
             }
             onClick={this.showLogin}
           >
-            Login
+            Log In
           </div>
         </div>
         <div className="box-wrapper">
