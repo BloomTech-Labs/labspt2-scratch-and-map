@@ -60,6 +60,8 @@ class Register extends Component {
                 Start scratching now
               </button>
             </div>
+            <div className='terms'>This page is protected by reCAPTCHA, and subject to Google's <a className='terms-link'>Privacy Policy</a> & <a className='terms-link'>Terms of Service</a>. By signing up you agree to Scratch & Map's <a className='terms-link'>Terms of Service</a>.</div>
+            <div className='third-party'>Or, use another account:</div>
           </form>
         </div>
       </div>
