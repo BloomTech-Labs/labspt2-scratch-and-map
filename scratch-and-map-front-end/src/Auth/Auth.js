@@ -50,7 +50,7 @@ class Auth extends Component {
           </div>
         </div>
         <div className="box-wrapper">
-          {this.state.isLoginOpen && <Register />}
+          {this.state.isRegisterOpen && <Register />}
           {this.state.isLoginOpen && <Login />}
         </div>
       </div>
