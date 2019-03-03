@@ -47,6 +47,7 @@ class Login extends Component {
                 Log in
               </button>
             </div>
+            <div className='forgot-pwd'>I forgot my password</div>
           </form>
         </div>
       </div>
