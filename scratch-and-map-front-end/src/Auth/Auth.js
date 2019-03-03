@@ -14,11 +14,11 @@ class Auth extends Component {
     };
   }
 
-  showLogin() {
+  showLogin = e => {
     this.setState({ isLoginOpen: true, isRegisterOpen: false });
   }
 
-  showRegister() {
+  showRegister = e =>{
     this.setState({ isRegisterOpen: true, isLoginOpen: false });
   }
 
