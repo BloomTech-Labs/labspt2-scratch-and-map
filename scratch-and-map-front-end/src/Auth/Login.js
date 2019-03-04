@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Button } from 'semantic-ui-react';
 
 class Login extends Component {
   constructor() {
@@ -16,7 +17,6 @@ class Login extends Component {
   render() {
     return (
       <div className="login-register-wrapper">
-        <div className="header">Log in</div>
         <div className="form-wrapper">
           <form onSubmit={this.handleSubmit}>
             <div className='input-wrapper'>
@@ -43,10 +43,11 @@ class Login extends Component {
               />
             </div>
             <div className='input-wrapper'>
-              <button className='login-btn' type="submit" onClick={this.submitLogin}>
+            <button className='login-btn' type="submit" onClick={this.submitLogin}>
                 Log in
               </button>
             </div>
+            <a href='#' className='forgot-pwd'>I forgot my password</a>
           </form>
         </div>
       </div>
@@ -55,3 +56,5 @@ class Login extends Component {
 }
 
 export default Login;
+
+

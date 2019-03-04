@@ -14,11 +14,11 @@ class Auth extends Component {
     };
   }
 
-  showLogin() {
+  showLogin = e => {
     this.setState({ isLoginOpen: true, isRegisterOpen: false });
   }
 
-  showRegister() {
+  showRegister = e =>{
     this.setState({ isRegisterOpen: true, isLoginOpen: false });
   }
 
@@ -37,20 +37,20 @@ class Auth extends Component {
             }
             onClick={this.showRegister}
           >
-            Register
+            Sign Up
           </div>
           <div
             className={
-              "controller" +
+              "login-controller" +
               (this.state.isLoginOpen ? "selected-controller" : "")
             }
             onClick={this.showLogin}
           >
-            Login
+            Log In
           </div>
         </div>
         <div className="box-wrapper">
-          {this.state.isLoginOpen && <Register />}
+          {this.state.isRegisterOpen && <Register />}
           {this.state.isLoginOpen && <Login />}
         </div>
       </div>

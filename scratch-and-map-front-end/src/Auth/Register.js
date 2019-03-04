@@ -13,7 +13,6 @@ class Register extends Component {
   render() {
     return (
       <div className="login-register-wrapper">
-        <div className="header">Register</div>
         <div className="form-wrapper">
           <form onSubmit={this.handleSubmit}>
             <div className="input-wrapper">
@@ -40,7 +39,7 @@ class Register extends Component {
               />
             </div>
 
-            <div>
+            <div className="input-wrapper">
               <label className="login-label">Password</label>
               <input
                 className="login-input"
@@ -60,6 +59,22 @@ class Register extends Component {
                 Start scratching now
               </button>
             </div>
+            <div className="terms">
+              This page is protected by reCAPTCHA, and subject to Google's{" "}
+              <a href="#" className="terms-link">
+                Privacy Policy
+              </a>{" "}
+              &{" "}
+              <a href="#" className="terms-link">
+                Terms of Service
+              </a>
+              . By signing up you agree to Scratch & Map's{" "}
+              <a href="#" className="terms-link">
+                Terms of Service
+              </a>
+              .
+            </div>
+            <div className="third-party">Or, use another account:</div>
           </form>
         </div>
       </div>
