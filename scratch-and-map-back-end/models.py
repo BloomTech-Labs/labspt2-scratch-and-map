@@ -78,7 +78,6 @@ class user_countries(db.Model):
     to_visit = db.Column(ARRAY(String), unique=True, nullable=True)
     user_id = Column(Integer, ForeignKey(users.id), primary_key=True)
    
-   
 
     def __init__(self, visited, lived, transited, user_id):
         self.visited = visited
@@ -86,14 +85,9 @@ class user_countries(db.Model):
         self.transited = transited
         self.to_visit = to_visit
         self.user_id = user_id
-        
-    
+
     def __repr__(self):
         return '<User %r>' % self.username
-
-
-
-
 
 
 @models.route('/')
