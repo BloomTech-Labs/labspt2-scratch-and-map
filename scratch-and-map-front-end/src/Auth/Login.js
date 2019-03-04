@@ -17,7 +17,6 @@ class Login extends Component {
   render() {
     return (
       <div className="login-register-wrapper">
-        {/* <div className="header">Log in</div> */}
         <div className="form-wrapper">
           <form onSubmit={this.handleSubmit}>
             <div className='input-wrapper'>

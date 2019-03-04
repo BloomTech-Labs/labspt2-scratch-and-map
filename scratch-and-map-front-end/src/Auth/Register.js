@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import icon from "semantic-ui-react";
 
 class Register extends Component {
   constructor() {
@@ -14,7 +13,6 @@ class Register extends Component {
   render() {
     return (
       <div className="login-register-wrapper">
-        {/* <div className="header">Sign Up</div> */}
         <div className="form-wrapper">
           <form onSubmit={this.handleSubmit}>
             <div className="input-wrapper">
@@ -77,7 +75,6 @@ class Register extends Component {
               .
             </div>
             <div className="third-party">Or, use another account:</div>
-            <i class="facebook f icon" />
           </form>
         </div>
       </div>

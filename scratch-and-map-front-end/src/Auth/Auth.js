@@ -41,7 +41,7 @@ class Auth extends Component {
           </div>
           <div
             className={
-              "controller" +
+              "login-controller" +
               (this.state.isLoginOpen ? "selected-controller" : "")
             }
             onClick={this.showLogin}
