@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY
-from flask_marshmallow import Marshmallow
+
 
 
 
@@ -13,8 +13,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:admin@localhost/s
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Init db
 db = SQLAlchemy(app)
-# Init ma
-ma = Marshmallow(app)
 
 # Countries Class/Model
 class Countries(db.Model):
@@ -29,14 +27,9 @@ class Countries(db.Model):
     self.country_img = country_img
 
 
-# Product Schema
-class CountriesSchema(ma.Schema):
-  class Meta:
-    fields = ('id', 'country_name', 'flag', 'country_img')
 
-# Init schema
-country_schema = CountriesSchema(strict=True)
-countries_schema = CountriesSchema(many=True, strict=True)
+
+
 
 
 #Routes
