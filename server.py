@@ -70,6 +70,10 @@ def mapViewFriends():
 def friendsList():
   return '<h1>Get all friends of user by ID</h1>'
 
+@app.route('/friends/list/<int:id>')
+def friendsList():
+  return '<h1>Friends list by ID</h1>' 'user ID %d' % id
+
 @app.route('/friends/request/send/<int:id>')
 def friendRequestSend(id):
   return '<h1>Current user requests another user as a friend</h1>' 'user ID %d' % id
