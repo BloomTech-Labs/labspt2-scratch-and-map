@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY
-from flask_marshmallow import Marshmallow 
+from flask_marshmallow import Marshmallow
 
 
 
@@ -112,7 +112,7 @@ def add_country():
     db.session.add(new_country)
     db.session.commit()
 
-    return country_schema,jsonify(new_country)
+    return country_schema.jsonify(new_country)
 
 
 
