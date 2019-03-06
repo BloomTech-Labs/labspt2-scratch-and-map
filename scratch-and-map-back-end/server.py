@@ -26,12 +26,6 @@ class Countries(db.Model):
     self.flag = flag
     self.country_img = country_img
 
-
-
-
-
-
-
 #Routes
 @app.route('/')
 def index():
@@ -90,25 +84,6 @@ def userId(id):
 @app.route('/users/settings')
 def userSettings():
   return '<h1>Get users settings by current User</h1>'
-
-@app.route('/countries', methods=['POST'])
-def add_country():
-  countries = request.json['countries'] #list of objects [{}]
-
-  for country in countries:
-    country_name = country.country_name
-    flag = country.flag
-    country_img = country.country_img
-
-    new_country = Countries(country_name, flag, country_img)
-
-    db.session.add(new_country)
-    db.session.commit()
-
-    return country_schema.jsonify(new_country)
-
-
-
 
 if __name__ == "__main__":
   app.run()
