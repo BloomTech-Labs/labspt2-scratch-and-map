@@ -14,18 +14,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Init db
 db = SQLAlchemy(app)
 
-# Countries Class/Model
-class Countries(db.Model):
-  id = db.Column(db.Integer, primary_key=True)
-  country_name = db.Column(db.String(100), unique=True)
-  flag = db.Column(db.String(100), unique=True)
-  country_img = db.Column(db.String(100), unique=True)
-
-  def __init__(self, country_name, flag, country_img):
-    self.country_name = country_name
-    self.flag = flag
-    self.country_img = country_img
-
 #Routes
 @app.route('/')
 def index():
