@@ -10,8 +10,9 @@ app = Flask(__name__)
 # Database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@localhost/scratch_mapdb'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# Init db
+# Init db & mm
 db = SQLAlchemy(app)
+ma = Marshmallow(app)
 
 #Routes
 @app.route('/')
