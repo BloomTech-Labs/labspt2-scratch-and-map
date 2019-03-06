@@ -71,6 +71,13 @@ def userId(id):
 def userSettings():
   return '<h1>Get users settings by current User</h1>'
 
+@app.route('/users/<int:id>', methods=['DELETE'])
+def delete_user(id):
+    user = users.query.get(id)
+    db.session.delete(user)
+    db.session.commit()
+
+    return users.jsonify(user)
 
 
 if __name__ == "__main__":
