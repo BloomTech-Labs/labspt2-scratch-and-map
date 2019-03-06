@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 
 # Database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:admin@localhost/scratch_mapdb'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@localhost/scratch_mapdb'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Init db
 db = SQLAlchemy(app)
@@ -64,7 +64,7 @@ def friendsList():
   return '<h1>Get all friends of user by ID</h1>'
 
 @app.route('/friends/list/<int:id>')
-def friendsList():
+def friendsListById():
   return '<h1>Friends list by ID</h1>' 'user ID %d' % id
 
 @app.route('/friends/request/send/<int:id>')
