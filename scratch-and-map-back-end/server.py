@@ -39,14 +39,12 @@ def mapViewId(id):
 def mapViewFriends():
   return '<h1>Friendslist map info of current user</h1>'
 
-# /friends/list route needs an ID? Just going off of our TDD
-
 @app.route('/friends/list')
 def friendsList():
   return '<h1>Get all friends of user by ID</h1>'
 
 @app.route('/friends/list/<int:id>')
-def friendsListById():
+def friendsListById(id):
   return '<h1>Friends list by ID</h1>' 'user ID %d' % id
 
 @app.route('/friends/request/send/<int:id>')
