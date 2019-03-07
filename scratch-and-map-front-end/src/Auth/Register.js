@@ -6,10 +6,6 @@ class Register extends Component {
     this.state = {};
   }
 
-  //   handleInputChange = e => {
-  //     this.setState({ [e.target.name]: e.target.value });
-  //   };
-
   render() {
     return (
       <div className="login-register-wrapper">
@@ -22,7 +18,7 @@ class Register extends Component {
                 name="username"
                 value={this.props.username}
                 placeholder=""
-                onChange={this.handleInputChange}
+                onChange={this.props.inputChange}
                 type="text"
               />
             </div>
@@ -34,7 +30,7 @@ class Register extends Component {
                 name="email"
                 value={this.props.email}
                 placeholder=""
-                onChange={this.handleInputChange}
+                onChange={this.props.inputChange}
                 type="email"
               />
             </div>
@@ -46,7 +42,7 @@ class Register extends Component {
                 name="password"
                 value={this.props.password}
                 placeholder=""
-                onChange={this.handleInputChange}
+                onChange={this.props.inputChange}
                 type="password"
               />
             </div>
@@ -54,7 +50,7 @@ class Register extends Component {
               <button
                 className="login-btn"
                 type="submit"
-                onClick={this.submitRegister}
+                onClick={this.props.submit}
               >
                 Start scratching now
               </button>

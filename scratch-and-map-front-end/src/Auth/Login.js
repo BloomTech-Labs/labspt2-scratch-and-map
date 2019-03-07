@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { Button } from 'semantic-ui-react';
+import { Button } from "semantic-ui-react";
 
 class Login extends Component {
   constructor() {
     super();
     this.state = {};
     // submitLogin(e) {
-
+    //
     // }
   }
 
@@ -19,35 +19,41 @@ class Login extends Component {
       <div className="login-register-wrapper">
         <div className="form-wrapper">
           <form onSubmit={this.handleSubmit}>
-            <div className='input-wrapper'>
-              <label className='login-label'>Username or email</label>
+            <div className="input-wrapper">
+              <label className="login-label">Username or email</label>
               <input
                 className="login-input"
                 name="username" //how to add a second name for email?
                 value={this.props.username}
                 placeholder=""
-                onChange={this.handleInputChange}
+                onChange={this.props.inputChange}
                 type="text"
               />
             </div>
 
-            <div className='input-wrapper'>
-              <label className='login-label'>Password</label>
+            <div className="input-wrapper">
+              <label className="login-label">Password</label>
               <input
                 className="login-input"
                 name="password"
                 value={this.props.password}
                 placeholder=""
-                onChange={this.handleInputChange}
+                onChange={this.props.inputChange}
                 type="password"
               />
             </div>
-            <div className='input-wrapper'>
-            <button className='login-btn' type="submit" onClick={this.submitLogin}>
+            <div className="input-wrapper">
+              <button
+                className="login-btn"
+                type="submit"
+                onClick={this.props.submit}
+              >
                 Log in
               </button>
             </div>
-            <a href='#' className='forgot-pwd'>I forgot my password</a>
+            <a href="#" className="forgot-pwd">
+              I forgot my password
+            </a>
           </form>
         </div>
       </div>
@@ -56,5 +62,3 @@ class Login extends Component {
 }
 
 export default Login;
-
-
