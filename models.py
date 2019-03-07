@@ -87,10 +87,3 @@ class users_countries_join(db.Model):
 
     def __repr__(self):
         return '<{}>' % self.__name__
-
-@models.route('/')
-def index():
-    return "<h1 style ='color: red'>Hello Flask</h1>"
-
-if __name__ == '__main__':
-    models.run()
