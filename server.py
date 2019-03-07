@@ -14,6 +14,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
+PORT = int(os.environ.get("PORT",5000))
+app.run(host="0.0.0.0", port=PORT)
+
 #Routes
 @app.route('/')
 def index():
