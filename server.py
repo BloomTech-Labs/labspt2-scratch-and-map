@@ -109,6 +109,11 @@ def delete_user(id):
 
     return user_schema.jsonify(user)
 
+@app.route('/signout') #CAN BE CHANGED if we decide to use flask-login
+def signout(): 
+  session.pop('username')
+  return redirect(url_for('index'))
+
 
 if __name__ == "__main__":
   app.run(debug=True)
