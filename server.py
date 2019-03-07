@@ -11,7 +11,7 @@ def connect_to_db(app, db_uri=None):
     app.config['SQLALCHEMY_DATABASE_URI'] = db_uri or 'postgresql://postgres:password@localhost/scratch_mapdb'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-connect_to_db(app, os.environ.get("DATABSE_URL"))
+connect_to_db(app, os.environ.get("DATABASE_URL"))
 
 # Init db & mm
 db = SQLAlchemy(app)
