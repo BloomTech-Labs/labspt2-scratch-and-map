@@ -3,13 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY
 from marshmallow import fields, Schema
 
-
-models = Flask(__name__)
-models.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@localhost/scratch_mapdb'
-
-db = SQLAlchemy(models)
-
-
 class users(db.Model):
     id = db.Column(Integer, autoincrement=True, primary_key=True)
     username = db.Column(String, unique=True,  nullable=False)

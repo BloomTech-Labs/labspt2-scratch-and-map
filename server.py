@@ -2,9 +2,14 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY
 from flask_marshmallow import Marshmallow
-
+import os
 
 app = Flask(__name__)
+
+def connect_to_db(app, db_uri=None):
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri or 'postgresql://postgres:password@localhost/scratch_mapdb'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 connect_to_db(app, os.environ.get("DATABSE_URL"))
 
 # Init db & mm
@@ -110,7 +115,7 @@ def delete_user(id):
     return user_schema.jsonify(user)
 
 @app.route('/signout') #CAN BE CHANGED if we decide to use flask-login
-def signout(): 
+def signout():
   session.pop('username')
   return redirect(url_for('index'))
 
