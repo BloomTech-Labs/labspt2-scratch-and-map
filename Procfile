@@ -1,1 +1,1 @@
-web: python scratch-and-map-back-end/server.py
+web: python server.py
