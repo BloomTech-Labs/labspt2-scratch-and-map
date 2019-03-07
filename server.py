@@ -20,8 +20,6 @@ ma = Marshmallow(app)
 PORT = int(os.environ.get("PORT",5000))
 DEBUG = "NO_DEBUG" not in os.environ
 
-app.run(host="0.0.0.0", port=PORT, debug=DEBUG)
-
 #Routes
 @app.route("/error")
 def error():
@@ -121,5 +119,6 @@ def signout():
   return redirect(url_for('index'))
 
 
+
 if __name__ == "__main__":
-  app.run(debug=True)
+  app.run(host="0.0.0.0", port=PORT, debug=DEBUG)
