@@ -36,6 +36,14 @@ class users(db.Model):
     def __repr__(self):
         return '<{}>' % self.__name__
 
+class UserSchema(ma.Schema)
+    class Meta:
+        fields = ('username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role' )
+
+#May need marshmallow for this
+user_schema = UserSchema()
+users_schema = UserSchema(many=True)
+
 class friends_with(db.Model):
     id = db.Column(Integer, autoincrement=True, primary_key=True)
     user_1 = db.Column(Integer, nullable=False)

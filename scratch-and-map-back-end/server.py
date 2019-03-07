@@ -1,8 +1,7 @@
 from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY
-from models import users
-
+from flask_marshmallow import Marshmallow
 
 
 app = Flask(__name__)
@@ -11,8 +10,9 @@ app = Flask(__name__)
 # Database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@localhost/scratch_mapdb'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# Init db
+# Init db & mm
 db = SQLAlchemy(app)
+ma = Marshmallow(app)
 
 #Routes
 @app.route('/')
@@ -87,5 +87,38 @@ def userId(id):
 def userSettings():
   return '<h1>Get users settings by current User</h1>'
 
+@app.route('/users/<int:id>', methods=['PUT'])
+def update_user(id): #how can this endpoint be more DRY!!??
+  user = users.query.get(id)
+  username = request.json['username']
+  email = request.json['email']
+  first_name = request.json['first_name']
+  last_name = request.json['last_name']
+  age = request.json['age']
+  nationality = request.json['nationality']
+  picture_url = request.json['picture_url']
+  role = request.json['role']
+
+  user.username = username
+  user.email = email
+  user.first_name = first_name
+  user.last_name = last_name
+  user.age = age
+  user.nationality = nationality
+  user.picture_url = picture_url
+  user.role = role
+
+  db.session.commit()
+  return user_schema.jsonify(user)
+
+@app.route('/users/<int:id>', methods=['DELETE'])
+def delete_user(id):
+    user = users.query.get(id)
+    db.session.delete(user)
+    db.session.commit()
+
+    return user_schema.jsonify(user)
+
+
 if __name__ == "__main__":
-  app.run()
+  app.run(debug=True)
