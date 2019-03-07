@@ -6,7 +6,6 @@ from models import *
 import os
 
 app = Flask(__name__)
-db.init_app(app)
 
 def connect_to_db(app, db_uri=None):
     app.config['SQLALCHEMY_DATABASE_URI'] = db_uri or 'postgresql://postgres:password@localhost/scratch_mapdb'
