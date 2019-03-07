@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "heroku-postbuild": "cd scratch-and-map-front-end && yarn install && yarn run build"
+  }
+}
