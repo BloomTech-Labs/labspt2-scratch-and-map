@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import { Button } from "semantic-ui-react";
 
-class Login extends Component {
+
+class ForgotPassword extends Component {
   constructor() {
     super();
-    this.state = {};
-    // submitLogin(e) {
-    //
-    // }
+    this.state = {
+      username: ''
+    };
   }
 
   handleInputChange = e => {
@@ -16,7 +15,8 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="login-register-wrapper">
+      <div className="auth-wrapper">
+      <p>Enter your Username or Email below to reset password</p>
         <div className="form-wrapper">
           <form onSubmit={this.handleSubmit}>
             <div className="input-wrapper">
@@ -24,36 +24,22 @@ class Login extends Component {
               <input
                 className="login-input"
                 name="username" //how to add a second name for email?
-                value={this.props.username}
+                value={this.state.username}
                 placeholder=""
-                onChange={this.props.inputChange}
+                onChange={this.handleInputChange}
                 type="text"
               />
             </div>
 
-            <div className="input-wrapper">
-              <label className="login-label">Password</label>
-              <input
-                className="login-input"
-                name="password"
-                value={this.props.password}
-                placeholder=""
-                onChange={this.props.inputChange}
-                type="password"
-              />
-            </div>
             <div className="input-wrapper">
               <button
                 className="login-btn"
                 type="submit"
                 onClick={this.props.submit}
               >
-                Log in
+                Submit
               </button>
             </div>
-            <a href="/forgotpassword" className="forgot-pwd">
-              I forgot my password
-            </a>
           </form>
         </div>
       </div>
@@ -61,4 +47,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default ForgotPassword;
