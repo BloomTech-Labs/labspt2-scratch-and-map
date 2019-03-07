@@ -5,19 +5,22 @@ from flask_marshmallow import Marshmallow
 
 
 app = Flask(__name__)
+connect_to_db(app, os.environ.get("DATABSE_URL"))
 
-
-# Database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@localhost/scratch_mapdb'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Init db & mm
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
 PORT = int(os.environ.get("PORT",5000))
-app.run(host="0.0.0.0", port=PORT)
+DEBUG = "NO_DEBUG" not in os.environ
+
+app.run(host="0.0.0.0", port=PORT, debug=DEBUG)
 
 #Routes
+@app.route("/error")
+def error():
+    raise Exception("Error!")
+
 @app.route('/')
 def index():
   return '<h1>Landing page</h1>'
