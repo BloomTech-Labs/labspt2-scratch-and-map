@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY
 from flask_marshmallow import Marshmallow
@@ -29,17 +29,39 @@ def error():
 def index():
   return '<h1>Landing page</h1>'
 
-@app.route('/signup')
+@app.route('/signup', methods=['POST'])
 def signup():
-  return '<h1>signup page</h1>'
+    username = request.json['username']
+    password = request.json['password']
+    first_name = request.json['first_name']
+    last_name = request.json['last_name']
+    age = request.json['age']
+    nationality = request.json['nationality']
+    picture_url = request.json['picture_url']
+    email = request.json['email']
+    role = request.json['role']
+
+    new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role)
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify(new_user.id)
+
+  
 
 @app.route('/login')
 def login():
   return '<h1>login page</h1>'
 
-@app.route('/mapview')
+@app.route('/mapview', methods=['GET'])
 def mapView():
-  return '<h1>Current User</h1>'
+  country = users_countries_join.query.get(id)
+  user_id = request.json['user_id']
+  country_id = request.json['country_id']
+  status = request.json['status']
+
+  db.commit()
+  return users_schema.jsonify(country)
 
 @app.route('/mapview/<int:id>')
 def mapViewId(id):
