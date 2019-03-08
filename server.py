@@ -2,19 +2,29 @@ from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY
 from flask_marshmallow import Marshmallow
-
+from models import *
+import os
 
 app = Flask(__name__)
 
+def connect_to_db(app, db_uri=None):
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri or 'postgresql://postgres:password@localhost/scratch_mapdb'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@localhost/scratch_mapdb'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+connect_to_db(app, os.environ.get("DATABASE_URL"))
+
 # Init db & mm
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
+PORT = int(os.environ.get("PORT",5000))
+DEBUG = "NO_DEBUG" not in os.environ
+
 #Routes
+@app.route("/error")
+def error():
+    raise Exception("Error!")
+
 @app.route('/')
 def index():
   return '<h1>Landing page</h1>'
@@ -119,6 +129,12 @@ def delete_user(id):
 
     return user_schema.jsonify(user)
 
+@app.route('/signout') #CAN BE CHANGED if we decide to use flask-login
+def signout():
+  session.pop('username')
+  return redirect(url_for('index'))
+
+
 
 if __name__ == "__main__":
-  app.run(debug=True)
+  app.run(host="0.0.0.0", port=PORT, debug=DEBUG)

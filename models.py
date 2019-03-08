@@ -1,13 +1,10 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY
+from marshmallow import fields, Schema
 
+db = SQLAlchemy()
 
-
-models = Flask(__name__)
-models.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@localhost/scratch_mapdb'
-
-db = SQLAlchemy(models)
 
 class users(db.Model):
     id = db.Column(Integer, autoincrement=True, primary_key=True)
@@ -36,7 +33,7 @@ class users(db.Model):
     def __repr__(self):
         return '<{}>' % self.__name__
 
-class UserSchema(ma.Schema)
+class UserSchema(Schema):
     class Meta:
         fields = ('username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role' )
 
@@ -90,10 +87,3 @@ class users_countries_join(db.Model):
 
     def __repr__(self):
         return '<{}>' % self.__name__
-
-@models.route('/')
-def index():
-    return "<h1 style ='color: red'>Hello Flask</h1>"
-
-if __name__ == '__main__':
-    models.run()
