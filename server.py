@@ -31,21 +31,21 @@ def index():
 
 @app.route('/signup', methods=['POST'])
 def signup():
-  username = request.json['username']
-  password = request.json['password']
-  first_name = request.json['first_name']
-  last_name = request.json['last_name']
-  age = request.json['age']
-  nationality = request.json['nationality']
-  picture_url = request.json['picture_url']
-  email = request.json['email']
-  role = request.json['role']
+    username = request.json['username']
+    password = request.json['password']
+    first_name = request.json['first_name']
+    last_name = request.json['last_name']
+    age = request.json['age']
+    nationality = request.json['nationality']
+    picture_url = request.json['picture_url']
+    email = request.json['email']
+    role = request.json['role']
 
-  new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role)
-  db.session.add(new_user)
-  db.session.commit()
+    new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role)
+    db.session.add(new_user)
+    db.session.commit()
 
-  return jsonify(new_user)
+    return jsonify(new_user.id)
 
   
 
