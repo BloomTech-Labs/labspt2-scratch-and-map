@@ -37,9 +37,15 @@ def signup():
 def login():
   return '<h1>login page</h1>'
 
-@app.route('/mapview')
+@app.route('/mapview', methods=['GET'])
 def mapView():
-  return '<h1>Current User</h1>'
+  country = users_countries_join.query.get(id)
+  user_id = request.json['user_id']
+  country_id = request.json['country_id']
+  status = request.json['status']
+
+  db.commit()
+  return users_schema.jsonify(country)
 
 @app.route('/mapview/<int:id>')
 def mapViewId(id):
