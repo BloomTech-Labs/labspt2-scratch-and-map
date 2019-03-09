@@ -91,7 +91,10 @@ def username(username):
 
 @app.route('/users/<int:id>')
 def userId(id):
-  return '<h1>Get user by ID</h1>' 'user ID %d' % id
+  for user in a:
+        if _id == user['id']:
+            selected_user = user
+    return jsonify(selected_user)
 
 @app.route('/users/settings')
 def userSettings():
