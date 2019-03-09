@@ -95,12 +95,20 @@ def friendRequestDecline(id):
 def username(username):
   return '<h1>Get all users with similar name</h1>' 'username %s' % username
 
-@app.route('/users/<int:id>')
+@app.route('/users/<int:id>', methods=['GET'])
 def userId(id):
-  for user in a:
-        if _id == user['id']:
-            selected_user = user
-    return jsonify(selected_user)
+  user = users.query.get(id)
+  return jsonify(
+      username=user.username,
+      password=user.password,
+      first_name=user.first_name,
+      last_name=user.last_name,
+      age=user.age,
+      nationality=user.nationality,
+      picture_url=user.picture_url,
+      email=user.email,
+      role=user.role
+  )
 
 @app.route('/users/settings')
 def userSettings():
@@ -128,7 +136,7 @@ def update_user(id): #how can this endpoint be more DRY!!??
   user.role = role
 
   db.session.commit()
-  return user_schema.jsonify(user)
+  return jsonify(user.id)
 
 @app.route('/users/<int:id>', methods=['DELETE'])
 def delete_user(id):
