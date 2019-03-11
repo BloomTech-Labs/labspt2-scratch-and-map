@@ -1,10 +1,11 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY
+from flask_marshmallow import Marshmallow
 from marshmallow import fields, Schema
 
 db = SQLAlchemy()
-
+ma = Marshmallow()
 
 class users(db.Model):
     id = db.Column(Integer, autoincrement=True, primary_key=True)
@@ -33,7 +34,7 @@ class users(db.Model):
     def __repr__(self):
         return '<{}>' % self.__name__
 
-class UserSchema(Schema):
+class UserSchema(ma.Schema):
     class Meta:
         fields = ('username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role' )
 
