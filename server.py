@@ -3,15 +3,18 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY
 from flask_marshmallow import Marshmallow
 from models import *
+from dotenv import load_dotenv
 import os
 
 app = Flask(__name__)
 
 def connect_to_db(app, db_uri=None):
-    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri or 'postgresql://postgres:password@localhost/scratch_mapdb'
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-connect_to_db(app, os.environ.get("DATABASE_URL"))
+load_dotenv('.env')
+DATABASE_URL = os.environ.get("DATABASE_URL")
+print(DATABASE_URL)
+connect_to_db(app, DATABASE_URL)
 
 # Init db & mm
 db = SQLAlchemy(app)
@@ -50,7 +53,7 @@ def signup():
 
     return jsonify(new_user.id)
 
-  
+
 
 @app.route('/login')
 def login():
