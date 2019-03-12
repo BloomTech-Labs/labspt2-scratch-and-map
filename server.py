@@ -20,6 +20,9 @@ ma = Marshmallow(app)
 PORT = int(os.environ.get("PORT",5000))
 DEBUG = "NO_DEBUG" not in os.environ
 
+
+users_schema = UserSchema(many=True)
+user_schema = UserSchema()
 #Routes
 @app.route("/error")
 def error():
@@ -108,6 +111,7 @@ def update_user(id): #how can this endpoint be more DRY!!??
   user = users.query.get(id)
   username = request.json['username']
   email = request.json['email']
+  password = request.json['password']
   first_name = request.json['first_name']
   last_name = request.json['last_name']
   age = request.json['age']
@@ -117,6 +121,7 @@ def update_user(id): #how can this endpoint be more DRY!!??
 
   user.username = username
   user.email = email
+  user.password = password
   user.first_name = first_name
   user.last_name = last_name
   user.age = age
@@ -127,13 +132,14 @@ def update_user(id): #how can this endpoint be more DRY!!??
   db.session.commit()
   return user_schema.jsonify(user)
 
+
 @app.route('/users/<int:id>', methods=['DELETE'])
 def delete_user(id):
     user = users.query.get(id)
     db.session.delete(user)
     db.session.commit()
 
-    return user_schema.jsonify(user)
+    return jsonify(user)
 
 @app.route('/signout') #CAN BE CHANGED if we decide to use flask-login
 def signout():
