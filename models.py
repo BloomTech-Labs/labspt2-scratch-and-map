@@ -1,11 +1,18 @@
-from flask import Flask
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY
 from flask_marshmallow import Marshmallow
 from marshmallow import fields, Schema
+from flask.ext.sqlalchemy import SQLAlchemy
+
+from flask.ext.heroku import Heroku
 
 db = SQLAlchemy()
 ma = Marshmallow()
+
+app = Flask(__name__)
+heroku = Heroku(app)
+
 
 class users(db.Model):
     id = db.Column(Integer, autoincrement=True, primary_key=True)
