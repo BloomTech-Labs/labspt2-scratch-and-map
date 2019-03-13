@@ -8,12 +8,12 @@ import os
 
 app = Flask(__name__)
 
-def connect_to_db(app, db_uri=None):
+def connect_to_db(app, db_uri):
     app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 load_dotenv('.env')
 DATABASE_URL = os.environ.get("DATABASE_URL")
-print(DATABASE_URL)
 connect_to_db(app, DATABASE_URL)
 
 # Init db & mm
