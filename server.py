@@ -61,11 +61,7 @@ def login():
 @app.route('/countries/<int:id>', methods=['GET'])
 def countryById(id): 
   country = countries.query.get(id)
-  return jsonify(
-    country_name = country.country_name,
-    flag = country.flag,
-    country_img = country.country_img
-  )
+  return country_schema.jsonify(country)
 
 @app.route('/countries', methods=['POST'])
 def addCountry():
