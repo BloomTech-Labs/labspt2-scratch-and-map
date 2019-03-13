@@ -3,15 +3,18 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY
 from flask_marshmallow import Marshmallow
 from models import *
+from dotenv import load_dotenv
 import os
 
 app = Flask(__name__)
 
 def connect_to_db(app, db_uri=None):
-    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri or 'postgresql://postgres:password@localhost/scratch_mapdb'
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-connect_to_db(app, os.environ.get("DATABASE_URL"))
+load_dotenv('.env')
+DATABASE_URL = os.environ.get("DATABASE_URL")
+print(DATABASE_URL)
+connect_to_db(app, DATABASE_URL)
 
 # Init db & mm
 db = SQLAlchemy(app)
@@ -23,6 +26,7 @@ DEBUG = "NO_DEBUG" not in os.environ
 
 users_schema = UserSchema(many=True)
 user_schema = UserSchema()
+
 #Routes
 @app.route("/error")
 def error():
@@ -49,8 +53,6 @@ def signup():
     db.session.commit()
 
     return jsonify(new_user.id)
-
-  
 
 @app.route('/login')
 def login():
@@ -118,30 +120,20 @@ def userSettings():
   return '<h1>Get users settings by current User</h1>'
 
 @app.route('/users/<int:id>', methods=['PUT'])
-def update_user(id): #how can this endpoint be more DRY!!??
+def update_user(id): 
   user = users.query.get(id)
-  username = request.json['username']
-  email = request.json['email']
-  password = request.json['password']
-  first_name = request.json['first_name']
-  last_name = request.json['last_name']
-  age = request.json['age']
-  nationality = request.json['nationality']
-  picture_url = request.json['picture_url']
-  role = request.json['role']
-
-  user.username = username
-  user.email = email
-  user.password = password
-  user.first_name = first_name
-  user.last_name = last_name
-  user.age = age
-  user.nationality = nationality
-  user.picture_url = picture_url
-  user.role = role
+  user.username = request.json['username']
+  user.email = request.json['email']
+  user.password = request.json['password']
+  user.first_name = request.json['first_name']
+  user.last_name = request.json['last_name']
+  user.age = request.json['age']
+  user.nationality = request.json['nationality']
+  user.picture_url = request.json['picture_url']
+  user.role = request.json['role']
 
   db.session.commit()
-  return jsonify(user.id)
+  return user_schema.jsonify(user)
 
 
 @app.route('/users/<int:id>', methods=['DELETE'])
@@ -150,7 +142,7 @@ def delete_user(id):
     db.session.delete(user)
     db.session.commit()
 
-    return jsonify(user)
+    return user_schema.jsonify(user)
 
 @app.route('/signout') #CAN BE CHANGED if we decide to use flask-login
 def signout():
