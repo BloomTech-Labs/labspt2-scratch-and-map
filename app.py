@@ -26,6 +26,7 @@ DEBUG = "NO_DEBUG" not in os.environ
 
 users_schema = UserSchema(many=True)
 user_schema = UserSchema()
+
 #Routes
 @app.route("/error")
 def error():
@@ -52,8 +53,6 @@ def signup():
     db.session.commit()
 
     return jsonify(new_user.id)
-
-
 
 @app.route('/login')
 def login():
@@ -101,36 +100,37 @@ def friendRequestDecline(id):
 def username(username):
   return '<h1>Get all users with similar name</h1>' 'username %s' % username
 
-@app.route('/users/<int:id>')
+@app.route('/users/<int:id>', methods=['GET'])
 def userId(id):
-  return '<h1>Get user by ID</h1>' 'user ID %d' % id
+  user = users.query.get(id)
+  return jsonify(
+      username=user.username,
+      password=user.password,
+      first_name=user.first_name,
+      last_name=user.last_name,
+      age=user.age,
+      nationality=user.nationality,
+      picture_url=user.picture_url,
+      email=user.email,
+      role=user.role
+  )
 
 @app.route('/users/settings')
 def userSettings():
   return '<h1>Get users settings by current User</h1>'
 
 @app.route('/users/<int:id>', methods=['PUT'])
-def update_user(id): #how can this endpoint be more DRY!!??
+def update_user(id): 
   user = users.query.get(id)
-  username = request.json['username']
-  email = request.json['email']
-  password = request.json['password']
-  first_name = request.json['first_name']
-  last_name = request.json['last_name']
-  age = request.json['age']
-  nationality = request.json['nationality']
-  picture_url = request.json['picture_url']
-  role = request.json['role']
-
-  user.username = username
-  user.email = email
-  user.password = password
-  user.first_name = first_name
-  user.last_name = last_name
-  user.age = age
-  user.nationality = nationality
-  user.picture_url = picture_url
-  user.role = role
+  user.username = request.json['username']
+  user.email = request.json['email']
+  user.password = request.json['password']
+  user.first_name = request.json['first_name']
+  user.last_name = request.json['last_name']
+  user.age = request.json['age']
+  user.nationality = request.json['nationality']
+  user.picture_url = request.json['picture_url']
+  user.role = request.json['role']
 
   db.session.commit()
   return user_schema.jsonify(user)
@@ -142,7 +142,7 @@ def delete_user(id):
     db.session.delete(user)
     db.session.commit()
 
-    return jsonify(user)
+    return user_schema.jsonify(user)
 
 @app.route('/signout') #CAN BE CHANGED if we decide to use flask-login
 def signout():
