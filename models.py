@@ -40,7 +40,6 @@ class UserSchema(ma.Schema):
     class Meta:
         fields = ('username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role' )
 
-#May need marshmallow for this
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
 
@@ -76,6 +75,12 @@ class countries(db.Model):
     def __repr__(self):
         return '<{}>' % self.__name__
 
+class CountrySchema(ma.Schema):
+    class Meta:
+        fields = ('country_name', 'flag', 'country_img')
+
+country_schema = CountrySchema()
+countries_schema = CountrySchema(many=True)
 
 class users_countries_join(db.Model):
     id = db.Column(Integer, autoincrement=True, primary_key=True)
