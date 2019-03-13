@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY
 from flask_marshmallow import Marshmallow
 from marshmallow import fields, Schema
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 from flask.ext.heroku import Heroku
 
 db = SQLAlchemy()
