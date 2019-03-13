@@ -40,14 +40,13 @@ class UserSchema(ma.Schema):
     class Meta:
         fields = ('username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role' )
 
-#May need marshmallow for this
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
 
 class friends_with(db.Model):
     id = db.Column(Integer, autoincrement=True, primary_key=True)
-    user_1 = db.Column(Integer, nullable=False) #add ForeignKey('users.id'), change to user_1_id
-    user_2 = db.Column(Integer, nullable=False)  #add ForeignKey('users.id'), change to user_2_id
+    user_1_id = db.Column(Integer, nullable=False) #add ForeignKey('users.id'), change to user_1_id
+    user_2_id = db.Column(Integer, nullable=False)  #add ForeignKey('users.id'), change to user_2_id
     status = db.Column(String, nullable=False)
 
     def __init__(self, user_1, user_2, first_name, status):
@@ -76,17 +75,25 @@ class countries(db.Model):
     def __repr__(self):
         return '<{}>' % self.__name__
 
+class CountrySchema(ma.Schema):
+    class Meta:
+        fields = ('country_name', 'flag', 'country_img')
+
+country_schema = CountrySchema()
+countries_schema = CountrySchema(many=True)
 
 class users_countries_join(db.Model):
     id = db.Column(Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(Integer, ForeignKey(users.id), nullable=False)
     country_id = db.Column(Integer, ForeignKey(countries.id), nullable=False)
     status = db.Column(String, nullable=False)
+    notes = db.Column(TEXT, nullable=True)
 
     def __init__(self, user_id, country_id, status):
         self.user_id = country_name
         self.country_id = country_id
         self.status = status
+        self.notes = notes
 
     def __repr__(self):
         return '<{}>' % self.__name__
