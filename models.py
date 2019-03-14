@@ -16,9 +16,10 @@ class users(db.Model):
     age = db.Column(Integer, CheckConstraint( 'age>=14' ), nullable=False)
     nationality = db.Column(String, nullable=False)
     picture_url = db.Column(String)
-    email = db.Column(String, unique=True, nullable=True)#email shouldn't be nullable?
+    #add bio
+    email = db.Column(String, unique=True, nullable=False)
     role = db.Column(String, nullable=False)
-    #POSSIBLE ADD: travel_types = db.relationship('countries', secondary=users_countries_join, backref=db.backref('travelers', lazy ='dynamic'))
+    auto_scratch = db.Column(Boolean, default=False)
 
 
     def __init__(self, username, password, first_name, last_name, age, nationality, picture_url, email, role):
@@ -31,21 +32,22 @@ class users(db.Model):
         self.picture_url = picture_url
         self.email = email
         self.role = role
+        self.auto_scratch = auto_scratch
 
     def __repr__(self):
         return '<{}>' % self.__name__
 
 class UserSchema(ma.Schema):
     class Meta:
-        fields = ('username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role' )
+        fields = ('username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role', 'auto_scratch' )
 
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
 
 class friends_with(db.Model):
     id = db.Column(Integer, autoincrement=True, primary_key=True)
-    user_1_id = db.Column(Integer, nullable=False) #add ForeignKey('users.id'), change to user_1_id
-    user_2_id = db.Column(Integer, nullable=False)  #add ForeignKey('users.id'), change to user_2_id
+    user_1 = db.Column(Integer, ForeignKey(users.id), nullable=False)
+    user_2 = db.Column(Integer, ForeignKey(users.id), nullable=False)
     status = db.Column(String, nullable=False)
 
     def __init__(self, user_1, user_2, first_name, status):
@@ -93,6 +95,7 @@ class users_countries_join(db.Model):
         self.country_id = country_id
         self.status = status
         self.notes = notes
+
 
     def __repr__(self):
         return '<{}>' % self.__name__
