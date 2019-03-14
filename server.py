@@ -50,12 +50,18 @@ def signup():
 
     return jsonify(new_user.id)
 
-@app.route('/login')
+@app.route('/login', methods=['POST'])
 def login():
-  return '<h1>login page</h1>'
+    username = request.json['username']
+    password = request.json['password']
+    user = users.query.filter_by(username=username, password=password).first()
+    if user_schema.jsonify(user) == jsonify({}):
+        return "False"
+    else:
+        return "True"
 
 @app.route('/countries/<int:id>', methods=['GET'])
-def countryById(id): 
+def countryById(id):
   country = countries.query.get(id)
   return country_schema.jsonify(country)
 
@@ -123,7 +129,7 @@ def userSettings():
   return '<h1>Get users settings by current User</h1>'
 
 @app.route('/users/<int:id>', methods=['PUT'])
-def update_user(id): 
+def update_user(id):
   user = users.query.get(id)
   user.username = request.json['username']
   user.email = request.json['email']
