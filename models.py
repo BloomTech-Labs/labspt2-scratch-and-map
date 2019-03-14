@@ -17,8 +17,9 @@ class users(db.Model):
     nationality = db.Column(String, nullable=False)
     picture_url = db.Column(String)
     #add bio
-    email = db.Column(String, unique=True, nullable=True)#email shouldn't be nullable?
+    email = db.Column(String, unique=True, nullable=False)
     role = db.Column(String, nullable=False)
+    auto_scratch = db.Column(Boolean, default=False)
 
 
     def __init__(self, username, password, first_name, last_name, age, nationality, picture_url, email, role):
@@ -32,21 +33,22 @@ class users(db.Model):
         #add bio
         self.email = email
         self.role = role
+        self.auto_scratch = auto_scratch
 
     def __repr__(self):
         return '<{}>' % self.__name__
 
 class UserSchema(ma.Schema):
     class Meta:
-        fields = ('username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role' )
+        fields = ('username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role', 'auto_scratch' )
 
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
 
 class friends_with(db.Model):
     id = db.Column(Integer, autoincrement=True, primary_key=True)
-    user_1_id = db.Column(Integer, nullable=False) #add ForeignKey('users.id'), change to user_1_id
-    user_2_id = db.Column(Integer, nullable=False)  #add ForeignKey('users.id'), change to user_2_id
+    user_1 = db.Column(Integer, ForeignKey(users.id), nullable=False)
+    user_2 = db.Column(Integer, ForeignKey(users.id), nullable=False)
     status = db.Column(String, nullable=False)
 
     def __init__(self, user_1, user_2, first_name, status):
@@ -89,11 +91,13 @@ class users_countries_join(db.Model):
     status = db.Column(String, nullable=False)
     notes = db.Column(TEXT, nullable=True)
 
+
     def __init__(self, user_id, country_id, status):
         self.user_id = country_name
         self.country_id = country_id
         self.status = status
         self.notes = notes
+
 
     def __repr__(self):
         return '<{}>' % self.__name__
