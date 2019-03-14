@@ -23,10 +23,6 @@ ma = Marshmallow(app)
 PORT = int(os.environ.get("PORT",5000))
 DEBUG = "NO_DEBUG" not in os.environ
 
-
-users_schema = UserSchema(many=True)
-user_schema = UserSchema()
-
 #Routes
 @app.route("/error")
 def error():
@@ -58,15 +54,22 @@ def signup():
 def login():
   return '<h1>login page</h1>'
 
-@app.route('/mapview', methods=['GET'])
-def mapView():
-  country = users_countries_join.query.get(id)
-  user_id = request.json['user_id']
-  country_id = request.json['country_id']
-  status = request.json['status']
+@app.route('/countries/<int:id>', methods=['GET'])
+def countryById(id): 
+  country = countries.query.get(id)
+  return country_schema.jsonify(country)
 
-  db.commit()
-  return users_schema.jsonify(country)
+@app.route('/countries', methods=['POST'])
+def addCountry():
+    country_name = request.json['country_name']
+    flag = request.json['flag']
+    country_img = request.json['country_img']
+
+    new_country = countries(country_name, flag, country_img)
+    db.session.add(new_country)
+    db.session.commit()
+
+    return jsonify(new_country.id,)
 
 @app.route('/mapview/<int:id>')
 def mapViewId(id):
