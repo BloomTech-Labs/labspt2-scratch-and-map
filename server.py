@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY
+from sqlalchemy import Column, Integer, TEXT, String, CheckConstraint, ForeignKey, ARRAY
 from flask_marshmallow import Marshmallow
 from models import *
 from dotenv import load_dotenv
@@ -24,15 +24,15 @@ PORT = int(os.environ.get("PORT",5000))
 DEBUG = "NO_DEBUG" not in os.environ
 
 #Routes
-@app.route("/error")
+@app.route("/api/error")
 def error():
     raise Exception("Error!")
 
-@app.route('/')
+'''@app.route('/')
 def index():
-  return '<h1>Landing page</h1>'
+  return '<h1>Landing page</h1>'''
 
-@app.route('/signup', methods=['POST'])
+@app.route('/api/signup', methods=['POST'])
 def signup():
     username = request.json['username']
     password = request.json['password']
@@ -50,11 +50,11 @@ def signup():
 
     return jsonify(new_user.id)
 
-@app.route('/login')
+@app.route('/api/login')
 def login():
   return '<h1>login page</h1>'
 
-@app.route('/countries/<int:id>', methods=['GET'])
+@app.route('/api/countries/<int:id>', methods=['GET'])
 def countryById(id): 
   country = countries.query.get(id)
   return jsonify(
@@ -63,7 +63,7 @@ def countryById(id):
     country_img = country.country_img
   )
 
-@app.route('/countries', methods=['POST'])
+@app.route('/api/countries', methods=['POST'])
 def addCountry():
     country_name = request.json['country_name']
     flag = request.json['flag']
@@ -73,25 +73,35 @@ def addCountry():
     db.session.add(new_country)
     db.session.commit()
 
-    return jsonify(new_country.id,)
+    return jsonify(new_country.id)
 
-@app.route('/mapview/<int:id>')
-def mapViewId(id):
-  return '<h1>User map info by ID</h1>' 'user ID %d' % id
-
-@app.route('/mapview/friends')
+'''@app.route('/mapview/friends')
 def mapViewFriends():
   return '<h1>Friendslist map info of current user</h1>'
 
 @app.route('/friends/list')
 def friendsList():
-  return '<h1>Get all friends of user by ID</h1>'
+  return '<h1>Get all friends of user by ID</h1>'''
 
-@app.route('/friends/list/<int:id>')
+#MAY NOT NEED THESE ROUTES FOR MVP
+'''@app.route('/mapview', methods=['GET'])
+def mapView():
+  country = users_countries_join.query.get(id)
+  user_id = request.json['user_id']
+  country_id = request.json['country_id']
+  status = request.json['status']
+
+@app.route('/mapview/<int:id>')
+def mapViewId(id):
+  return '<h1>User map info by ID</h1>' 'user ID %d' % id'''
+
+#SEE users/:id, it may be able to stand in for this endpoint
+'''@app.route('/friends/list/<int:id>')
 def friendsListById(id):
-  return '<h1>Friends list by ID</h1>' 'user ID %d' % id
+  return '<h1>Friends list by ID</h1>' 'user ID %d' % id''' 
 
-@app.route('/friends/request/send/<int:id>')
+#WAITING on decision for FB API before writing logic for these endpoints
+'''@app.route('/friends/request/send/<int:id>')
 def friendRequestSend(id):
   return '<h1>Current user requests another user as a friend</h1>' 'user ID %d' % id
 
@@ -101,13 +111,25 @@ def friendRequestAccept(id):
 
 @app.route('/friends/request/decline/<int:id>')
 def friendRequestDecline(id):
-  return '<h1>Current user decline another user as a friend</h1>' 'user ID %d' % id
+  return '<h1>Current user decline another user as a friend</h1>' 'user ID %d' % id'''
 
-@app.route('/users/<username>')
+'''@app.route('/users/<username>')
 def username(username):
-  return '<h1>Get all users with similar name</h1>' 'username %s' % username
+  return '<h1>Get all users with similar name</h1>' 'username %s' % username'''
 
-@app.route('/users/<int:id>', methods=['GET'])
+@app.route('/api/user/countries', methods=['POST']) #endpoint may/will be renamed after initial testing, add /<int:id>
+def add_user_country():
+  user_id = request.json['user_id'] #JOIN user_id with username of specific id from users
+  country_id = request.json['country_id'] #JOIN country_id with country_name in countries
+  status = request.json['status']
+  notes = request.json['notes']
+
+  new_user_country = users_countries_join(user_id, country_id, status, notes) 
+  db.session.commit()
+
+  return jsonify(new_user_country.user_id, new_user_country.country_id, new_user_country.status)
+
+@app.route('/api/users/<int:id>', methods=['GET'])
 def userId(id):
   user = users.query.get(id)
   return jsonify(
@@ -122,11 +144,12 @@ def userId(id):
       role=user.role
   )
 
-@app.route('/users/settings')
+#GOING TO PULL SETTINGS FROM USERS TABLE
+'''@app.route('/users/settings')
 def userSettings():
-  return '<h1>Get users settings by current User</h1>'
+  return '<h1>Get users settings by current User</h1>'''
 
-@app.route('/users/<int:id>', methods=['PUT'])
+@app.route('/api/users/<int:id>', methods=['PUT'])
 def update_user(id): 
   user = users.query.get(id)
   user.username = request.json['username']
@@ -142,8 +165,7 @@ def update_user(id):
   db.session.commit()
   return user_schema.jsonify(user)
 
-
-@app.route('/users/<int:id>', methods=['DELETE'])
+@app.route('/api/users/<int:id>', methods=['DELETE'])
 def delete_user(id):
     user = users.query.get(id)
     db.session.delete(user)
@@ -151,12 +173,10 @@ def delete_user(id):
 
     return user_schema.jsonify(user)
 
-@app.route('/signout') #CAN BE CHANGED if we decide to use flask-login
+@app.route('/api/signout') #WILL BE CHANGED DEPENDING ON AUTH
 def signout():
   session.pop('username')
   return redirect(url_for('index'))
-
-
 
 if __name__ == "__main__":
   app.run(host="0.0.0.0", port=PORT, debug=DEBUG)
