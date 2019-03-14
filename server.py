@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, TEXT, String, CheckConstraint, ForeignKey, ARRAY
+from sqlalchemy import Column, Integer, TEXT, Boolean, String, CheckConstraint, ForeignKey, ARRAY
 from flask_marshmallow import Marshmallow
 from models import *
 from dotenv import load_dotenv
@@ -27,10 +27,6 @@ DEBUG = "NO_DEBUG" not in os.environ
 @app.route("/api/error")
 def error():
     raise Exception("Error!")
-
-'''@app.route('/')
-def index():
-  return '<h1>Landing page</h1>'''
 
 @app.route('/api/signup', methods=['POST'])
 def signup():
@@ -118,12 +114,12 @@ def add_user_country():
   user_id = request.json['user_id'] #JOIN user_id with username of specific id from users
   country_id = request.json['country_id'] #JOIN country_id with country_name in countries
   status = request.json['status']
-  notes = request.json['notes']
+  note = request.json['note']
 
-  new_user_country = users_countries_join(user_id, country_id, status, notes) 
+  new_user_country = users_countries_join(user_id, country_id, status, note) 
   db.session.commit()
 
-  return jsonify(new_user_country.user_id, new_user_country.country_id, new_user_country.status)
+  return jsonify(new_user_country.user_id, new_user_country.country_id, new_user_country.status, new_user_country.note)
 
 @app.route('/api/users/<int:id>', methods=['GET'])
 def userId(id):

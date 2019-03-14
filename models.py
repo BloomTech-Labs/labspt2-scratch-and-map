@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String, TEXT, CheckConstraint, ForeignKey, ARRAY
+from sqlalchemy import Column, Integer, String, TEXT, Boolean, CheckConstraint, ForeignKey, ARRAY
 from flask_marshmallow import Marshmallow
 from marshmallow import fields, Schema
 
@@ -16,7 +16,6 @@ class users(db.Model):
     age = db.Column(Integer, CheckConstraint( 'age>=14' ), nullable=False)
     nationality = db.Column(String, nullable=False)
     picture_url = db.Column(String)
-    #add bio
     email = db.Column(String, unique=True, nullable=False)
     role = db.Column(String, nullable=False)
     auto_scratch = db.Column(Boolean, default=False)
@@ -88,13 +87,13 @@ class users_countries_join(db.Model):
     user_id = db.Column(Integer, ForeignKey(users.id), nullable=False)
     country_id = db.Column(Integer, ForeignKey(countries.id), nullable=False)
     status = db.Column(String, nullable=False)
-    notes = db.Column(TEXT, nullable=True)
+    note = db.Column(TEXT, nullable=True)
 
-    def __init__(self, user_id, country_id, status, notes): 
+    def __init__(self, user_id, country_id, status, note):
         self.user_id = user_id
         self.country_id = country_id
         self.status = status
-        self.notes = notes
+        self.note = note
 
 
     def __repr__(self):
