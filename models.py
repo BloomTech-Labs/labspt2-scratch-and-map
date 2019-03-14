@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY
+from sqlalchemy import Column, Integer, String, TEXT, CheckConstraint, ForeignKey, ARRAY
 from flask_marshmallow import Marshmallow
 from marshmallow import fields, Schema
 
@@ -16,9 +16,9 @@ class users(db.Model):
     age = db.Column(Integer, CheckConstraint( 'age>=14' ), nullable=False)
     nationality = db.Column(String, nullable=False)
     picture_url = db.Column(String)
-    #add bio
     email = db.Column(String, unique=True, nullable=True)#email shouldn't be nullable?
     role = db.Column(String, nullable=False)
+    #POSSIBLE ADD: travel_types = db.relationship('countries', secondary=users_countries_join, backref=db.backref('travelers', lazy ='dynamic'))
 
 
     def __init__(self, username, password, first_name, last_name, age, nationality, picture_url, email, role):
@@ -29,7 +29,6 @@ class users(db.Model):
         self.age = age
         self.nationality = nationality
         self.picture_url = picture_url
-        #add bio
         self.email = email
         self.role = role
 
@@ -89,8 +88,8 @@ class users_countries_join(db.Model):
     status = db.Column(String, nullable=False)
     notes = db.Column(TEXT, nullable=True)
 
-    def __init__(self, user_id, country_id, status):
-        self.user_id = country_name
+    def __init__(self, user_id, country_id, status, notes): 
+        self.user_id = user_id
         self.country_id = country_id
         self.status = status
         self.notes = notes
