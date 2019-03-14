@@ -63,6 +63,15 @@ def countryById(id):
   country = countries.query.get(id)
   return country_schema.jsonify(country)
 
+@app.route('/countries/<int:id>', methods=['PUT'])
+def update_country(id): 
+   country = countries.query.get(id)
+   country.flag = request.json['flag']
+   country.country_img = request.json['country_img']
+
+   db.session.commit()
+   return country_schema.jsonify(country)
+
 @app.route('/countries', methods=['POST'])
 def addCountry():
     country_name = request.json['country_name']
