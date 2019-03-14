@@ -43,8 +43,9 @@ def signup():
     picture_url = request.json['picture_url']
     email = request.json['email']
     role = request.json['role']
+    auto_scratch = request.json['auto_scratch']
 
-    new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role)
+    new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch)
     db.session.add(new_user)
     db.session.commit()
 
@@ -66,7 +67,7 @@ def countryById(id):
   return country_schema.jsonify(country)
 
 @app.route('/countries/<int:id>', methods=['PUT'])
-def update_country(id): 
+def update_country(id):
    country = countries.query.get(id)
    country.flag = request.json['flag']
    country.country_img = request.json['country_img']
