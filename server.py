@@ -23,10 +23,6 @@ ma = Marshmallow(app)
 PORT = int(os.environ.get("PORT",5000))
 DEBUG = "NO_DEBUG" not in os.environ
 
-
-users_schema = UserSchema(many=True)
-user_schema = UserSchema()
-
 #Routes
 @app.route("/error")
 def error():
