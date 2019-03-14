@@ -39,8 +39,10 @@ def signup():
     picture_url = request.json['picture_url']
     email = request.json['email']
     role = request.json['role']
+    #auto_scratch = request.json['auto_scratch']
+    #travel_types = request.json['travel_types']
 
-    new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role)
+    new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role) #ADD travel_types, auto_scratch
     db.session.add(new_user)
     db.session.commit()
 
@@ -114,12 +116,12 @@ def add_user_country():
   user_id = request.json['user_id'] #JOIN user_id with username of specific id from users
   country_id = request.json['country_id'] #JOIN country_id with country_name in countries
   status = request.json['status']
-  note = request.json['note']
+  notes = request.json['notes']
 
-  new_user_country = users_countries_join(user_id, country_id, status, note) 
+  new_user_country = users_countries_join(user_id, country_id, status, notes) 
   db.session.commit()
 
-  return jsonify(new_user_country.user_id, new_user_country.country_id, new_user_country.status, new_user_country.note)
+  return jsonify(new_user_country.user_id, new_user_country.country_id, new_user_country.status, new_user_country.notes)
 
 @app.route('/api/users/<int:id>', methods=['GET'])
 def userId(id):

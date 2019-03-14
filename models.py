@@ -21,7 +21,7 @@ class users(db.Model):
     auto_scratch = db.Column(Boolean, default=False)
 
 
-    def __init__(self, username, password, first_name, last_name, age, nationality, picture_url, email, role):
+    def __init__(self, username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch):
         self.username = username
         self.password = password
         self.first_name = first_name
@@ -87,13 +87,13 @@ class users_countries_join(db.Model):
     user_id = db.Column(Integer, ForeignKey(users.id), nullable=False)
     country_id = db.Column(Integer, ForeignKey(countries.id), nullable=False)
     status = db.Column(String, nullable=False)
-    note = db.Column(TEXT, nullable=True)
+    notes = db.Column(TEXT, nullable=True)
 
-    def __init__(self, user_id, country_id, status, note):
+    def __init__(self, user_id, country_id, status, notes):
         self.user_id = user_id
         self.country_id = country_id
         self.status = status
-        self.note = note
+        self.notes = notes
 
 
     def __repr__(self):
