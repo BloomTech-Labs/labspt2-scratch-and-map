@@ -14,14 +14,15 @@ class users(db.Model):
     first_name = db.Column(String, nullable=False)
     last_name = db.Column(String, nullable=False)
     age = db.Column(Integer, CheckConstraint( 'age>=14' ), nullable=False)
-    nationality = db.Column(String, nullable=False)
+    nationality = db.Column(String, nullable=True)
     picture_url = db.Column(String)
     email = db.Column(String, unique=True, nullable=False)
     role = db.Column(String, nullable=False)
     auto_scratch = db.Column(Boolean, default=False)
+    home_country = db.Column(String, nullable=False)
 
 
-    def __init__(self, username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch):
+    def __init__(self, username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch, home_country):
         self.username = username
         self.password = password
         self.first_name = first_name
@@ -32,13 +33,14 @@ class users(db.Model):
         self.email = email
         self.role = role
         self.auto_scratch = auto_scratch
+        self.home_country = home_country
 
     def __repr__(self):
         return '<{}>' % self.__name__
 
 class UserSchema(ma.Schema):
     class Meta:
-        fields = ('username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role', 'auto_scratch')
+        fields = ('username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role', 'auto_scratch', 'home_country' )
 
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
