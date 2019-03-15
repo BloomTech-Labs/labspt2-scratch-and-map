@@ -140,18 +140,7 @@ def add_user_country():
 @app.route('/api/users/<int:id>', methods=['GET'])
 def userId(id):
   user = users.query.get(id)
-  return jsonify(
-      username=user.username,
-      password=user.password,
-      first_name=user.first_name,
-      last_name=user.last_name,
-      age=user.age,
-      nationality=user.nationality,
-      picture_url=user.picture_url,
-      email=user.email,
-      role=user.role,
-      auto_scratch=user.auto_scratch
-  )
+  return user_schema.jsonify(user)
 
 @app.route('/api/users/<int:id>', methods=['PUT'])
 def update_user(id):
