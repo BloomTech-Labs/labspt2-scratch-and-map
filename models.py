@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY, Boolean
+from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY, Boolean, TEXT
 from flask_marshmallow import Marshmallow
 from marshmallow import fields, Schema
 
@@ -22,7 +22,7 @@ class users(db.Model):
     auto_scratch = db.Column(Boolean, default=False)
 
 
-    def __init__(self, username, password, first_name, last_name, age, nationality, picture_url, email, role):
+    def __init__(self, username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch):
         self.username = username
         self.password = password
         self.first_name = first_name

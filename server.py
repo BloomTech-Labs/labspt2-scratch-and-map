@@ -8,12 +8,12 @@ import os
 
 app = Flask(__name__)
 
-def connect_to_db(app, db_uri=None):
+def connect_to_db(app, db_uri):
     app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 load_dotenv('.env')
 DATABASE_URL = os.environ.get("DATABASE_URL")
-print(DATABASE_URL)
 connect_to_db(app, DATABASE_URL)
 
 # Init db & mm
@@ -43,24 +43,31 @@ def signup():
     picture_url = request.json['picture_url']
     email = request.json['email']
     role = request.json['role']
+    auto_scratch = request.json['auto_scratch']
 
-    new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role)
+    new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch)
     db.session.add(new_user)
     db.session.commit()
 
     return jsonify(new_user.id)
 
-@app.route('/login')
+@app.route('/login', methods=['POST'])
 def login():
-  return '<h1>login page</h1>'
+    username = request.json['username']
+    password = request.json['password']
+    user = users.query.filter_by(username=username, password=password).first()
+    if user_schema.jsonify(user) == jsonify({}):
+        return "False"
+    else:
+        return "True"
 
 @app.route('/countries/<int:id>', methods=['GET'])
-def countryById(id): 
+def countryById(id):
   country = countries.query.get(id)
   return country_schema.jsonify(country)
 
 @app.route('/countries/<int:id>', methods=['PUT'])
-def update_country(id): 
+def update_country(id):
    country = countries.query.get(id)
    country.flag = request.json['flag']
    country.country_img = request.json['country_img']
@@ -132,7 +139,7 @@ def userSettings():
   return '<h1>Get users settings by current User</h1>'
 
 @app.route('/users/<int:id>', methods=['PUT'])
-def update_user(id): 
+def update_user(id):
   user = users.query.get(id)
   user.username = request.json['username']
   user.email = request.json['email']

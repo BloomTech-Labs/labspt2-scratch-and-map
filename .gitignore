@@ -3,5 +3,6 @@
 /venv
 .DS_Store
 .vscode
-.env
 *.pyc
+__pycache__
+.env
