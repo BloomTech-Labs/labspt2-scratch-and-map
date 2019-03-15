@@ -35,6 +35,7 @@ class users(db.Model):
         self.email = email
         self.role = role
         self.auto_scratch = auto_scratch
+        self.home_country = home_country
 
     def __repr__(self):
         return '<{}>' % self.__name__
