@@ -39,10 +39,10 @@ def signup():
     picture_url = request.json['picture_url']
     email = request.json['email']
     role = request.json['role']
-    #auto_scratch = request.json['auto_scratch']
+    auto_scratch = request.json['auto_scratch']
     #travel_types = request.json['travel_types']
 
-    new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role) #ADD travel_types, auto_scratch
+    new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch) #ADD travel_types
     db.session.add(new_user)
     db.session.commit()
 
@@ -135,7 +135,8 @@ def userId(id):
       nationality=user.nationality,
       picture_url=user.picture_url,
       email=user.email,
-      role=user.role
+      role=user.role,
+      auto_scratch=user.auto_scratch
   )
 
 #GOING TO PULL SETTINGS FROM USERS TABLE
@@ -155,14 +156,15 @@ def update_user(id):
   user.nationality = request.json['nationality']
   user.picture_url = request.json['picture_url']
   user.role = request.json['role']
+  user.auto_scratch = request.json['auto_scratch']
 
   db.session.commit()
   return user_schema.jsonify(user)
 
-@app.route('/api/users/<int:id>', methods=['DELETE'])
+@app.route('/api/users/<int:id>', methods=['DELETE']) #BUGGY
 def delete_user(id):
     user = users.query.get(id)
-    db.session.delete(user)
+    db.delete(user)
     db.session.commit()
 
     return user_schema.jsonify(user)
