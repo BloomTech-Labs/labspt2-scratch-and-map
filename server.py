@@ -57,6 +57,36 @@ def login():
     else:
         return "True"
 
+@app.route('/api/users/<int:id>', methods=['GET'])
+def userId(id):
+  user = users.query.get(id)
+  return user_schema.jsonify(user)
+
+@app.route('/api/users/<int:id>', methods=['PUT'])
+def update_user(id):
+    user = users.query.get(id)
+    user.username = request.json['username']
+    user.email = request.json['email']
+    user.password = request.json['password']
+    user.first_name = request.json['first_name']
+    user.last_name = request.json['last_name']
+    user.age = request.json['age']
+    user.nationality = request.json['nationality']
+    user.picture_url = request.json['picture_url']
+    user.role = request.json['role']
+    user.auto_scratch = request.json['auto_scratch']
+
+    db.session.commit()
+    return user_schema.jsonify(user)
+
+@app.route('/api/users/<int:id>', methods=['DELETE']) #BUGGY
+def delete_user(id):
+    user = users.query.get(id)
+    db.delete(user)
+    db.session.commit()
+
+    return user_schema.jsonify(user)
+
 @app.route('/api/countries/<int:id>', methods=['GET'])
 def countryById(id):
   country = countries.query.get(id)
@@ -125,7 +155,7 @@ def friendRequestDecline(id):
 def username(username):
   return '<h1>Get all users with similar name</h1>' 'username %s' % username'''
 
-@app.route('/api/users/countries>', methods=['POST']) #endpoint may/will be renamed after initial testing, add /<int:id>
+@app.route('/api/users/countries', methods=['POST']) #endpoint may/will be renamed after initial testing, add /<int:id>
 def add_user_country():
   user_id = request.json['user_id'] #JOIN user_id with username of specific id from users
   country_id = request.json['country_id'] #JOIN country_id with country_name in countries
@@ -133,39 +163,21 @@ def add_user_country():
   notes = request.json['notes']
 
   new_user_country = users_countries_join(user_id, country_id, status, notes) 
+  db.session.add(new_user_country)
   db.session.commit()
 
-  return jsonify(new_user_country.user_id, new_user_country.country_id, new_user_country.status, new_user_country.notes)
-
-@app.route('/api/users/<int:id>', methods=['GET'])
-def userId(id):
-  user = users.query.get(id)
-  return user_schema.jsonify(user)
-
-@app.route('/api/users/<int:id>', methods=['PUT'])
-def update_user(id):
-    user = users.query.get(id)
-    user.username = request.json['username']
-    user.email = request.json['email']
-    user.password = request.json['password']
-    user.first_name = request.json['first_name']
-    user.last_name = request.json['last_name']
-    user.age = request.json['age']
-    user.nationality = request.json['nationality']
-    user.picture_url = request.json['picture_url']
-    user.role = request.json['role']
-    user.auto_scratch = request.json['auto_scratch']
+  return jsonify(new_user_country.id,new_user_country.user_id, new_user_country.country_id, new_user_country.status, new_user_country.notes)
+  
+@app.route('/api/users/countries/<int:id>', methods=['PUT'])
+def update_user_country(id):
+    user_country = users_countries_join.query.get(id)
+    user_country.user_id = request.json['user_id']
+    user_country.country_id = request.json['country_id']
+    user_country.status = request.json['status']
+    user_country.notes = request.json['notes']
 
     db.session.commit()
-    return user_schema.jsonify(user)
-
-@app.route('/api/users/<int:id>', methods=['DELETE']) #BUGGY
-def delete_user(id):
-    user = users.query.get(id)
-    db.delete(user)
-    db.session.commit()
-
-    return user_schema.jsonify(user)
+    return user_country_schema.jsonify(user_country)
 
 @app.route('/api/signout') #WILL BE CHANGED DEPENDING ON AUTH
 def signout():
