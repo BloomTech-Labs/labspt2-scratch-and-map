@@ -14,12 +14,13 @@ class users(db.Model):
     first_name = db.Column(String, nullable=False)
     last_name = db.Column(String, nullable=False)
     age = db.Column(Integer, CheckConstraint( 'age>=14' ), nullable=False)
-    nationality = db.Column(String, nullable=False)
+    nationality = db.Column(String, nullable=True)
     picture_url = db.Column(String)
     #add bio
     email = db.Column(String, unique=True, nullable=False)
     role = db.Column(String, nullable=False)
     auto_scratch = db.Column(Boolean, default=False)
+    home_country = db.Column(String, nullable=False)
 
 
     def __init__(self, username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch):
