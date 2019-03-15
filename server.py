@@ -79,7 +79,7 @@ def update_user(id):
     db.session.commit()
     return user_schema.jsonify(user)
 
-@app.route('/api/users/<int:id>', methods=['DELETE']) #BUGGY
+@app.route('/api/users/<int:id>', methods=['DELETE']) #BUGGY, but do we need this if we do away with admin?
 def delete_user(id):
     user = users.query.get(id)
     db.delete(user)
@@ -155,8 +155,8 @@ def friendRequestDecline(id):
 def username(username):
   return '<h1>Get all users with similar name</h1>' 'username %s' % username'''
 
-@app.route('/api/users/countries', methods=['POST']) #endpoint may/will be renamed after initial testing, add /<int:id>
-def add_user_country():
+@app.route('/api/<int:user_id>/<int:country_id>', methods=['POST']) #endpoint may/will be renamed after initial testing, add /<int:id>
+def add_user_country(user_id, country_id):
   user_id = request.json['user_id'] #JOIN user_id with username of specific id from users
   country_id = request.json['country_id'] #JOIN country_id with country_name in countries
   status = request.json['status']
@@ -168,8 +168,8 @@ def add_user_country():
 
   return jsonify(new_user_country.id,new_user_country.user_id, new_user_country.country_id, new_user_country.status, new_user_country.notes)
   
-@app.route('/api/users/countries/<int:id>', methods=['PUT'])
-def update_user_country(id):
+@app.route('/api/<int:user_id>/<int:country_id>/<int:id>', methods=['PUT'])
+def update_user_country(user_id, country_id,id):
     user_country = users_countries_join.query.get(id)
     user_country.user_id = request.json['user_id']
     user_country.country_id = request.json['country_id']
