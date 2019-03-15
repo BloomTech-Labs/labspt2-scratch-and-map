@@ -40,8 +40,9 @@ def signup():
     email = request.json['email']
     role = request.json['role']
     auto_scratch = request.json['auto_scratch']
+    home_country = request.json['home_country']
 
-    new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch)
+    new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch, home_country)
     db.session.add(new_user)
     db.session.commit()
     return jsonify(new_user.id)
@@ -124,10 +125,9 @@ def friendRequestDecline(id):
 def username(username):
   return '<h1>Get all users with similar name</h1>' 'username %s' % username'''
 
-@app.route('/api/<user_id>/<country_id>', methods=['POST']) #endpoint may/will be renamed after initial testing, add /<int:id>
-def add_user_country(user_id, country_id):
-  user_id = users_countries_join.query.filter_by(user_id=user_id).first_or_404()
-  #user_id = request.json['user_id'] #JOIN user_id with username of specific id from users
+@app.route('/api/users/countries>', methods=['POST']) #endpoint may/will be renamed after initial testing, add /<int:id>
+def add_user_country():
+  user_id = request.json['user_id'] #JOIN user_id with username of specific id from users
   country_id = request.json['country_id'] #JOIN country_id with country_name in countries
   status = request.json['status']
   notes = request.json['notes']
