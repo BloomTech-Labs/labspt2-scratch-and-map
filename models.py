@@ -1,10 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-
 from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY, Boolean, TEXT
-=======
-from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY, Boolean, TEXT
-
 from flask_marshmallow import Marshmallow
 from marshmallow import fields, Schema
 
@@ -42,7 +38,7 @@ class users(db.Model):
 
 class UserSchema(ma.Schema):
     class Meta:
-        fields = ('username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role', 'auto_scratch' )
+        fields = ('username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role', 'auto_scratch')
 
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
