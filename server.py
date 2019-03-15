@@ -40,23 +40,14 @@ def signup():
     email = request.json['email']
     role = request.json['role']
     auto_scratch = request.json['auto_scratch']
+    home_country = request.json['home_country']
 
- 
-    new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch) 
-
-
-    new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch)
-
+    new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch, home_country)
     db.session.add(new_user)
     db.session.commit()
-
     return jsonify(new_user.id)
 
-
-@app.route('/api/login')
-
-@app.route('api/login', methods=['POST'])
-
+@app.route('/api/login', methods=['POST'])
 def login():
     username = request.json['username']
     password = request.json['password']
@@ -66,13 +57,42 @@ def login():
     else:
         return "True"
 
+@app.route('/api/users/<int:id>', methods=['GET'])
+def userId(id):
+  user = users.query.get(id)
+  return user_schema.jsonify(user)
 
-@app.route('api/countries/<int:id>', methods=['GET'])
+@app.route('/api/users/<int:id>', methods=['PUT'])
+def update_user(id):
+    user = users.query.get(id)
+    user.username = request.json['username']
+    user.email = request.json['email']
+    user.password = request.json['password']
+    user.first_name = request.json['first_name']
+    user.last_name = request.json['last_name']
+    user.age = request.json['age']
+    user.nationality = request.json['nationality']
+    user.picture_url = request.json['picture_url']
+    user.role = request.json['role']
+    user.auto_scratch = request.json['auto_scratch']
+
+    db.session.commit()
+    return user_schema.jsonify(user)
+
+@app.route('/api/users/<int:id>', methods=['DELETE']) #BUGGY, but do we need this if we do away with admin?
+def delete_user(id):
+    user = users.query.get(id)
+    db.delete(user)
+    db.session.commit()
+
+    return user_schema.jsonify(user)
+
+@app.route('/api/countries/<int:id>', methods=['GET'])
 def countryById(id):
   country = countries.query.get(id)
   return country_schema.jsonify(country)
 
-@app.route('api/countries/<int:id>', methods=['PUT'])
+@app.route('/api/countries/<int:id>', methods=['PUT'])
 def update_country(id):
    country = countries.query.get(id)
    country.flag = request.json['flag']
@@ -81,24 +101,7 @@ def update_country(id):
    db.session.commit()
    return country_schema.jsonify(country)
 
-@app.route('api/countries', methods=['POST'])
-
-@app.route('api/countries/<int:id>', methods=['GET'])
-def countryById(id):
-  country = countries.query.get(id)
-  return country_schema.jsonify(country)
-
-@app.route('api/countries/<int:id>', methods=['PUT'])
-def update_country(id):
-   country = countries.query.get(id)
-   country.flag = request.json['flag']
-   country.country_img = request.json['country_img']
-
-   db.session.commit()
-   return country_schema.jsonify(country)
-
-@app.route('api/countries', methods=['POST'])
-
+@app.route('/api/countries', methods=['POST'])
 def addCountry():
     country_name = request.json['country_name']
     flag = request.json['flag']
@@ -152,68 +155,29 @@ def friendRequestDecline(id):
 def username(username):
   return '<h1>Get all users with similar name</h1>' 'username %s' % username'''
 
-@app.route('/api/user/countries', methods=['POST']) #endpoint may/will be renamed after initial testing, add /<int:id>
-def add_user_country():
+@app.route('/api/<int:user_id>/<int:country_id>', methods=['POST']) #endpoint may/will be renamed after initial testing, add /<int:id>
+def add_user_country(user_id, country_id):
   user_id = request.json['user_id'] #JOIN user_id with username of specific id from users
   country_id = request.json['country_id'] #JOIN country_id with country_name in countries
   status = request.json['status']
   notes = request.json['notes']
 
   new_user_country = users_countries_join(user_id, country_id, status, notes) 
+  db.session.add(new_user_country)
   db.session.commit()
 
-  return jsonify(new_user_country.user_id, new_user_country.country_id, new_user_country.status, new_user_country.notes)
+  return jsonify(new_user_country.id,new_user_country.user_id, new_user_country.country_id, new_user_country.status, new_user_country.notes)
+  
+@app.route('/api/<int:user_id>/<int:country_id>/<int:id>', methods=['PUT'])
+def update_user_country(user_id, country_id,id):
+    user_country = users_countries_join.query.get(id)
+    user_country.user_id = request.json['user_id']
+    user_country.country_id = request.json['country_id']
+    user_country.status = request.json['status']
+    user_country.notes = request.json['notes']
 
-@app.route('/api/users/<int:id>', methods=['GET'])
-def userId(id):
-  user = users.query.get(id)
-  return jsonify(
-      username=user.username,
-      password=user.password,
-      first_name=user.first_name,
-      last_name=user.last_name,
-      age=user.age,
-      nationality=user.nationality,
-      picture_url=user.picture_url,
-      email=user.email,
-      role=user.role,
-      auto_scratch=user.auto_scratch
-  )
-
-#GOING TO PULL SETTINGS FROM USERS TABLE
-'''@app.route('/users/settings')
-def userSettings():
-  return '<h1>Get users settings by current User</h1>'''
-
-
-@app.route('/api/users/<int:id>', methods=['PUT'])
-def update_user(id): 
-=======
-@app.route('api/users/<int:id>', methods=['PUT'])
-def update_user(id):
-
-  user = users.query.get(id)
-  user.username = request.json['username']
-  user.email = request.json['email']
-  user.password = request.json['password']
-  user.first_name = request.json['first_name']
-  user.last_name = request.json['last_name']
-  user.age = request.json['age']
-  user.nationality = request.json['nationality']
-  user.picture_url = request.json['picture_url']
-  user.role = request.json['role']
-  user.auto_scratch = request.json['auto_scratch']
-
-  db.session.commit()
-  return user_schema.jsonify(user)
-
-@app.route('/api/users/<int:id>', methods=['DELETE']) #BUGGY
-def delete_user(id):
-    user = users.query.get(id)
-    db.delete(user)
     db.session.commit()
-
-    return user_schema.jsonify(user)
+    return user_country_schema.jsonify(user_country)
 
 @app.route('/api/signout') #WILL BE CHANGED DEPENDING ON AUTH
 def signout():

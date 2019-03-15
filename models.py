@@ -1,10 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-
 from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY, Boolean, TEXT
-=======
-from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY, Boolean, TEXT
-
 from flask_marshmallow import Marshmallow
 from marshmallow import fields, Schema
 
@@ -104,3 +100,10 @@ class users_countries_join(db.Model):
 
     def __repr__(self):
         return '<{}>' % self.__name__
+
+class UserCountrySchema(ma.Schema):
+    class Meta:
+        fields = ('user_id', 'country_id', 'status', 'notes')
+
+user_country_schema = UserCountrySchema()
+user_countries_schema = UserCountrySchema(many=True)
