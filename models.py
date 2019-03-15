@@ -23,7 +23,7 @@ class users(db.Model):
     home_country = db.Column(String, nullable=False)
 
 
-    def __init__(self, username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch):
+    def __init__(self, username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch, home_country):
         self.username = username
         self.password = password
         self.first_name = first_name
