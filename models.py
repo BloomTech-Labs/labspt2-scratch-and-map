@@ -1,6 +1,10 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String, TEXT, Boolean, CheckConstraint, ForeignKey, ARRAY
+
+from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY, Boolean, TEXT
+=======
+from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY, Boolean, TEXT
+
 from flask_marshmallow import Marshmallow
 from marshmallow import fields, Schema
 
