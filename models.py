@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY, Boolean, TEXT
+from sqlalchemy.orm import relationship, backref
 from flask_marshmallow import Marshmallow
 from marshmallow import fields, Schema
 
