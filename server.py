@@ -146,7 +146,7 @@ def username(username):
   return '<h1>Get all users with similar name</h1>' 'username %s' % username'''
 
 @app.route('/api/mapview', methods=['GET'])
-def get_user_country():
+def mapView():
   user = users_countries_join.query.all()
   return users_country_schema.jsonify(user)
 
@@ -155,7 +155,7 @@ def mapViewId(id):
   return '<h1>User map info by ID</h1>' 'user ID %d' % id
 
 @app.route('/api/mapview', methods=['POST'])
-def add_user_country():
+def add_mapView_data():
   user_id = request.json['user_id'] #JOIN user_id with username of specific id from users
   country_id = request.json['country_id'] #JOIN country_id with country_name in countries
   status = request.json['status']
@@ -168,7 +168,7 @@ def add_user_country():
   return jsonify(new_user_country.id,new_user_country.user_id, new_user_country.country_id, new_user_country.status, new_user_country.notes)
   
 @app.route('/api/mapview/<int:user_id>/<int:country_id>/<int:id>', methods=['PUT'])
-def update_user_country(user_id, country_id, id):
+def update_mapView_data(user_id, country_id, id):
     user_country = users_countries_join.query.get(id)
     user_country.user_id = request.json['user_id']
     user_country.country_id = request.json['country_id']
