@@ -97,6 +97,7 @@ def update_country(id):
    country = countries.query.get(id)
    country.flag = request.json['flag']
    country.country_img = request.json['country_img']
+   country.code = request.json['code']
 
    db.session.commit()
    return country_schema.jsonify(country)
@@ -106,8 +107,9 @@ def addCountry():
     country_name = request.json['country_name']
     flag = request.json['flag']
     country_img = request.json['country_img']
+    code = request.json['code']
 
-    new_country = countries(country_name, flag, country_img)
+    new_country = countries(country_name, flag, country_img, code)
     db.session.add(new_country)
     db.session.commit()
 
@@ -120,11 +122,6 @@ def mapViewFriends():
 @app.route('/friends/list')
 def friendsList():
   return '<h1>Get all friends of user by ID</h1>'''
-
-#MAY NOT NEED THESE ROUTES FOR MVP
-'''@app.route('/mapview/<int:id>')
-def mapViewId(id):
-  return '<h1>User map info by ID</h1>' 'user ID %d' % id'''
 
 #SEE users/:id, it may be able to stand in for this endpoint
 '''@app.route('/friends/list/<int:id>')
@@ -153,7 +150,11 @@ def get_user_country():
   user = users_countries_join.query.all()
   return users_country_schema.jsonify(user)
 
-@app.route('/api/mapview', methods=['POST']) #endpoint may/will be renamed after initial testing, add /<int:id>
+@app.route('/mapview/<int:id>')
+def mapViewId(id):
+  return '<h1>User map info by ID</h1>' 'user ID %d' % id
+
+@app.route('/api/mapview', methods=['POST'])
 def add_user_country():
   user_id = request.json['user_id'] #JOIN user_id with username of specific id from users
   country_id = request.json['country_id'] #JOIN country_id with country_name in countries

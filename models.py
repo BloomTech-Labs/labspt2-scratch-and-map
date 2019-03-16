@@ -80,7 +80,7 @@ class countries(db.Model):
 
 class CountrySchema(ma.Schema):
     class Meta:
-        fields = ('country_name', 'flag', 'country_img')
+        fields = ('country_name', 'flag', 'country_img', 'code')
 
 country_schema = CountrySchema()
 countries_schema = CountrySchema(many=True)
@@ -91,6 +91,7 @@ class users_countries_join(db.Model):
     country_id = db.Column(Integer, ForeignKey(countries.id), nullable=False)
     status = db.Column(String, nullable=False)
     notes = db.Column(TEXT, nullable=True)
+
 
     def __init__(self, user_id, country_id, status, notes):
         self.user_id = user_id
