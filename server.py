@@ -71,7 +71,7 @@ def addCountry():
 
     return jsonify(new_country.id,)
 
-@app.route('/mapview/<int:id>')
+@app.route('/mapview/<int:id>') #mapview CRU by courtney
 def mapViewId(id):
   return '<h1>User map info by ID</h1>' 'user ID %d' % id
 
