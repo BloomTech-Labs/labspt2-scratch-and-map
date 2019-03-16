@@ -106,4 +106,4 @@ class UserCountrySchema(ma.Schema):
         fields = ('user_id', 'country_id', 'status', 'notes')
 
 user_country_schema = UserCountrySchema()
-user_countries_schema = UserCountrySchema(many=True)
+users_country_schema = UserCountrySchema(many=True)

@@ -155,6 +155,11 @@ def friendRequestDecline(id):
 def username(username):
   return '<h1>Get all users with similar name</h1>' 'username %s' % username'''
 
+@app.route('/api/users/countries', methods=['GET'])
+def get_user_country():
+  user = users_countries_join.query.all()
+  return users_country_schema.jsonify(user)
+
 @app.route('/api/<int:user_id>/<int:country_id>', methods=['POST']) #endpoint may/will be renamed after initial testing, add /<int:id>
 def add_user_country(user_id, country_id):
   user_id = request.json['user_id'] #JOIN user_id with username of specific id from users
