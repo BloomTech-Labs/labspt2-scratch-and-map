@@ -91,7 +91,7 @@ class users_countries_join(db.Model):
     id = db.Column(Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(Integer, ForeignKey(users.id), nullable=False)
     country_id = db.Column(Integer, ForeignKey(countries.id), nullable=False)
-    country_code = db.Column(String, ForeignKey(countries.code), nullable=False)
+    #country_code = db.Column(String, ForeignKey(countries.code), nullable=False) Saving for now, but most likely won't need this.
     status = db.Column(Integer, nullable=False)
     notes = db.Column(TEXT, nullable=True)
 
