@@ -67,11 +67,13 @@ class countries(db.Model):
     country_name = db.Column(String, nullable=False)
     flag = db.Column(String, nullable=False)
     country_img = db.Column(String, nullable=False)
+    code = db.Column(String, nullable=False)
 
-    def __init__(self, country_name, flag, country_img):
+    def __init__(self, country_name, flag, country_img, code):
         self.country_name = country_name
         self.flag = flag
         self.country_img = country_img
+        self.code = code
 
 
     def __repr__(self):
@@ -88,7 +90,8 @@ class users_countries_join(db.Model):
     id = db.Column(Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(Integer, ForeignKey(users.id), nullable=False)
     country_id = db.Column(Integer, ForeignKey(countries.id), nullable=False)
-    status = db.Column(String, nullable=False)
+    country_code = db.Column(String, ForeignKey(countries.code), nullable=False)
+    status = db.Column(Integer, nullable=False)
     notes = db.Column(TEXT, nullable=True)
 
     def __init__(self, user_id, country_id, status, notes):
