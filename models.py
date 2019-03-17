@@ -67,7 +67,7 @@ class countries(db.Model):
     country_name = db.Column(String, nullable=False)
     flag = db.Column(String, nullable=False)
     country_img = db.Column(String, nullable=False)
-    code = db.Column(String, nullable=False)
+    code = db.Column(String, nullable=False, unique=True)
 
     def __init__(self, country_name, flag, country_img, code):
         self.country_name = country_name
