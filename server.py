@@ -112,8 +112,11 @@ def addCountry():
     new_country = countries(country_name, flag, country_img, code)
     db.session.add(new_country)
     db.session.commit()
+    return jsonify(new_country.id,)
 
-    return jsonify(new_country.id)
+@app.route('/mapview/<int:id>') #mapview CRU by courtney
+def mapViewId(id):
+  return '<h1>User map info by ID</h1>' 'user ID %d' % id
 
 '''@app.route('/mapview/friends')
 def mapViewFriends():
