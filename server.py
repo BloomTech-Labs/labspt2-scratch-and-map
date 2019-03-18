@@ -114,10 +114,6 @@ def addCountry():
     db.session.commit()
     return jsonify(new_country.id,)
 
-@app.route('/mapview/<int:id>') #mapview CRU by courtney
-def mapViewId(id):
-  return '<h1>User map info by ID</h1>' 'user ID %d' % id
-
 '''@app.route('/mapview/friends')
 def mapViewFriends():
   return '<h1>Friendslist map info of current user</h1>'
@@ -153,7 +149,7 @@ def mapView():
   user = users_countries_join.query.all()
   return users_country_schema.jsonify(user)
 
-@app.route('/mapview/<int:id>')
+@app.route('/mapview/<int:id>') #mapview CRU by courtney
 def mapViewId(id):
   return '<h1>User map info by ID</h1>' 'user ID %d' % id
 
