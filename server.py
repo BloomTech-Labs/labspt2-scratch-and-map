@@ -129,7 +129,7 @@ def friendsList():
 #SEE users/:id, it may be able to stand in for this endpoint
 '''@app.route('/friends/list/<int:id>')
 def friendsListById(id):
-  return '<h1>Friends list by ID</h1>' 'user ID %d' % id''' 
+  return '<h1>Friends list by ID</h1>' 'user ID %d' % id'''
 
 #WAITING on decision for FB API before writing logic for these endpoints
 '''@app.route('/friends/request/send/<int:id>')
@@ -164,7 +164,7 @@ def add_mapView_data():
   status = request.json['status']
   notes = request.json['notes']
 
-  new_user_country = users_countries_join(user_id, country_id, status, notes) 
+  new_user_country = users_countries_join(user_id, country_id, status, notes)
   db.session.add(new_user_country)
   db.session.commit()
 

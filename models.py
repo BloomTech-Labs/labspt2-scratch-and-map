@@ -68,7 +68,7 @@ class countries(db.Model):
     country_name = db.Column(String, nullable=False)
     flag = db.Column(String, nullable=False)
     country_img = db.Column(String, nullable=False)
-    code = db.Column(String, nullable=False)
+    code = db.Column(String, nullable=False, unique=True)
 
     def __init__(self, country_name, flag, country_img, code):
         self.country_name = country_name
@@ -91,7 +91,6 @@ class users_countries_join(db.Model):
     id = db.Column(Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(Integer, ForeignKey(users.id), nullable=False)
     country_id = db.Column(Integer, ForeignKey(countries.id), nullable=False)
-    #country_code = db.Column(String, ForeignKey(countries.code), nullable=False) Saving for now, but most likely won't need this.
     status = db.Column(Integer, nullable=False)
     notes = db.Column(TEXT, nullable=True)
 
