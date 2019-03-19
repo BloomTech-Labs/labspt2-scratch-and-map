@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import Login from "../Auth/Login";
-import Register from "../Auth/Register";
+import Login from "./Login";
+import Register from "./Register";
+import FbLogin from "./FbLogin";
 import axios from "axios";
 
 class Auth extends Component {
@@ -77,7 +78,7 @@ class Auth extends Component {
             />
           )}
           {this.state.isLoginOpen && (
-            <Login
+            <FbLogin
               inputChange={this.handleInputChange}
               submit={this.onSubmitHandler}
             />

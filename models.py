@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY, Boolean, TEXT
+from sqlalchemy.orm import relationship, backref
 from flask_marshmallow import Marshmallow
 from marshmallow import fields, Schema
 
@@ -67,7 +68,7 @@ class countries(db.Model):
     country_name = db.Column(String, nullable=False)
     flag = db.Column(String, nullable=False)
     country_img = db.Column(String, nullable=False)
-    code = db.Column(String, nullable=False)
+    code = db.Column(String, nullable=False, unique=True)
 
     def __init__(self, country_name, flag, country_img, code):
         self.country_name = country_name
@@ -81,7 +82,7 @@ class countries(db.Model):
 
 class CountrySchema(ma.Schema):
     class Meta:
-        fields = ('country_name', 'flag', 'country_img')
+        fields = ('country_name', 'flag', 'country_img', 'code')
 
 country_schema = CountrySchema()
 countries_schema = CountrySchema(many=True)
@@ -90,9 +91,9 @@ class users_countries_join(db.Model):
     id = db.Column(Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(Integer, ForeignKey(users.id), nullable=False)
     country_id = db.Column(Integer, ForeignKey(countries.id), nullable=False)
-    country_code = db.Column(String, ForeignKey(countries.code), nullable=False)
     status = db.Column(Integer, nullable=False)
     notes = db.Column(TEXT, nullable=True)
+
 
     def __init__(self, user_id, country_id, status, notes):
         self.user_id = user_id
@@ -109,4 +110,4 @@ class UserCountrySchema(ma.Schema):
         fields = ('user_id', 'country_id', 'status', 'notes')
 
 user_country_schema = UserCountrySchema()
-user_countries_schema = UserCountrySchema(many=True)
+users_country_schema = UserCountrySchema(many=True)
