@@ -28,6 +28,7 @@ DEBUG = "NO_DEBUG" not in os.environ
 def error():
     raise Exception("Error!")
 
+#AUTH ENDPOINTS
 @app.route('/api/signup', methods=['POST'])
 def signup():
     username = request.json['username']
@@ -56,6 +57,14 @@ def login():
         return "False"
     else:
         return "True"
+
+#USERS ENDPOINTS
+@app.route('/api/users', methods =['GET'])
+def get_users():
+  user = users.query.all()
+  user_schema = UserSchema(many = True)
+  output = user_schema.dump(user).data
+  return jsonify({'users' : output})
 
 @app.route('/api/users/<int:id>', methods=['GET'])
 def userId(id):
@@ -87,6 +96,7 @@ def delete_user(id):
 
     return user_schema.jsonify(user)
 
+#COUNTRIES ENDPOINTS
 @app.route('/api/countries/<int:id>', methods=['GET'])
 def countryById(id):
   country = countries.query.get(id)
@@ -114,42 +124,16 @@ def addCountry():
     db.session.commit()
     return jsonify(new_country.id,)
 
-'''@app.route('/mapview/friends')
-def mapViewFriends():
-  return '<h1>Friendslist map info of current user</h1>'
-
-@app.route('/friends/list')
-def friendsList():
-  return '<h1>Get all friends of user by ID</h1>'''
-
-#SEE users/:id, it may be able to stand in for this endpoint
-'''@app.route('/friends/list/<int:id>')
-def friendsListById(id):
-  return '<h1>Friends list by ID</h1>' 'user ID %d' % id'''
-
-#WAITING on decision for FB API before writing logic for these endpoints
-'''@app.route('/friends/request/send/<int:id>')
-def friendRequestSend(id):
-  return '<h1>Current user requests another user as a friend</h1>' 'user ID %d' % id
-
-@app.route('/friends/request/accept/<int:id>')
-def friendRequestAccept(id):
-  return '<h1>Current user accepts another user as a friend</h1>' 'user ID %d' % id
-
-@app.route('/friends/request/decline/<int:id>')
-def friendRequestDecline(id):
-  return '<h1>Current user decline another user as a friend</h1>' 'user ID %d' % id'''
-
-'''@app.route('/users/<username>')
-def username(username):
-  return '<h1>Get all users with similar name</h1>' 'username %s' % username'''
-
-@app.route('/api/mapview', methods=['GET'])
+#MAPVIEW ENDPOINTS
+@app.route('/api/mapview', methods=['GET']) 
 def mapView():
   user = users_countries_join.query.all()
-  return users_country_schema.jsonify(user)
+  return user_country_schema.jsonify(user)
+  #user_country_schema = UserCountrySchema(many = True)
+  #output = user_country_schema.dump(user).data
+  #return jsonify({user : output})
 
-@app.route('/mapview/<int:id>') #mapview CRU by courtney
+@app.route('/mapview/<int:id>') #This may refer to the relationship with users, working on displaying collection of mapview by user id objects as a field in users table
 def mapViewId(id):
   return '<h1>User map info by ID</h1>' 'user ID %d' % id
 
@@ -184,3 +168,35 @@ def signout():
 
 if __name__ == "__main__":
   app.run(host="0.0.0.0", port=PORT, debug=DEBUG)
+
+
+'''MOVED THESE OUT OF THE WAY UNTIL THEY ARE USED
+@app.route('/mapview/friends')
+def mapViewFriends():
+  return '<h1>Friendslist map info of current user</h1>'
+
+@app.route('/friends/list')
+def friendsList():
+  return '<h1>Get all friends of user by ID</h1>'''
+
+#SEE users/:id, it may be able to stand in for this endpoint
+'''@app.route('/friends/list/<int:id>')
+def friendsListById(id):
+  return '<h1>Friends list by ID</h1>' 'user ID %d' % id'''
+
+#WAITING on decision for FB API before writing logic for these endpoints
+'''@app.route('/friends/request/send/<int:id>')
+def friendRequestSend(id):
+  return '<h1>Current user requests another user as a friend</h1>' 'user ID %d' % id
+
+@app.route('/friends/request/accept/<int:id>')
+def friendRequestAccept(id):
+  return '<h1>Current user accepts another user as a friend</h1>' 'user ID %d' % id
+
+@app.route('/friends/request/decline/<int:id>')
+def friendRequestDecline(id):
+  return '<h1>Current user decline another user as a friend</h1>' 'user ID %d' % id'''
+
+'''@app.route('/users/<username>')
+def username(username):
+  return '<h1>Get all users with similar name</h1>' 'username %s' % username'''
