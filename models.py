@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARRAY, Boolean, TEXT
+from sqlalchemy.orm import relationship, backref
 from flask_marshmallow import Marshmallow
 from marshmallow import fields, Schema
 
@@ -21,7 +22,6 @@ class users(db.Model):
     auto_scratch = db.Column(Boolean, default=False)
     home_country = db.Column(String, nullable=False)
 
-
     def __init__(self, username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch, home_country):
         self.username = username
         self.password = password
@@ -38,12 +38,65 @@ class users(db.Model):
     def __repr__(self):
         return '<{}>' % self.__name__
 
-class UserSchema(ma.Schema):
+class UserSchema(ma.ModelSchema):
     class Meta:
-        fields = ('username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role', 'auto_scratch', 'home_country' )
+        model = users
+        fields = ('id','username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role', 'auto_scratch', 'home_country', 'user_countries')
+    user_countries = fields.Nested('UserCountrySchema', many = True,
+                                    only = ['country_id', 'status', 'notes'])
 
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
+
+class countries(db.Model):
+    id = db.Column(Integer, autoincrement=True, primary_key=True)
+    country_name = db.Column(String, nullable=False)
+    flag = db.Column(String, nullable=False)
+    country_img = db.Column(String, nullable=False)
+    code = db.Column(String, nullable=False)
+
+    def __init__(self, country_name, flag, country_img, code):
+        self.country_name = country_name
+        self.flag = flag
+        self.country_img = country_img
+        self.code = code
+        
+    def __repr__(self):
+        return '<{}>' % self.__name__     
+
+class CountrySchema(ma.ModelSchema): 
+    class Meta:
+        fields = ('country_name', 'flag', 'country_img', 'code')
+        model = countries
+    travelers = fields.Nested('UserCountrySchema', many = True,
+                                    only = ['user_id'])
+country_schema = CountrySchema()
+countries_schema = CountrySchema(many=True)
+
+class users_countries_join(db.Model):
+    id = db.Column(Integer, autoincrement=True, primary_key=True)
+    user_id = db.Column(Integer, ForeignKey(users.id), nullable=False)
+    country_id = db.Column(Integer, ForeignKey(countries.id), nullable=False)
+    status = db.Column(String, nullable=False)
+    notes = db.Column(TEXT, nullable=True)
+    user = db.relationship('users', backref='user_countries')
+    country = db.relationship('countries', backref='travelers')
+
+    def __init__(self, user_id, country_id, status, notes):
+        self.user_id = user_id
+        self.country_id = country_id
+        self.status = status
+        self.notes = notes
+
+    def __repr__(self):
+        return '<{}>' % self.__name__
+
+class UserCountrySchema(ma.ModelSchema):
+    class Meta:
+        fields = ('user_id', 'country_id', 'status', 'notes')
+        model = users_countries_join
+user_country_schema = UserCountrySchema()
+users_country_schema = UserCountrySchema(many=True)
 
 class friends_with(db.Model):
     id = db.Column(Integer, autoincrement=True, primary_key=True)
@@ -60,52 +113,3 @@ class friends_with(db.Model):
         # user_2 = relationship("users", foreign_keys=[user_2_id], backref=backref("receive_connections")
     def __repr__(self):
         return '<{}>' % self.__name__
-
-
-class countries(db.Model):
-    id = db.Column(Integer, autoincrement=True, primary_key=True)
-    country_name = db.Column(String, nullable=False)
-    flag = db.Column(String, nullable=False)
-    country_img = db.Column(String, nullable=False)
-    code = db.Column(String, nullable=False, unique=True)
-
-    def __init__(self, country_name, flag, country_img, code):
-        self.country_name = country_name
-        self.flag = flag
-        self.country_img = country_img
-        self.code = code
-
-
-    def __repr__(self):
-        return '<{}>' % self.__name__
-
-class CountrySchema(ma.Schema):
-    class Meta:
-        fields = ('country_name', 'flag', 'country_img')
-
-country_schema = CountrySchema()
-countries_schema = CountrySchema(many=True)
-
-class users_countries_join(db.Model):
-    id = db.Column(Integer, autoincrement=True, primary_key=True)
-    user_id = db.Column(Integer, ForeignKey(users.id), nullable=False)
-    country_id = db.Column(Integer, ForeignKey(countries.id), nullable=False)
-    status = db.Column(Integer, nullable=False)
-    notes = db.Column(TEXT, nullable=True)
-
-    def __init__(self, user_id, country_id, status, notes):
-        self.user_id = user_id
-        self.country_id = country_id
-        self.status = status
-        self.notes = notes
-
-
-    def __repr__(self):
-        return '<{}>' % self.__name__
-
-class UserCountrySchema(ma.Schema):
-    class Meta:
-        fields = ('user_id', 'country_id', 'status', 'notes')
-
-user_country_schema = UserCountrySchema()
-user_countries_schema = UserCountrySchema(many=True)
