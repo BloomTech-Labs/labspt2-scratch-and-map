@@ -21,7 +21,7 @@ class users(db.Model):
     role = db.Column(String, nullable=False)
     auto_scratch = db.Column(Boolean, default=False)
     home_country = db.Column(String, nullable=False)
-    fb_user_id = db.Column(String, nullable=false)
+    fb_user_id = db.Column(String, nullable=False)
 
     def __init__(self, username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch, home_country, fb_user_id):
         self.username = username
