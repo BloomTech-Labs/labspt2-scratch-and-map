@@ -12,16 +12,19 @@ class FbLogin extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+
+
   render() {
     return (
+      
       <div className="login-register-wrapper">
         <FacebookLogin
-          appId="323743065161483"
+          appId={process.env.REACT_APP_FB_APP_ID}
           autoLoad={true}
           fields="name,email,picture"
           onClick={this.handleInputChange}
           callback={response => {
-            return <img src={response.picture.data.url} />;
+            localStorage.setItem("accessToken", response.accessToken);
           }}
         />
       </div>
