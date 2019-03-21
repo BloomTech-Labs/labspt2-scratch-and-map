@@ -68,10 +68,10 @@ class countries(db.Model):
 
 class CountrySchema(ma.ModelSchema):
     class Meta:
-        fields = ('country_name', 'flag', 'country_img', 'code')
+        fields = ('country_name', 'flag', 'country_img', 'code', 'travelers')
         model = countries
     travelers = fields.Nested('UserCountrySchema', many = True,
-                                    only = ['user_id'])
+                                    only = ['user_id', 'status'])
 country_schema = CountrySchema()
 countries_schema = CountrySchema(many=True)
 
