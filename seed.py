@@ -19,9 +19,9 @@ def load_users(user_filename):
 def load_countries(countries_filename):
     for i, row in enumerate(open(countries_filename)):
         row = row.rstrip()
-        country_name, flag, country_img = row.split(",")
+        country_name, flag, country_img, country_code = row.split(",")
 
-        country = countries(country_name=country_name, flag=flag, country_img=country_img)
+        country = countries(country_name=country_name, flag=flag, country_img=country_img, country_code=country_code)
 
         db.session.add(country)
     db.session.commit()
