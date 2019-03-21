@@ -42,8 +42,9 @@ def signup():
     role = request.json['role']
     auto_scratch = request.json['auto_scratch']
     home_country = request.json['home_country']
+    fb_user_id = request.json['fb_user_id']
 
-    new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch, home_country)
+    new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch, home_country, fb_user_id)
     db.session.add(new_user)
     db.session.commit()
     return jsonify(new_user.id)
@@ -84,6 +85,7 @@ def update_user(id):
     user.picture_url = request.json['picture_url']
     user.role = request.json['role']
     user.auto_scratch = request.json['auto_scratch']
+    user.fb_user_ud = request.json['fb_user_id']
 
     db.session.commit()
     return user_schema.jsonify(user)
@@ -125,7 +127,7 @@ def addCountry():
     return jsonify(new_country.id,)
 
 #MAPVIEW ENDPOINTS
-@app.route('/api/mapview', methods=['GET']) 
+@app.route('/api/mapview', methods=['GET'])
 def mapView():
   user = users_countries_join.query.all()
   return user_country_schema.jsonify(user)
@@ -149,7 +151,7 @@ def add_mapView_data():
   db.session.commit()
 
   return jsonify(new_user_country.id,new_user_country.user_id, new_user_country.country_id, new_user_country.status, new_user_country.notes)
-  
+
 @app.route('/api/mapview/<int:user_id>/<int:country_id>/<int:id>', methods=['PUT'])
 def update_mapView_data(user_id, country_id, id):
     user_country = users_countries_join.query.get(id)
