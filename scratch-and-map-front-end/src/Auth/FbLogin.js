@@ -16,7 +16,7 @@ class FbLogin extends Component {
     return (
       <div className="login-register-wrapper">
         <FacebookLogin
-          appId="323743065161483"
+          appId={process.env.REACT_APP_FB_APP_ID}
           autoLoad={true}
           fields="name,email,picture"
           onClick={this.handleInputChange}
