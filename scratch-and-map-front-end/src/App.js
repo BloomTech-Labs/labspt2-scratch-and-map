@@ -14,7 +14,7 @@ class App extends Component {
         status: 4
       },
       {
-        country: 'Geramany',
+        country: 'Germany',
         status: 1
       },
       {
