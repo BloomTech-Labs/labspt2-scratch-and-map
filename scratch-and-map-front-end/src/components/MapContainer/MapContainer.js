@@ -1,34 +1,47 @@
 import React from 'react';
-import Chart from 'react-google-charts';
+import L from 'leaflet';
+import styled from 'styled-components'
+import 'leaflet/dist/leaflet.css';
+import countrydata from './countries.geo.json'
 
-export class MapContainer extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state={
-            countrySettings: [['Country', 'Status']]
-        }
-    }
+const Wrapper = styled.div`
+    width: ${props => props.width};
+    height: ${props => props.height};
+`
+
+export default class MapContainer extends React.Component {
+
     componentDidMount() {
-        this.props.sampleData.map(country => {
-            this.state.countrySettings.push([country.country, country.status])
-        })
+        function style(feature) {
+            return {
+                fillColor: 'white',
+                weight: 1,
+                opacity: 1,
+                color: 'red',
+                fillOpacity: 0.7
+            };
+        }
+
+        this.map = L.map('map', {
+            center: [58, 16],
+            zoom: 6,
+            zoomControl: false
+        });
+
+        L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.png', {
+            maxZoom: 20,
+            maxNativeZoom: 17,
+        }).addTo(this.map);
+
+        L.geoJson(countrydata, {style: style}).addTo(this.map)
     }
-    render() {
-        console.log(this.state.countrySettings)
-        return (
-            <Chart
-                width={'100%'}
-                height={'100%'}
-                chartType="GeoChart"
-                data={this.state.countrySettings}
-                options={{
-                    colors: ['red', 'yellow', 'green', 'blue'],
-                }}
-                mapsApiKey={process.env.REACT_APP_MAPS_API_KEY}
-                rootProps={{ 'data-testid': '1' }}
-            />
-        );
+
+    render(){
+        
+        return(
+            <div>
+                <Wrapper width='1280px' height='720px' id='map' />
+            </div>
+        )
     }
 }
-
-export default MapContainer
