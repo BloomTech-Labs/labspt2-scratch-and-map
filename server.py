@@ -85,7 +85,7 @@ def update_user(id):
     user.picture_url = request.json['picture_url']
     user.role = request.json['role']
     user.auto_scratch = request.json['auto_scratch']
-    user.fb_user_ud = request.json['fb_user_id']
+    user.fb_user_id = request.json['fb_user_id']
 
     db.session.commit()
     return user_schema.jsonify(user)
