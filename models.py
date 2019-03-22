@@ -43,7 +43,7 @@ class users(db.Model):
 class UserSchema(ma.ModelSchema):
     class Meta:
         model = users
-        fields = ('id','username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role', 'auto_scratch', 'home_country', 'user_countries')
+        fields = ('id','username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role', 'auto_scratch', 'home_country', 'user_countries', 'fb_user_id' )
     user_countries = fields.Nested('UserCountrySchema', many = True,
                                     only = ['country_id', 'status', 'notes'])
 
@@ -68,10 +68,10 @@ class countries(db.Model):
 
 class CountrySchema(ma.ModelSchema):
     class Meta:
-        fields = ('country_name', 'flag', 'country_img', 'code')
+        fields = ('country_name', 'flag', 'country_img', 'code', 'travelers')
         model = countries
     travelers = fields.Nested('UserCountrySchema', many = True,
-                                    only = ['user_id'])
+                                    only = ['user_id', 'status'])
 country_schema = CountrySchema()
 countries_schema = CountrySchema(many=True)
 
