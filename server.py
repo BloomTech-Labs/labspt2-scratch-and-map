@@ -59,6 +59,11 @@ def login():
     else:
         return "True"
 
+@app.route('/api/users/fb/<fbid>', methods=['GET'])
+def get_user_by_fbid(fbid):
+    user = users.query.filter(users.fb_user_id==fbid).first()
+    return user_schema.jsonify(user)
+
 #USERS ENDPOINTS
 @app.route('/api/users', methods =['GET'])
 def get_users():
@@ -85,7 +90,7 @@ def update_user(id):
     user.picture_url = request.json['picture_url']
     user.role = request.json['role']
     user.auto_scratch = request.json['auto_scratch']
-    user.fb_user_ud = request.json['fb_user_id']
+    user.fb_user_id = request.json['fb_user_id']
 
     db.session.commit()
     return user_schema.jsonify(user)

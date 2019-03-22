@@ -50,8 +50,24 @@ class FbLogin extends Component {
 
 
   render() {
-    return (
-      <div className="login-register-wrapper">
+    let fbContent;
+
+    if (this.state.isLoggedIn) {
+      fbContent = (
+        <div
+          style={{
+            width: "400px",
+            margin: "auto",
+            background: "#f4f4f4",
+            padding: "20px"
+          }}
+        >
+          <img src={this.state.picture} alt={this.state.name} />
+          <h2>Welcome {this.state.name} </h2>
+        </div>
+      );
+    } else {
+      fbContent = (
         <FacebookLogin
           appId={process.env.REACT_APP_FB_APP_ID}
           autoLoad={true}
@@ -60,9 +76,11 @@ class FbLogin extends Component {
           callback={response => {
             if(response){}
           }}
+
         />
-      </div>
-    );
+      );
+    }
+    return <div>{fbContent}</div>;
   }
 }
 
