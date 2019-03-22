@@ -41,8 +41,7 @@ class FbLogin extends Component {
         console.log("axios get", res)
         this.setState({
           data: res.data
-        })
-        .catch(err => {message: err})
+        }
       })
      
    
