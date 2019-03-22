@@ -21,7 +21,7 @@ def load_countries(countries_filename):
         row = row.rstrip()
         country_id, country_name, flag, country_img, country_code = row.split(",")
 
-        country = countries(country_name=country_name, flag=flag, country_img=country_img, country_code=country_code)
+        country = countries(country_name=country_name, flag=flag, country_img=country_img, code=country_code)
 
         db.session.add(country)
     db.session.commit()

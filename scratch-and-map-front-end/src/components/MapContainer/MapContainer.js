@@ -3,11 +3,16 @@ import L from 'leaflet';
 import styled from 'styled-components'
 import 'leaflet/dist/leaflet.css';
 import countrydata from './countries.geo.json'
+import axios from 'axios'
 
 const Wrapper = styled.div`
-    width: ${props => props.width};
-    height: ${props => props.height};
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
 `
+
 
 //Sample data temporary, used to test fillColor function for leaflet
 const sampleData = [
@@ -18,16 +23,24 @@ const sampleData = [
   {
     country: 'RUS',
     status: 3
+  },
+  {
+    country: 'BRA',
+    status: 2
+  },
+  {
+    country: 'CHN',
+    status: 4
   }
 ];
 
 //color codes for country status
 const colorCodes = {
-  0: 'grey',
-  1: 'yellow',
-  2: 'green',
-  3: 'red',
-  4: 'blue'
+  0: 'lightgrey',
+  1: '#CD5D01',
+  2: '#8FC201',
+  3: '#9B016D',
+  4: '#017B7B'
 }
 
 //function that will take in 2 parameters, the users country info(sampleData), and the current
@@ -48,38 +61,45 @@ function countryColorMatcher(userData, geoJsonCountry) {
 export default class MapContainer extends React.Component {
 
     componentDidMount() {
+        // axios.get('http://localhost:5000/api/users/1')
+        // .then(response => console.log(response))
+
+
         function style(feature) {
             return {
                 fillColor: colorCodes[countryColorMatcher(sampleData, feature.id)] || 'pink',
                 weight: 1,
                 opacity: 1,
-                color: 'red',
+                color: 'lightgrey',
                 fillOpacity: 0.7
             };
         }
 
         this.map = L.map('map', {
-            center: [58, 16],
-            zoom: 6,
+            center: [30, 0],
+            zoom: 3,
             zoomControl: false,
             maxZoom: 20,
             minZoom: 3
         });
 
-        L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.png', {
-            maxZoom: 10,
-            maxNativeZoom: 10,
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+            minZoom: 3,
             noWrap: true,
         }).addTo(this.map);
+        
 
         L.geoJson(countrydata, {style: style}).addTo(this.map)
     }
+
+    
 
     render(){
         
         return(
             <div>
-                <Wrapper width='1280px' height='720px' id='map' />
+                
+                <Wrapper id='map' />
             </div>
         )
     }
