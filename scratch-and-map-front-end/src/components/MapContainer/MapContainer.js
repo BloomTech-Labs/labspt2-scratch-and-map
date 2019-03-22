@@ -61,8 +61,8 @@ function countryColorMatcher(userData, geoJsonCountry) {
 export default class MapContainer extends React.Component {
 
     componentDidMount() {
-        // axios.get('http://localhost:5000/api/users/1')
-        // .then(response => console.log(response))
+        axios.get('http://localhost:5000/api/users')
+        .then(response => console.log(response.users))
 
 
         function style(feature) {
