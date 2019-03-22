@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, render_template
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, TEXT, Boolean, String, CheckConstraint, ForeignKey, ARRAY
 from flask_marshmallow import Marshmallow
@@ -7,6 +8,7 @@ from dotenv import load_dotenv
 import os
 
 app = Flask(__name__)
+cors = CORS(app)
 
 def connect_to_db(app, db_uri):
     app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
