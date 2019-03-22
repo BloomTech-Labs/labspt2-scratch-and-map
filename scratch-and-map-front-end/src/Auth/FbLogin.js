@@ -1,31 +1,53 @@
 import React, { Component } from "react";
-import { Button } from "semantic-ui-react";
 import FacebookLogin from "react-facebook-login";
+import axios from "axios";
+require('dotenv').config()
 
 class FbLogin extends Component {
   constructor() {
     super();
     this.state = {
-      isLoggedIn: false,
-      userID: "",
-      name: "",
-      email: "",
-      picture: ""
+      axiospath: "",
     };
   }
 
-  responseFacebook = response => {
-    console.log(response);
-    this.setState({
-      isLoggedIn: true,
-      userID: response.userID,
-      name: response.name,
-      email: response.email,
-      picture: response.picture.data.url
-    });
+  handleInputChange = e => {
+     this.setState({ [e.target.name]: e.target.value });
   };
 
-  componentClicked = () => console.log("clicked");
+  componentDidMount() {
+    console.log(process.env)
+    console.log("window.fbAsyncInit called")
+
+    window.fbAsyncInit = function() {
+      window.FB.init({
+        appId: process.env.REACT_APP_FB_APP_ID,
+        cookie: true, // enable cookies to allow the server to access
+        // the session
+        xfbml: true, // parse social plugins on this page
+        version: "v2.5" // use version 2.1
+      });
+    window.FB.getLoginStatus(response => {
+        console.log(response);
+        if (response.status === "connected") {
+          // axios login call
+          console.log("init", response)
+        }
+      });
+    };
+
+    axios.get("http://localhost:5000/api/users")
+      .then(res => {
+        console.log("axios get", res)
+        this.setState({
+          data: res.data
+        })
+        .catch(err => {message: err})
+      })
+     
+   
+  }
+
 
   render() {
     let fbContent;
@@ -50,8 +72,11 @@ class FbLogin extends Component {
           appId={process.env.REACT_APP_FB_APP_ID}
           autoLoad={true}
           fields="name,email,picture"
-          onClick={this.componentClicked}
-          callback={this.responseFacebook}
+          onClick={this.handleInputChange}
+          callback={response => {
+            if(response){}
+          }}
+
         />
       );
     }
