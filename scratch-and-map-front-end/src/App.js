@@ -4,6 +4,7 @@ import Auth from "./Auth/Auth";
 import MapContainer from "./components/MapContainer/MapContainer";
 import ForgotPassword from "./Auth/ForgotPassword";
 import "./index.scss";
+require('dotenv').config()
 
 class App extends Component {
   render() {
