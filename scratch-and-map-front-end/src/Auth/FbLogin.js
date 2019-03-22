@@ -1,23 +1,23 @@
 import React, { Component } from "react";
 import FacebookLogin from "react-facebook-login";
 import axios from "axios";
-require('dotenv').config()
+require("dotenv").config();
 
 class FbLogin extends Component {
   constructor() {
     super();
     this.state = {
-      axiospath: "",
+      axiospath: ""
     };
   }
 
   handleInputChange = e => {
-     this.setState({ [e.target.name]: e.target.value });
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   componentDidMount() {
-    console.log(process.env)
-    console.log("window.fbAsyncInit called")
+    console.log(process.env);
+    console.log("window.fbAsyncInit called");
 
     window.fbAsyncInit = function() {
       window.FB.init({
@@ -27,27 +27,22 @@ class FbLogin extends Component {
         xfbml: true, // parse social plugins on this page
         version: "v2.5" // use version 2.1
       });
-    window.FB.getLoginStatus(response => {
+      window.FB.getLoginStatus(response => {
         console.log(response);
         if (response.status === "connected") {
           // axios login call
-          console.log("init", response)
+          console.log("init", response);
         }
       });
     };
 
-    axios.get("http://localhost:5000/api/users")
-      .then(res => {
-        console.log("axios get", res)
-        this.setState({
-          data: res.data
-        })
-        .catch(err => {message: err})
-      })
-     
-   
+    // axios.get("http://localhost:5000/api/users").then(res => {
+    //   console.log("axios get", res);
+    //   this.setState({
+    //     data: res.data
+    //   });
+    // });
   }
-
 
   render() {
     let fbContent;
@@ -74,9 +69,9 @@ class FbLogin extends Component {
           fields="name,email,picture"
           onClick={this.handleInputChange}
           callback={response => {
-            if(response){}
+            if (response) {
+            }
           }}
-
         />
       );
     }
