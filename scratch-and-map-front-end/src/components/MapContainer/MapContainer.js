@@ -62,7 +62,8 @@ export default class MapContainer extends React.Component {
             center: [58, 16],
             zoom: 6,
             zoomControl: false,
-            
+            maxZoom: 20,
+            minZoom: 3
         });
 
         L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.png', {
