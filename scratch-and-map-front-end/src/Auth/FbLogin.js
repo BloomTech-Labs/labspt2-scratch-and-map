@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-// import { Button } from "semantic-ui-react";
 import FacebookLogin from "react-facebook-login";
 import axios from "axios";
 require('dotenv').config()
-// import axios from "axios";
-// const db = axios.get("https://postgres://vnzildumwqrpid:6fdde8b213b1ab8726e894a6d2d227c624689e14b83dfaa9ce66d672df0e579b@ec2-54-221-243-211.compute-1.amazonaws.com:5432/d467ho756fb8j")
 
 class FbLogin extends Component {
   constructor() {
@@ -41,13 +38,15 @@ class FbLogin extends Component {
 
     axios.get("http://localhost:5000/api/users")
       .then(res => {
+        console.log("axios get", res)
         this.setState({
           data: res.data
         })
+        .catch(err => {message: err})
       })
+     
    
   }
-
 
 
   render() {
