@@ -59,6 +59,11 @@ def login():
     else:
         return "True"
 
+@app.route('/api/users/fb/<fbid>', methods=['GET'])
+def get_user_by_fbid(fbid):
+    user = users.query.filter(users.fb_user_id==fbid).first()
+    return user_schema.jsonify(user)
+
 #USERS ENDPOINTS
 @app.route('/api/users', methods =['GET'])
 def get_users():

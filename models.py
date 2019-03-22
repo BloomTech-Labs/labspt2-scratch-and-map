@@ -37,8 +37,8 @@ class users(db.Model):
         self.home_country = home_country
         self.fb_user_id = fb_user_id
 
-    def __repr__(self):
-        return '<{}>' % self.__name__
+    # def __repr__(self):
+    #     return '<{}>' % self.__name__
 
 class UserSchema(ma.ModelSchema):
     class Meta:
