@@ -7,13 +7,26 @@ class FbLogin extends Component {
   constructor() {
     super();
     this.state = {
-      axiospath: ""
+      isLoggedIn: false,
+      userID: "",
+      name: "",
+      email: "",
+      picture: ""
     };
   }
 
-  handleInputChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
+  responseFacebook = response => {
+    console.log(response);
+    this.setState({
+      isLoggedIn: true,
+      userID: response.userID,
+      name: response.name,
+      email: response.email,
+      picture: response.picture.data.url
+    });
+
+  componentClicked = () => console.log("clicked");
+
 
   componentDidMount() {
     console.log(process.env);
@@ -67,11 +80,8 @@ class FbLogin extends Component {
           appId={process.env.REACT_APP_FB_APP_ID}
           autoLoad={true}
           fields="name,email,picture"
-          onClick={this.handleInputChange}
-          callback={response => {
-            if (response) {
-            }
-          }}
+          onClick={this.componentClicked}
+          callback={this.responseFacebook}
         />
       );
     }
