@@ -24,9 +24,8 @@ class FbLogin extends Component {
       email: response.email,
       picture: response.picture.data.url
     });
-
+  };
   componentClicked = () => console.log("clicked");
-
 
   componentDidMount() {
     console.log(process.env);
