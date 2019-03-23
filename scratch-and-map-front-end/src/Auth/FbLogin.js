@@ -27,34 +27,27 @@ class FbLogin extends Component {
   };
   componentClicked = () => console.log("clicked");
 
-  componentDidMount() {
-    console.log(process.env);
-    console.log("window.fbAsyncInit called");
+  componentDidUpdate() {
 
     window.fbAsyncInit = function() {
       window.FB.init({
         appId: process.env.REACT_APP_FB_APP_ID,
-        cookie: true, // enable cookies to allow the server to access
-        // the session
+        cookie: true, // enable cookies to allow the server to access the session
         xfbml: true, // parse social plugins on this page
         version: "v2.5" // use version 2.1
-      });
+      })
+
       window.FB.getLoginStatus(response => {
         console.log(response);
         if (response.status === "connected") {
           // axios login call
           console.log("init", response);
         }
-      });
-    };
+      }) //end getLoginStatus
 
-    // axios.get("http://localhost:5000/api/users").then(res => {
-    //   console.log("axios get", res);
-    //   this.setState({
-    //     data: res.data
-    //   });
-    // });
-  }
+    } //end fbAsyncInit
+
+  } //end component did update
 
   render() {
     let fbContent;
