@@ -17,7 +17,7 @@ const Wrapper = styled.div`
 //Sample data temporary, used to test fillColor function for leaflet
 const sampleData = [
   {
-    country: 'USA',
+    country: 'US1',
     status: 1
   },
   {
@@ -29,7 +29,7 @@ const sampleData = [
     status: 2
   },
   {
-    country: 'CHN',
+    country: 'CH1',
     status: 4
   }
 ];
@@ -67,7 +67,7 @@ export default class MapContainer extends React.Component {
 
         function style(feature) {
             return {
-                fillColor: colorCodes[countryColorMatcher(sampleData, feature.id)] || 'pink',
+                fillColor: colorCodes[countryColorMatcher(sampleData, feature.properties.SOV_A3)] || 'pink',
                 weight: 1,
                 opacity: 1,
                 color: 'lightgrey',
@@ -83,7 +83,8 @@ export default class MapContainer extends React.Component {
             minZoom: 3
         });
 
-        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+        L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}{r}.png', {
+          attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
             minZoom: 3,
             noWrap: true,
         }).addTo(this.map);
