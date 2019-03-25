@@ -6,7 +6,7 @@ country_id,country_name,flag,country_img,code
 5,Antarctica,/img/AQflag.png,/img/AQimg.png,ATA
 6,Argentina,/img/ARflag.png,/img/ARimg.png,ARG
 7,Armenia,/img/AMflag.png,/img/AMimg.png,ARM
-8,Australia,/img/AUflag.png,/img/AUimg.png,AUS
+8,Australia,/img/AUflag.png,/img/AUimg.png,AU1
 9,Austria,/img/ATflag.png,/img/ATimg.png,AUT
 10,Azerbaijan,/img/AZflag.png,/img/AZimg.png,AZE
 11,Bahamas,/img/BSflag.png,/img/BSimg.png,BHS
@@ -15,7 +15,7 @@ country_id,country_name,flag,country_img,code
 14,Belgium,/img/BEflag.png,/img/BEimg.png,BEL
 15,Belize,/img/BZflag.png,/img/BZimg.png,BLZ
 16,Benin,/img/BJflag.png,/img/BJimg.png,BEN
-17,Bermuda,/img/BMflag.png,/img/BMimg.png,BMU
+17,Kashmir,/img/KAflag.png,/img/KAimg.png,KAS
 18,Bhutan,/img/BTflag.png,/img/BTimg.png,BTN
 19,Bolivia,/img/BOflag.png,/img/BOimg.png,BOL
 20,Bosnia and Herzegovina,/img/BAflag.png,/img/BAimg.png,BIH
@@ -31,7 +31,7 @@ country_id,country_name,flag,country_img,code
 30,Central African Republic,/img/CFflag.png,/img/CFimg.png,CAF
 31,Chad,/img/TDflag.png,/img/TDimg.png,TCD
 32,Chile,/img/CLflag.png,/img/CLimg.png,CHL
-33,China,/img/CNflag.png,/img/CNimg.png,CHN
+33,China,/img/CNflag.png,/img/CNimg.png,CH1
 34,Colombia,/img/COflag.png,/img/COimg.png,COL
 35,Congo,/img/CGflag.png,/img/CGimg.png,COG
 36,Democratic Republic of the Congo,/img/CDflag.png,/img/CDimg.png,COD
@@ -41,7 +41,7 @@ country_id,country_name,flag,country_img,code
 40,Cuba,/img/CUflag.png,/img/CUimg.png,CUB
 41,Cyprus,/img/CYflag.png,/img/CYimg.png,CYP
 42,Czechia,/img/CZflag.png,/img/CZimg.png,CZE
-43,Denmark,/img/DKflag.png,/img/DKimg.png,DNK
+43,Denmark,/img/DKflag.png,/img/DKimg.png,DN1
 44,Djibouti,/img/DJflag.png,/img/DJimg.png,DJI
 45,Dominican Republic,/img/DOflag.png,/img/DOimg.png,DOM
 46,Ecuador,/img/ECflag.png,/img/ECimg.png,ECU
@@ -51,12 +51,12 @@ country_id,country_name,flag,country_img,code
 50,Eritrea,/img/ERflag.png,/img/ERimg.png,ERI
 51,Estonia,/img/EEflag.png,/img/EEimg.png,EST
 52,Ethiopia,/img/ETflag.png,/img/ETimg.png,ETH
-53,Falkland Islands,/img/FKflag.png,/img/FKimg.png,FLK
+53,Antigua & Barbuda,/img/AGflag.png,/img/AGimg.png,ATG
 54,Fiji,/img/FJflag.png,/img/FJimg.png,FJI
-55,Finland,/img/FIflag.png,/img/FIimg.png,FIN
-56,France,/img/FRflag.png,/img/FRimg.png,FRA
-57,French Guiana,/img/GFflag.png,/img/GFimg.png,GUF
-58,French Southern Territories,/img/TFflag.png,/img/TFimg.png,ATF
+55,Finland,/img/FIflag.png,/img/FIimg.png,FI1
+56,France,/img/FRflag.png,/img/FRimg.png,FR1
+57,Andorra,/img/ANflag.png,/img/ANimg.png,AND
+58,Barbados,/img/BBflag.png,/img/BBimg.png,BRB
 59,Gabon,/img/GAflag.png,/img/GAimg.png,GAB
 60,Gambia,/img/GMflag.png,/img/GMimg.png,GMB
 61,Georgia,/img/GEflag.png,/img/GEimg.png,GEO
@@ -77,7 +77,7 @@ country_id,country_name,flag,country_img,code
 76,Iran,/img/IRflag.png,/img/IRimg.png,IRN
 77,Iraq,/img/IQflag.png,/img/IQimg.png,IRQ
 78,Ireland,/img/IEflag.png,/img/IEimg.png,IRL
-79,Israel,/img/ILflag.png,/img/ILimg.png,ISR
+79,Israel,/img/ILflag.png,/img/ILimg.png,IS1
 80,Italy,/img/ITflag.png,/img/ITimg.png,ITA
 81,Jamaica,/img/JMflag.png,/img/JMimg.png,JAM
 82,Japan,/img/JPflag.png,/img/JPimg.png,JPN
@@ -112,9 +112,9 @@ country_id,country_name,flag,country_img,code
 111,Myanmar,/img/MMflag.png,/img/MMimg.png,MMR
 112,Namibia,/img/NAflag.png,/img/NAimg.png,NAM
 113,Nepal,/img/NPflag.png,/img/NPimg.png,NPL
-114,Netherlands,/img/NLflag.png,/img/NLimg.png,NLD
-115,New Caledonia,/img/NCflag.png,/img/NCimg.png,NCL
-116,New Zealand,/img/NZflag.png,/img/NZimg.png,NZL
+114,Netherlands,/img/NLflag.png,/img/NLimg.png,NL1
+115,Cabo Verde,/img/CVflag.png,/img/CVimg.png,CPV
+116,New Zealand,/img/NZflag.png,/img/NZimg.png,NZ1
 117,Nicaragua,/img/NIflag.png,/img/NIimg.png,NIC
 118,Niger,/img/NEflag.png,/img/NEimg.png,NER
 119,Nigeria,/img/NGflag.png,/img/NGimg.png,NGA
@@ -128,7 +128,7 @@ country_id,country_name,flag,country_img,code
 127,Philippines,/img/PHflag.png,/img/PHimg.png,PHL
 128,Poland,/img/PLflag.png,/img/PLimg.png,POL
 129,Portugal,/img/PTflag.png,/img/PTimg.png,PRT
-130,Puerto Rico,/img/PRflag.png,/img/PRimg.png,PRI
+130,Comoros,/img/COMOflag.png,/img/COMOimg.png,COM
 131,Qatar,/img/QAflag.png,/img/QAimg.png,QAT
 132,Romania,/img/ROflag.png,/img/ROimg.png,ROU
 133,Russia,/img/RUflag.png,/img/RUimg.png,RUS
@@ -164,13 +164,38 @@ country_id,country_name,flag,country_img,code
 163,Uganda,/img/UGflag.png,/img/UGimg.png,UGA
 164,Ukraine,/img/UAflag.png,/img/UAimg.png,UKR
 165,United Arab Emirates,/img/AEflag.png,/img/AEimg.png,ARE
-166,United Kingdom of Great Britain and Northern Ireland,/img/GBflag.png,/img/GBimg.png,GBR
-167,United States of America,/img/USflag.png,/img/USimg.png,USA
+166,United Kingdom of Great Britain and Northern Ireland,/img/GBflag.png,/img/GBimg.png,GB1
+167,United States of America,/img/USflag.png,/img/USimg.png,US1
 168,Uruguay,/img/UYflag.png,/img/UYimg.png,URY
 169,Uzbekistan,/img/UZflag.png,/img/UZimg.png,UZB
 170,Venezuela,/img/VEflag.png,/img/VEimg.png,VEN
 171,Vietnam,/img/VNflag.png,/img/VNimg.png,VNM
-172,Western Sahara,/img/EHflag.png,/img/EHimg.png,ESH
-173,Yemen,/img/YEflag.png,/img/YEimg.png,YEM
-174,Zamibia,/img/ZMflag.png,/img/ZMimg.png,ZMB
-175,Zimbabwe,/img/ZWflag.png,/img/ZWimg.png,ZWE
+172,Yemen,/img/YEflag.png,/img/YEimg.png,YEM
+173,Zamibia,/img/ZMflag.png,/img/ZMimg.png,ZMB
+174,Zimbabwe,/img/ZWflag.png,/img/ZWimg.png,ZWE
+175,Vatican,/img/VTflag.png,/img/VTimg.png,VAT
+176,Vanuatu,/img/VAflag.png,/img/VAimg.png,VUT
+177,Northern Cyprus,/img/CYNflag.png,/img/CYNimg.png,CYN
+178,Dominica,/img/DMflag.png,/img/DMimg.png,DMA
+179,Grenada,/img/GRDflag.png,/img/GRDimg.png,GRD
+180,Kiribati,/img/KIflag.png,/img/KIimg.png,KIR
+181,Kosovo,/img/KOflag.png,/img/KOimg.png,KOS
+182,Liechtenstein,/img/LIflag.png,/img/LIimg.png,LIE
+183,Maldives,/img/MDVflag.png,/img/MDVimg.png,MDV
+184,Mauritius,/img/MUflag.png,/img/MUimg.png,MUS
+185,Monaco,/img/MCflag.png,/img/MCimg.png,MCO
+186,Western Sahara,/img/SAHflag.png,/img/SAHimg.png,SAH
+187,Nauru,/img/NRflag.png,/img/NRimg.png,NRU
+188,Palau,/img/PLWflag.png,/img/PLWimg.png,PLW
+189,St. Kitts & Nevis,/img/KNflag.png,/img/KNimg.png,KNA
+190,St. Lucia,/img/LCflag.png,/img/LCimg.png,LCA
+191,St.Vincent & the Grenadines,/img/VCflag.png,/img/VCimg.png,VCT
+192,Samoa,/img/WSflag.png,/img/WSimg.png,WSM
+193,San Marino,/img/SMflag.png,/img/SMimg.png,SMR
+194,Sao Tome & Principe,/img/STflag.png,/img/STimg.png,STP
+195,Seychelles,/img/SYCflag.png,/img/SYCimg.png,SYC
+196,Singapore,/img/SGflag.png,/img/SGimg.png,SGP
+197,Somaliland,/img/SOLflag.png,/img/SOLimg.png,SOL
+198,Tonga,/img/TOflag.png,/img/TOimg.png,TON
+199,Marshall Islands,/img/MHflag.png,/img/MHimg.png,MHL
+200,Micronesia,/img/FSflag.png,/img/FSimg.png,FSM
