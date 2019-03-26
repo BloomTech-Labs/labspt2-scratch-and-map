@@ -1,3 +1,6 @@
+let countries = ["AFG","ALB","DZA","AGO","ATA","ARG","ARM","AU1","AUT","AZE","BHS","BGD","BLR","BEL","BLZ","BEN","KAS","BTN","BOL","BIH","BWA","BRA","BRN","BGR","BFA","BDI","KHM","CMR","CAN","CAF","TCD","CHL","CH1","COL","COG","COD","CRI","CIV","HRV","CUB","CYP","CZE","DN1","DJI","DOM","ECU","EGY","SLV","GNQ","ERI","EST","ETH","ATG","FJI","FI1","FR1","AND","BRB","GAB","GMB","GEO","DEU","GHA","GRC","GRL","GTM","GIN","GNB","GUY","HTI","HND","HUN","ISL","IND","IDN","IRN","IRQ","IRL","IS1","ITA","JAM","JPN","JOR","KAZ","KEN","PRK","KOR","KWT","KGZ","LAO","LVA","LBN","LSO","LBR","LBY","LTU","LUX","MKD","MDG","MWI","MYS","MLI","MLT","MRT","MEX","MDA","MNG","MNE","MAR","MOZ","MMR","NAM","NPL","NL1","CPV","NZ1","NIC","NER","NGA","NOR","OMN","PAK","PAN","PNG","PRY","PER","PHL","POL","PRT","COM","QAT","ROU","RUS","RWA","SAU","SEN","SRB","SLE","SVK","SVN","SLB","SOM","ZAF","SSD","ESP","LKA","SDN","SUR","SWZ","SWE","CHE","SYR","TWN","TJK","TZA","THA","TLS","TGO","TTO","TUN","TUR","TKM","UGA","UKR","ARE","GB1","US1","URY","UZB","VEN","VNM","YEM","ZMB","ZWE","VAT","VUT","CYN","DMA","GRD","KIR","KOS","LIE","MDV","MUS","MCO","SAH","NRU","PLW","KNA","LCA","VCT","WSM","SMR","STP","SYC","SGP","SOL","TON","MHL","FSM"]
+
+
 //Converts country codes into country names
 export function codeToCountry(code) {
     switch(code){
@@ -845,3 +848,31 @@ export function restCountryConversion(code){
         return code
     }
 }
+
+//Code for country cards (save for later)
+String.prototype.toProperCase = function() {
+    var words = this.split(' ');
+    var results = [];
+    for (var i=0; i < words.length; i++) {
+        var letter = words[i].charAt(0).toUpperCase();
+        results.push(letter + words[i].slice(1));
+    }
+    return results.join(' ');
+  };
+  
+  countries.forEach(country => {
+    let code = restCountryConversion(country)
+    
+    fetch(`https://restcountries.eu/rest/v2/alpha/${code}`)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(res) {
+      let currency = res.currencies[0].name;
+      if (currency === '[E]' || currency === '[D]') {
+        currency = "United States Dollar"
+      }
+      console.log("Country: " + res.name, "Capital: " + res.capital, 
+                  "Currency: " + currency.toProperCase(), "Language: " + res.languages[0].name, "Flag: " + res.flag);
+      
+    })})
