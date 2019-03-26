@@ -10,7 +10,7 @@ def load_users(user_filename):
             user_id, username, password, first_name, last_name, age, nationality, picture_url, email, role = row.split(",")
 
             user = users(username=username, password=password, first_name=first_name, last_name=last_name,
-            age=age, nationality="Russian", picture_url="http://place-puppy.com/200x200", email=str(user_id)+"Imarussianpuppy@moscow.gov", role="user")
+            age=age, nationality=nationality, picture_url=picture_url, email=email, role=role)
 
             db.session.add(user)
     db.session.commit()
@@ -30,6 +30,6 @@ if __name__ == "__main__":
     connect_to_db(app)
     db.create_all()
     user_filename = "seed_files/MOCK_DATA.csv"
-    # countries_filename = "seed_files/countries.txt"
+    countries_filename = "seed_files/COUNTRY_DATA.csv"
     load_users(user_filename)
-    # load_countries(countries_filename)
+    load_countries(countries_filename)
