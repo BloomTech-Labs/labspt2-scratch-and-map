@@ -71,9 +71,9 @@ export default class MapContainer extends React.Component {
                 weight: 1,
                 opacity: 1,
                 color: 'lightgrey',
-                fillOpacity: 0.7
+                fillOpacity: 0.7,
             };
-        }
+        };
 
         this.map = L.map('map', {
             center: [30, 0],
@@ -90,7 +90,17 @@ export default class MapContainer extends React.Component {
         }).addTo(this.map);
         
 
-        L.geoJson(countrydata, {style: style}).addTo(this.map)
+        L.geoJson(countrydata,{
+          onEachFeature: function (feature, layer) {
+            layer.bindPopup('<h3>'+feature.properties.ADMIN+'</h3>', {closeButton: false, offset: L.point(0, -20)});
+            layer.on('mouseover', function() { layer.openPopup(); });
+            layer.on('mouseout', function() { layer.closePopup(); })
+          },
+          style: style,
+          pointToLayer: function (feature, latlng) {
+            return L.circleMarker(latlng)
+          }
+        }).addTo(this.map)
     }
 
     
