@@ -51,7 +51,6 @@ function countryColorMatcher(userData, geoJsonCountry) {
   let colorCode = 0;
   userData.map(country => {
     if (JSON.stringify(country.country) === JSON.stringify(geoJsonCountry)) {
-      console.log(country.status)
       colorCode = country.status
     };
   });
@@ -59,10 +58,16 @@ function countryColorMatcher(userData, geoJsonCountry) {
 };
 
 export default class MapContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      clickedCountry: ''
+    }
+  }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/api/users')
-        .then(response => console.log(response.users))
+        // axios.get('http://localhost:5000/api/users')
+        // .then(response => console.log(response.users))
 
 
         function style(feature) {
@@ -91,10 +96,11 @@ export default class MapContainer extends React.Component {
         
 
         L.geoJson(countrydata,{
-          onEachFeature: function (feature, layer) {
+          onEachFeature: (feature, layer) => {
             layer.bindPopup('<h3>'+feature.properties.ADMIN+'</h3>', {closeButton: false, offset: L.point(0, -20)});
-            layer.on('mouseover', function() { layer.openPopup(); });
-            layer.on('mouseout', function() { layer.closePopup(); })
+            layer.on('mouseover', () => { layer.openPopup(); });
+            layer.on('mouseout', () => { layer.closePopup(); });
+            layer.on('click', () => { this.setState({ clickedCountry: feature.properties.SOV_A3 }) })
           },
           style: style,
           pointToLayer: function (feature, latlng) {
