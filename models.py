@@ -10,7 +10,7 @@ ma = Marshmallow()
 
 class users(db.Model):
     id = db.Column(Integer, autoincrement=True, primary_key=True)
-    username = db.Column(String, unique=True,  nullable=False)
+    username = db.Column(String, unique=True, primary_key=True, nullable=False)
     password = db.Column(String, nullable=False)
     first_name = db.Column(String, nullable=False)
     last_name = db.Column(String, nullable=False)
@@ -37,8 +37,8 @@ class users(db.Model):
         self.home_country = home_country
         self.fb_user_id = fb_user_id
 
-    # def __repr__(self):
-    #     return '<{}>' % self.__name__
+    def __repr__(self):
+        return '<{}>' % self.__name__
 
 class UserSchema(ma.ModelSchema):
     class Meta:
@@ -55,7 +55,7 @@ class countries(db.Model):
     country_name = db.Column(String, nullable=False)
     flag = db.Column(String, nullable=False)
     country_img = db.Column(String, nullable=False)
-    code = db.Column(String, nullable=False)
+    code = db.Column(String,  nullable=False)           
 
     def __init__(self, country_name, flag, country_img, code):
         self.country_name = country_name
@@ -78,8 +78,9 @@ countries_schema = CountrySchema(many=True)
 class users_countries_join(db.Model):
     id = db.Column(Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(Integer, ForeignKey(users.id), nullable=False)
-    country_id = db.Column(Integer, ForeignKey(countries.id), nullable=False)
-    status = db.Column(String, nullable=False)
+    country_id = db.Column(String, ForeignKey(countries.id), nullable=False)
+#    country_id = db.Column(String, ForeignKey(countries.code), nullable=False, onupdate="cascade")
+    status = db.Column(Integer, nullable=False)
     notes = db.Column(TEXT, nullable=True)
     user = db.relationship('users', backref='user_countries')
     country = db.relationship('countries', backref='travelers')
