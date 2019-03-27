@@ -20,12 +20,13 @@ def load_users(user_filename):
 
 def load_countries(countries_filename):
     for i, row in enumerate(open(countries_filename)):
-        row = row.rstrip()
-        country_id, country_name, flag, country_img, country_code = row.split(",")
+        if row[0]!='i':
+            row = row.rstrip()
+            country_id, country_name, flag, country_img, country_code = row.split(",")
 
-        country = countries(country_name=country_name, flag=flag, country_img=country_img, code=country_code)
+            country = countries(country_name=country_name, flag=flag, country_img=country_img, code=country_code)
 
-        db.session.add(country)
+            db.session.add(country)
     db.session.commit()
 
 if __name__ == "__main__":
