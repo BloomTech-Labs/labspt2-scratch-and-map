@@ -20,7 +20,7 @@ def load_users(user_filename):
 
 def load_countries(countries_filename):
     for i, row in enumerate(open(countries_filename)):
-        if row[0]!='i':
+        if row[0]!='c':
             row = row.rstrip()
             country_id, country_name, flag, country_img, country_code = row.split(",")
 
