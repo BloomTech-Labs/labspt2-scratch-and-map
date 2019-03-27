@@ -10,7 +10,7 @@ def load_users(user_filename):
             user_id, username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch, home_country, fb_user_id = row.split(",")
 
             user = users(username=username, password=password, first_name=first_name, last_name=last_name,
-            age=age, nationality=nationality, picture_url=picture_url, email=email, role=role, auto_scratch=auto_scratch, home_country=home_country, fb_user_id=fb_user_id)
+            age=age, nationality=nationality, picture_url=picture_url, email=email, role=role, home_country=home_country, fb_user_id=fb_user_id)
 
             db.session.add(user)
     db.session.commit()
