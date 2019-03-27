@@ -4,4 +4,4 @@ id,username,password,first_name,last_name,age,nationality,picture_url,email,role
 3,CuddlyCourtney,courtney123,Courtney,Buratto,21,ECU,/200/200/,courtney@scratchmap.com,user,'true',UnitedStates,3
 4,HappyJavier,javier123,Javier,Alvarez,21,RUS,/200/200/,javier@scratchmap.com,user,'true',UnitedStates,4
 5,PeacefulPascale,pascale123,Pascale,Pierre,21,HTI,/200/200,pascale@scratchmap.com,user,'true',UnitedStates,5
-6,RockinRyan,ryan123,Ryan,Matthews,12,DJI,/200/200/,ryan@scratchmap.com,user,'true',UnitedStates,6
+6,RockinRyan,ryan123,Ryan,Matthews,24,DJI,/200/200/,ryan@scratchmap.com,user,'true',UnitedStates,6
