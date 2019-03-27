@@ -2,6 +2,8 @@ from sqlalchemy import func
 import json
 from models import users, countries
 from server import app, connect_to_db, db
+from dotenv import load_dotenv
+import os
 
 def load_users(user_filename):
     for i, row in enumerate(open(user_filename)):
@@ -27,7 +29,9 @@ def load_countries(countries_filename):
     db.session.commit()
 
 if __name__ == "__main__":
-    connect_to_db(app)
+    load_dotenv('.env')
+    DATABASE_URL = os.environ.get("DATABASE_URL")
+    connect_to_db(app, DATABASE_URL)
     db.create_all()
     user_filename = "seed_files/MOCK_DATA.csv"
     countries_filename = "seed_files/COUNTRY_DATA.csv"
