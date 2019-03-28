@@ -134,18 +134,6 @@ def addCountry():
     return jsonify(new_country.id,)
 
 #MAPVIEW ENDPOINTS
-@app.route('/api/mapview', methods=['GET'])
-def mapView():
-  user = users_countries_join.query.all()
-  return user_country_schema.jsonify(user)
-  #user_country_schema = UserCountrySchema(many = True)
-  #output = user_country_schema.dump(user).data
-  #return jsonify({user : output})
-
-@app.route('/mapview/<int:id>') #This may refer to the relationship with users, working on displaying collection of mapview by user id objects as a field in users table
-def mapViewId(id):
-  return '<h1>User map info by ID</h1>' 'user ID %d' % id
-
 @app.route('/api/mapview', methods=['POST'])
 def add_mapView_data():
   user_id = request.json['user_id'] #JOIN user_id with username of specific id from users
@@ -208,4 +196,17 @@ def friendRequestDecline(id):
 
 '''@app.route('/users/<username>')
 def username(username):
-  return '<h1>Get all users with similar name</h1>' 'username %s' % username'''
+  return '<h1>Get all users with similar name</h1>' 'username %s' % username
+
+  #Possibly Won't be used
+@app.route('/mapview/<int:id>') #This may refer to the relationship with users, working on displaying collection of mapview by user id objects as a field in users table
+def mapViewId(id):
+  return '<h1>User map info by ID</h1>' 'user ID %d' % id
+
+  @app.route('/api/mapview', methods=['GET'])
+def mapView():
+  user = users_countries_join.query.all()
+  return user_country_schema.jsonify(user)
+  user_country_schema = UserCountrySchema(many = True)
+  output = user_country_schema.dump(user).data
+  return jsonify({user : output})'''
