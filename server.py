@@ -106,6 +106,14 @@ def delete_user(id):
     return user_schema.jsonify(user)
 
 #COUNTRIES ENDPOINTS
+@app.route('/api/countries', methods=['GET'])
+def country():
+  country = countries.query.all()
+  country_schema = CountrySchema(many = True)
+  output = country_schema.dump(country).data
+  return jsonify({'countries' : output})
+
+
 @app.route('/api/countries/<int:id>', methods=['GET'])
 def countryById(id):
   country = countries.query.get(id)
