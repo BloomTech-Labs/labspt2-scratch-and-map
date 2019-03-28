@@ -876,3 +876,8 @@ String.prototype.toProperCase = function() {
                   "Currency: " + currency.toProperCase(), "Language: " + res.languages[0].name, "Flag: " + res.flag);
       
     })})
+
+    function returnCode(id) {
+        let new_id = id-1
+        return(countries[new_id])
+    }
