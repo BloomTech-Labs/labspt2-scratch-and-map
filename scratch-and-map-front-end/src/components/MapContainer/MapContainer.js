@@ -66,7 +66,7 @@ export default class MapContainer extends React.Component {
 
   componentDidMount() {
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/api/countries/12`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/users`)
       .then(response => console.log(response));
 
     function style(feature) {
