@@ -51,11 +51,11 @@ user_schema = UserSchema()
 users_schema = UserSchema(many=True)
 
 class countries(db.Model):
-    id = db.Column(Integer, autoincrement=True)
+    id = db.Column(Integer, autoincrement=True, primary_key=True)
     country_name = db.Column(String, nullable=False)
     flag = db.Column(String, nullable=False)
     country_img = db.Column(String, nullable=False)
-    code = db.Column(String,  nullable=False, primary_key=True)           
+    code = db.Column(String, nullable=False)        
 
     def __init__(self, country_name, flag, country_img, code):
         self.country_name = country_name
@@ -78,16 +78,17 @@ countries_schema = CountrySchema(many=True)
 class users_countries_join(db.Model):
     id = db.Column(Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(Integer, ForeignKey(users.id), nullable=False)
-    country_id = db.Column(String, ForeignKey(countries.code), nullable=False)
-#    country_id = db.Column(String, ForeignKey(countries.code), nullable=False, onupdate="cascade")
+    country_id = db.Column(Integer, ForeignKey(countries.id), nullable=False)
+    #country_code = db.Column(String, ForeignKey(countries.code), nullable=True) #, onupdate="cascade"
     status = db.Column(Integer, nullable=False)
     notes = db.Column(TEXT, nullable=True)
     user = db.relationship('users', backref='user_countries')
     country = db.relationship('countries', backref='travelers')
 
-    def __init__(self, user_id, country_id, status, notes):
+    def __init__(self, user_id, country_id, status, notes):#, country_code
         self.user_id = user_id
         self.country_id = country_id
+        #self.country_code = country_code
         self.status = status
         self.notes = notes
 
@@ -98,8 +99,6 @@ class UserCountrySchema(ma.ModelSchema):
     class Meta:
         fields = ('user_id', 'country_id', 'status', 'notes')
         model = users_countries_join
-    country = fields.Nested('CountrySchema', many = True,
-                                    only = ['code'])
 user_country_schema = UserCountrySchema()
 users_country_schema = UserCountrySchema(many=True)
 
