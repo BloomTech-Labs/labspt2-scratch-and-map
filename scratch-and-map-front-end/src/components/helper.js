@@ -1,4 +1,4 @@
-let countries = ["AFG","ALB","DZA","AGO","ATA","ARG","ARM","AU1","AUT","AZE","BHS","BGD","BLR","BEL","BLZ","BEN","KAS","BTN","BOL","BIH","BWA","BRA","BRN","BGR","BFA","BDI","KHM","CMR","CAN","CAF","TCD","CHL","CH1","COL","COG","COD","CRI","CIV","HRV","CUB","CYP","CZE","DN1","DJI","DOM","ECU","EGY","SLV","GNQ","ERI","EST","ETH","ATG","FJI","FI1","FR1","AND","BRB","GAB","GMB","GEO","DEU","GHA","GRC","GRL","GTM","GIN","GNB","GUY","HTI","HND","HUN","ISL","IND","IDN","IRN","IRQ","IRL","IS1","ITA","JAM","JPN","JOR","KAZ","KEN","PRK","KOR","KWT","KGZ","LAO","LVA","LBN","LSO","LBR","LBY","LTU","LUX","MKD","MDG","MWI","MYS","MLI","MLT","MRT","MEX","MDA","MNG","MNE","MAR","MOZ","MMR","NAM","NPL","NL1","CPV","NZ1","NIC","NER","NGA","NOR","OMN","PAK","PAN","PNG","PRY","PER","PHL","POL","PRT","COM","QAT","ROU","RUS","RWA","SAU","SEN","SRB","SLE","SVK","SVN","SLB","SOM","ZAF","SSD","ESP","LKA","SDN","SUR","SWZ","SWE","CHE","SYR","TWN","TJK","TZA","THA","TLS","TGO","TTO","TUN","TUR","TKM","UGA","UKR","ARE","GB1","US1","URY","UZB","VEN","VNM","YEM","ZMB","ZWE","VAT","VUT","CYN","DMA","GRD","KIR","KOS","LIE","MDV","MUS","MCO","SAH","NRU","PLW","KNA","LCA","VCT","WSM","SMR","STP","SYC","SGP","SOL","TON","MHL","FSM"]
+export let countries = ["AFG","ALB","DZA","AGO","ATA","ARG","ARM","AU1","AUT","AZE","BHS","BGD","BLR","BEL","BLZ","BEN","KAS","BTN","BOL","BIH","BWA","BRA","BRN","BGR","BFA","BDI","KHM","CMR","CAN","CAF","TCD","CHL","CH1","COL","COG","COD","CRI","CIV","HRV","CUB","CYP","CZE","DN1","DJI","DOM","ECU","EGY","SLV","GNQ","ERI","EST","ETH","ATG","FJI","FI1","FR1","AND","BRB","GAB","GMB","GEO","DEU","GHA","GRC","GRL","GTM","GIN","GNB","GUY","HTI","HND","HUN","ISL","IND","IDN","IRN","IRQ","IRL","IS1","ITA","JAM","JPN","JOR","KAZ","KEN","PRK","KOR","KWT","KGZ","LAO","LVA","LBN","LSO","LBR","LBY","LTU","LUX","MKD","MDG","MWI","MYS","MLI","MLT","MRT","MEX","MDA","MNG","MNE","MAR","MOZ","MMR","NAM","NPL","NL1","CPV","NZ1","NIC","NER","NGA","NOR","OMN","PAK","PAN","PNG","PRY","PER","PHL","POL","PRT","COM","QAT","ROU","RUS","RWA","SAU","SEN","SRB","SLE","SVK","SVN","SLB","SOM","ZAF","SSD","ESP","LKA","SDN","SUR","SWZ","SWE","CHE","SYR","TWN","TJK","TZA","THA","TLS","TGO","TTO","TUN","TUR","TKM","UGA","UKR","ARE","GB1","US1","URY","UZB","VEN","VNM","YEM","ZMB","ZWE","VAT","VUT","CYN","DMA","GRD","KIR","KOS","LIE","MDV","MUS","MCO","SAH","NRU","PLW","KNA","LCA","VCT","WSM","SMR","STP","SYC","SGP","SOL","TON","MHL","FSM"]
 
 
 //Converts country codes into country names
@@ -872,12 +872,12 @@ String.prototype.toProperCase = function() {
       if (currency === '[E]' || currency === '[D]') {
         currency = "United States Dollar"
       }
-      console.log("Country: " + res.name, "Capital: " + res.capital, 
-                  "Currency: " + currency.toProperCase(), "Language: " + res.languages[0].name, "Flag: " + res.flag);
+    //   console.log("Country: " + res.name, "Capital: " + res.capital, 
+    //               "Currency: " + currency.toProperCase(), "Language: " + res.languages[0].name, "Flag: " + res.flag);
       
     })})
 
-    function returnCode(id) {
+export function returnCode(id) {
         let new_id = id-1
         return(countries[new_id])
     }

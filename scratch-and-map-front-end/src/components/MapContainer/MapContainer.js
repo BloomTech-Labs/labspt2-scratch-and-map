@@ -5,6 +5,8 @@ import "leaflet/dist/leaflet.css";
 import countrydata from "./countries.geo.json";
 import axios from "axios";
 
+import { returnCode } from '../helper'
+
 const Wrapper = styled.div`
   position: absolute;
   top: 0;
@@ -60,14 +62,27 @@ export default class MapContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      clickedCountry: ""
+      clickedCountry: "",
+      userInfo: {},
+      userCountryData: []
     };
   }
 
+  getUserCountryData = (userMapData) => {
+    let tempCountryData = []
+    userMapData.map(countryData => {
+      let countryCode = returnCode(countryData.country_id);
+      tempCountryData.push({ countryCode: countryCode, status: countryData.status, notes: countryData.notes })
+    })
+    this.setState({ userCountryData: tempCountryData })
+  }
+
   componentDidMount() {
+
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/api/users`)
-      .then(response => console.log(response));
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/users/1`)
+      .then(response => this.setState({ userInfo: response.data }))
+      .catch(err => { console.log(err)});
 
     function style(feature) {
       return {
@@ -124,9 +139,15 @@ export default class MapContainer extends React.Component {
         return L.circleMarker(latlng);
       }
     }).addTo(this.map);
+
+  }
+
+  componentDidMount() {
+      this.getUserCountryData(this.state.userInfo.user_countries)  
   }
 
   render() {
+    console.log(this.state.userCountryData)
     return (
       <div>
         <Wrapper id="map" />
