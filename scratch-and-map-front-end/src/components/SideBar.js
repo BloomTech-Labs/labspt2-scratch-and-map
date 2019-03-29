@@ -6,7 +6,8 @@ import {
   Menu,
   Header,
   Icon,
-  Image
+  Image,
+  Dropdown
 } from "semantic-ui-react";
 
 class SideBar extends Component {
@@ -49,6 +50,7 @@ class SideBar extends Component {
               <Icon name="home" />
               Home
             </Menu.Item>
+            <Dropdown />
             <Menu.Item as="a" />
           </Sidebar>
 
