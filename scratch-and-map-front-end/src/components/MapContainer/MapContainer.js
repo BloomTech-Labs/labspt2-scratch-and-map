@@ -68,21 +68,7 @@ export default class MapContainer extends React.Component {
     };
   }
 
-  getUserCountryData = (userMapData) => {
-    let tempCountryData = []
-    userMapData.map(countryData => {
-      let countryCode = returnCode(countryData.country_id);
-      tempCountryData.push({ countryCode: countryCode, status: countryData.status, notes: countryData.notes })
-    })
-    this.setState({ userCountryData: tempCountryData })
-  }
-
   componentDidMount() {
-
-    axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/api/users/1`)
-      .then(response => this.setState({ userInfo: response.data }))
-      .catch(err => { console.log(err)});
 
     function style(feature) {
       return {
@@ -140,10 +126,6 @@ export default class MapContainer extends React.Component {
       }
     }).addTo(this.map);
 
-  }
-
-  componentDidMount() {
-      this.getUserCountryData(this.state.userInfo.user_countries)  
   }
 
   render() {
