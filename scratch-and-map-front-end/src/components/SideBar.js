@@ -38,7 +38,7 @@ class SideBar extends Component {
         <Sidebar.Pushable>
           <Sidebar
             as={Menu}
-            animation="scale down"
+            animation="push"
             icon="labeled"
             inverted
             onHide={this.handleHideSidebar}
