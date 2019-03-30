@@ -1,11 +1,16 @@
 import React from "react";
 import L from "leaflet";
-import styled from "styled-components";
 import "leaflet/dist/leaflet.css";
 import countrydata from "./countries.geo.json";
+
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
+import styled from "styled-components";
+
 import axios from "axios";
 
-import { returnCode } from '../helper'
+import { returnCode } from "../helper";
 
 const Wrapper = styled.div`
   position: absolute;
@@ -58,7 +63,7 @@ function countryColorMatcher(userData, geoJsonCountry) {
   return colorCode;
 }
 
-export default class MapContainer extends React.Component {
+class MapContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -69,7 +74,6 @@ export default class MapContainer extends React.Component {
   }
 
   componentDidMount() {
-
     function style(feature) {
       return {
         fillColor:
@@ -125,11 +129,10 @@ export default class MapContainer extends React.Component {
         return L.circleMarker(latlng);
       }
     }).addTo(this.map);
-
   }
 
   render() {
-    console.log(this.state.userCountryData)
+    console.log(this.props.test);
     return (
       <div>
         <Wrapper id="map" />
@@ -137,3 +140,10 @@ export default class MapContainer extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    test: state.mapReducer.someData
+  }
+}
+export default withRouter(connect(mapStateToProps)(MapContainer))
