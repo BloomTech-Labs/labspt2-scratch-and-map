@@ -38,13 +38,13 @@ class SideBar extends Component {
         <Sidebar.Pushable>
           <Sidebar
             as={Menu}
-            animation="overlay"
+            animation="scale down"
             icon="labeled"
             inverted
             onHide={this.handleHideSidebar}
             vertical
             visible={visible}
-            width="thin"
+            width="wide"
           >
             <Menu.Item as="a">
               <Icon name="home" />
@@ -56,7 +56,8 @@ class SideBar extends Component {
 
           <Sidebar.Pusher dimmed={visible}>
             <Segment basic>
-              <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
+              <Image src="https://react.semantic-ui.com/images/wireframe/paragraph.png" /> 
+              {/* placeholder img */}
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
