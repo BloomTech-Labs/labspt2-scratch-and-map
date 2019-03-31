@@ -53,6 +53,7 @@ class SideBar extends Component {
             <Dropdown
               placeholder="Select Friend"
               fluid
+              search
               selection
               options={this.state.friends}
             />
