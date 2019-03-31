@@ -4,7 +4,6 @@ import {
   Button,
   Segment,
   Menu,
-  Header,
   Icon,
   Image,
   Dropdown
@@ -14,6 +13,7 @@ class SideBar extends Component {
   constructor() {
     super();
     this.state = {
+      friends: [],
       visible: false
     };
   }
@@ -50,13 +50,18 @@ class SideBar extends Component {
               <Icon name="home" />
               Home
             </Menu.Item>
-            <Dropdown />
+            <Dropdown
+              placeholder="Select Friend"
+              fluid
+              selection
+              options={this.state.friends}
+            />
             <Menu.Item as="a" />
           </Sidebar>
 
           <Sidebar.Pusher dimmed={visible}>
             <Segment basic>
-              <Image src="https://react.semantic-ui.com/images/wireframe/paragraph.png" /> 
+              <Image src="https://react.semantic-ui.com/images/wireframe/paragraph.png" />
               {/* placeholder img */}
             </Segment>
           </Sidebar.Pusher>
