@@ -10,7 +10,7 @@ ma = Marshmallow()
 
 class users(db.Model):
     id = db.Column(Integer, autoincrement=True, primary_key=True)
-    username = db.Column(String, unique=True,  nullable=False)
+    username = db.Column(String, unique=True, nullable=False) #primary_key=True,
     password = db.Column(String, nullable=False)
     first_name = db.Column(String, nullable=False)
     last_name = db.Column(String, nullable=False)
@@ -22,8 +22,9 @@ class users(db.Model):
     auto_scratch = db.Column(String, default=False)
     home_country = db.Column(String, nullable=False)
     fb_user_id = db.Column(String, nullable=False)
+    fb_access_token = db.Column(String, nullable=False)
 
-    def __init__(self, username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch, home_country, fb_user_id):
+    def __init__(self, username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch, home_country, fb_user_id, fb_access_token):
         self.username = username
         self.password = password
         self.first_name = first_name
@@ -36,9 +37,10 @@ class users(db.Model):
         self.auto_scratch = auto_scratch
         self.home_country = home_country
         self.fb_user_id = fb_user_id
+        self.fb_access_token = fb_access_token
 
-    # def __repr__(self):
-    #     return '<{}>' % self.__name__
+    def __repr__(self):
+        return '<{}>' % self.__name__
 
 class UserSchema(ma.ModelSchema):
     class Meta:
@@ -79,14 +81,16 @@ class users_countries_join(db.Model):
     id = db.Column(Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(Integer, ForeignKey(users.id), nullable=False)
     country_id = db.Column(Integer, ForeignKey(countries.id), nullable=False)
-    status = db.Column(String, nullable=False)
+    #country_code = db.Column(String, ForeignKey(countries.code), nullable=True) #, onupdate="cascade"
+    status = db.Column(Integer, nullable=False)
     notes = db.Column(TEXT, nullable=True)
     user = db.relationship('users', backref='user_countries')
     country = db.relationship('countries', backref='travelers')
 
-    def __init__(self, user_id, country_id, status, notes):
+    def __init__(self, user_id, country_id, status, notes):#, country_code
         self.user_id = user_id
         self.country_id = country_id
+        #self.country_code = country_code
         self.status = status
         self.notes = notes
 
