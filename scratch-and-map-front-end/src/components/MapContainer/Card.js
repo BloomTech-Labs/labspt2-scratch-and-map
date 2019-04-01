@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import { Button, Header, Image, Modal } from 'semantic-ui-react';
+import { Button, Header, Image, Modal, Form, TextArea } from 'semantic-ui-react';
 import Slider from "./Slider";
-import styled from "styled-components";
-import axios from "axios";
 
 class Card extends Component {
   constructor(props) {
     super(props);
+  
   }
   render(){  
     let friends_list= this.props.friends;
@@ -19,7 +18,10 @@ class Card extends Component {
         <Slider />
         <Modal.Description>
           <Header>Default Profile Image</Header>
-          <p>We've found the following gravatar image associated with your e-mail address.</p>
+          <p>Notes:</p>
+          {<Form>
+            <TextArea placeholder='Travel Notes' />
+          </Form>}
           <strong>FRIENDS</strong>
           <div> {friends}</div>
         </Modal.Description>
