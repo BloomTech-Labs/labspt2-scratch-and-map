@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import returnCode from "../helper"
 import { Button, Header, Image, Modal, Form, TextArea } from 'semantic-ui-react';
 import Slider from "./Slider";
 
@@ -10,14 +11,14 @@ class Card extends Component {
   render(){  
     let friends_list= this.props.friends;
     let friends =  friends_list.map(friend => <div> <p>{friend.first_name} {friend.last_name}</p></div>)
-    console.log("comments: ", friends);
     return ( 
       <Modal trigger={<Button>Show Modal</Button>}>
       <Modal.Content image>
-        <Image wrapped size='small' src='https://react.semantic-ui.com/images/avatar/large/rachel.png' />
+      <Header>Haiti</Header>
+        <Image wrapped size='small' src='https://restcountries.eu/data/hti.svg' />
         <Slider />
         <Modal.Description>
-          <Header>Default Profile Image</Header>
+         
           <p>Notes:</p>
           {<Form>
             <TextArea placeholder='Travel Notes' />

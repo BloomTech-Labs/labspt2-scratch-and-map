@@ -9,6 +9,9 @@ class Slider extends Component {
   render(){  
     return ( 
   <div>
+    <div className="range">
+  <input type="range" min="1" max="4" steps="1" value="1"></input>
+</div> 
 <ul class="range-labels">
   <li class="active selected">Wishlist</li>
   <li>Transited</li>
