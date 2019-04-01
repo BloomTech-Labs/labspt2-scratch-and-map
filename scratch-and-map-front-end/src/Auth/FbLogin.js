@@ -43,7 +43,7 @@ class FbLogin extends Component {
           fb_access_token: response.accessToken
         };
         axios
-          .post(`${process.env.REACT_APP_BACKEND_URL}/signup`, user)
+          .post(`${process.env.REACT_APP_BACKEND_URL}/api/signup`, user)
           .then(res => {
             return console.log(res);
           });
