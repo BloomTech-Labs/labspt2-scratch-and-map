@@ -3,8 +3,8 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import countrydata from "./countries.geo.json";
 
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 import styled from "styled-components";
 
@@ -121,7 +121,18 @@ class MapContainer extends React.Component {
           e.target.closePopup();
         });
         layer.on("click", () => {
-          this.setState({ clickedCountry: feature.properties.SOV_A3 });
+          this.setState({ clickedCountry: feature.properties.SOV_A3 }, () => {
+            axios
+              .post(`${process.env.REACT_APP_BACKEND_URL}/api/mapview`, {
+                user_id: 1,
+                country_id: 1,
+                status: 1,
+                notes: "none"
+              })
+              .then(res => {
+                console.log(res);
+              });
+          });
         });
       },
       style: style,
@@ -141,9 +152,9 @@ class MapContainer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     test: state.mapReducer.someData
-  }
-}
-export default withRouter(connect(mapStateToProps)(MapContainer))
+  };
+};
+export default withRouter(connect(mapStateToProps)(MapContainer));
