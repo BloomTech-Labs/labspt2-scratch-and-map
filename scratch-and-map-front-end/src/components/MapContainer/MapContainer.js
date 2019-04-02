@@ -149,14 +149,10 @@ class MapContainer extends React.Component {
 
 const mapStateToProps = state => {
   return {
+
     userData: state.getUserDataReducer.userData,
     userCountryData: state.getUserDataReducer.userCountryData,
     loading: state.getUserDataReducer.loading
   };
 };
-export default withRouter(
-  connect(
-    mapStateToProps,
-    { getUserData }
-  )(MapContainer)
-);
+export default withRouter(connect(mapStateToProps,{ getUserData })(MapContainer));

@@ -17,13 +17,38 @@ class FbLogin extends Component {
 
   responseFacebook = response => {
     console.log(response);
-    this.setState({
-      isLoggedIn: true,
-      userID: response.userID,
-      name: response.name,
-      email: response.email,
-      picture: response.picture.data.url
-    });
+    this.setState(
+      {
+        isLoggedIn: true,
+        userID: response.userID,
+        name: response.name,
+        email: response.email,
+        picture: response.picture.data.url
+      },
+      () => {
+        const name = response.name.split(" ");
+        const first = name[0];
+        const last = name[1];
+        const user = {
+          username: response.userID,
+          password: response.email,
+          first_name: first,
+          last_name: last,
+          age: 24,
+          nationality: "Russian",
+          role: "user",
+          auto_scratch: "true",
+          home_country: "RUS",
+          fb_user_id: response.userID,
+          fb_access_token: response.accessToken
+        };
+        axios
+          .post(`${process.env.REACT_APP_BACKEND_URL}/api/signup`, user)
+          .then(res => {
+            return console.log(res);
+          });
+      }
+    );
   };
   componentClicked = () => console.log("clicked");
 
