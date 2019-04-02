@@ -57,7 +57,10 @@ const colorCodes = {
 function countryColorMatcher(userData, geoJsonCountry) {
   let colorCode = 0;
   userData.map(country => {
-    if (JSON.stringify(returnCode(country.country_id)) === JSON.stringify(geoJsonCountry)) {
+    if (
+      JSON.stringify(returnCode(country.country_id)) ===
+      JSON.stringify(geoJsonCountry)
+    ) {
       colorCode = country.status;
     }
   });
@@ -77,14 +80,15 @@ class MapContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    
-    if(this.props.loading !== nextProps.loading) {
-     
+    if (this.props.loading !== nextProps.loading) {
       function style(feature) {
         return {
           fillColor:
             colorCodes[
-              countryColorMatcher(nextProps.userCountryData, feature.properties.SOV_A3)
+              countryColorMatcher(
+                nextProps.userCountryData,
+                feature.properties.SOV_A3
+              )
             ] || "pink",
           weight: 1,
           opacity: 1,
@@ -92,7 +96,7 @@ class MapContainer extends React.Component {
           fillOpacity: 0.7
         };
       }
-  
+
       this.map = L.map("map", {
         center: [30, 0],
         zoom: 3,
@@ -102,7 +106,7 @@ class MapContainer extends React.Component {
         maxBounds: [[-90, -180], [90, 180]],
         maxBoundsViscosity: 1
       });
-  
+
       L.tileLayer(
         "https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}{r}.png",
         {
@@ -112,7 +116,7 @@ class MapContainer extends React.Component {
           noWrap: true
         }
       ).addTo(this.map);
-  
+
       L.geoJson(countrydata, {
         onEachFeature: (feature, layer) => {
           layer.bindPopup("<h3>" + feature.properties.ADMIN + "</h3>", {
