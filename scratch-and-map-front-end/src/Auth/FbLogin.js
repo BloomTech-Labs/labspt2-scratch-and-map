@@ -28,14 +28,13 @@ class FbLogin extends Component {
   componentClicked = () => console.log("clicked");
 
   componentDidUpdate() {
-
     window.fbAsyncInit = function() {
       window.FB.init({
         appId: process.env.REACT_APP_FB_APP_ID,
         cookie: true, // enable cookies to allow the server to access the session
         xfbml: true, // parse social plugins on this page
         version: "v2.5" // use version 2.1
-      })
+      });
 
       window.FB.getLoginStatus(response => {
         console.log(response);
@@ -43,10 +42,8 @@ class FbLogin extends Component {
           // axios login call
           console.log("init", response);
         }
-      }) //end getLoginStatus
-
-    } //end fbAsyncInit
-
+      }); //end getLoginStatus
+    }; //end fbAsyncInit
   } //end component did update
 
   render() {
