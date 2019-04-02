@@ -26,6 +26,11 @@ class FbLogin extends Component {
         picture: response.picture.data.url
       },
       () => {
+        axios
+          .get(`${process.env.REACT_APP_BACKEND_URL}/api/users/`)
+          .then(res => {
+            console.log(res);
+          });
         const name = response.name.split(" ");
         const first = name[0];
         const last = name[1];
@@ -43,7 +48,7 @@ class FbLogin extends Component {
           fb_access_token: response.accessToken
         };
         axios
-          .post(`${process.env.REACT_APP_BACKEND_URL}/api/signup`, user)
+          .post(`http://${process.env.REACT_APP_BACKEND_URL}/api/signup`, user)
           .then(res => {
             return console.log(res);
           });
