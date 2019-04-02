@@ -78,10 +78,14 @@ class FbLogin extends Component {
       fbContent = (
         <div
           style={{
-            width: "400px",
+            width: "100%",
             margin: "auto",
             background: "#f4f4f4",
-            padding: "20px"
+            padding: "20px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            textAlign: "center"
           }}
         >
           <img src={this.state.picture} alt={this.state.name} />
