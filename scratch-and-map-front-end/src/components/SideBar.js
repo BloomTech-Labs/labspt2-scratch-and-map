@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import {
   Sidebar,
   Button,
@@ -18,12 +19,26 @@ class SideBar extends Component {
     };
   }
 
+  async componentDidMount() {
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/users`
+    );
+    //this.setState({ friends: data });
+    console.log(data);
+  }
+
+  handleInputChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
   handleHide = () => this.setState({ visible: false });
   handleShow = () => this.setState({ visible: true });
   handleHideSidebar = () => this.setState({ visible: false });
 
   render() {
-    const { visible } = this.state;
+    const { visible, friends } = this.state;
     return (
       <div>
         <Button.Group>
@@ -50,12 +65,16 @@ class SideBar extends Component {
               <Icon name="home" />
               Home
             </Menu.Item>
+
             <Dropdown
+              onChange={this.handleInputChange}
               placeholder="Select Friend"
+              clearable
               fluid
+              multiple
               search
               selection
-              options={this.state.friends}
+              options={friends}
             />
             <Menu.Item as="a" />
           </Sidebar>
