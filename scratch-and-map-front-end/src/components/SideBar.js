@@ -14,7 +14,8 @@ class SideBar extends Component {
   constructor() {
     super();
     this.state = {
-      friends: [],
+      //friends: [],
+      options: [],
       visible: false
     };
   }
@@ -23,8 +24,9 @@ class SideBar extends Component {
     const { data } = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/api/users`
     );
-    //this.setState({ friends: data });
     console.log(data);
+    this.setState({ options: data });
+    
   }
 
   handleInputChange = e => {
@@ -38,7 +40,7 @@ class SideBar extends Component {
   handleHideSidebar = () => this.setState({ visible: false });
 
   render() {
-    const { visible, friends } = this.state;
+    const { visible, options } = this.state;
     return (
       <div>
         <Button.Group>
@@ -74,7 +76,7 @@ class SideBar extends Component {
               multiple
               search
               selection
-              options={friends}
+              options={this.state.options.map((item, index) => <option key={index} value={item.id}>{item.username}</option>)}
             />
             <Menu.Item as="a" />
           </Sidebar>
