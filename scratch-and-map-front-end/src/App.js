@@ -6,7 +6,7 @@ import ForgotPassword from "./Auth/ForgotPassword";
 import SideBar from "./components/SideBar";
 import Card from "./components/MapContainer/Card";
 import "./index.scss";
-require('dotenv').config()
+require("dotenv").config();
 
 class App extends Component {
   render() {
@@ -23,8 +23,6 @@ class App extends Component {
         country: "Russia",
         status: 3
       }
-
-      
     ];
 
     const friends = [
@@ -48,13 +46,12 @@ class App extends Component {
         first_name: "Courtney",
         last_name: "B Vance"
       }
-      
     ];
 
     return (
       <div className="App">
         {/* Auth component using '/' path for now, not intended to be permanent */}
-        <Route path ="/sidebar" exact render = {props => <SideBar />} />
+        <Route path="/sidebar" exact render={props => <SideBar />} />
         <Route path="/" exact render={props => <Auth />} />
         <Route
           path="/forgotpassword"
@@ -66,12 +63,11 @@ class App extends Component {
           exact
           render={props => <MapContainer sampleData={sampleData} />}
         />
-         <Route
+        <Route
           path="/card"
           exact
-          render={props => <Card  friends={friends}/>}
+          render={props => <Card friends={friends} />}
         />
-
       </div>
     );
   }
