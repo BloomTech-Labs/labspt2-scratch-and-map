@@ -23,8 +23,6 @@ class App extends Component {
         country: "Russia",
         status: 3
       }
-
-      
     ];
 
     const friends = [
@@ -48,7 +46,6 @@ class App extends Component {
         first_name: "Courtney",
         last_name: "B Vance"
       }
-      
     ];
 
     return (
@@ -66,15 +63,11 @@ class App extends Component {
           exact
           render={props => <MapContainer sampleData={sampleData} />}
         />
-<<<<<<< HEAD
-=======
-         <Route
+        <Route
           path="/card"
           exact
-          render={props => <Card  friends={friends}/>}
+          render={props => <Card friends={friends} />}
         />
-
->>>>>>> 6612f6f278502764ce131a50764ed59d779ef54c
       </div>
     );
   }
