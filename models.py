@@ -22,8 +22,9 @@ class users(db.Model):
     auto_scratch = db.Column(String, default=False)
     home_country = db.Column(String, nullable=False)
     fb_user_id = db.Column(String, nullable=False)
+    fb_access_token = db.Column(String, nullable=False)
 
-    def __init__(self, username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch, home_country, fb_user_id):
+    def __init__(self, username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch, home_country, fb_user_id, fb_access_token):
         self.username = username
         self.password = password
         self.first_name = first_name
@@ -36,6 +37,7 @@ class users(db.Model):
         self.auto_scratch = auto_scratch
         self.home_country = home_country
         self.fb_user_id = fb_user_id
+        self.fb_access_token = fb_access_token
 
     def __repr__(self):
         return '<{}>' % self.__name__
@@ -55,7 +57,7 @@ class countries(db.Model):
     country_name = db.Column(String, nullable=False)
     flag = db.Column(String, nullable=False)
     country_img = db.Column(String, nullable=False)
-    code = db.Column(String, nullable=False)        
+    code = db.Column(String, nullable=False)
 
     def __init__(self, country_name, flag, country_img, code):
         self.country_name = country_name
