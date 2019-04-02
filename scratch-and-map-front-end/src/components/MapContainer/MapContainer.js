@@ -3,14 +3,15 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import countrydata from "./countries.geo.json";
 
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+
+import { getUserData } from "../../actions/mapActions";
 
 import styled from "styled-components";
 
-import axios from "axios";
-
 import { returnCode } from "../helper";
+import { getUserDataReducer } from "../../reducers/mapReducer.js";
 
 const Wrapper = styled.div`
   position: absolute;
@@ -56,7 +57,7 @@ const colorCodes = {
 function countryColorMatcher(userData, geoJsonCountry) {
   let colorCode = 0;
   userData.map(country => {
-    if (JSON.stringify(country.country) === JSON.stringify(geoJsonCountry)) {
+    if (JSON.stringify(returnCode(country.country_id)) === JSON.stringify(geoJsonCountry)) {
       colorCode = country.status;
     }
   });
@@ -67,72 +68,77 @@ class MapContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      clickedCountry: "",
-      userInfo: {},
-      userCountryData: []
+      loading: false
     };
   }
 
   componentDidMount() {
-    function style(feature) {
-      return {
-        fillColor:
-          colorCodes[
-            countryColorMatcher(sampleData, feature.properties.SOV_A3)
-          ] || "pink",
-        weight: 1,
-        opacity: 1,
-        color: "lightgrey",
-        fillOpacity: 0.7
-      };
+    this.props.getUserData(1);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    
+    if(this.props.loading !== nextProps.loading) {
+     
+      function style(feature) {
+        return {
+          fillColor:
+            colorCodes[
+              countryColorMatcher(nextProps.userCountryData, feature.properties.SOV_A3)
+            ] || "pink",
+          weight: 1,
+          opacity: 1,
+          color: "lightgrey",
+          fillOpacity: 0.7
+        };
+      }
+  
+      this.map = L.map("map", {
+        center: [30, 0],
+        zoom: 3,
+        zoomControl: false,
+        maxZoom: 20,
+        minZoom: 2.5,
+        maxBounds: [[-90, -180], [90, 180]],
+        maxBoundsViscosity: 1
+      });
+  
+      L.tileLayer(
+        "https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}{r}.png",
+        {
+          attribution:
+            'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          minZoom: 3,
+          noWrap: true
+        }
+      ).addTo(this.map);
+  
+      L.geoJson(countrydata, {
+        onEachFeature: (feature, layer) => {
+          layer.bindPopup("<h3>" + feature.properties.ADMIN + "</h3>", {
+            closeButton: false,
+            offset: L.point(0, -20)
+          });
+          layer.on("mouseover", e => {
+            let popup = e.target.getPopup();
+            popup.setLatLng(e.latlng).openOn(this.map);
+          });
+          layer.on("mouseout", e => {
+            e.target.closePopup();
+          });
+          layer.on("click", () => {
+            this.setState({ clickedCountry: feature.properties.SOV_A3 });
+          });
+        },
+        style: style,
+        pointToLayer: function(feature, latlng) {
+          return L.circleMarker(latlng);
+        }
+      }).addTo(this.map);
     }
-
-    this.map = L.map("map", {
-      center: [30, 0],
-      zoom: 3,
-      zoomControl: false,
-      maxZoom: 20,
-      minZoom: 2.5,
-      maxBounds: [[-90, -180], [90, 180]],
-      maxBoundsViscosity: 1
-    });
-
-    L.tileLayer(
-      "https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}{r}.png",
-      {
-        attribution:
-          'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        minZoom: 3,
-        noWrap: true
-      }
-    ).addTo(this.map);
-
-    L.geoJson(countrydata, {
-      onEachFeature: (feature, layer) => {
-        layer.bindPopup("<h3>" + feature.properties.ADMIN + "</h3>", {
-          closeButton: false,
-          offset: L.point(0, -20)
-        });
-        layer.on("mouseover", e => {
-          let popup = e.target.getPopup();
-          popup.setLatLng(e.latlng).openOn(this.map);
-        });
-        layer.on("mouseout", e => {
-          e.target.closePopup();
-        });
-        layer.on("click", () => {
-          this.setState({ clickedCountry: feature.properties.SOV_A3 });
-        });
-      },
-      style: style,
-      pointToLayer: function(feature, latlng) {
-        return L.circleMarker(latlng);
-      }
-    }).addTo(this.map);
   }
 
   render() {
-    console.log(this.props.test);
     return (
       <div>
         <Wrapper id="map" />
@@ -141,9 +147,16 @@ class MapContainer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    test: state.mapReducer.someData
-  }
-}
-export default withRouter(connect(mapStateToProps)(MapContainer))
+    userData: state.getUserDataReducer.userData,
+    userCountryData: state.getUserDataReducer.userCountryData,
+    loading: state.getUserDataReducer.loading
+  };
+};
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getUserData }
+  )(MapContainer)
+);
