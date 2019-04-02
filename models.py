@@ -45,7 +45,7 @@ class users(db.Model):
 class UserSchema(ma.ModelSchema):
     class Meta:
         model = users
-        fields = ('id','username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role', 'auto_scratch', 'home_country', 'user_countries', 'fb_user_id' )
+        fields = ('id','username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role', 'auto_scratch', 'home_country', 'user_countries', 'fb_user_id', 'fb_access_token' )
     user_countries = fields.Nested('UserCountrySchema', many = True,
                                     only = ['country_id', 'status', 'notes'])
 
@@ -81,16 +81,14 @@ class users_countries_join(db.Model):
     id = db.Column(Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(Integer, ForeignKey(users.id), nullable=False)
     country_id = db.Column(Integer, ForeignKey(countries.id), nullable=False)
-    #country_code = db.Column(String, ForeignKey(countries.code), nullable=True) #, onupdate="cascade"
     status = db.Column(Integer, nullable=False)
     notes = db.Column(TEXT, nullable=True)
     user = db.relationship('users', backref='user_countries')
     country = db.relationship('countries', backref='travelers')
 
-    def __init__(self, user_id, country_id, status, notes):#, country_code
+    def __init__(self, user_id, country_id, status, notes):
         self.user_id = user_id
         self.country_id = country_id
-        #self.country_code = country_code
         self.status = status
         self.notes = notes
 
