@@ -53,7 +53,6 @@ class App extends Component {
       <div className="App">
         {/* Auth component using '/' path for now, not intended to be permanent */}
         <Route path="/sidebar" exact render={props => <SideBar />} />
-        <Route path="/navbar" exact render={props => <NavBar />} />
         <Route path="/" exact render={props => <Auth />} />
         <Route
           path="/forgotpassword"
