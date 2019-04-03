@@ -14,18 +14,17 @@ class SideBar extends Component {
   constructor() {
     super();
     this.state = {
-      //friends: [],
+      // friends: [],
       options: [],
       visible: false
     };
   }
 
   async componentDidMount() {
-    const { data } = await axios.get(
-      `${process.env.REACT_APP_BACKEND_URL}/api/users`
-    );
-    console.log(data);
-    this.setState({ options: data });
+   await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/users`)
+    .then(res => { this.setState({
+      options: res.data.users,
+    })})
     
   }
 
@@ -40,6 +39,7 @@ class SideBar extends Component {
   handleHideSidebar = () => this.setState({ visible: false });
 
   render() {
+    console.log('OPTIONS DATA', this.state.options)
     const { visible, options } = this.state;
     return (
       <div>
@@ -76,9 +76,9 @@ class SideBar extends Component {
               multiple
               search
               selection
-              options={this.state.options.map((item, index) => <option key={index} value={item.id}>{item.username}</option>)}
+              options={this.state.options.map((item) => <option key={item.id} value={item.id}>{item.username}</option>)}
             />
-            <Menu.Item as="a" />
+            {/* <Menu.Item as="a" /> */}
           </Sidebar>
 
           <Sidebar.Pusher dimmed={visible}>
