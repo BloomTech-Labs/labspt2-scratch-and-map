@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
+import axios from "axios";
 import Auth from "./Auth/Auth";
 import MapContainer from "./components/MapContainer/MapContainer";
 import ForgotPassword from "./Auth/ForgotPassword";
@@ -9,6 +10,10 @@ import "./index.scss";
 require("dotenv").config();
 
 class App extends Component {
+  componentDidMount() {
+    //grab FbAcessToken from local storage
+    // axios.post(`http://${process.env.REACT_APP_BACKEND_URL}/api/users/fb`);
+  }
   render() {
     const sampleData = [
       {

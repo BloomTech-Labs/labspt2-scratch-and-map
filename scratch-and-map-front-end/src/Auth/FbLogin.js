@@ -26,17 +26,12 @@ class FbLogin extends Component {
         picture: response.picture.data.url
       },
       () => {
-        axios
-          .get(`${process.env.REACT_APP_BACKEND_URL}/api/users/`)
-          .then(res => {
-            console.log(res);
-          });
         const name = response.name.split(" ");
         const first = name[0];
         const last = name[1];
         const user = {
           username: response.userID,
-          password: response.email,
+          password: response.accessToken,
           first_name: first,
           last_name: last,
           age: 24,
@@ -48,9 +43,32 @@ class FbLogin extends Component {
           fb_access_token: response.accessToken
         };
         axios
-          .post(`http://${process.env.REACT_APP_BACKEND_URL}/api/signup`, user)
+          .get(
+            `${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${
+              response.userID
+            }`
+          )
           .then(res => {
-            return console.log(res);
+            if (res === {}) {
+              //signup second phase component here
+              axios
+                .post(
+                  `http://${process.env.REACT_APP_BACKEND_URL}/api/signup`,
+                  user
+                )
+                .then(res => {
+                  return console.log(res);
+                });
+            } else {
+              axios
+                .put(
+                  `http://${process.env.REACT_APP_BACKEND_URL}/api/users`,
+                  user
+                )
+                .then(res => {
+                  return console.log(res);
+                });
+            }
           });
       }
     );
