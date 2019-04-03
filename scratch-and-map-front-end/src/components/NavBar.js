@@ -6,7 +6,6 @@ import SidebarDrop from "./SidebarDrop";
 import SelectLanguage from "./SelectLanguage";
 
 const NavBar = ({ onToggle, visible, onPusherClick }) => (
-  // {onPusherClick, onToggle, visible }
   <Sidebar.Pushable>
     <Sidebar
       as={Menu}
@@ -36,7 +35,7 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
       <SelectLanguage />
     </Menu>
     <Sidebar.Pusher
-      // dimmed={visible}
+      dimmed={visible}
       onClick={onPusherClick}
       style={{ minHeight: "100vh" }}
     />
