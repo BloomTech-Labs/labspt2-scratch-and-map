@@ -3,7 +3,8 @@ import Login from "./Login";
 import Register from "./Register";
 import FbLogin from "./FbLogin";
 import axios from "axios";
-import { Button, Header, Image, Modal } from 'semantic-ui-react'
+import { Button, Modal } from 'semantic-ui-react'
+import Sidebar from '../components/SideBar'
 
 class Auth extends Component {
   constructor() {
@@ -13,7 +14,8 @@ class Auth extends Component {
       isRegisterOpen: false,
       username: "",
       password: "",
-      email: ""
+      email: "",
+      isHidden: true,
     };
   }
 
@@ -48,61 +50,43 @@ class Auth extends Component {
       .then(response => console.log(response));
   };
 
+  handleShow = () => this.setState({ isHidden: !this.state.isHidden })
+
+
   render() {
     return (
-      <div className="landing">
       <div className="Nav">
-      <Modal size='mini' trigger={<Button>Sign Up</Button>}>
-      <Modal.Content>
-      <div className="box-wrapper">
-          {this.state.isLoginOpen && (
-            <FbLogin
-              inputChange={this.handleInputChange}
-              submit={this.onSubmitHandler}
-            />
-          )}
+        <div className="logo">
+        <Button inverted>Menu</Button>
         </div>
-        </Modal.Content>
-        </Modal>
-
-        <Modal size='mini' trigger={<Button>Log In</Button>}>
-        <Modal.Content image>
-        <div className="box-wrapper">
-          {this.state.isLoginOpen && (
-            <FbLogin
+        <div className="buttons">
+          <Modal size='mini' trigger={<Button inverted>Sign Up</Button>}>
+            <Modal.Content>
+              <div className="box-wrapper">
+              {this.state.isLoginOpen && (
+              <FbLogin
               inputChange={this.handleInputChange}
               submit={this.onSubmitHandler}
-            />
-          )}
-          </div>
-          </Modal.Content>
+              />
+              )}
+              </div>
+            </Modal.Content>
           </Modal>
 
-
-      {/* <div className="auth-wrapper">
-        <div className="auth-controller">
-          <div
-            className={
-              "controller" +
-              (this.state.isRegisterOpen ? "selected-controller" : "")
-            }
-            onClick={this.showRegister}
-          >
-            Sign Up
-          </div>
-          <div
-            className={
-              "login-controller" +
-              (this.state.isLoginOpen ? "selected-controller" : "")
-            }
-            onClick={this.showLogin}
-          >
-            Log In
-          </div>
-        </div>
-      </div> */}
+          <Modal size='mini' trigger={<Button inverted>Log In</Button>}>
+            <Modal.Content image>
+              <div className="box-wrapper">
+              {this.state.isLoginOpen && (
+              <FbLogin
+              inputChange={this.handleInputChange}
+              submit={this.onSubmitHandler}
+              />
+              )}
+              </div>
+            </Modal.Content>
+          </Modal>
       </div>
-      </div>
+    </div>
     );
   }
 }

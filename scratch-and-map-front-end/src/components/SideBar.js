@@ -1,22 +1,21 @@
 import React, { Component } from "react";
 import axios from "axios";
-import {
-  Sidebar,
-  Button,
-  Segment,
-  Menu,
-  Icon,
-  Image,
-  Dropdown
-} from "semantic-ui-react";
+import { Sidebar, Menu, Icon, Dropdown, Button } from "semantic-ui-react";
+import Landing from './Landing'
+import MapContainer from "./MapContainer/MapContainer";
+import ForgotPassword from "../Auth/ForgotPassword";
+import Card from "./MapContainer/Card";
+import { Route } from "react-router-dom";
+import "../index.scss"
+
 
 class SideBar extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       //friends: [],
       options: [],
-      visible: false
+      visible: false,
     };
   }
 
@@ -43,32 +42,34 @@ class SideBar extends Component {
     const { visible, options } = this.state;
     return (
       <div>
+         <div>
         <Button.Group>
           <Button disabled={visible} onClick={this.handleShow}>
-            Hi
+            >
           </Button>
-          <Button disabled={!visible} onClick={this.handleHide}>
+          {/* <Button disabled={!visible} onClick={this.handleHide}>
             Bye
-          </Button>
+          </Button> */}
         </Button.Group>
+        </div>
 
-        <Sidebar.Pushable>
-          <Sidebar
-            as={Menu}
-            animation="push"
-            icon="labeled"
-            inverted
-            onHide={this.handleHideSidebar}
-            vertical
-            visible={visible}
-            width="wide"
-          >
-            <Menu.Item as="a">
+           <Sidebar.Pushable className="sidebar">
+            <Sidebar
+              as={Menu}
+              animation="overlay"
+              icon="labeled"
+              inverted
+              onHide={this.handleHideSidebar}
+              vertical
+              visible={visible}
+              width="wide"
+              >
+              <Menu.Item as="a">
               <Icon name="home" />
               Home
-            </Menu.Item>
+              </Menu.Item>
 
-            <Dropdown
+              <Dropdown
               onChange={this.handleInputChange}
               placeholder="Select Friend"
               clearable
@@ -77,19 +78,21 @@ class SideBar extends Component {
               search
               selection
               options={this.state.options.map((item, index) => <option key={index} value={item.id}>{item.username}</option>)}
-            />
-            <Menu.Item as="a" />
-          </Sidebar>
+              />
+              <Menu.Item as="a" />
+              </Sidebar>
 
-          <Sidebar.Pusher dimmed={visible}>
-            <Segment basic>
-              <Image src="https://react.semantic-ui.com/images/wireframe/paragraph.png" />
-              {/* placeholder img */}
-            </Segment>
-          </Sidebar.Pusher>
-        </Sidebar.Pushable>
-      </div>
-    );
+              <Sidebar.Pusher dimmed={visible} className="segment">
+              <div>
+                <Route path="/" exact render={props => <Landing handleShow={this.handleShow}/>} />
+                <Route path="/forgotpassword" exact render={props => <ForgotPassword />} />
+                <Route path="/map" exact render={props => <MapContainer />}/>
+                <Route path="/card" exact render={props => <Card />} />
+              </div>
+              </Sidebar.Pusher>
+          </Sidebar.Pushable>
+       </div>
+    )
   }
 }
 
