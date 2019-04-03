@@ -2,7 +2,8 @@ import React from "react";
 import Auth from "../Auth/Auth";
 
 import { Menu, Sidebar, Button, Icon, Dropdown } from "semantic-ui-react";
-import SelectLanguage from './SelectLanguage'
+import SidebarDrop from "./SidebarDrop";
+import SelectLanguage from "./SelectLanguage";
 
 const NavBar = ({ onToggle, visible, onPusherClick }) => (
   // {onPusherClick, onToggle, visible }
@@ -20,17 +21,7 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
         <Icon name="home" />
         Home
       </Menu.Item>
-
-      <Dropdown
-        // onChange={this.handleInputChange} needs to pull in props instead
-        placeholder="Select Friend"
-        clearable
-        fluid
-        multiple
-        search
-        selection
-        // options={this.state.options.map((item, index) => <option key={index} value={item.id}>{item.username}</option>)} This will have to pull in props instead
-      />
+      <SidebarDrop />
     </Sidebar>
 
     <Menu>
@@ -38,9 +29,8 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
         {/* We can do a burger, menu button or both! */}
         <Button onClick={onToggle}>Menu</Button>
       </Menu.Menu>
-     
+
       <Menu.Menu position="right">
-      
         <Auth />
       </Menu.Menu>
       <SelectLanguage />
