@@ -52,7 +52,7 @@ def signup():
     db.session.commit()
     return jsonify(new_user.id)
 
-@app.route('/api/login', methods=['POST'])
+@app.route('/api/login', methods=['POST'])#JAVI IS WORKING ON REDO
 def login():
     username = request.json['username']
     password = request.json['password']
@@ -62,6 +62,7 @@ def login():
     else:
         return "True"
 
+#NOT SURE IF WE NEED THIS, BECAUSE WE CAN PULL THE FB_USER_ID DATA FROM THE USERS ENDPOINT.
 @app.route('/api/users/fb/<fbid>', methods=['GET'])
 def get_user_by_fbid(fbid):
     user = users.query.filter(users.fb_user_id==fbid).first()
@@ -104,14 +105,6 @@ def update_user(id):
     db.session.commit()
     return user_schema.jsonify(user)
 
-@app.route('/api/users/<int:id>', methods=['DELETE']) #BUGGY, but do we need this if we do away with admin?
-def delete_user(id):
-    user = users.query.get(id)
-    db.delete(user)
-    db.session.commit()
-
-    return user_schema.jsonify(user)
-
 #COUNTRIES ENDPOINTS
 @app.route('/api/countries', methods=['GET'])
 def country():
@@ -119,7 +112,6 @@ def country():
   country_schema = CountrySchema(many = True)
   output = country_schema.dump(country).data
   return jsonify({'countries' : output})
-
 
 @app.route('/api/countries/<int:id>', methods=['GET'])
 def countryById(id):
@@ -173,11 +165,6 @@ def update_mapView_data(user_id, country_id, id):
     db.session.commit()
     return user_country_schema.jsonify(user_country)
 
-@app.route('/api/signout') #WILL BE CHANGED DEPENDING ON AUTH
-def signout():
-  session.pop('username')
-  return redirect(url_for('index'))
-
 if __name__ == "__main__":
   app.run(host="0.0.0.0", port=PORT, debug=DEBUG)
 
@@ -213,7 +200,20 @@ def friendRequestDecline(id):
 def username(username):
   return '<h1>Get all users with similar name</h1>' 'username %s' % username
 
-  #Possibly Won't be used
+  #POSSIBLY WON'T BE USED, KEEP UNTIL GROUP DECIDES TO DISCARD THEM
+@app.route('/api/signout') #WILL BE CHANGED DEPENDING ON AUTH
+def signout():
+  session.pop('username')
+  return redirect(url_for('index'))
+
+@app.route('/api/users/<int:id>', methods=['DELETE']) #BUGGY, but do we need this if we do away with admin?
+def delete_user(id):
+    user = users.query.get(id)
+    db.delete(user)
+    db.session.commit()
+
+    return user_schema.jsonify(user)
+
 @app.route('/mapview/<int:id>') #This may refer to the relationship with users, working on displaying collection of mapview by user id objects as a field in users table
 def mapViewId(id):
   return '<h1>User map info by ID</h1>' 'user ID %d' % id

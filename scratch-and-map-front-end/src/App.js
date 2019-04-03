@@ -5,6 +5,7 @@ import Auth from "./Auth/Auth";
 import MapContainer from "./components/MapContainer/MapContainer";
 import ForgotPassword from "./Auth/ForgotPassword";
 import SideBar from "./components/SideBar";
+import NavBar from "./components/NavBar"
 import Card from "./components/MapContainer/Card";
 import "./index.scss";
 require("dotenv").config();
@@ -56,6 +57,7 @@ class App extends Component {
     return (
       <div className="App">
         {/* Auth component using '/' path for now, not intended to be permanent */}
+        <Route path="/navbar" exact render={props => <NavBar />} />
         <Route path="/sidebar" exact render={props => <SideBar />} />
         <Route path="/" exact render={props => <Auth />} />
         <Route

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import axios from "axios";
 import {
   Sidebar,
   Button,
   Segment,
   Menu,
+  Header,
   Icon,
   Image,
   Dropdown
@@ -14,33 +14,16 @@ class SideBar extends Component {
   constructor() {
     super();
     this.state = {
-      //friends: [],
-      options: [],
       visible: false
     };
   }
-
-  async componentDidMount() {
-    const { data } = await axios.get(
-      `${process.env.REACT_APP_BACKEND_URL}/api/users`
-    );
-    console.log(data);
-    this.setState({ options: data });
-    
-  }
-
-  handleInputChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  };
 
   handleHide = () => this.setState({ visible: false });
   handleShow = () => this.setState({ visible: true });
   handleHideSidebar = () => this.setState({ visible: false });
 
   render() {
-    const { visible, options } = this.state;
+    const { visible } = this.state;
     return (
       <div>
         <Button.Group>
@@ -67,23 +50,13 @@ class SideBar extends Component {
               <Icon name="home" />
               Home
             </Menu.Item>
-
-            <Dropdown
-              onChange={this.handleInputChange}
-              placeholder="Select Friend"
-              clearable
-              fluid
-              multiple
-              search
-              selection
-              options={this.state.options.map((item, index) => <option key={index} value={item.id}>{item.username}</option>)}
-            />
+            <Dropdown />
             <Menu.Item as="a" />
           </Sidebar>
 
           <Sidebar.Pusher dimmed={visible}>
             <Segment basic>
-              <Image src="https://react.semantic-ui.com/images/wireframe/paragraph.png" />
+              <Image src="https://react.semantic-ui.com/images/wireframe/paragraph.png" /> 
               {/* placeholder img */}
             </Segment>
           </Sidebar.Pusher>
@@ -93,4 +66,4 @@ class SideBar extends Component {
   }
 }
 
-export default SideBar;
+export default LandingPage;
