@@ -7,9 +7,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import { getUserData } from "../../actions/mapActions";
-
 import styled from "styled-components";
-
 import { returnCode } from "../helper";
 import { getUserDataReducer } from "../../reducers/mapReducer.js";
 
@@ -21,27 +19,6 @@ const Wrapper = styled.div`
   left: 0;
 `;
 
-//Sample data temporary, used to test fillColor function for leaflet
-const sampleData = [
-  {
-    country: "US1",
-    status: 1
-  },
-  {
-    country: "RUS",
-    status: 3
-  },
-  {
-    country: "BRA",
-    status: 2
-  },
-  {
-    country: "CH1",
-    status: 4
-  }
-];
-
-//color codes for country status
 const colorCodes = {
   0: "lightgrey",
   1: "#CD5D01",
@@ -50,14 +27,13 @@ const colorCodes = {
   4: "#017B7B"
 };
 
-//function that will take in 2 parameters, the users country info(sampleData), and the current
-//country code (feature.id is the the id of the country in the geojson data (the 3 letter country code))
-//this function has been tested and will correctly match the 3 letter country code from sampleData with
-//the 3 letter code from geojson data, and return the correct number
 function countryColorMatcher(userData, geoJsonCountry) {
   let colorCode = 0;
   userData.map(country => {
-    if (JSON.stringify(returnCode(country.country_id)) === JSON.stringify(geoJsonCountry)) {
+    if (
+      JSON.stringify(returnCode(country.country_id)) ===
+      JSON.stringify(geoJsonCountry)
+    ) {
       colorCode = country.status;
     }
   });
@@ -77,14 +53,15 @@ class MapContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    
-    if(this.props.loading !== nextProps.loading) {
-     
+    if (this.props.loading !== nextProps.loading) {
       function style(feature) {
         return {
           fillColor:
             colorCodes[
-              countryColorMatcher(nextProps.userCountryData, feature.properties.SOV_A3)
+              countryColorMatcher(
+                nextProps.userCountryData,
+                feature.properties.SOV_A3
+              )
             ] || "pink",
           weight: 1,
           opacity: 1,
@@ -92,7 +69,7 @@ class MapContainer extends React.Component {
           fillOpacity: 0.7
         };
       }
-  
+
       this.map = L.map("map", {
         center: [30, 0],
         zoom: 3,
@@ -102,7 +79,7 @@ class MapContainer extends React.Component {
         maxBounds: [[-90, -180], [90, 180]],
         maxBoundsViscosity: 1
       });
-  
+
       L.tileLayer(
         "https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}{r}.png",
         {
@@ -112,7 +89,7 @@ class MapContainer extends React.Component {
           noWrap: true
         }
       ).addTo(this.map);
-  
+
       L.geoJson(countrydata, {
         onEachFeature: (feature, layer) => {
           layer.bindPopup("<h3>" + feature.properties.ADMIN + "</h3>", {
@@ -149,10 +126,14 @@ class MapContainer extends React.Component {
 
 const mapStateToProps = state => {
   return {
-
     userData: state.getUserDataReducer.userData,
     userCountryData: state.getUserDataReducer.userCountryData,
     loading: state.getUserDataReducer.loading
   };
 };
-export default withRouter(connect(mapStateToProps,{ getUserData })(MapContainer));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getUserData }
+  )(MapContainer)
+);
