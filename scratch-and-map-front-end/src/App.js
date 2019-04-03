@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
-import Auth from "./Auth/Auth";
+import Auth from "./components/AuthContainer/Auth";
 import MapContainer from "./components/MapContainer/MapContainer";
-import ForgotPassword from "./Auth/ForgotPassword";
+import ForgotPassword from "./components/AuthContainer/ForgotPassword";
 import ParentNav from "./components/NavContainer/ParentNav"
 import Card from "./components/MapContainer/Card";
 import "./index.scss";
