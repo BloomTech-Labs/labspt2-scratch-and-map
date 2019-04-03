@@ -10,6 +10,7 @@ export const getUserData = (id) => {
         axios
             .get(`${process.env.REACT_APP_BACKEND_URL}/api/users/${id}`)
             .then(response => {
+                console.log(response)
                 dispatch({ type: SUCCESS, payload: response.data})
             })
             .catch(err => {

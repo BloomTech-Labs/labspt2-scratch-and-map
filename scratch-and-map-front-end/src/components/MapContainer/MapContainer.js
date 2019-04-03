@@ -7,9 +7,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import { getUserData } from "../../actions/mapActions";
-
 import styled from "styled-components";
-
 import { returnCode } from "../helper";
 import { getUserDataReducer } from "../../reducers/mapReducer.js";
 
@@ -21,27 +19,6 @@ const Wrapper = styled.div`
   left: 0;
 `;
 
-//Sample data temporary, used to test fillColor function for leaflet
-const sampleData = [
-  {
-    country: "US1",
-    status: 1
-  },
-  {
-    country: "RUS",
-    status: 3
-  },
-  {
-    country: "BRA",
-    status: 2
-  },
-  {
-    country: "CH1",
-    status: 4
-  }
-];
-
-//color codes for country status
 const colorCodes = {
   0: "lightgrey",
   1: "#CD5D01",
@@ -50,10 +27,6 @@ const colorCodes = {
   4: "#017B7B"
 };
 
-//function that will take in 2 parameters, the users country info(sampleData), and the current
-//country code (feature.id is the the id of the country in the geojson data (the 3 letter country code))
-//this function has been tested and will correctly match the 3 letter country code from sampleData with
-//the 3 letter code from geojson data, and return the correct number
 function countryColorMatcher(userData, geoJsonCountry) {
   let colorCode = 0;
   userData.map(country => {
@@ -153,10 +126,14 @@ class MapContainer extends React.Component {
 
 const mapStateToProps = state => {
   return {
-
     userData: state.getUserDataReducer.userData,
     userCountryData: state.getUserDataReducer.userCountryData,
     loading: state.getUserDataReducer.loading
   };
 };
-export default withRouter(connect(mapStateToProps,{ getUserData })(MapContainer));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getUserData }
+  )(MapContainer)
+);
