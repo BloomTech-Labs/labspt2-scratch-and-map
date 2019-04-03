@@ -3,15 +3,18 @@ import axios from 'axios'
 import { Dropdown } from "semantic-ui-react";
 
 class SidebarDrop extends Component {
-  state = {};
+  state = {
+    options: []
+  };
 
   async componentDidMount() {
-    const { data } = await axios.get(
-      `${process.env.REACT_APP_BACKEND_URL}/api/users`
-    );
-    console.log(data);
-    this.setState({ options: data });
-    
+    await axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/users`)
+      .then(res => {
+        this.setState({
+          options: res.data.users
+        });
+      });
   }
 
   handleInputChange = e => {
@@ -21,18 +24,19 @@ class SidebarDrop extends Component {
   };
 
   render() {
+    console.log("OPTIONS DATA", this.state.options);
     return (
       <div>
         <Dropdown
-          // onChange={this.handleInputChange} needs to pull in props instead
+          onChange={this.handleInputChange} 
           placeholder="Select Friend"
           clearable
           fluid
           multiple
           search
           selection
-          // options={this.state.options.map((item, index) => <option key={index} value={item.id}>{item.username}</option>)} This will have to pull in props instead
-        />
+          options={this.state.options.map((item) => <option key={item.id} value={item.id}>{item.username}</option>)}
+          />
       </div>
     );
   }
