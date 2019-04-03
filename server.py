@@ -67,6 +67,12 @@ def get_user_by_fbid(fbid):
     user = users.query.filter(users.fb_user_id==fbid).first()
     return user_schema.jsonify(user)
 
+@app.route('/api/users/fb/token', methods=['POST'])
+def check_user_by_token():
+    token = request.json['accessToken']
+    user = users.query.filter(users.fb_access_token==token).first()
+    return jsonify({'isLoggedIn': 'true'})
+
 #USERS ENDPOINTS
 @app.route('/api/users', methods =['GET'])
 def get_users():
