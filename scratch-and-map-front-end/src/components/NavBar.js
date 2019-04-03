@@ -2,6 +2,7 @@ import React from "react";
 import Auth from "../Auth/Auth";
 
 import { Menu, Sidebar, Button, Icon, Dropdown } from "semantic-ui-react";
+import SelectLanguage from './SelectLanguage'
 
 const NavBar = ({ onToggle, visible, onPusherClick }) => (
   // {onPusherClick, onToggle, visible }
@@ -37,9 +38,12 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
         {/* We can do a burger, menu button or both! */}
         <Button onClick={onToggle}>Menu</Button>
       </Menu.Menu>
+     
       <Menu.Menu position="right">
+      
         <Auth />
       </Menu.Menu>
+      <SelectLanguage />
     </Menu>
     <Sidebar.Pusher
       // dimmed={visible}
