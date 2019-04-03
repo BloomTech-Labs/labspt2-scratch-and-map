@@ -3,7 +3,7 @@ import { Route } from "react-router-dom";
 import Auth from "./Auth/Auth";
 import MapContainer from "./components/MapContainer/MapContainer";
 import ForgotPassword from "./Auth/ForgotPassword";
-import ParentNav from "./components/ParentNav"
+import ParentNav from "./components/NavContainer/ParentNav"
 import Card from "./components/MapContainer/Card";
 import "./index.scss";
 require("dotenv").config();

@@ -1,5 +1,5 @@
 import React from "react";
-import Auth from "../Auth/Auth";
+import Auth from "../../Auth/Auth";
 
 import { Menu, Sidebar, Button, Icon, Dropdown } from "semantic-ui-react";
 import SidebarDrop from "./SidebarDrop";
