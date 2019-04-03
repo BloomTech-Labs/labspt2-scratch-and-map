@@ -1,14 +1,12 @@
 * {
   box-sizing: border-box;
-}
+  border: thin; }
 
 h1 {
-  font-family: "Staatliches", cursive;
-}
+  font-family: "Staatliches", cursive; }
 
 p {
-  font-family: "Open Sans Condensed", sans-serif;
-}
+  font-family: "Open Sans Condensed", sans-serif; }
 
 /* LOGIN STYLES */
 .auth-wrapper {
@@ -18,32 +16,28 @@ p {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  border: 1px solid black;
-  .auth-controller {
+  border: 1px solid black; }
+  .auth-wrapper .auth-controller {
     visibility: visible;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     width: 100%;
     align-items: center;
-    transition: visibility 0.5s ease-out;
-    .controller {
+    transition: visibility 0.5s ease-out; }
+    .auth-wrapper .auth-controller .controller {
       display: flex;
       align-items: center;
       justify-content: center;
       width: 50%;
       height: 50px;
       cursor: pointer;
-      background: #e9eaea;
-    }
-  }
-}
+      background: #e9eaea; }
 
 .selected-controller {
   display: flex;
   justify-content: flex-end;
-  width: 50%;
-}
+  width: 50%; }
 
 .login-controller {
   display: flex;
@@ -52,8 +46,7 @@ p {
   width: 50%;
   height: 50px;
   cursor: pointer;
-  background: #e9eaea;
-}
+  background: #e9eaea; }
 
 .box-wrapper {
   display: flex;
@@ -62,32 +55,27 @@ p {
   max-width: 350px;
   width: 100%;
   min-width: 200px;
-  padding: 24px;
-}
+  padding: 24px; }
 
 .login-register-wrapper {
-  transition: visibility 0.2s ease-out;
-}
+  transition: visibility 0.2s ease-out; }
 
 .form-wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-}
+  justify-content: center; }
 
 .input-wrapper {
   display: flex;
   flex-direction: column;
   margin-top: 5px;
-  margin-bottom: 5px;
-}
+  margin-bottom: 5px; }
 
 .login-label {
   font-size: 20px;
   font-weight: 500;
   margin-bottom: 10px;
-  margin-top: 15px;
-}
+  margin-top: 15px; }
 
 .login-input {
   height: 10px;
@@ -97,17 +85,14 @@ p {
   padding: 13px;
   font-size: 19px;
   color: #3e3e42;
-  background: rgba(15, 15, 15, 0.01);
-}
+  background: rgba(15, 15, 15, 0.01); }
 
 .login-input:hover {
-  border: 2px solid grey;
-}
+  border: 2px solid grey; }
 
 .login-input:focus {
   border: 2px solid #6565e7;
-  box-shadow: 0px 0px 20px rgba(15, 15, 15, 0.2);
-}
+  box-shadow: 0px 0px 20px rgba(15, 15, 15, 0.2); }
 
 .login-btn {
   padding: 2px 30px;
@@ -119,30 +104,25 @@ p {
   border-radius: 40px;
   color: white;
   transition: background-color 0.3s ease-out;
-  cursor: pointer;
-}
+  cursor: pointer; }
 
 .login-btn:hover,
 .login-btn:focus {
   background-color: black;
-  color: white;
-}
+  color: white; }
 
 .forgot-pwd {
   color: dodgerblue;
   margin-top: 10px;
-  text-decoration: none;
-}
+  text-decoration: none; }
 
 .third-party {
   margin-top: 20px;
   margin-bottom: 10px;
-  font-weight: bold;
-}
+  font-weight: bold; }
 
 .terms {
-  margin-top: 20px;
-}
+  margin-top: 20px; }
+
 .terms-link {
-  color: dodgerblue;
-}
+  color: dodgerblue; }
