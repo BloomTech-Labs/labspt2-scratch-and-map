@@ -52,7 +52,7 @@ class Auth extends Component {
     return (
       <div className="landing">
       <div className="Nav">
-      <Modal size='mini' trigger={<Button>Sign Up</Button>}>
+      <Modal size='mini' trigger={<Button inverted>Sign Up</Button>}>
       <Modal.Content>
       <div className="box-wrapper">
           {this.state.isLoginOpen && (
@@ -65,7 +65,7 @@ class Auth extends Component {
         </Modal.Content>
         </Modal>
 
-        <Modal size='mini' trigger={<Button>Log In</Button>}>
+        <Modal size='mini' trigger={<Button inverted>Log In</Button>}>
         <Modal.Content image>
         <div className="box-wrapper">
           {this.state.isLoginOpen && (

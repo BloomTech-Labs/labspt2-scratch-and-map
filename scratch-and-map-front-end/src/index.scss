@@ -147,3 +147,58 @@ p {
 .terms-link {
   color: dodgerblue;
 }
+
+.NavBar, .Nav, .Menu {
+  background-color: black;
+}
+
+.sidebar {
+  img {
+    margin: 20px auto !important;
+    height: 50px;
+    width: 100px;
+  }
+}
+
+.Menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+
+  .icon {
+    background-color: black !important;
+    color: white !important;
+    height: 30px;
+  
+    .text {
+      position: relative !important;
+      top: -2px;
+    }
+  
+   
+  }
+  
+  
+  .icon:hover {
+    color: black !important;
+    background-color: white !important;
+  }
+}
+
+.AuthButtons {
+  display: flex;
+}
+
+
+
+.drop {
+  border: 2px solid white;
+  border-radius: 5px;
+  height: 35px;
+}
+
+.drop:hover {
+  color: black;
+  background-color: white;
+}

@@ -1,8 +1,9 @@
 import React from "react";
 import Auth from "../AuthContainer/Auth";
-import { Menu, Sidebar, Button, Icon, Dropdown } from "semantic-ui-react";
+import { Menu, Sidebar, Button, Icon } from "semantic-ui-react";
 import SidebarDrop from "./SidebarDrop";
 import SelectLanguage from "./SelectLanguage";
+import logo from '../../img/logowhite.png'
 
 const NavBar = ({ onToggle, visible, onPusherClick }) => (
   <Sidebar.Pushable>
@@ -10,29 +11,29 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
       as={Menu}
       animation="overlay"
       icon="labeled"
+      className="sidebar"
       inverted
       vertical
       visible={visible}
       width="wide"
     >
       <Menu.Item as="a">
-        <Icon name="home" />
-        Home
+        <img src={logo} />
       </Menu.Item>
       <SidebarDrop />
     </Sidebar>
 
-    <Menu>
-      <Menu.Menu>
+    <div className="Menu">
+      <div className="MenuButton">
         {/* We can do a burger, menu button or both! */}
-        <Button onClick={onToggle}>Menu</Button>
-      </Menu.Menu>
+        <Button inverted onClick={onToggle}>Menu</Button>
+      </div>
 
-      <Menu.Menu position="right">
+      <div className="AuthButtons">
         <Auth />
-      </Menu.Menu>
-      <SelectLanguage />
-    </Menu>
+        <SelectLanguage />
+      </div>
+      </div>
     <Sidebar.Pusher
       dimmed={visible}
       onClick={onPusherClick}

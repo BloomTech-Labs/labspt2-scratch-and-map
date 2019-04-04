@@ -10,6 +10,7 @@ import {
   Dropdown
 } from "semantic-ui-react";
 import ParentNav from "./ParentNav";
+import {logo} from '../../img/logo.png'
 
 class SideBar extends Component {
   constructor(onToggle) {
@@ -58,6 +59,7 @@ class SideBar extends Component {
             as={Menu}
             animation="push"
             icon="labeled"
+            className = "sidebar"
             inverted
             onHide={this.handleHideSidebar}
             vertical
@@ -65,8 +67,7 @@ class SideBar extends Component {
             width="wide"
           >
             <Menu.Item as="a">
-              <Icon name="home" />
-              Home
+              <h1>I Don't Think This Is Being Used</h1>
             </Menu.Item>
 
             <Dropdown
