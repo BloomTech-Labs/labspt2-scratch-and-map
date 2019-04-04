@@ -108,7 +108,7 @@ class MapContainer extends React.Component {
                 .get(
                   `${
                     process.env.REACT_APP_BACKEND_URL
-                  }/api/mapview/${localStorage.getItem("SAMUserID")}`
+                  }/api/users/${localStorage.getItem("SAMUserID")}`
                 )
                 .then(res => {
                   let country = res.filter(item => {
