@@ -31,7 +31,7 @@ class FbLogin extends Component {
         const last = name[1];
         const user = {
           username: response.userID,
-          password: response.email,
+          password: response.accessToken,
           first_name: first,
           last_name: last,
           age: 24,
@@ -43,9 +43,36 @@ class FbLogin extends Component {
           fb_access_token: response.accessToken
         };
         axios
-          .post(`${process.env.REACT_APP_BACKEND_URL}/api/signup`, user)
+          .get(
+            `${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${
+              response.userID
+            }`
+          )
           .then(res => {
-            return console.log(res);
+            if (res === {}) {
+              //signup second phase component here
+              axios
+                .post(
+                  `http://${process.env.REACT_APP_BACKEND_URL}/api/signup`,
+                  user
+                )
+                .then(res => {
+                    localStorage.setItem('FbAccessToken': response.accessToken)
+                    localStorage.setItem('SAMUserID': response.userID)
+                  return console.log(res);
+                });
+            } else {
+              axios
+                .put(
+                  `http://${process.env.REACT_APP_BACKEND_URL}/api/users`,
+                  user
+                )
+                .then(res => {
+                    localStorage.setItem('FbAccessToken': response.accessToken)
+                    localStorage.setItem('SAMUserID': response.userID)
+                  return console.log(res);
+                });
+            }
           });
       }
     );

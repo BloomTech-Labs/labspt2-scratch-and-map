@@ -2,7 +2,7 @@ import React from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import countrydata from "./countries.geo.json";
-
+import axios from "axios";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
@@ -104,7 +104,24 @@ class MapContainer extends React.Component {
             e.target.closePopup();
           });
           layer.on("click", () => {
-            this.setState({ clickedCountry: feature.properties.SOV_A3 });
+            this.setState({ clickedCountry: feature.properties.SOV_A3 }, () => {
+              axios
+                .get(`${process.env.REACT_APP_BACKEND_URL}/api/countries`)
+                .then(res => {
+                  const country = res.data.filter(item => {
+                    return item === feature.properties.SOV_A3;
+                  });
+                  axios.post(
+                    `${process.env.REACT_APP_BACKEND_URL}/api/mapview`,
+                    {
+                      user_id: localStorage.getItem("SAMUserID"),
+                      country_id: country.id,
+                      status: 1,
+                      notes: "None"
+                    }
+                  );
+                });
+            });
           });
         },
         style: style,

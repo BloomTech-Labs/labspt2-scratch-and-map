@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
+<<<<<<< HEAD
+import axios from "axios";
+import Auth from "./Auth/Auth";
+=======
 import Auth from "./components/AuthContainer/Auth";
+>>>>>>> 80e40b8b1f1f14b9cac33fe7a9cf1e60bd9007da
 import MapContainer from "./components/MapContainer/MapContainer";
 import ForgotPassword from "./components/AuthContainer/ForgotPassword";
 import ParentNav from "./components/NavContainer/ParentNav"
@@ -9,6 +14,10 @@ import "./index.scss";
 require("dotenv").config();
 
 class App extends Component {
+  componentDidMount() {
+    //grab FbAcessToken from local storage
+    // axios.post(`http://${process.env.REACT_APP_BACKEND_URL}/api/users/fb`);
+  }
   render() {
     const sampleData = [
       {
