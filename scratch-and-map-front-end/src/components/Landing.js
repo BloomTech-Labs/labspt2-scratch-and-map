@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import hero from '../img/hero.png '
 
 class Landing extends Component {
   render() {
