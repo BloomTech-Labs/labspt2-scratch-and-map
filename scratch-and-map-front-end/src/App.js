@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
+<<<<<<< HEAD
 import axios from "axios";
 import Auth from "./Auth/Auth";
+=======
+import Auth from "./components/AuthContainer/Auth";
+>>>>>>> 80e40b8b1f1f14b9cac33fe7a9cf1e60bd9007da
 import MapContainer from "./components/MapContainer/MapContainer";
-import ForgotPassword from "./Auth/ForgotPassword";
-import SideBar from "./components/SideBar";
-import NavBar from "./components/NavBar"
+import ForgotPassword from "./components/AuthContainer/ForgotPassword";
+import ParentNav from "./components/NavContainer/ParentNav"
 import Card from "./components/MapContainer/Card";
 import "./index.scss";
 require("dotenv").config();
@@ -57,9 +60,8 @@ class App extends Component {
     return (
       <div className="App">
         {/* Auth component using '/' path for now, not intended to be permanent */}
-        <Route path="/navbar" exact render={props => <NavBar />} />
-        <Route path="/sidebar" exact render={props => <SideBar />} />
-        <Route path="/" exact render={props => <Auth />} />
+        <Route path="/" exact render={props => <ParentNav/>} />
+        <Route path="/auth" exact render={props => <Auth />} />
         <Route
           path="/forgotpassword"
           exact

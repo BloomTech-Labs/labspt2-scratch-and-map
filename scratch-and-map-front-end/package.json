@@ -28,7 +28,9 @@
     "start": "set HTTPS=true && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "css": "node-sass src/index.scss src/styles/dest/App.css",
+    "watch:css" : "yarn css -w"
   },
   "browserslist": [
     ">0.2%",
