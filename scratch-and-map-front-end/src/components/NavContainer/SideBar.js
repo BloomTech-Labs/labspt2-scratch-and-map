@@ -9,9 +9,10 @@ import {
   Image,
   Dropdown
 } from "semantic-ui-react";
+import ParentNav from "./ParentNav";
 
 class SideBar extends Component {
-  constructor() {
+  constructor(onToggle) {
     super();
     this.state = {
       //friends: [],
@@ -80,8 +81,10 @@ class SideBar extends Component {
             />
             <Menu.Item as="a" />
           </Sidebar>
+          {/* <ParentNav /> */}
 
           <Sidebar.Pusher dimmed={visible}>
+          {/* This is where the landing page component would go */}
             <Segment basic>
               <Image src="https://react.semantic-ui.com/images/wireframe/paragraph.png" />
               {/* placeholder img */}
