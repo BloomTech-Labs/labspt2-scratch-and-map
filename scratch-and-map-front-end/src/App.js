@@ -1,14 +1,10 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
-<<<<<<< HEAD
 import axios from "axios";
-import Auth from "./Auth/Auth";
-=======
 import Auth from "./components/AuthContainer/Auth";
->>>>>>> 80e40b8b1f1f14b9cac33fe7a9cf1e60bd9007da
 import MapContainer from "./components/MapContainer/MapContainer";
 import ForgotPassword from "./components/AuthContainer/ForgotPassword";
-import ParentNav from "./components/NavContainer/ParentNav"
+import ParentNav from "./components/NavContainer/ParentNav";
 import Card from "./components/MapContainer/Card";
 import CardSlider from "./components/MapContainer/CardSlider";
 import "./index.scss";
@@ -61,7 +57,7 @@ class App extends Component {
     return (
       <div className="App">
         {/* Auth component using '/' path for now, not intended to be permanent */}
-        <Route path="/" exact render={props => <ParentNav/>} />
+        <Route path="/" exact render={props => <ParentNav />} />
         <Route path="/auth" exact render={props => <Auth />} />
         <Route
           path="/forgotpassword"

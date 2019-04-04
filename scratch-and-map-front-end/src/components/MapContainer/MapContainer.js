@@ -5,7 +5,7 @@ import countrydata from "./countries.geo.json";
 import axios from "axios";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-
+import "helper.js";
 import { getUserData } from "../../actions/mapActions";
 import styled from "styled-components";
 import { returnCode } from "../helper";
@@ -106,20 +106,29 @@ class MapContainer extends React.Component {
           layer.on("click", () => {
             this.setState({ clickedCountry: feature.properties.SOV_A3 }, () => {
               axios
-                .get(`${process.env.REACT_APP_BACKEND_URL}/api/countries`)
+                .get(
+                  `${
+                    process.env.REACT_APP_BACKEND_URL
+                  }/api/mapview/${localStorage.getItem("SAMUserID")}`
+                )
                 .then(res => {
-                  const country = res.data.filter(item => {
-                    return item === feature.properties.SOV_A3;
+                  let country = res.filter(item => {
+                    return (
+                      item.user_countries.country_id ===
+                      returnId(feature.properties.SOV_A3)
+                    );
                   });
-                  axios.post(
-                    `${process.env.REACT_APP_BACKEND_URL}/api/mapview`,
-                    {
-                      user_id: localStorage.getItem("SAMUserID"),
-                      country_id: country.id,
-                      status: 1,
-                      notes: "None"
-                    }
-                  );
+                  if (country === []) {
+                    axios.post(
+                      `${process.env.REACT_APP_BACKEND_URL}/api/mapview`,
+                      {
+                        user_id: res.id,
+                        country_id: returnId(feature.properties.SOV_A3),
+                        status: 0,
+                        notes: "None"
+                      }
+                    );
+                  }
                 });
             });
           });
