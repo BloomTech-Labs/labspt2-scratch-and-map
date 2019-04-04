@@ -57,8 +57,8 @@ class FbLogin extends Component {
                   user
                 )
                 .then(res => {
-                    localStorage.setItem('FbAccessToken': response.accessToken)
-                    localStorage.setItem('SAMUserID': response.userID)
+                  localStorage.setItem("FbAccessToken", response.accessToken);
+                  localStorage.setItem("SAMUserID", response.userID);
                   return console.log(res);
                 });
             } else {
@@ -68,8 +68,8 @@ class FbLogin extends Component {
                   user
                 )
                 .then(res => {
-                    localStorage.setItem('FbAccessToken': response.accessToken)
-                    localStorage.setItem('SAMUserID': response.userID)
+                  localStorage.setItem("FbAccessToken", response.accessToken);
+                  localStorage.setItem("SAMUserID", response.userID);
                   return console.log(res);
                 });
             }
