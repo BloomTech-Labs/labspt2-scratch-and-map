@@ -5,6 +5,7 @@ import MapContainer from "./components/MapContainer/MapContainer";
 import ForgotPassword from "./components/AuthContainer/ForgotPassword";
 import ParentNav from "./components/NavContainer/ParentNav"
 import Card from "./components/MapContainer/Card";
+import CardSlider from "./components/MapContainer/CardSlider";
 import "./index.scss";
 require("dotenv").config();
 
@@ -67,6 +68,12 @@ class App extends Component {
           path="/card"
           exact
           render={props => <Card friends={friends} />}
+        />
+
+<Route
+          path="/slider"
+          exact
+          render={props => <CardSlider friends={friends} />}
         />
       </div>
     );

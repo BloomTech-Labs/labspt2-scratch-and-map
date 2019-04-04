@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import returnCode from "../helper"
 import { Button, Header, Image, Modal, Form, TextArea } from 'semantic-ui-react';
-import Slider from "./Slider";
+import CardSlider from "./CardSlider";
 
 class Card extends Component {
   constructor(props) {
@@ -16,9 +16,8 @@ class Card extends Component {
       <Modal.Content image>
       <Header>Haiti</Header>
         <Image wrapped size='small' src='https://restcountries.eu/data/hti.svg' />
-        <Slider />
+        <CardSlider />
         <Modal.Description>
-         
           <p>Notes:</p>
           {<Form>
             <TextArea placeholder='Travel Notes' />
