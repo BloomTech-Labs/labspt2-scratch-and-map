@@ -5,10 +5,9 @@ import countrydata from "./countries.geo.json";
 import axios from "axios";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import "helper.js";
 import { getUserData } from "../../actions/mapActions";
 import styled from "styled-components";
-import { returnCode } from "../helper";
+import { returnCode, returnId } from "../helper";
 import { getUserDataReducer } from "../../reducers/mapReducer.js";
 
 const Wrapper = styled.div`
