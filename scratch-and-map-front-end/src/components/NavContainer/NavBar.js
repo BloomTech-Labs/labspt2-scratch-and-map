@@ -1,9 +1,11 @@
 import React from "react";
 import Auth from "../AuthContainer/Auth";
-import { Menu, Sidebar, Button, Icon } from "semantic-ui-react";
+import { Route } from "react-router-dom";
+import { Menu, Sidebar, Button, Icon, Header, Segment, Image } from "semantic-ui-react";
 import SidebarDrop from "./SidebarDrop";
 import SelectLanguage from "./SelectLanguage";
 import logo from '../../img/logowhite.png'
+import Landing from '../Landing'
 
 const NavBar = ({ onToggle, visible, onPusherClick }) => (
   <Sidebar.Pushable>
@@ -25,7 +27,6 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
       </Menu.Item>
       <SidebarDrop />
     </Sidebar>
-
     <div className="Menu">
       <div className="MenuButton">
         {/* We can do a burger, menu button or both! */}
@@ -41,8 +42,14 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
       dimmed={visible}
       onClick={onPusherClick}
       style={{ minHeight: "100vh" }}
-    />
-  </Sidebar.Pushable>
+    >
+    <Segment basic>
+      <Route path="/" exact render={props => <Landing />} />
+    </Segment>
+            </Sidebar.Pusher>
+    </Sidebar.Pushable>
+
+  
 );
 
 export default NavBar;
