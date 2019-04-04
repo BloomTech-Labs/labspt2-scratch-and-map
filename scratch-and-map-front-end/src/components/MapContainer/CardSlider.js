@@ -7,9 +7,12 @@ import Tick from "./Tick";
 class CardSlider extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      status_id: 0
+    };
     
   }
-  render() {
+  render()  {
     const sliderStyle = {  // Give the slider some width
       position: 'relative',
       width: '50%',
@@ -26,6 +29,7 @@ class CardSlider extends Component {
       borderRadius: 5,
       backgroundColor: '#8B9CB6',
     }
+
 
     return (
       <div>
@@ -74,9 +78,9 @@ class CardSlider extends Component {
         <div className="slider-ticks">
           {ticks.map(tick => (
             <Tick key={tick.id} tick={tick} count={ticks.length} />
-          ))}
+          ))} 
         </div>
-      )}
+      )} 
     </Ticks>
 </Slider>
       </div>

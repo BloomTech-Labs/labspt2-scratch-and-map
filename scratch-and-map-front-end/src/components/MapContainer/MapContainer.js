@@ -114,7 +114,6 @@ class MapContainer extends React.Component {
       }).addTo(this.map);
     }
   }
-
   render() {
     return (
       <div>
