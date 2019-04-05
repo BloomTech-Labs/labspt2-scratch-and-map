@@ -111,7 +111,7 @@ class MapContainer extends React.Component {
                   }/api/users/${localStorage.getItem("SAMUserID")}`
                 )
                 .then(res => {
-                  let country = res.filter(item => {
+                  let country = res.data.filter(item => {
                     return (
                       item.user_countries.country_id ===
                       returnId(feature.properties.SOV_A3)
