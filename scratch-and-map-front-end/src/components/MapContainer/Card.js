@@ -56,7 +56,7 @@ class Card extends Component {
           </Form>}
           <strong>FRIENDS</strong>
           <div> {friendList}</div>
-          <Button onClose={this.props.onClose} >Close</Button>
+          <Button onClick={() => this.props.onClose()} >Close</Button>
         </Modal.Description>
       </Modal.Content>
     </Modal>

@@ -49,7 +49,7 @@ class MapContainer extends React.Component {
       isOpen: false,
       clickedCountry:""
     };
-    
+
     this.toggleModal = this.toggleModal.bind(this)
   }
   openModal() {
@@ -150,12 +150,10 @@ class MapContainer extends React.Component {
     }
   }
   render() {
-    console.log(this.state.clickedCountry)
     return (
       <div>
         {this.state.isOpen ? (
          <Card
-         isOpen={this.state.isModalOpen}
          open={this.state.isOpen}
          onClose={this.toggleModal}
          key={returnId(this.state.clickedCountry)}
