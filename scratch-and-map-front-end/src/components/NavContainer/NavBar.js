@@ -45,7 +45,6 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
     <Segment basic>
       <Route path="/" exact render={props => <Landing />} />
       <Route path="/map" exact render={props => <MapContainer />} />
-      <Route path="/legend" exact render={props => <Legend />} />
     </Segment>
             </Sidebar.Pusher>
     </Sidebar.Pushable>

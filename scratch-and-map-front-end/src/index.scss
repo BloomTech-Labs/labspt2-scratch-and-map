@@ -243,6 +243,10 @@ p {
 
 .legend {
   width: 170px;
+  z-index: 40 !important;
+  position: relative !important;
+  top: 70%;
+  left: 85%;
 
   .listItem {
     display: flex !important;
@@ -268,5 +272,9 @@ p {
   .lived {
     color: #017B7B !important;
   }
+}
+
+#map {
+  z-index: 2;
 }
 

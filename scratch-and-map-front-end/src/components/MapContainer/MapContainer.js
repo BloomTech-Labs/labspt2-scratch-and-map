@@ -165,10 +165,9 @@ class MapContainer extends React.Component {
       ) : (
         null )}
         
-        <Wrapper id="map">
+        <Wrapper id="map" />
+       
         <Legend />
-        </Wrapper>
-        
       </div>
     );
   }
