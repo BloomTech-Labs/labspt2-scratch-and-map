@@ -1,7 +1,7 @@
 import React from "react";
 import Auth from "../AuthContainer/Auth";
 import { Route } from "react-router-dom";
-import { Menu, Sidebar, Button, Segment } from "semantic-ui-react";
+import { Menu, Sidebar, Button, Segment, Icon } from "semantic-ui-react";
 import SidebarDrop from "./SidebarDrop";
 import logo from '../../img/logowhite.png'
 import Landing from '../Landing'
@@ -25,6 +25,11 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
       <Menu.Item as="a">
         <img src={logo} />
       </Menu.Item>
+
+      <Menu.Item as="a">
+        <Icon name='inverted map' />
+      </Menu.Item>
+      
       <SidebarDrop />
     </Sidebar>
     <div className="Menu">
