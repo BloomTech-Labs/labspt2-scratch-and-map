@@ -151,7 +151,8 @@ class MapContainer extends React.Component {
   }
   render() {
     return (
-      <div>
+
+       <div className="mapview">
         {this.state.isOpen ? (
          <Card
          open={this.state.isOpen}
@@ -161,6 +162,7 @@ class MapContainer extends React.Component {
        </ Card>
       ) : (
         null )}
+
         <Wrapper id="map" />
       
       </div>

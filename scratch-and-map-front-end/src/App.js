@@ -35,8 +35,8 @@ class App extends Component {
     return (
       <div className="App">
         {/* Auth component using '/' path for now, not intended to be permanent */}
-        <Route path="/" exact render={props => <ParentNav />} />
-        <Route path="/auth" exact render={props => <Auth />} />
+        <ParentNav />
+        {/* <Route path="/auth" exact render={props => <Auth />} />
         <Route
           path="/forgotpassword"
           exact
@@ -55,9 +55,10 @@ class App extends Component {
 
 <Route
           path="/slider"
-          exact
+
           render={props => <CardSlider  />}
         />
+
       </div>
     );
   }

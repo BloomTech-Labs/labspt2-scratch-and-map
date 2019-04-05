@@ -18,13 +18,11 @@ class ParentNav extends Component {
     const { visible } = this.state;
 
     return (
-      <div>
         <NavBar
           onPusherClick={this.handlePusher}
           onToggle={this.handleToggle}
           visible={visible}
         />
-      </div>
     );
   }
 }
