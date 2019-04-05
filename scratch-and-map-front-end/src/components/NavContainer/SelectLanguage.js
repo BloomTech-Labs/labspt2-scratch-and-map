@@ -19,6 +19,7 @@ const languageOptions = [
 ]
 
 const SelectLanguage = () => (
+  <div className="drop">
   <Dropdown
     button
     className='icon'
@@ -29,6 +30,7 @@ const SelectLanguage = () => (
     search
     text='Select Language'
   />
+  </div>
 )
 
 export default SelectLanguage;
