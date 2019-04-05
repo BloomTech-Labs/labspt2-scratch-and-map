@@ -141,7 +141,7 @@ class MapContainer extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className="mapview">
         <Wrapper id="map" />
       </div>
     );
