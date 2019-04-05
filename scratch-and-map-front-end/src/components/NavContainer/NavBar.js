@@ -22,7 +22,7 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
     <Button.Group className="closebutton">
     <Button onClick={onToggle} icon="close" inverted/>
     </Button.Group>
-      <Menu.Item as="a">
+      <Menu.Item as="a" as={Link} to='/'>
         <img src={logo} />
       </Menu.Item>
 
