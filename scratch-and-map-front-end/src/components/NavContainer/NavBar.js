@@ -6,7 +6,7 @@ import SidebarDrop from "./SidebarDrop";
 import logo from '../../img/logowhite.png'
 import Landing from '../Landing'
 import MapContainer from '../MapContainer/MapContainer'
-import Legend from '../MapContainer/Legend'
+import Loading from '../Loading'
 
 const NavBar = ({ onToggle, visible, onPusherClick }) => (
   <Sidebar.Pushable>
@@ -45,6 +45,7 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
     <Segment basic>
       <Route path="/" exact render={props => <Landing />} />
       <Route path="/map" exact render={props => <MapContainer />} />
+      <Route path="/load" exact render={props => <Loading />} />
     </Segment>
             </Sidebar.Pusher>
     </Sidebar.Pushable>

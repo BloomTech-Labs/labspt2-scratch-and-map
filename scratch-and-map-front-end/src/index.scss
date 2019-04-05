@@ -278,3 +278,15 @@ p {
   z-index: 2;
 }
 
+.loading {
+  position: absolute;
+  top: -15px;
+  left: -17px;
+  width: 110%;
+  height: 100vh;
+  background-color: black;
+  opacity: .9;
+  color: white;
+  padding-top: 300px;
+}
+
