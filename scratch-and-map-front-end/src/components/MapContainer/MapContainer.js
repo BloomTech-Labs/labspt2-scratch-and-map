@@ -10,6 +10,7 @@ import styled from "styled-components";
 import { returnCode, returnId } from "../helper";
 import { getUserDataReducer } from "../../reducers/mapReducer.js";
 import Card from "./Card";
+import Legend from "./Legend";
 
 const Wrapper = styled.div`
   position: absolute;
@@ -153,6 +154,7 @@ class MapContainer extends React.Component {
     return (
 
        <div className="mapview">
+       
         {this.state.isOpen ? (
          <Card
          open={this.state.isOpen}
@@ -162,9 +164,11 @@ class MapContainer extends React.Component {
        </ Card>
       ) : (
         null )}
-
-        <Wrapper id="map" />
-      
+        
+        <Wrapper id="map">
+        <Legend />
+        </Wrapper>
+        
       </div>
     );
   }

@@ -240,3 +240,33 @@ p {
   width: 100vw;
   height: 90vh;
 }
+
+.legend {
+  width: 170px;
+
+  .listItem {
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .notSelected {
+    color: lightgrey !important;
+  }
+
+  .wantVisit {
+    color: #CD5D01 !important;
+  }
+
+  .transited {
+    color: #8FC201 !important;
+  }
+
+  .visited {
+    color: #9B016D !important;
+  }
+
+  .lived {
+    color: #017B7B !important;
+  }
+}
+
