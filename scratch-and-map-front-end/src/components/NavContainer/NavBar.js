@@ -1,9 +1,8 @@
 import React from "react";
 import Auth from "../AuthContainer/Auth";
 import { Route } from "react-router-dom";
-import { Menu, Sidebar, Button, Icon, Header, Segment, Image } from "semantic-ui-react";
+import { Menu, Sidebar, Button, Segment } from "semantic-ui-react";
 import SidebarDrop from "./SidebarDrop";
-import SelectLanguage from "./SelectLanguage";
 import logo from '../../img/logowhite.png'
 import Landing from '../Landing'
 import MapContainer from '../MapContainer/MapContainer'
@@ -30,13 +29,11 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
     </Sidebar>
     <div className="Menu">
       <div className="MenuButton">
-        {/* We can do a burger, menu button or both! */}
-        <Button inverted onClick={onToggle}>Menu</Button>
+        <Button className="navbutton" inverted onClick={onToggle}>Menu</Button>
       </div>
 
       <div className="AuthButtons">
         <Auth />
-        <SelectLanguage />
       </div>
       </div>
     <Sidebar.Pusher
