@@ -31,28 +31,6 @@ class App extends Component {
       }
     ];
 
-    const friends = [
-      {
-        first_name: "Abi",
-        last_name: "French"
-      },
-      {
-        first_name: "Javier",
-        last_name: "English"
-      },
-      {
-        first_name: "Ryan",
-        last_name: "Adams"
-      },
-      {
-        first_name: "Bull",
-        last_name: "Moll"
-      },
-      {
-        first_name: "Courtney",
-        last_name: "B Vance"
-      }
-    ];
 
     return (
       <div className="App">
@@ -72,14 +50,15 @@ class App extends Component {
         <Route
           path="/card"
           exact
-          render={props => <Card friends={friends} />}
+          render={props => <Card />}
         />
 
 <Route
           path="/slider"
-          exact
-          render={props => <CardSlider friends={friends} />}
-        /> */}
+
+          render={props => <CardSlider  />}
+        />
+
       </div>
     );
   }

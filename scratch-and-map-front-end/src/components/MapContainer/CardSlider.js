@@ -8,7 +8,7 @@ class CardSlider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      status_id: 0
+      status: 0
     };
     
   }
