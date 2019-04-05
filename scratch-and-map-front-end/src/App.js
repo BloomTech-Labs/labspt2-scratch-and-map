@@ -1,3 +1,4 @@
+import React, { Component } from "react";
 import ParentNav from "./components/NavContainer/ParentNav";
 import "./index.scss";
 require("dotenv").config();
