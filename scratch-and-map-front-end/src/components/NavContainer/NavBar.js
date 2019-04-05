@@ -1,11 +1,13 @@
 import React from "react";
-import Auth from "../AuthContainer/Auth";
-import { Route, Link } from "react-router-dom";
+import { Route, Link, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 import { Menu, Sidebar, Button, Segment, Icon } from "semantic-ui-react";
-import SidebarDrop from "./SidebarDrop";
 import logo from '../../img/logowhite.png'
+import Auth from "../AuthContainer/Auth";
+import SidebarDrop from "./SidebarDrop";
 import Landing from '../Landing'
 import MapContainer from '../MapContainer/MapContainer'
+import { getUserData } from "../../actions/mapActions";
 
 const NavBar = ({ onToggle, visible, onPusherClick }) => (
   <Sidebar.Pushable>
@@ -56,4 +58,17 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
   
 );
 
-export default NavBar;
+// export default NavBar;
+const mapStateToProps = state => {
+  return {
+    userData: state.getUserDataReducer.userData,
+    userCountryData: state.getUserDataReducer.userCountryData,
+    loading: state.getUserDataReducer.loading
+  };
+};
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getUserData }
+  )(NavBar)
+);
