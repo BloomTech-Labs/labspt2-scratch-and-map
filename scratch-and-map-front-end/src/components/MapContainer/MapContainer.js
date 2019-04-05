@@ -9,6 +9,7 @@ import { getUserData } from "../../actions/mapActions";
 import styled from "styled-components";
 import { returnCode, returnId } from "../helper";
 import { getUserDataReducer } from "../../reducers/mapReducer.js";
+import Card from "./Card";
 
 const Wrapper = styled.div`
   position: absolute;
@@ -42,9 +43,21 @@ function countryColorMatcher(userData, geoJsonCountry) {
 class MapContainer extends React.Component {
   constructor(props) {
     super(props);
+  
     this.state = {
-      loading: false
+      loading: false,
+      isOpen: false,
+      clickedCountry:""
     };
+    
+    this.toggleModal = this.toggleModal.bind(this)
+  }
+  openModal() {
+    this.setState({ isOpen: true })
+  }
+
+  toggleModal() {
+    this.setState({ isOpen: false })
   }
 
   componentDidMount() {
@@ -68,7 +81,6 @@ class MapContainer extends React.Component {
           fillOpacity: 0.7
         };
       }
-
       this.map = L.map("map", {
         center: [30, 0],
         zoom: 3,
@@ -78,7 +90,6 @@ class MapContainer extends React.Component {
         maxBounds: [[-90, -180], [90, 180]],
         maxBoundsViscosity: 1
       });
-
       L.tileLayer(
         "https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}{r}.png",
         {
@@ -88,7 +99,6 @@ class MapContainer extends React.Component {
           noWrap: true
         }
       ).addTo(this.map);
-
       L.geoJson(countrydata, {
         onEachFeature: (feature, layer) => {
           layer.bindPopup("<h3>" + feature.properties.ADMIN + "</h3>", {
@@ -103,7 +113,7 @@ class MapContainer extends React.Component {
             e.target.closePopup();
           });
           layer.on("click", () => {
-            this.setState({ clickedCountry: feature.properties.SOV_A3 }, () => {
+            this.setState({ clickedCountry: feature.properties.SOV_A3, isOpen: true }, () => {
               axios
                 .get(
                   `${
@@ -140,9 +150,21 @@ class MapContainer extends React.Component {
     }
   }
   render() {
+    console.log(this.state.clickedCountry)
     return (
       <div>
+        {this.state.isOpen ? (
+         <Card
+         isOpen={this.state.isModalOpen}
+         open={this.state.isOpen}
+         onClose={this.toggleModal}
+         key={returnId(this.state.clickedCountry)}
+         country_code={this.state.clickedCountry}>
+       </ Card>
+      ) : (
+        null )}
         <Wrapper id="map" />
+      
       </div>
     );
   }
