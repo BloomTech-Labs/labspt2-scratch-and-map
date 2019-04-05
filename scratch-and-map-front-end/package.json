@@ -11,6 +11,7 @@
     "node-sass": "^4.11.0",
     "pg-promise": "^8.6.4",
     "react": "^16.8.3",
+    "react-compound-slider": "^1.2.1",
     "react-dom": "^16.8.3",
     "react-facebook-login": "^4.1.1",
     "react-redux": "^6.0.1",
@@ -28,7 +29,9 @@
     "start": "set HTTPS=true && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "css": "node-sass src/index.scss src/styles/dest/App.css",
+    "watch:css": "yarn css -w"
   },
   "browserslist": [
     ">0.2%",

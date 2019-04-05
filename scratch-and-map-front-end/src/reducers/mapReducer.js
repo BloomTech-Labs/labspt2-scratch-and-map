@@ -1,12 +1,20 @@
-import { TEST_ACTION } from '../actions/mapActions';
+import { FETCHING, SUCCESS, ERROR } from '../actions/mapActions';
 
 const initialState = {
-    someData: 'blank'
+    userData: [],
+    userCountryData: [],
+    loading: true,
+    error: ''
 }
-export const mapReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case TEST_ACTION:
-            return {}
+
+export const getUserDataReducer = (state = initialState, action) => {
+    switch(action.type) {
+        case FETCHING: 
+            return {...state, loading: true}
+        case SUCCESS:
+            return {...state, userData: action.payload, userCountryData: action.payload.user_countries ,loading: false}
+        case ERROR:
+            return {...state, error: action.payload, loading: false}
         default:
             return state;
     }

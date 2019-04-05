@@ -3,6 +3,7 @@ import Login from "./Login";
 import Register from "./Register";
 import FbLogin from "./FbLogin";
 import axios from "axios";
+import { Button, Header, Image, Modal } from 'semantic-ui-react'
 
 class Auth extends Component {
   constructor() {
@@ -49,7 +50,36 @@ class Auth extends Component {
 
   render() {
     return (
-      <div className="auth-wrapper">
+      <div className="landing">
+      <div className="Nav">
+      <Modal size='mini' trigger={<Button inverted>Sign Up</Button>}>
+      <Modal.Content>
+      <div className="box-wrapper">
+          {this.state.isLoginOpen && (
+            <FbLogin
+              inputChange={this.handleInputChange}
+              submit={this.onSubmitHandler}
+            />
+          )}
+        </div>
+        </Modal.Content>
+        </Modal>
+
+        <Modal size='mini' trigger={<Button inverted>Log In</Button>}>
+        <Modal.Content image>
+        <div className="box-wrapper">
+          {this.state.isLoginOpen && (
+            <FbLogin
+              inputChange={this.handleInputChange}
+              submit={this.onSubmitHandler}
+            />
+          )}
+          </div>
+          </Modal.Content>
+          </Modal>
+
+
+      {/* <div className="auth-wrapper">
         <div className="auth-controller">
           <div
             className={
@@ -70,20 +100,8 @@ class Auth extends Component {
             Log In
           </div>
         </div>
-        <div className="box-wrapper">
-          {this.state.isRegisterOpen && (
-            <Register
-              inputChange={this.handleInputChange}
-              submit={this.onSubmitHandler}
-            />
-          )}
-          {this.state.isLoginOpen && (
-            <FbLogin
-              inputChange={this.handleInputChange}
-              submit={this.onSubmitHandler}
-            />
-          )}
-        </div>
+      </div> */}
+      </div>
       </div>
     );
   }

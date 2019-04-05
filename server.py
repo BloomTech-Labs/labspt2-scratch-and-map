@@ -45,13 +45,14 @@ def signup():
     auto_scratch = request.json['auto_scratch']
     home_country = request.json['home_country']
     fb_user_id = request.json['fb_user_id']
+    fb_access_token = request.json['fb_access_token']
 
-    new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch, home_country, fb_user_id)
+    new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch, home_country, fb_user_id, fb_access_token)
     db.session.add(new_user)
     db.session.commit()
     return jsonify(new_user.id)
 
-@app.route('/api/login', methods=['POST'])
+@app.route('/api/login', methods=['POST'])#JAVI IS WORKING ON REDO
 def login():
     username = request.json['username']
     password = request.json['password']
@@ -61,10 +62,17 @@ def login():
     else:
         return "True"
 
+#NOT SURE IF WE NEED THIS, BECAUSE WE CAN PULL THE FB_USER_ID DATA FROM THE USERS ENDPOINT.
 @app.route('/api/users/fb/<fbid>', methods=['GET'])
 def get_user_by_fbid(fbid):
     user = users.query.filter(users.fb_user_id==fbid).first()
     return user_schema.jsonify(user)
+
+@app.route('/api/users/fb/token', methods=['POST'])
+def check_user_by_token():
+    token = request.json['accessToken']
+    user = users.query.filter(users.fb_access_token==token).first()
+    return jsonify({'isLoggedIn': 'true'})
 
 #USERS ENDPOINTS
 @app.route('/api/users', methods =['GET'])
@@ -97,14 +105,6 @@ def update_user(id):
     db.session.commit()
     return user_schema.jsonify(user)
 
-@app.route('/api/users/<int:id>', methods=['DELETE']) #BUGGY, but do we need this if we do away with admin?
-def delete_user(id):
-    user = users.query.get(id)
-    db.delete(user)
-    db.session.commit()
-
-    return user_schema.jsonify(user)
-
 #COUNTRIES ENDPOINTS
 @app.route('/api/countries', methods=['GET'])
 def country():
@@ -112,7 +112,6 @@ def country():
   country_schema = CountrySchema(many = True)
   output = country_schema.dump(country).data
   return jsonify({'countries' : output})
-
 
 @app.route('/api/countries/<int:id>', methods=['GET'])
 def countryById(id):
@@ -155,9 +154,9 @@ def add_mapView_data():
 
   return jsonify(new_user_country.id,new_user_country.user_id, new_user_country.country_id, new_user_country.status, new_user_country.notes)
 
-@app.route('/api/mapview/<int:user_id>/<int:country_id>/<int:id>', methods=['PUT'])
-def update_mapView_data(user_id, country_id, id):
-    user_country = users_countries_join.query.get(id)
+@app.route('/api/mapview/<int:user_id>/<int:country_id>', methods=['PUT'])
+def update_mapView_data(user_id, country_id):
+    user_country = users_countries_join.query.filter(user_countries_join.country_id==country_id and user_countries_join.user_id==user_id)
     user_country.user_id = request.json['user_id']
     user_country.country_id = request.json['country_id']
     user_country.status = request.json['status']
@@ -165,11 +164,6 @@ def update_mapView_data(user_id, country_id, id):
 
     db.session.commit()
     return user_country_schema.jsonify(user_country)
-
-@app.route('/api/signout') #WILL BE CHANGED DEPENDING ON AUTH
-def signout():
-  session.pop('username')
-  return redirect(url_for('index'))
 
 if __name__ == "__main__":
   app.run(host="0.0.0.0", port=PORT, debug=DEBUG)
@@ -206,7 +200,20 @@ def friendRequestDecline(id):
 def username(username):
   return '<h1>Get all users with similar name</h1>' 'username %s' % username
 
-  #Possibly Won't be used
+  #POSSIBLY WON'T BE USED, KEEP UNTIL GROUP DECIDES TO DISCARD THEM
+@app.route('/api/signout') #WILL BE CHANGED DEPENDING ON AUTH
+def signout():
+  session.pop('username')
+  return redirect(url_for('index'))
+
+@app.route('/api/users/<int:id>', methods=['DELETE']) #BUGGY, but do we need this if we do away with admin?
+def delete_user(id):
+    user = users.query.get(id)
+    db.delete(user)
+    db.session.commit()
+
+    return user_schema.jsonify(user)
+
 @app.route('/mapview/<int:id>') #This may refer to the relationship with users, working on displaying collection of mapview by user id objects as a field in users table
 def mapViewId(id):
   return '<h1>User map info by ID</h1>' 'user ID %d' % id

@@ -22,8 +22,9 @@ class users(db.Model):
     auto_scratch = db.Column(String, default=False)
     home_country = db.Column(String, nullable=False)
     fb_user_id = db.Column(String, nullable=False)
+    fb_access_token = db.Column(String, nullable=False)
 
-    def __init__(self, username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch, home_country, fb_user_id):
+    def __init__(self, username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch, home_country, fb_user_id, fb_access_token): 
         self.username = username
         self.password = password
         self.first_name = first_name
@@ -36,6 +37,7 @@ class users(db.Model):
         self.auto_scratch = auto_scratch
         self.home_country = home_country
         self.fb_user_id = fb_user_id
+        self.fb_access_token = fb_access_token
 
     def __repr__(self):
         return '<{}>' % self.__name__
@@ -43,7 +45,7 @@ class users(db.Model):
 class UserSchema(ma.ModelSchema):
     class Meta:
         model = users
-        fields = ('id','username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role', 'auto_scratch', 'home_country', 'user_countries', 'fb_user_id' )
+        fields = ('id','username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role', 'auto_scratch', 'home_country', 'user_countries', 'fb_user_id', 'fb_access_token' )
     user_countries = fields.Nested('UserCountrySchema', many = True,
                                     only = ['country_id', 'status', 'notes'])
 
@@ -55,7 +57,7 @@ class countries(db.Model):
     country_name = db.Column(String, nullable=False)
     flag = db.Column(String, nullable=False)
     country_img = db.Column(String, nullable=False)
-    code = db.Column(String, nullable=False)        
+    code = db.Column(String, nullable=False)
 
     def __init__(self, country_name, flag, country_img, code):
         self.country_name = country_name
@@ -79,16 +81,14 @@ class users_countries_join(db.Model):
     id = db.Column(Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(Integer, ForeignKey(users.id), nullable=False)
     country_id = db.Column(Integer, ForeignKey(countries.id), nullable=False)
-    #country_code = db.Column(String, ForeignKey(countries.code), nullable=True) #, onupdate="cascade"
     status = db.Column(Integer, nullable=False)
     notes = db.Column(TEXT, nullable=True)
     user = db.relationship('users', backref='user_countries')
     country = db.relationship('countries', backref='travelers')
 
-    def __init__(self, user_id, country_id, status, notes):#, country_code
+    def __init__(self, user_id, country_id, status, notes):
         self.user_id = user_id
         self.country_id = country_id
-        #self.country_code = country_code
         self.status = status
         self.notes = notes
 
