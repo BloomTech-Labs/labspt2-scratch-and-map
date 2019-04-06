@@ -11,6 +11,7 @@ class SidebarDrop extends Component {
     await axios
       .get(`${process.env.REACT_APP_BACKEND_URL}/api/users`)
       .then(res => {
+        console.log("Side Bar Users", res)
         this.setState({
           options: res.data.users
         });
@@ -24,7 +25,7 @@ class SidebarDrop extends Component {
   };
 
   render() {
-    console.log("OPTIONS DATA", this.state.options);
+    
     return (
       <div>
         <Dropdown

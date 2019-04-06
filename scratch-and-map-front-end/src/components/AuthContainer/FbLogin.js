@@ -16,22 +16,26 @@ class FbLogin extends Component {
   }
 
   responseFacebook = response => {
-    console.log(response);
+    console.log("FACEBOOK RESPONSE", response);
     this.setState(
       {
         isLoggedIn: true,
-        userID: response.userID,
+        username: response.email,
         name: response.name,
         email: response.email,
         picture: response.picture.data.url
       },
+
       () => {
+        console.log("THIS STATE", this.state);
+      
         const name = response.name.split(" ");
         const first = name[0];
         const last = name[1];
         const user = {
-          username: response.userID,
+          username: response.email,
           password: response.accessToken,
+          email: response.email,
           first_name: first,
           last_name: last,
           age: 24,
@@ -40,37 +44,34 @@ class FbLogin extends Component {
           auto_scratch: "true",
           home_country: "RUS",
           fb_user_id: response.userID,
-          fb_access_token: response.accessToken
+          fb_access_token: response.accessToken,
+          picture_url: "http://placekitten.com/200/200"
         };
+
+        //Checks DB If FB User Exist
         axios
-          .get(
-            `${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${
-              response.userID
-            }`
-          )
+          .get(`${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${response.userID}`)
           .then(res => {
-            if (res === {}) {
+            console.log("DATA I HOPE", res.data);
+
+            if (!res.data.fb_user_id) {
               //signup second phase component here
               axios
-                .post(
-                  `http://${process.env.REACT_APP_BACKEND_URL}/api/signup`,
-                  user
-                )
+                .post(`${process.env.REACT_APP_BACKEND_URL}/api/signup`, user)
                 .then(res => {
                   localStorage.setItem("FbAccessToken", response.accessToken);
                   localStorage.setItem("SAMUserID", response.userID);
                   return console.log(res);
                 });
+
             } else {
+              console.log('ELSE', res)
               axios
-                .put(
-                  `http://${process.env.REACT_APP_BACKEND_URL}/api/users`,
-                  user
-                )
+                .put(`${process.env.REACT_APP_BACKEND_URL}/api/login/fb/${response.id}`, user.username)
                 .then(res => {
                   localStorage.setItem("FbAccessToken", response.accessToken);
                   localStorage.setItem("SAMUserID", response.userID);
-                  return console.log(res);
+                  return console.log("LOGIN RES",res);
                 });
             }
           });

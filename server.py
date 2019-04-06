@@ -46,7 +46,6 @@ def signup():
     home_country = request.json['home_country']
     fb_user_id = request.json['fb_user_id']
     fb_access_token = request.json['fb_access_token']
-
     new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch, home_country, fb_user_id, fb_access_token)
     db.session.add(new_user)
     db.session.commit()
@@ -61,6 +60,13 @@ def login():
         return "False"
     else:
         return "True"
+
+@app.route('/api/login/fb/<fbid>', methods=['PUT']) #JAVI FB LOGIN
+def fbLogin(fbid):
+    username = request.json['username']
+    password = request.json['password']
+    user = users.query.filter(username).first()
+    return user_schema.jsonify(user)
 
 #NOT SURE IF WE NEED THIS, BECAUSE WE CAN PULL THE FB_USER_ID DATA FROM THE USERS ENDPOINT.
 @app.route('/api/users/fb/<fbid>', methods=['GET'])
@@ -101,7 +107,26 @@ def update_user(id):
     user.role = request.json['role']
     user.auto_scratch = request.json['auto_scratch']
     user.fb_user_id = request.json['fb_user_id']
+    user.fb_access_token = request.json['fb_access_token']
+    db.session.commit()
+    return user_schema.jsonify(user)
 
+#FACEBOOK USERS BY ID
+@app.route('/api/users/<fbid>', methods=['PUT'])
+def fb_user(fbid):
+    user = users.query.filter(users.fb_user_id==fbid).first()
+    user.username = request.json['username']
+    user.email = request.json['email']
+    user.password = request.json['password']
+    user.first_name = request.json['first_name']
+    user.last_name = request.json['last_name']
+    user.age = request.json['age']
+    user.nationality = request.json['nationality']
+    user.picture_url = request.json['picture_url']
+    user.role = request.json['role']
+    user.auto_scratch = request.json['auto_scratch']
+    user.fb_user_id = request.json['fb_user_id']
+    user.fb_access_token = request.json['fb_access_token']
     db.session.commit()
     return user_schema.jsonify(user)
 
