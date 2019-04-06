@@ -3,6 +3,10 @@
   font-family: 'Roboto', sans-serif;
 }
 
+body {
+  overflow-y: hidden;
+}
+
 h1, h2 {
   font-family: 'Anton', sans-serif;
 }
@@ -240,3 +244,53 @@ p {
   width: 100vw;
   height: 90vh;
 }
+
+.legend {
+  width: 170px;
+  z-index: 40 !important;
+  position: relative !important;
+  top: 70%;
+  left: 85%;
+
+  .listItem {
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .notSelected {
+    color: lightgrey !important;
+  }
+
+  .wantVisit {
+    color: #CD5D01 !important;
+  }
+
+  .transited {
+    color: #8FC201 !important;
+  }
+
+  .visited {
+    color: #9B016D !important;
+  }
+
+  .lived {
+    color: #017B7B !important;
+  }
+}
+
+#map {
+  z-index: 2;
+}
+
+.loading {
+  position: absolute;
+  top: -15px;
+  left: -17px;
+  width: 110%;
+  height: 100vh;
+  background-color: black;
+  opacity: .9;
+  color: white;
+  padding-top: 300px;
+}
+
