@@ -11,6 +11,7 @@ import { returnCode, returnId } from "../helper";
 import { getUserDataReducer } from "../../reducers/mapReducer.js";
 import Card from "./Card";
 import Legend from "./Legend";
+import Loading from '../Loading'
 
 const Wrapper = styled.div`
   position: absolute;
@@ -164,6 +165,8 @@ class MapContainer extends React.Component {
        </ Card>
       ) : (
         null )}
+
+        {this.props.loading ? <Loading /> : null }
         
         <Wrapper id="map" />
        
