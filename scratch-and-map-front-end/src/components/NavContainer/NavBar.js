@@ -8,6 +8,8 @@ import SidebarDrop from "./SidebarDrop";
 import Landing from '../Landing'
 import MapContainer from '../MapContainer/MapContainer'
 import { getUserData } from "../../actions/mapActions";
+import Loading from '../Loading'
+
 
 const NavBar = ({ onToggle, visible, onPusherClick }) => (
   <Sidebar.Pushable>
@@ -51,6 +53,7 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
     <Segment basic>
       <Route path="/" exact render={props => <Landing />} />
       <Route path="/map" exact render={props => <MapContainer />} />
+      <Route path="/load" exact render={props => <Loading />} />
     </Segment>
             </Sidebar.Pusher>
     </Sidebar.Pushable>
