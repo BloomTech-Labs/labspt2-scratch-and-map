@@ -1,15 +1,13 @@
-import React, { Component } from "react";
-import logo from '../img/logowhite.png'
+import React from 'react'
+import { Dimmer, Loader, Segment } from 'semantic-ui-react'
 
-class Landing extends Component {
-  render() {
+const Loading = () => (
+  <div>
+    <div className="loading">
+    <Loader size="massive" active inline='centered'><p>Loading</p></Loader>
+    </div>
+  </div>
+)
 
-    return (
-      <div className="landingpg">
-          <img src={logo} />
-      </div>
-    );
-  }
-}
+export default Loading
 
-export default Landing;
