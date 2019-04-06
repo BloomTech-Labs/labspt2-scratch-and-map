@@ -25,10 +25,6 @@ class SidebarDrop extends Component {
   };
 
   render() {
-<<<<<<< HEAD
-    
-=======
->>>>>>> c396a9dfdb9f46f06521ba8b2968b1a803460784
     return (
       <div>
         <Dropdown
