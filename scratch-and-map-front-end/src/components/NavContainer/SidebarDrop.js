@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import axios from 'axios'
+import React, { Component } from "react";
+import axios from "axios";
 import { Dropdown } from "semantic-ui-react";
 
 class SidebarDrop extends Component {
@@ -24,19 +24,22 @@ class SidebarDrop extends Component {
   };
 
   render() {
-    console.log("OPTIONS DATA", this.state.options);
     return (
       <div>
         <Dropdown
-          onChange={this.handleInputChange} 
+          onChange={this.handleInputChange}
           placeholder="Select Friend"
           clearable
           fluid
           multiple
           search
           selection
-          options={this.state.options.map((item) => <option key={item.id} value={item.id}>{item.username}</option>)}
-          />
+          options={this.state.options.map(item => (
+            <option key={item.id} value={item.id}>
+              {item.username}
+            </option>
+          ))}
+        />
       </div>
     );
   }

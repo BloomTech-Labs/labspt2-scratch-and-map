@@ -1,12 +1,15 @@
 import React from "react";
-import Auth from "../AuthContainer/Auth";
-import { Route } from "react-router-dom";
-import { Menu, Sidebar, Button, Segment } from "semantic-ui-react";
-import SidebarDrop from "./SidebarDrop";
+import { Route, Link, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { Menu, Sidebar, Button, Segment, Icon } from "semantic-ui-react";
 import logo from '../../img/logowhite.png'
+import Auth from "../AuthContainer/Auth";
+import SidebarDrop from "./SidebarDrop";
 import Landing from '../Landing'
 import MapContainer from '../MapContainer/MapContainer'
+import { getUserData } from "../../actions/mapActions";
 import Loading from '../Loading'
+
 
 const NavBar = ({ onToggle, visible, onPusherClick }) => (
   <Sidebar.Pushable>
@@ -23,9 +26,14 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
     <Button.Group className="closebutton">
     <Button onClick={onToggle} icon="close" inverted/>
     </Button.Group>
-      <Menu.Item as="a">
+      <Menu.Item as="a" as={Link} to='/'>
         <img src={logo} />
       </Menu.Item>
+
+      <Menu.Item as="a">
+        <Icon name='inverted map' />
+      </Menu.Item>
+      
       <SidebarDrop />
     </Sidebar>
     <div className="Menu">
@@ -53,4 +61,17 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
   
 );
 
-export default NavBar;
+// export default NavBar;
+const mapStateToProps = state => {
+  return {
+    userData: state.getUserDataReducer.userData,
+    userCountryData: state.getUserDataReducer.userCountryData,
+    loading: state.getUserDataReducer.loading
+  };
+};
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getUserData }
+  )(NavBar)
+);
