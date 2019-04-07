@@ -6,13 +6,32 @@ import CardSlider from "./CardSlider";
 class Card extends Component {
   constructor(props) {
     super(props);
- 
+    
+    this.state = {
+      imageUrl: ''
+    };
   }
   
+  componentDidMount() {
+    let code = this.props.country_code
+    fetch(`https://restcountries.eu/rest/v2/alpha/${code}`)
+    .then(response => 
+      response.json().then(data => ({
+          data: data,
+          status: response.status
+      })
+  ).then(res => {
+    let cardCode = ''
+      cardCode = res.data.flag
+      this.setState( {imageUrl:cardCode });
+  }));
+  
+  }
+ 
   render()
  {  
-  let code = this.props.country_code
-  console.log(this.props.country_code)
+ 
+
   const friends = [
     {id:9,
       first_name: "Abi",
@@ -47,10 +66,10 @@ class Card extends Component {
       <Modal trigger={<Button>Show Modal</Button>} open={this.props.open}>
       <Modal.Content image>
       <Header>Haiti</Header>
-        <Image wrapped size='small' src='https://restcountries.eu/data/hti.svg' />
+        <img style={{"height" : "10%", "width" : "10%"}} src={this.state.imageUrl} />
         <CardSlider />
         <Modal.Description>
-          <p>Notes:{code} {this.props.country_code}</p> 
+          <p>Notes:</p> 
           {<Form>
             <TextArea placeholder='Travel Notes' />
           </Form>}
