@@ -3,6 +3,9 @@ import returnCode from "../helper"
 import { Button, Header, Image, Modal, Form, TextArea } from 'semantic-ui-react';
 import CardSlider from "./CardSlider";
 import { codeToCountry } from "../helper";
+import "../../styles/card.scss";
+
+
 class Card extends Component {
   constructor(props) {
     super(props);
