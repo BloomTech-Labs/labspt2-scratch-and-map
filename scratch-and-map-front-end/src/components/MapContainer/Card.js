@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import returnCode from "../helper"
 import { Button, Header, Image, Modal, Form, TextArea } from 'semantic-ui-react';
 import CardSlider from "./CardSlider";
-
+import { codeToCountry } from "../helper";
 class Card extends Component {
   constructor(props) {
     super(props);
     
     this.state = {
-      imageUrl: ''
+      imageUrl: '',
+      countryName:''
     };
   }
   
@@ -23,8 +24,10 @@ class Card extends Component {
   ).then(res => {
     let cardCode = ''
       cardCode = res.data.flag
-      this.setState( {imageUrl:cardCode });
-  }));
+      let  countrySelect = codeToCountry(code);
+      this.setState( {imageUrl:cardCode, countryName: countrySelect });
+  })
+  );
   
   }
  
@@ -65,7 +68,7 @@ class Card extends Component {
       <div style={cardStyle}>
       <Modal trigger={<Button>Show Modal</Button>} open={this.props.open}>
       <Modal.Content image>
-      <Header>Haiti</Header>
+      <Header>{this.state.countryName}</Header>
         <img style={{"height" : "10%", "width" : "10%"}} src={this.state.imageUrl} />
         <CardSlider />
         <Modal.Description>
