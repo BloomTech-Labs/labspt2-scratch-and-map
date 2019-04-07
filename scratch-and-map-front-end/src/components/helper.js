@@ -1061,7 +1061,6 @@ String.prototype.toProperCase = function() {
 
 countries.forEach(country => {
   let code = restCountryConversion(country);
-
   fetch(`https://restcountries.eu/rest/v2/alpha/${code}`)
     .then(function(response) {
       return response.json();
@@ -1086,3 +1085,4 @@ export function returnId(code) {
   return id;
 }
 
+ 

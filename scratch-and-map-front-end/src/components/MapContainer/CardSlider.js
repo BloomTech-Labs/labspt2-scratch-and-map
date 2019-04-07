@@ -1,91 +1,92 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
-import Handle from "./Handle";
-import Track from "./Track";
-import Tick from "./Tick";
+// import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
+import { SliderRail, Handle, Track, Tick } from './SliderRail' // example render components - source below
+
+const sliderStyle = {
+  position: 'relative',
+  width: '100%',
+}
+
+const domain = [1, 4]
+const defaultValues = [1]
 
 class CardSlider extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      status: 0
-    };
-    
+  state = {
+    values: defaultValues.slice(),
+    update: defaultValues.slice(),
   }
-  render()  {
-    const sliderStyle = {  // Give the slider some width
-      position: 'relative',
-      width: '50%',
-      height: 80,
-      border: '1px solid steelblue',
-      padding: '50px'
-    }
-    
-    const railStyle = { 
-      position: 'absolute',
-      width: '100%',
-      height: 10,
-      marginTop: 35,
-      borderRadius: 5,
-      backgroundColor: '#8B9CB6',
-    }
 
+  onUpdate = update => {
+    this.setState({ update })
+  }
+
+  onChange = values => {
+    this.setState({ values })
+  }
+
+  render() {
+    const {
+      state: { values, update },
+    } = this
 
     return (
-      <div>
-       <Slider
-    rootStyle={sliderStyle}
-    domain={[0, 3]}
-    step={1}
-    mode={2}
-    values={[4]}
-  >
-   <Rail>
-      {({ getRailProps }) => (  // adding the rail props sets up events on the rail
-        <div style={railStyle} {...getRailProps()} /> 
-      )}
-    </Rail>
-    <Handles>
-      {({ handles, getHandleProps }) => (
-        <div className="slider-handles">
-          {handles.map(handle => (
-            <Handle
-              key={handle.id}
-              handle={handle}
-              getHandleProps={getHandleProps}
-            />
-          ))}
-        </div>
-      )}
-    </Handles>
-    <Tracks right={false}>
-      {({ tracks, getTrackProps }) => (
-        <div className="slider-tracks">
-          {tracks.map(({ id, source, target }) => (
-            <Track
-              key={id}
-              source={source}
-              target={target}
-              getTrackProps={getTrackProps}
-            />
-          ))}
-        </div>
-      )}
-    </Tracks>
-    <Ticks values={['WishList', 'Transited', 'Visited', 'Lived']}>
-    {/* // pass in an array of values// */}
-      {({ ticks }) => (
-        <div className="slider-ticks">
-          {ticks.map(tick => (
-            <Tick key={tick.id} tick={tick} count={ticks.length} />
-          ))} 
-        </div>
-      )} 
-    </Ticks>
-</Slider>
+      <div style={{ height: 120, width: '100%' }}>
+       SLIDER VALUE <h3>{values}</h3> 
+        {/* <ValueViewer values={values} update={update} /> */}
+        <Slider
+          mode={1}
+          step={1}
+          domain={domain}
+          rootStyle={sliderStyle}
+          onUpdate={this.onUpdate}
+          onChange={this.onChange}
+          values={values}
+        >
+          <Rail>
+            {({ getRailProps }) => <SliderRail getRailProps={getRailProps} />}
+          </Rail>
+          <Handles>
+            {({ handles, getHandleProps }) => (
+              <div className="slider-handles">
+                {handles.map(handle => (
+                  <Handle
+                    key={handle.id}
+                    handle={handle}
+                    domain={domain}
+                    getHandleProps={getHandleProps}
+                  />
+                ))}
+              </div>
+            )}
+          </Handles>
+          <Tracks left={false} right={false} style={{ paddingRight: 20}}>
+            {({ tracks, getTrackProps }) => (
+              <div className="slider-tracks">
+                {tracks.map(({ id, source, target }) => (
+                  <Track
+                    key={id}
+                    source={source}
+                    target={target}
+                    getTrackProps={getTrackProps}
+                  />
+                ))}
+              </div>
+            )}
+          </Tracks>
+          <Ticks count={4} values={['WishList', 'Transited', 'Visited', 'Lived']}>
+            {({ ticks }) => (
+              <div className="slider-ticks">
+                {ticks.map(tick => (
+                  <Tick key={tick.id} tick={tick} count={ticks.length} />
+                ))}
+              </div>
+            )}
+          </Ticks>
+        </Slider>
       </div>
-    );
+    )
   }
 }
 
-export default CardSlider;
+export default CardSlider

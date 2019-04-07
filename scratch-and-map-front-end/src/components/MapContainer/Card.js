@@ -2,17 +2,42 @@ import React, { Component } from "react";
 import returnCode from "../helper"
 import { Button, Header, Image, Modal, Form, TextArea } from 'semantic-ui-react';
 import CardSlider from "./CardSlider";
+import { codeToCountry } from "../helper";
+import "../../styles/card.scss";
+
 
 class Card extends Component {
   constructor(props) {
     super(props);
- 
+    
+    this.state = {
+      imageUrl: '',
+      countryName:''
+    };
   }
   
+  componentDidMount() {
+    let code = this.props.country_code
+    fetch(`https://restcountries.eu/rest/v2/alpha/${code}`)
+    .then(response => 
+      response.json().then(data => ({
+          data: data,
+          status: response.status
+      })
+  ).then(res => {
+    let cardCode = ''
+      cardCode = res.data.flag
+      let  countrySelect = codeToCountry(code);
+      this.setState( {imageUrl:cardCode, countryName: countrySelect });
+  })
+  );
+  
+  }
+ 
   render()
  {  
-  let code = this.props.country_code
-  console.log(this.props.country_code)
+ 
+
   const friends = [
     {id:9,
       first_name: "Abi",
@@ -46,11 +71,11 @@ class Card extends Component {
       <div style={cardStyle}>
       <Modal trigger={<Button>Show Modal</Button>} open={this.props.open}>
       <Modal.Content image>
-      <Header>Haiti</Header>
-        <Image wrapped size='small' src='https://restcountries.eu/data/hti.svg' />
+      <Header>{this.state.countryName}</Header>
+        <img style={{"height" : "10%", "width" : "10%"}} src={this.state.imageUrl} />
         <CardSlider />
         <Modal.Description>
-          <p>Notes:{code} {this.props.country_code}</p> 
+          <p>Notes:</p> 
           {<Form>
             <TextArea placeholder='Travel Notes' />
           </Form>}
