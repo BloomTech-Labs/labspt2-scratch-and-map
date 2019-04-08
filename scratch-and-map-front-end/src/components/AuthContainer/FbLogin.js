@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import FacebookLogin from "react-facebook-login";
 import axios from "axios";
+import { Button } from 'semantic-ui-react';
+import { Link } from "react-router-dom";
 require("dotenv").config();
 
 class FbLogin extends Component {
@@ -94,6 +96,7 @@ class FbLogin extends Component {
         if (response.status === "connected") {
           // axios login call
           console.log("init", response);
+          
         }
       }); //end getLoginStatus
     }; //end fbAsyncInit
@@ -118,6 +121,7 @@ class FbLogin extends Component {
         >
           <img src={this.state.picture} alt={this.state.name} />
           <h2>Welcome {this.state.name} </h2>
+          <Link to='/map'><Button>Close</Button></Link>
         </div>
       );
     } else {
