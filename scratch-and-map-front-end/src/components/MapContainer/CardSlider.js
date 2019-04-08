@@ -8,8 +8,22 @@ const sliderStyle = {
   width: '100%',
 }
 
-const domain = [1, 4]
+const domain = [0, 4]
 const defaultValues = [1]
+
+const formatTicks = (d) => {
+  if (d === 0) {
+    return "Unselected"
+  } else if (d === 1) {
+    return "Lived In"
+  } else if (d === 2) {
+    return "Visted"
+  } else if (d===3) {
+    return "Want To Visit"
+  } else {
+    return "Transited"
+  }
+};
 
 class CardSlider extends Component {
   state = {
@@ -24,6 +38,7 @@ class CardSlider extends Component {
   onChange = values => {
     this.setState({ values })
   }
+
 
   render() {
     const {
@@ -74,11 +89,11 @@ class CardSlider extends Component {
               </div>
             )}
           </Tracks>
-          <Ticks count={4} values={['WishList', 'Transited', 'Visited', 'Lived']}>
+          <Ticks count={5}>
             {({ ticks }) => (
               <div className="slider-ticks">
                 {ticks.map(tick => (
-                  <Tick key={tick.id} tick={tick} count={ticks.length} />
+                  <Tick key={tick.id} tick={tick} format={formatTicks} count={ticks.length} />
                 ))}
               </div>
             )}
