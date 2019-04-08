@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, render_template
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, TEXT, Boolean, String, CheckConstraint, ForeignKey, ARRAY
 from flask_marshmallow import Marshmallow
@@ -62,6 +62,7 @@ def login():
         return "True"
 
 @app.route('/api/login/fb/<fbid>', methods=['PUT']) #JAVI FB LOGIN
+@cross_origin
 def fbLogin(fbid):
     username = request.json['username']
     password = request.json['password']

@@ -11,7 +11,7 @@ import { returnCode, returnId } from "../helper";
 import { getUserDataReducer } from "../../reducers/mapReducer.js";
 import Card from "./Card";
 import Legend from "./Legend";
-import Loading from '../Loading'
+import Loading from "../Loading";
 
 const Wrapper = styled.div`
   position: absolute;
@@ -45,21 +45,21 @@ function countryColorMatcher(userData, geoJsonCountry) {
 class MapContainer extends React.Component {
   constructor(props) {
     super(props);
-  
+
     this.state = {
       loading: false,
       isOpen: false,
-      clickedCountry:""
+      clickedCountry: ""
     };
 
-    this.toggleModal = this.toggleModal.bind(this)
+    this.toggleModal = this.toggleModal.bind(this);
   }
   openModal() {
-    this.setState({ isOpen: true })
+    this.setState({ isOpen: true });
   }
 
   toggleModal() {
-    this.setState({ isOpen: false })
+    this.setState({ isOpen: false });
   }
 
   componentDidMount() {
@@ -115,32 +115,9 @@ class MapContainer extends React.Component {
             e.target.closePopup();
           });
           layer.on("click", () => {
-            this.setState({ clickedCountry: feature.properties.SOV_A3, isOpen: true }, () => {
-              axios
-                .get(
-                  `${
-                    process.env.REACT_APP_BACKEND_URL
-                  }/api/users/${localStorage.getItem("SAMUserID")}`
-                )
-                .then(res => {
-                  let country = res.data.filter(item => {
-                    return (
-                      item.user_countries.country_id ===
-                      returnId(feature.properties.SOV_A3)
-                    );
-                  });
-                  if (country === []) {
-                    axios.post(
-                      `${process.env.REACT_APP_BACKEND_URL}/api/mapview`,
-                      {
-                        user_id: res.id,
-                        country_id: returnId(feature.properties.SOV_A3),
-                        status: 0,
-                        notes: "None"
-                      }
-                    );
-                  }
-                });
+            this.setState({
+              clickedCountry: feature.properties.SOV_A3,
+              isOpen: true
             });
           });
         },
@@ -153,23 +130,20 @@ class MapContainer extends React.Component {
   }
   render() {
     return (
-
-       <div className="mapview">
-       
+      <div className="mapview">
         {this.state.isOpen ? (
-         <Card
-         open={this.state.isOpen}
-         onClose={this.toggleModal}
-         key={returnId(this.state.clickedCountry)}
-         country_code={this.state.clickedCountry}>
-       </ Card>
-      ) : (
-        null )}
+          <Card
+            open={this.state.isOpen}
+            onClose={this.toggleModal}
+            key={returnId(this.state.clickedCountry)}
+            country_code={this.state.clickedCountry}
+          />
+        ) : null}
 
-        {this.props.loading ? <Loading /> : null }
-        
+        {this.props.loading ? <Loading /> : null}
+
         <Wrapper id="map" />
-       
+
         <Legend />
       </div>
     );
