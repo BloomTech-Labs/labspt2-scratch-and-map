@@ -31,7 +31,7 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
       </Menu.Item>
 
       <Menu.Item as="a">
-        <Icon name='inverted map' />
+        <Icon name='map' inverted />
       </Menu.Item>
       
       <SidebarDrop />
