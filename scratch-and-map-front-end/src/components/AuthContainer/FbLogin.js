@@ -35,6 +35,7 @@ class FbLogin extends Component {
         const user = {
           username: response.email,
           password: response.accessToken,
+          isLoggedIn: this.state.isLoggedIn,
           email: response.email,
           first_name: first,
           last_name: last,
@@ -53,7 +54,6 @@ class FbLogin extends Component {
           .get(`${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${response.userID}`)
           .then(res => {
             console.log("DATA I HOPE", res.data);
-
             if (!res.data.fb_user_id) {
               //signup second phase component here
               axios
@@ -67,11 +67,11 @@ class FbLogin extends Component {
             } else {
               console.log('ELSE', res)
               axios
-                .put(`${process.env.REACT_APP_BACKEND_URL}/api/login/fb/${response.id}`, user.username)
+                .put(`${process.env.REACT_APP_BACKEND_URL}/api/login/fb/${res.data.fb_user_id}`, res.data)
                 .then(res => {
                   localStorage.setItem("FbAccessToken", response.accessToken);
                   localStorage.setItem("SAMUserID", response.userID);
-                  return console.log("LOGIN RES",res);
+                  return console.log("LOGIN RES",res.data);
                 });
             }
           });
