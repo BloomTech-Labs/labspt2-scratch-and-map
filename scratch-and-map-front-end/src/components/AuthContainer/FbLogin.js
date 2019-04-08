@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import FacebookLogin from "react-facebook-login";
 import axios from "axios";
-import { Button } from 'semantic-ui-react';
-import { Link } from "react-router-dom";
 require("dotenv").config();
 
 class FbLogin extends Component {
@@ -102,6 +100,10 @@ class FbLogin extends Component {
     }; //end fbAsyncInit
   } //end component did update
 
+  handleClose = () => {
+    document.getElementById("fbContent").style.display="none"
+  }
+
   render() {
     let fbContent;
 
@@ -121,7 +123,6 @@ class FbLogin extends Component {
         >
           <img src={this.state.picture} alt={this.state.name} />
           <h2>Welcome {this.state.name} </h2>
-          <Link to='/map'><Button>Close</Button></Link>
         </div>
       );
     } else {
