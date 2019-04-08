@@ -46,7 +46,10 @@ class Auth extends Component {
         email: this.state.email,
         password: this.state.password
       })
-      .then(response => console.log(response));
+      .then(response => {
+        console.log(response)
+        this.props.history.push("/map");//Not currently redirecting
+      });
   };
 
   render() {

@@ -98,6 +98,9 @@ class FbLogin extends Component {
         }
       }); //end getLoginStatus
     }; //end fbAsyncInit
+
+    if (this.state.isLoggedIn) {
+    }
   } //end component did update
 
   handleClose = () => {
