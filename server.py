@@ -52,22 +52,12 @@ def signup():
     db.session.commit()
     return jsonify(new_user.id)
 
-# @app.route('/api/login', methods=['POST'])#JAVI IS WORKING ON REDO
-# def login():
-#     username = request.json['username']
-#     password = request.json['password']
-#     user = users.query.filter_by(username=username, password=password).first()
-#     if user_schema.jsonify(user) == jsonify({}):
-#         return "False"
-#     else:
-#         return "True"
 
 #FB LOGIN AUTH
-
 @app.route('/api/login/fb/<fbid>', methods=['PUT']) 
 def fbLogin(fbid):
-    if  request.json['fb_user_id'] == fbid:
-        user = users.query.filter(users.fb_user_id == fbid).first()
+    user = users.query.filter(users.fb_user_id == fbid).first()
+    if  request.json['fb_access_token']:
         return user_schema.jsonify(user)
     else: return print('User Name Or Password Incorrect')
 

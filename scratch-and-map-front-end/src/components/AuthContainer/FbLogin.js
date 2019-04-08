@@ -66,8 +66,10 @@ class FbLogin extends Component {
 
             } else {
               console.log('ELSE', res)
+              let fbUser = res.data;
+              fbUser.fb_access_token = response.accessToken;
               axios
-                .put(`${process.env.REACT_APP_BACKEND_URL}/api/login/fb/${res.data.fb_user_id}`, res.data)
+                .put(`${process.env.REACT_APP_BACKEND_URL}/api/login/fb/${res.data.fb_user_id}`, fbUser)
                 .then(res => {
                   localStorage.setItem("FbAccessToken", response.accessToken);
                   localStorage.setItem("SAMUserID", response.userID);
