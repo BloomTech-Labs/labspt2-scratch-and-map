@@ -6,10 +6,11 @@ import {
   Image,
   Modal,
   Form,
-  TextArea
+  TextArea,
+  Icon
 } from "semantic-ui-react";
 import CardSlider from "./CardSlider";
-import { codeToCountry } from "../helper";
+import { codeToCountry, restCountryConversion } from "../helper";
 import "../../styles/card.scss";
 import axios from "axios";
 
@@ -26,7 +27,8 @@ class Card extends Component {
   }
 
   componentDidMount() {
-    let code = this.props.country_code;
+    let code = restCountryConversion(this.props.country_code);
+    let codename = this.props.country_code;
     fetch(`https://restcountries.eu/rest/v2/alpha/${code}`).then(response =>
       response
         .json()
@@ -37,7 +39,7 @@ class Card extends Component {
         .then(res => {
           let cardCode = "";
           cardCode = res.data.flag;
-          let countrySelect = codeToCountry(code);
+          let countrySelect = codeToCountry(codename);
           this.setState({ imageUrl: cardCode, countryName: countrySelect });
         })
     );
@@ -111,6 +113,7 @@ class Card extends Component {
     ));
     return (
       <div style={cardStyle}>
+<<<<<<< HEAD
         <Modal open={this.props.open}>
           <Modal.Content
             image
@@ -129,17 +132,26 @@ class Card extends Component {
                 style={{ height: "10%", width: "50%" }}
                 src={this.state.imageUrl}
               />
+=======
+        <Modal  style={{width:'40%'}} open={this.props.open} >
+          <Modal.Content image style={{display: "flex", flexDirection:"column"}}>
+            <Header style={{ display:'flex', justifyContent: 'space-between'}}><h1>{this.state.countryName}  </h1>   <Icon name='window close' onClick={() => this.props.onClose()}/> </Header>
+            <div style={{width: "100%", display: "flex", justifyContent: "center", margin: "10px"}}>
+            <img
+              style={{border:'1px solid black', height: "30%", width: "30%", marginBottom: '20px' }}
+              src={this.state.imageUrl}
+            />
+>>>>>>> 831df027d2b0d09fc87ad2e9cf194a2d73fc278f
             </div>
             <CardSlider status={this.state.status} onChange={this.onChange} />
             <Modal.Description>
-              <p>Notes:</p>
+              <strong>Notes:</strong>
               {
                 <Form>
-                  <TextArea placeholder="Travel Notes" />
+                  <TextArea style={{ marginBottom: '10px'}} placeholder="Travel Notes" />
                 </Form>
               }
               <Button onClick={() => this.onSave()}>Save</Button>
-              <Button onClick={() => this.props.onClose()}>Close</Button>
             </Modal.Description>
           </Modal.Content>
         </Modal>

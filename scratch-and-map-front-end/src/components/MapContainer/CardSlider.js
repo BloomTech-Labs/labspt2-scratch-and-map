@@ -5,7 +5,8 @@ import { SliderRail, Track, Tick } from "./SliderRail"; // example render compon
 
 const sliderStyle = {
   position: "relative",
-  width: "100%"
+  width: "90%",
+  margin: '5px auto'
 };
 
 
@@ -91,7 +92,7 @@ class CardSlider extends Component {
     } = this;
 
     return (
-      <div style={{ height: 120, width: "100%" }}>
+      <div style={{ height: 50, width: "100%" }}>
         <Slider
           mode={1}
           step={1}
