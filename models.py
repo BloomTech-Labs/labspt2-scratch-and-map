@@ -10,7 +10,7 @@ ma = Marshmallow()
 
 class users(db.Model):
     id = db.Column(Integer, autoincrement=True, primary_key=True)
-    username = db.Column(String, unique=True, nullable=False) #primary_key=True,
+    username = db.Column(String, unique=True, nullable=False) 
     password = db.Column(String, nullable=False)
     first_name = db.Column(String, nullable=False)
     last_name = db.Column(String, nullable=False)
@@ -21,7 +21,7 @@ class users(db.Model):
     role = db.Column(String, nullable=False)
     auto_scratch = db.Column(String, default=False)
     home_country = db.Column(String, nullable=False)
-    isLoggedIn = db.Column(boolean, nullable=False)
+    isLoggedIn = db.Column(Boolean, nullable=False)
     fb_user_id = db.Column(String, nullable=False)
     fb_access_token = db.Column(String, nullable=False)
 
