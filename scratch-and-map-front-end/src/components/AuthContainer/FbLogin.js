@@ -72,6 +72,8 @@ class FbLogin extends Component {
                 });
             } else {
               console.log("ELSE", res);
+              let new_user = res.data;
+              new_user.fb_access_token = response.accessToken;
               axios
                 .put(
                   `${process.env.REACT_APP_BACKEND_URL}/api/login/fb/${
