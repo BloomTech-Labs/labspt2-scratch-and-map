@@ -48,7 +48,7 @@ class Card extends Component {
       .get(
         `${
           process.env.REACT_APP_BACKEND_URL
-        }/api/users/${window.localStorage.getItem("SAMUserID")}`
+        }/api/users/fb/${window.localStorage.getItem("SAMUserID")}`
       )
       .then(res => {
         const countryData = {
@@ -111,14 +111,24 @@ class Card extends Component {
     ));
     return (
       <div style={cardStyle}>
-        <Modal  open={this.props.open} >
-          <Modal.Content image style={{display: "flex", flexDirection:"column"}}>
+        <Modal open={this.props.open}>
+          <Modal.Content
+            image
+            style={{ display: "flex", flexDirection: "column" }}
+          >
             <Header>{this.state.countryName}</Header>
-            <div style={{width: "100%", display: "flex", justifyContent: "center", margin: "10px"}}>
-            <img
-              style={{ height: "10%", width: "50%" }}
-              src={this.state.imageUrl}
-            />
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                margin: "10px"
+              }}
+            >
+              <img
+                style={{ height: "10%", width: "50%" }}
+                src={this.state.imageUrl}
+              />
             </div>
             <CardSlider status={this.state.status} onChange={this.onChange} />
             <Modal.Description>
