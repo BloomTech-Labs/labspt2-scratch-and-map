@@ -30,7 +30,7 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
         <img src={logo} />
       </Menu.Item>
 
-      <Menu.Item as="a">
+      <Menu.Item as="a" as={Link} to='/map'>
         <Icon name='inverted map' />
       </Menu.Item>
       

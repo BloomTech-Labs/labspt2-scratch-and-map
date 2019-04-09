@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Slider, Rail, Handles, Tracks, Ticks } from "react-compound-slider";
 // import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
-import { SliderRail, Handle, Track, Tick } from "./SliderRail"; // example render components - source below
+import { SliderRail, Track, Tick } from "./SliderRail"; // example render components - source below
 
 const sliderStyle = {
   position: "relative",
