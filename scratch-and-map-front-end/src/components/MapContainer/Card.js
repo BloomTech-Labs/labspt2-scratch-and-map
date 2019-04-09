@@ -138,6 +138,7 @@ class Card extends Component {
             <h4>Language: {this.state.language}</h4>
             <h4>Currency: {this.state.currency} ({this.state.symbol}) </h4>
             </div>
+            </div>
 
             <CardSlider status={this.state.status} onChange={this.onChange} />
             <Modal.Description>
