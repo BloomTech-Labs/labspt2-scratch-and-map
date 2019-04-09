@@ -166,11 +166,11 @@ class MapContainer extends React.Component {
       ) : (
         null )}
 
-        {this.props.loading ? <Loading /> : null }
+        {this.props.loading ? <Loading /> : <Legend /> }
         
         <Wrapper id="map" />
-       
-        <Legend />
+        {/*}
+        <Legend /> */}
       </div>
     );
   }

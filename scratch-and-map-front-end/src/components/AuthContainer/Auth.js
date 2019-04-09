@@ -35,6 +35,7 @@ class Auth extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+
   onSubmitHandler = e => {
     e.preventDefault();
     e.stopPropagation();
@@ -45,14 +46,17 @@ class Auth extends Component {
         email: this.state.email,
         password: this.state.password
       })
-      .then(response => console.log(response));
+      .then(response => {
+        console.log(response)
+        this.props.history.push("/map");//Not currently redirecting
+      });
   };
 
   render() {
     return (
       <div className="landing">
       <div className="Nav">
-      <Modal size='mini' trigger={<Button className="navbutton" inverted>Sign Up</Button>}>
+      <Modal size='mini' trigger={<Button className="navbutton" inverted>Sign Up</Button>} closeIcon>
       <Modal.Content>
       <div className="box-wrapper">
           {this.state.isLoginOpen && (
@@ -65,7 +69,7 @@ class Auth extends Component {
         </Modal.Content>
         </Modal>
 
-        <Modal size='mini' trigger={<Button className="navbutton" inverted>Log In</Button>}>
+        <Modal size='mini' trigger={<Button className="navbutton" inverted>Log In</Button>} closeIcon>
         <Modal.Content image>
         <div className="box-wrapper">
           {this.state.isLoginOpen && (

@@ -35,6 +35,7 @@ def error():
 def signup():
     username = request.json['username']
     password = request.json['password']
+    isLoggedIn = request.json['isLoggedIn']
     first_name = request.json['first_name']
     last_name = request.json['last_name']
     age = request.json['age']
@@ -46,27 +47,19 @@ def signup():
     home_country = request.json['home_country']
     fb_user_id = request.json['fb_user_id']
     fb_access_token = request.json['fb_access_token']
-    new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch, home_country, fb_user_id, fb_access_token)
+    new_user = user(username, password, isLoggedIn, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch, home_country, fb_user_id, fb_access_token)
     db.session.add(new_user)
     db.session.commit()
     return jsonify(new_user.id)
 
-@app.route('/api/login', methods=['POST'])#JAVI IS WORKING ON REDO
-def login():
-    username = request.json['username']
-    password = request.json['password']
-    user = users.query.filter_by(username=username, password=password).first()
-    if user_schema.jsonify(user) == jsonify({}):
-        return "False"
-    else:
-        return "True"
 
-@app.route('/api/login/fb/<fbid>', methods=['PUT']) #JAVI FB LOGIN
+#FB LOGIN AUTH
+@app.route('/api/login/fb/<fbid>', methods=['PUT']) 
 def fbLogin(fbid):
-    username = request.json['username']
-    password = request.json['password']
-    user = users.query.filter(username).first()
-    return user_schema.jsonify(user)
+    user = users.query.filter(users.fb_user_id == fbid).first()
+    if  request.json['fb_access_token']:
+        return user_schema.jsonify(user)
+    else: return print('User Name Or Password Incorrect')
 
 #NOT SURE IF WE NEED THIS, BECAUSE WE CAN PULL THE FB_USER_ID DATA FROM THE USERS ENDPOINT.
 @app.route('/api/users/fb/<fbid>', methods=['GET'])
