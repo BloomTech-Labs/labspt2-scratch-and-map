@@ -35,6 +35,7 @@ class FbLogin extends Component {
         const user = {
           username: response.email,
           password: response.accessToken,
+          isLoggedIn: this.state.isLoggedIn,
           email: response.email,
           first_name: first,
           last_name: last,
@@ -53,7 +54,6 @@ class FbLogin extends Component {
           .get(`${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${response.userID}`)
           .then(res => {
             console.log("DATA I HOPE", res.data);
-
             if (!res.data.fb_user_id) {
               //signup second phase component here
               axios
@@ -66,12 +66,14 @@ class FbLogin extends Component {
 
             } else {
               console.log('ELSE', res)
+              let fbUser = res.data;
+              fbUser.fb_access_token = response.accessToken;
               axios
-                .put(`${process.env.REACT_APP_BACKEND_URL}/api/login/fb/${response.id}`, user.username)
+                .put(`${process.env.REACT_APP_BACKEND_URL}/api/login/fb/${res.data.fb_user_id}`, fbUser)
                 .then(res => {
                   localStorage.setItem("FbAccessToken", response.accessToken);
                   localStorage.setItem("SAMUserID", response.userID);
-                  return console.log("LOGIN RES",res);
+                  return console.log("LOGIN RES",res.data);
                 });
             }
           });
@@ -94,10 +96,18 @@ class FbLogin extends Component {
         if (response.status === "connected") {
           // axios login call
           console.log("init", response);
+          
         }
       }); //end getLoginStatus
     }; //end fbAsyncInit
+
+    if (this.state.isLoggedIn) {
+    }
   } //end component did update
+
+  handleClose = () => {
+    document.getElementById("fbContent").style.display="none"
+  }
 
   render() {
     let fbContent;

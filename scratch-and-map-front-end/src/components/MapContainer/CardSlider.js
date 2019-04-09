@@ -8,8 +8,69 @@ const sliderStyle = {
   width: "100%"
 };
 
+
 const domain = [0, 4];
 const defaultValues = [1];
+
+
+const formatTicks = (d) => {
+  if (d === 0) {
+    return "Unselected"
+  } else if (d === 1) {
+    return "Lived In"
+  } else if (d === 2) {
+    return "Visted"
+  } else if (d===3) {
+    return "Want To Visit"
+  } else {
+    return "Transited"
+  }
+};
+
+
+export function Handle({ // your handle component
+  handle: { id, value, percent }, 
+  getHandleProps,
+  
+  setColor = (value) => {
+    let color;
+  if (value===0) {
+    return color='lightgrey'
+  } else if (value === 1) {
+    return color='#017B7B'
+  } else if (value === 2) {
+    return color="#9B016D"
+  } else if (value === 3) {
+    return color="#CD5D01"
+  } else {
+    return color="#8FC201"
+  }
+  }
+})
+  
+  {
+  return (
+    <div
+      style={{
+        left: `${percent + 1.2}%`,
+        position: 'absolute',
+        marginLeft: -15,
+        marginTop: -10,
+        zIndex: 2,
+        width: 20,
+        height: 20,
+        border: 0,
+        textAlign: 'center',
+        cursor: 'pointer',
+        borderRadius: '50%',
+        backgroundColor: setColor(value),
+        color: '#333',
+      }}
+      {...getHandleProps(id)}
+    >
+    </div>
+  )
+}
 
 class CardSlider extends Component {
   state = {
@@ -22,6 +83,7 @@ class CardSlider extends Component {
       this.props.onChange(this.state.values);
     });
   };
+
 
   render() {
     const {
@@ -75,7 +137,7 @@ class CardSlider extends Component {
             {({ ticks }) => (
               <div className="slider-ticks">
                 {ticks.map(tick => (
-                  <Tick key={tick.id} tick={tick} count={ticks.length} />
+                  <Tick key={tick.id} tick={tick} format={formatTicks} count={ticks.length} />
                 ))}
               </div>
             )}
