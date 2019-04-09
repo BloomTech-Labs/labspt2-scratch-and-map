@@ -50,7 +50,7 @@ class Card extends Component {
       .get(
         `${
           process.env.REACT_APP_BACKEND_URL
-        }/api/users/${window.localStorage.getItem("SAMUserID")}`
+        }/api/users/fb/${window.localStorage.getItem("SAMUserID")}`
       )
       .then(res => {
         const countryData = {
@@ -113,21 +113,34 @@ class Card extends Component {
     ));
     return (
       <div style={cardStyle}>
-        <Modal  style={{width:'40%'}} open={this.props.open} >
-          <Modal.Content image style={{display: "flex", flexDirection:"column"}}>
-            <Header style={{ display:'flex', justifyContent: 'space-between'}}><h1>{this.state.countryName}  </h1>   <Icon name='window close' onClick={() => this.props.onClose()}/> </Header>
-            <div style={{width: "100%", display: "flex", justifyContent: "center", margin: "10px"}}>
-            <img
-              style={{border:'1px solid black', height: "30%", width: "30%", marginBottom: '20px' }}
-              src={this.state.imageUrl}
-            />
+        <Modal open={this.props.open}>
+          <Modal.Content
+            image
+            style={{ display: "flex", flexDirection: "column" }}
+          >
+            <Header>{this.state.countryName}</Header>
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                margin: "10px"
+              }}
+            >
+              <img
+                style={{ height: "10%", width: "50%" }}
+                src={this.state.imageUrl}
+              />
             </div>
             <CardSlider status={this.state.status} onChange={this.onChange} />
             <Modal.Description>
               <strong>Notes:</strong>
               {
                 <Form>
-                  <TextArea style={{ marginBottom: '10px'}} placeholder="Travel Notes" />
+                  <TextArea
+                    style={{ marginBottom: "10px" }}
+                    placeholder="Travel Notes"
+                  />
                 </Form>
               }
               <Button onClick={() => this.onSave()}>Save</Button>
