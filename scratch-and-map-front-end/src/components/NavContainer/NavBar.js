@@ -30,13 +30,9 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
         <img src={logo} />
       </Menu.Item>
 
-<<<<<<< HEAD
-      <Menu.Item as="a">
-        <Icon name='map' inverted />
-=======
       <Menu.Item as="a" as={Link} to='/map'>
-        <Icon name='inverted map' />
->>>>>>> d175e9b73f6482aeb45dd4fa805445ed8b58bc92
+        <Icon name='map' inverted />
+
       </Menu.Item>
       
       <SidebarDrop />
