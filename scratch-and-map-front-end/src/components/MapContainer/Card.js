@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import returnCode from "../helper"
 import { Button, Header, Image, Modal, Form, TextArea } from 'semantic-ui-react';
 import CardSlider from "./CardSlider";
-import { codeToCountry } from "../helper";
+import { codeToCountry, restCountryConversion } from "../helper";
 import "../../styles/card.scss";
 
 
@@ -17,7 +17,7 @@ class Card extends Component {
   }
   
   componentDidMount() {
-    let code = this.props.country_code
+    let code = restCountryConversion(this.props.country_code)
     fetch(`https://restcountries.eu/rest/v2/alpha/${code}`)
     .then(response => 
       response.json().then(data => ({
