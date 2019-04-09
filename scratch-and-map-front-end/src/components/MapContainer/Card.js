@@ -46,9 +46,9 @@ class Card extends Component {
   onSave() {
     axios
       .get(
-        `${process.env.REACT_APP_BACKEND_URL}/api/users/${localStorage.getItem(
-          "SAMUserID"
-        )}`
+        `${
+          process.env.REACT_APP_BACKEND_URL
+        }/api/users/${window.localStorage.getItem("SAMUserID")}`
       )
       .then(res => {
         const countryData = {

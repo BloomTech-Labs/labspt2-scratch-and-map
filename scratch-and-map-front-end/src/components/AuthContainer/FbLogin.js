@@ -28,7 +28,7 @@ class FbLogin extends Component {
 
       () => {
         console.log("THIS STATE", this.state);
-      
+
         const name = response.name.split(" ");
         const first = name[0];
         const last = name[1];
@@ -50,7 +50,11 @@ class FbLogin extends Component {
 
         //Checks DB If FB User Exist
         axios
-          .get(`${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${response.userID}`)
+          .get(
+            `${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${
+              response.userID
+            }`
+          )
           .then(res => {
             console.log("DATA I HOPE", res.data);
 
@@ -59,19 +63,29 @@ class FbLogin extends Component {
               axios
                 .post(`${process.env.REACT_APP_BACKEND_URL}/api/signup`, user)
                 .then(res => {
-                  localStorage.setItem("FbAccessToken", response.accessToken);
-                  localStorage.setItem("SAMUserID", response.userID);
+                  window.localStorage.setItem(
+                    "FbAccessToken",
+                    response.accessToken
+                  );
+                  window.localStorage.setItem("SAMUserID", response.userID);
                   return console.log(res);
                 });
-
             } else {
-              console.log('ELSE', res)
+              console.log("ELSE", res);
               axios
-                .put(`${process.env.REACT_APP_BACKEND_URL}/api/login/fb/${response.id}`, user.username)
+                .put(
+                  `${process.env.REACT_APP_BACKEND_URL}/api/login/fb/${
+                    response.id
+                  }`,
+                  user.username
+                )
                 .then(res => {
-                  localStorage.setItem("FbAccessToken", response.accessToken);
-                  localStorage.setItem("SAMUserID", response.userID);
-                  return console.log("LOGIN RES",res);
+                  window.localStorage.setItem(
+                    "FbAccessToken",
+                    response.accessToken
+                  );
+                  window.localStorage.setItem("SAMUserID", response.userID);
+                  return console.log("LOGIN RES", res);
                 });
             }
           });
