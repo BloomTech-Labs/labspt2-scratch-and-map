@@ -35,6 +35,7 @@ class FbLogin extends Component {
         const user = {
           username: response.email,
           password: response.accessToken,
+          isLoggedIn: this.state.isLoggedIn,
           email: response.email,
           first_name: first,
           last_name: last,
@@ -57,7 +58,6 @@ class FbLogin extends Component {
           )
           .then(res => {
             console.log("DATA I HOPE", res.data);
-
             if (!res.data.fb_user_id) {
               //signup second phase component here
               axios
@@ -71,6 +71,7 @@ class FbLogin extends Component {
                   return console.log(res);
                 });
             } else {
+<<<<<<< HEAD
               console.log("ELSE", res);
               axios
                 .put(
@@ -86,6 +87,17 @@ class FbLogin extends Component {
                   );
                   window.localStorage.setItem("SAMUserID", response.userID);
                   return console.log("LOGIN RES", res);
+=======
+              console.log('ELSE', res)
+              let fbUser = res.data;
+              fbUser.fb_access_token = response.accessToken;
+              axios
+                .put(`${process.env.REACT_APP_BACKEND_URL}/api/login/fb/${res.data.fb_user_id}`, fbUser)
+                .then(res => {
+                  localStorage.setItem("FbAccessToken", response.accessToken);
+                  localStorage.setItem("SAMUserID", response.userID);
+                  return console.log("LOGIN RES",res.data);
+>>>>>>> 5a00f52436ce8e75863a49bed8713daafae386eb
                 });
             }
           });
@@ -108,10 +120,18 @@ class FbLogin extends Component {
         if (response.status === "connected") {
           // axios login call
           console.log("init", response);
+          
         }
       }); //end getLoginStatus
     }; //end fbAsyncInit
+
+    if (this.state.isLoggedIn) {
+    }
   } //end component did update
+
+  handleClose = () => {
+    document.getElementById("fbContent").style.display="none"
+  }
 
   render() {
     let fbContent;
