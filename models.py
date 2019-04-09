@@ -21,6 +21,7 @@ class users(db.Model):
     role = db.Column(String, nullable=False)
     auto_scratch = db.Column(String, default=False)
     home_country = db.Column(String, nullable=False)
+    isLoggedIn = db.Column(boolean, nullable=False)
     fb_user_id = db.Column(String, nullable=False)
     fb_access_token = db.Column(String, nullable=False)
 
