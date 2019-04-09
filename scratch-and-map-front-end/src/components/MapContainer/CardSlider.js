@@ -1,15 +1,17 @@
-import React, { Component } from 'react'
-import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
+import React, { Component } from "react";
+import { Slider, Rail, Handles, Tracks, Ticks } from "react-compound-slider";
 // import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
-import { SliderRail, Track, Tick } from './SliderRail' // example render components - source below
+import { SliderRail, Handle, Track, Tick } from "./SliderRail"; // example render components - source below
 
 const sliderStyle = {
-  position: 'relative',
-  width: '100%',
-}
+  position: "relative",
+  width: "100%"
+};
 
-const domain = [0, 4]
-const defaultValues = [1]
+
+const domain = [0, 4];
+const defaultValues = [1];
+
 
 const formatTicks = (d) => {
   if (d === 0) {
@@ -73,33 +75,30 @@ export function Handle({ // your handle component
 class CardSlider extends Component {
   state = {
     values: defaultValues.slice(),
-    update: defaultValues.slice(),
-  }
-
-  onUpdate = update => {
-    this.setState({ update })
-  }
+    update: defaultValues.slice()
+  };
 
   onChange = values => {
-    this.setState({ values })
-  }
+    this.setState({ values }, () => {
+      this.props.onChange(this.state.values);
+    });
+  };
 
 
   render() {
     const {
-      state: { values, update },
-    } = this
+      state: { values, update }
+    } = this;
 
     return (
-      <div style={{ height: 120, width: '100%' }}>
-       SLIDER VALUE <h3>{values}</h3> 
+      <div style={{ height: 120, width: "100%" }}>
+        SLIDER VALUE <h3>{values}</h3>
         {/* <ValueViewer values={values} update={update} /> */}
         <Slider
           mode={1}
           step={1}
           domain={domain}
           rootStyle={sliderStyle}
-          onUpdate={this.onUpdate}
           onChange={this.onChange}
           values={values}
         >
@@ -120,7 +119,7 @@ class CardSlider extends Component {
               </div>
             )}
           </Handles>
-          <Tracks left={false} right={false} style={{ paddingRight: 20}}>
+          <Tracks left={false} right={false} style={{ paddingRight: 20 }}>
             {({ tracks, getTrackProps }) => (
               <div className="slider-tracks">
                 {tracks.map(({ id, source, target }) => (
@@ -134,7 +133,7 @@ class CardSlider extends Component {
               </div>
             )}
           </Tracks>
-          <Ticks count={5}>
+          <Ticks count={5} values={[0, 1, 2, 3, 4]}>
             {({ ticks }) => (
               <div className="slider-ticks">
                 {ticks.map(tick => (
@@ -145,8 +144,8 @@ class CardSlider extends Component {
           </Ticks>
         </Slider>
       </div>
-    )
+    );
   }
 }
 
-export default CardSlider
+export default CardSlider;
