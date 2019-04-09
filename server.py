@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, render_template
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, TEXT, Boolean, String, CheckConstraint, ForeignKey, ARRAY
 from flask_marshmallow import Marshmallow
@@ -52,9 +52,8 @@ def signup():
     db.session.commit()
     return jsonify(new_user.id)
 
-
-#FB LOGIN AUTH
 @app.route('/api/login/fb/<fbid>', methods=['PUT']) 
+
 def fbLogin(fbid):
     user = users.query.filter(users.fb_user_id == fbid).first()
     if  request.json['fb_access_token']:
