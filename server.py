@@ -99,6 +99,7 @@ def update_user(id):
     user.role = request.json['role']
     user.auto_scratch = request.json['auto_scratch']
     user.fb_user_id = request.json['fb_user_id']
+    user.isLoggedIn = request.json['isLoggedIn']
     user.fb_access_token = request.json['fb_access_token']
     db.session.commit()
     return user_schema.jsonify(user)
@@ -118,6 +119,7 @@ def fb_user(fbid):
     user.role = request.json['role']
     user.auto_scratch = request.json['auto_scratch']
     user.fb_user_id = request.json['fb_user_id']
+    user.isLoggedIn = request.json['isLoggedIn']
     user.fb_access_token = request.json['fb_access_token']
     db.session.commit()
     return user_schema.jsonify(user)
