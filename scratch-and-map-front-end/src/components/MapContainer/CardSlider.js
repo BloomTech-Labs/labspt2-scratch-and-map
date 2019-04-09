@@ -92,8 +92,6 @@ class CardSlider extends Component {
 
     return (
       <div style={{ height: 120, width: "100%" }}>
-        SLIDER VALUE <h3>{values}</h3>
-        {/* <ValueViewer values={values} update={update} /> */}
         <Slider
           mode={1}
           step={1}
