@@ -22,7 +22,11 @@ class Card extends Component {
       imageUrl: "",
       countryName: "",
       status: 1,
-      notes: ""
+      notes: "",
+      currency:"",
+      symbol:"",
+      capital:'',
+      language:''
     };
   }
 
@@ -37,11 +41,18 @@ class Card extends Component {
           status: response.status
         }))
         .then(res => {
-          let cardCode = "";
-          cardCode = res.data.flag;
           let countrySelect = codeToCountry(codename);
-          this.setState({ imageUrl: cardCode, countryName: countrySelect });
-        })
+          let currency = res.data.currencies[0].name.toProperCase();
+          let symbol = res.data.currencies[0].symbol;
+          let cardCode = res.data.flag;
+          let language = res.data.languages[0].name;
+          let capital = res.data.capital;
+          if (currency === "[E]" || currency === "[D]") {
+            currency = "United States Dollar";
+          }
+          this.setState({ imageUrl: cardCode, countryName: countrySelect, currency: currency, symbol:symbol, language:language, capital:capital });
+        })    
+        
     );
   }
 
@@ -113,25 +124,21 @@ class Card extends Component {
     ));
     return (
       <div style={cardStyle}>
-        <Modal open={this.props.open}>
-          <Modal.Content
-            image
-            style={{ display: "flex", flexDirection: "column" }}
-          >
-            <Header>{this.state.countryName}</Header>
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                margin: "10px"
-              }}
-            >
+        <Modal style={{width:'40%'}} open={this.props.open} >
+          <Modal.Content image style={{display: "flex", flexDirection:"column"}}>
+            <Header style={{ display:'flex', justifyContent: 'space-between'}}><h1>{this.state.countryName}  </h1>   <Icon name='window close' onClick={() => this.props.onClose()}/> </Header>
+            <div style={{width: "100%", display: "flex", justifyContent: "space-around", margin: "10px"}}>
+            <div>
               <img
-                style={{ height: "10%", width: "50%" }}
-                src={this.state.imageUrl}
-              />
+              style={{border:'1px solid black', height: "90px", width: "150px", marginBottom: '20px' }}
+              src={this.state.imageUrl}
+            /></div>
+            <div style={{width: "40%", height: "30px",  marginLeft: '15px'}}>
+            <h4>Capital: {this.state.capital}</h4>
+            <h4>Language: {this.state.language}</h4>
+            <h4>Currency: {this.state.currency} ({this.state.symbol}) </h4>
             </div>
+
             <CardSlider status={this.state.status} onChange={this.onChange} />
             <Modal.Description>
               <strong>Notes:</strong>
