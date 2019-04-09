@@ -79,7 +79,7 @@ class FbLogin extends Component {
                   `${process.env.REACT_APP_BACKEND_URL}/api/login/fb/${
                     response.id
                   }`,
-                  user.username
+                  new_user
                 )
                 .then(res => {
                   window.localStorage.setItem(
