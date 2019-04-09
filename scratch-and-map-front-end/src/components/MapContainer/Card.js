@@ -46,9 +46,9 @@ class Card extends Component {
   onSave() {
     axios
       .get(
-        `${process.env.REACT_APP_BACKEND_URL}/api/users/${localStorage.getItem(
-          "SAMUserID"
-        )}`
+        `${
+          process.env.REACT_APP_BACKEND_URL
+        }/api/users/${window.localStorage.getItem("SAMUserID")}`
       )
       .then(res => {
         const countryData = {
@@ -111,13 +111,15 @@ class Card extends Component {
     ));
     return (
       <div style={cardStyle}>
-        <Modal trigger={<Button>Show Modal</Button>} open={this.props.open}>
-          <Modal.Content image>
+        <Modal  open={this.props.open} >
+          <Modal.Content image style={{display: "flex", flexDirection:"column"}}>
             <Header>{this.state.countryName}</Header>
+            <div style={{width: "100%", display: "flex", justifyContent: "center", margin: "10px"}}>
             <img
-              style={{ height: "10%", width: "10%" }}
+              style={{ height: "10%", width: "50%" }}
               src={this.state.imageUrl}
             />
+            </div>
             <CardSlider status={this.state.status} onChange={this.onChange} />
             <Modal.Description>
               <p>Notes:</p>
@@ -126,8 +128,6 @@ class Card extends Component {
                   <TextArea placeholder="Travel Notes" />
                 </Form>
               }
-              <strong>FRIENDS</strong>
-              <div> {friendList}</div>
               <Button onClick={() => this.onSave()}>Save</Button>
               <Button onClick={() => this.props.onClose()}>Close</Button>
             </Modal.Description>

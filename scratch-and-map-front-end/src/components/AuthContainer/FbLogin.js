@@ -28,7 +28,7 @@ class FbLogin extends Component {
 
       () => {
         console.log("THIS STATE", this.state);
-      
+
         const name = response.name.split(" ");
         const first = name[0];
         const last = name[1];
@@ -51,7 +51,11 @@ class FbLogin extends Component {
 
         //Checks DB If FB User Exist
         axios
-          .get(`${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${response.userID}`)
+          .get(
+            `${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${
+              response.userID
+            }`
+          )
           .then(res => {
             console.log("DATA I HOPE", res.data);
             if (!res.data.fb_user_id) {
@@ -59,21 +63,29 @@ class FbLogin extends Component {
               axios
                 .post(`${process.env.REACT_APP_BACKEND_URL}/api/signup`, user)
                 .then(res => {
-                  localStorage.setItem("FbAccessToken", response.accessToken);
-                  localStorage.setItem("SAMUserID", response.userID);
+                  window.localStorage.setItem(
+                    "FbAccessToken",
+                    response.accessToken
+                  );
+                  window.localStorage.setItem("SAMUserID", response.userID);
                   return console.log(res);
                 });
-
             } else {
-              console.log('ELSE', res)
-              let fbUser = res.data;
-              fbUser.fb_access_token = response.accessToken;
+              console.log("ELSE", res);
               axios
-                .put(`${process.env.REACT_APP_BACKEND_URL}/api/login/fb/${res.data.fb_user_id}`, fbUser)
+                .put(
+                  `${process.env.REACT_APP_BACKEND_URL}/api/login/fb/${
+                    response.id
+                  }`,
+                  user.username
+                )
                 .then(res => {
-                  localStorage.setItem("FbAccessToken", response.accessToken);
-                  localStorage.setItem("SAMUserID", response.userID);
-                  return console.log("LOGIN RES",res.data);
+                  window.localStorage.setItem(
+                    "FbAccessToken",
+                    response.accessToken
+                  );
+                  window.localStorage.setItem("SAMUserID", response.userID);
+                  return console.log("LOGIN RES", res);
                 });
             }
           });
@@ -96,7 +108,6 @@ class FbLogin extends Component {
         if (response.status === "connected") {
           // axios login call
           console.log("init", response);
-          
         }
       }); //end getLoginStatus
     }; //end fbAsyncInit
@@ -106,8 +117,8 @@ class FbLogin extends Component {
   } //end component did update
 
   handleClose = () => {
-    document.getElementById("fbContent").style.display="none"
-  }
+    document.getElementById("fbContent").style.display = "none";
+  };
 
   render() {
     let fbContent;
