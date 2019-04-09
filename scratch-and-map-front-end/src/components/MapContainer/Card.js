@@ -59,9 +59,9 @@ class Card extends Component {
   onSave() {
     axios
       .get(
-        `${process.env.REACT_APP_BACKEND_URL}/api/users/${localStorage.getItem(
-          "SAMUserID"
-        )}`
+        `${
+          process.env.REACT_APP_BACKEND_URL
+        }/api/users/fb/${window.localStorage.getItem("SAMUserID")}`
       )
       .then(res => {
         const countryData = {
@@ -138,13 +138,16 @@ class Card extends Component {
             <h4>Language: {this.state.language}</h4>
             <h4>Currency: {this.state.currency} ({this.state.symbol}) </h4>
             </div>
-            </div>
+
             <CardSlider status={this.state.status} onChange={this.onChange} />
             <Modal.Description>
               <strong>Notes:</strong>
               {
                 <Form>
-                  <TextArea style={{ marginBottom: '10px'}} placeholder="Travel Notes" />
+                  <TextArea
+                    style={{ marginBottom: "10px" }}
+                    placeholder="Travel Notes"
+                  />
                 </Form>
               }
               <Button onClick={() => this.onSave()}>Save</Button>

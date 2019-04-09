@@ -128,6 +128,11 @@ class MapContainer extends React.Component {
       }).addTo(this.map);
     }
   }
+
+  componentWillUnmount() {
+    this.map.off();
+    this.map.remove();
+  }
   render() {
     return (
       <div className="mapview">
@@ -140,15 +145,12 @@ class MapContainer extends React.Component {
           />
         ) : null}
 
-        {this.props.loading ? <Loading /> : null}
 
+        {this.props.loading ? <Loading /> : <Legend />}
 
-        {this.props.loading ? <Loading /> : <Legend /> }
-        
         <Wrapper id="map" />
         {/*}
         <Legend /> */}
-
       </div>
     );
   }

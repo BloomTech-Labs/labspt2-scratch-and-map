@@ -10,7 +10,7 @@ ma = Marshmallow()
 
 class users(db.Model):
     id = db.Column(Integer, autoincrement=True, primary_key=True)
-    username = db.Column(String, unique=True, nullable=False) #primary_key=True,
+    username = db.Column(String, unique=True, nullable=False)
     password = db.Column(String, nullable=False)
     first_name = db.Column(String, nullable=False)
     last_name = db.Column(String, nullable=False)
@@ -21,10 +21,11 @@ class users(db.Model):
     role = db.Column(String, nullable=False)
     auto_scratch = db.Column(String, default=False)
     home_country = db.Column(String, nullable=False)
+    isLoggedIn = db.Column(String, nullable=False)
     fb_user_id = db.Column(String, nullable=False)
     fb_access_token = db.Column(String, nullable=False)
 
-    def __init__(self, username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch, home_country, fb_user_id, fb_access_token): 
+    def __init__(self, username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch, home_country, fb_user_id, fb_access_token, isLoggedIn):
         self.username = username
         self.password = password
         self.first_name = first_name
@@ -38,6 +39,7 @@ class users(db.Model):
         self.home_country = home_country
         self.fb_user_id = fb_user_id
         self.fb_access_token = fb_access_token
+        self.isLoggedIn = isLoggedIn
 
     def __repr__(self):
         return '<{}>' % self.__name__
@@ -45,7 +47,7 @@ class users(db.Model):
 class UserSchema(ma.ModelSchema):
     class Meta:
         model = users
-        fields = ('id','username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role', 'auto_scratch', 'home_country', 'user_countries', 'fb_user_id', 'fb_access_token' )
+        fields = ('id','username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role', 'auto_scratch', 'home_country', 'user_countries', 'fb_user_id', 'fb_access_token', 'isLoggedIn' )
     user_countries = fields.Nested('UserCountrySchema', many = True,
                                     only = ['country_id', 'status', 'notes'])
 
@@ -73,7 +75,7 @@ class CountrySchema(ma.ModelSchema):
         fields = ('country_name', 'flag', 'country_img', 'code', 'travelers')
         model = countries
     travelers = fields.Nested('UserCountrySchema', many = True,
-                                    only = ['user_id', 'status'])
+                                    only = ['user_id', 'status', 'isLoggedIn','fb_user_id', 'fb_access_token'])
 country_schema = CountrySchema()
 countries_schema = CountrySchema(many=True)
 
