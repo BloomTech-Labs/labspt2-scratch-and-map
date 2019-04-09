@@ -94,10 +94,18 @@ class FbLogin extends Component {
         if (response.status === "connected") {
           // axios login call
           console.log("init", response);
+          
         }
       }); //end getLoginStatus
     }; //end fbAsyncInit
+
+    if (this.state.isLoggedIn) {
+    }
   } //end component did update
+
+  handleClose = () => {
+    document.getElementById("fbContent").style.display="none"
+  }
 
   render() {
     let fbContent;
