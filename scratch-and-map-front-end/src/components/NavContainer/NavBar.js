@@ -29,7 +29,7 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick }) => (
 
       <Menu.Item as="a" as={Link} to="/map">
         {/* onClick={onClick} */}
-        <Icon name="map" inverted />
+        <Icon name="map" inverted />My Map
       </Menu.Item>
 
       <SidebarDrop />
