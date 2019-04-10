@@ -218,7 +218,7 @@ export function codeToCountry(code) {
       return "Argentina";
     case "ARM":
       return "Armenia";
-    case "AU1":
+    case "AUS":
       return "Australia";
     case "AUT":
       return "Austria";
@@ -268,7 +268,7 @@ export function codeToCountry(code) {
       return "Chad";
     case "CHL":
       return "Chile";
-    case "CH1":
+    case "CHN":
       return "China";
     case "COL":
       return "Colombia";
@@ -288,7 +288,7 @@ export function codeToCountry(code) {
       return "Cyprus";
     case "CZE":
       return "Czechia";
-    case "DN1":
+    case "DNK":
       return "Denmark";
     case "DJI":
       return "Djibouti";
@@ -312,9 +312,9 @@ export function codeToCountry(code) {
       return "Antigua & Barbuda";
     case "FJI":
       return "Fiji";
-    case "FI1":
+    case "FIN":
       return "Finland";
-    case "FR1":
+    case "FRA":
       return "France";
     case "AND":
       return "Andorra";
@@ -360,7 +360,7 @@ export function codeToCountry(code) {
       return "Iraq";
     case "IRL":
       return "Ireland";
-    case "IS1":
+    case "ISR":
       return "Israel";
     case "ITA":
       return "Italy";
@@ -430,11 +430,11 @@ export function codeToCountry(code) {
       return "Namibia";
     case "NPL":
       return "Nepal";
-    case "NL1":
+    case "NLD":
       return "Netherlands";
     case "CPV":
       return "Cabo Verde";
-    case "NZ1":
+    case "NZL":
       return "New Zealand";
     case "NIC":
       return "Nicaragua";
@@ -534,9 +534,9 @@ export function codeToCountry(code) {
       return "Ukraine";
     case "ARE":
       return "United Arab Emirates";
-    case "GB1":
+    case "GBR":
       return "United Kingdom of Great Britain & Nothern Ireland";
-    case "US1":
+    case "USA":
       return "United States of America";
     case "URY":
       return "Uruguay";

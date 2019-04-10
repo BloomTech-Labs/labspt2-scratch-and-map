@@ -49,7 +49,8 @@ class MapContainer extends React.Component {
     this.state = {
       loading: false,
       isOpen: false,
-      clickedCountry: ""
+      clickedCountry: "",
+      alt_code: ""
     };
 
     this.toggleModal = this.toggleModal.bind(this);
@@ -74,7 +75,7 @@ class MapContainer extends React.Component {
             colorCodes[
               countryColorMatcher(
                 nextProps.userCountryData,
-                feature.properties.SOV_A3
+                feature.properties.BRK_A3
               )
             ] || "pink",
           weight: 1,
@@ -116,9 +117,10 @@ class MapContainer extends React.Component {
           });
           layer.on("click", () => {
             this.setState({
-              clickedCountry: feature.properties.SOV_A3,
-              isOpen: true
+              clickedCountry: feature.properties.BRK_A3,
+              isOpen: true,
             });
+            console.log(this.state.clickedCountry)
           });
         },
         style: style,
@@ -149,8 +151,6 @@ class MapContainer extends React.Component {
         {this.props.loading ? <Loading /> : <Legend />}
 
         <Wrapper id="map" />
-        {/*}
-        <Legend /> */}
       </div>
     );
   }
