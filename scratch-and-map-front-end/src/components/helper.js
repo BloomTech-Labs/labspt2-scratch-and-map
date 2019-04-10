@@ -1043,6 +1043,8 @@ export function restCountryConversion(code) {
     return "CYP";
   } else if (code === "AU1") {
     return "AUS";
+  } else if (code === "SDS") {
+    return "SSD";
   } else {
     return code;
   }
