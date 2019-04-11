@@ -131,7 +131,7 @@ class Card extends Component {
             <div style={{width: "100%", display: "flex", justifyContent: "space-around", margin: "10px"}}>
             <div>
               <img
-              style={{border:'1px solid black', height: "90px", width: "150px", marginBottom: '20px' }}
+              style={{border:'1px solid black', height: "10vw", marginBottom: '20px' }}
               src={this.state.imageUrl}
             /></div>
             <div style={{width: "40%", height: "30px",  marginLeft: '15px'}}>
