@@ -188,6 +188,10 @@ p {
   background-size: cover;
   background-repeat: no-repeat;
 
+  @media screen and (max-width: 800px) {
+    background-position: center;
+  }
+
   img {
     margin-top: 150px;
     height: 210px;
@@ -298,4 +302,7 @@ p {
   color: white;
   padding-top: 300px;
 }
+
+
+
 

@@ -115,6 +115,10 @@ class Card extends Component {
       border: "1px solid steelblue"
     };
 
+    const modalStyle = {
+      width: "40%",
+    }
+
     let friendList = friends.map(friend => (
       <div key={friend.id}>
         {" "}
@@ -125,13 +129,13 @@ class Card extends Component {
     ));
     return (
       <div style={cardStyle}>
-        <Modal style={{width:'40%'}} open={this.props.open} >
+        <Modal style={modalStyle} className="modalStyle" open={this.props.open} >
           <Modal.Content image style={{display: "flex", flexDirection:"column"}}>
             <Header style={{ display:'flex', justifyContent: 'space-between'}}><h1>{this.state.countryName}  </h1>   <Icon name='window close' onClick={() => this.props.onClose()}/> </Header>
-            <div style={{width: "100%", display: "flex", justifyContent: "space-around", margin: "10px"}}>
+            <div style={{width: "100%", display: "flex", justifyContent: "space-around", margin: "10px 10px 30px 10px"}}>
             <div>
               <img
-              style={{border:'1px solid black', height: "90px", width: "150px", marginBottom: '20px' }}
+              style={{border:'1px solid black', height: "10vw", marginBottom: '20px' }}
               src={this.state.imageUrl}
             /></div>
             <div style={{width: "40%", height: "30px",  marginLeft: '15px'}}>

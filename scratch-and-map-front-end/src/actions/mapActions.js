@@ -8,9 +8,9 @@ export const getUserData = (id) => {
     return dispatch => {
         dispatch({ type: FETCHING });
         axios
-            .get(`${process.env.REACT_APP_BACKEND_URL}/api/users/${id}`)
+            .get(`${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${id}`)
             .then(response => {
-                console.log(response)
+                console.log('IN RESPONSE', response)
                 dispatch({ type: SUCCESS, payload: response.data})
             })
             .catch(err => {
