@@ -1045,6 +1045,8 @@ export function restCountryConversion(code) {
     return "AUS";
   } else if (code === "SDS") {
     return "SSD";
+  } else if (code === "PR1") {
+    return "PRT";
   } else {
     return code;
   }
