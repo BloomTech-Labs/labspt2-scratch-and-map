@@ -61,30 +61,20 @@ class FbLogin extends Component {
               axios
                 .post(`${process.env.REACT_APP_BACKEND_URL}/api/signup`, user)
                 .then(res => {
-                  window.localStorage.setItem(
-                    "FbAccessToken",
-                    response.accessToken
-                  );
+                  window.localStorage.setItem("FbAccessToken",response.accessToken);
                   window.localStorage.setItem("SAMUserID", response.userID);
                   return console.log(res);
-                });
+                }); //need a message when user already exist. 
+
             } else {
               console.log("ELSE", res);
               let new_user = res.data;
               new_user.fb_access_token = response.accessToken;
               axios
-                .put(
-                  `${process.env.REACT_APP_BACKEND_URL}/api/login/fb/${
-                    response.id
-                  }`,
-                  new_user
-                )
+                .put(`${process.env.REACT_APP_BACKEND_URL}/api/login/fb/${response.id}`, new_user)
                 .then(res => {
-                  window.localStorage.setItem(
-                    "FbAccessToken",
-                    response.accessToken
-                  );
-                  window.localStorage.setItem("SAMUserID", response.userID);
+                  window.localStorage.setItem("FbAccessToken", res.accessToken);
+                  window.localStorage.setItem("SAMUserID", res.userID);
                   return console.log("LOGIN RES", res);
                 });
             }
