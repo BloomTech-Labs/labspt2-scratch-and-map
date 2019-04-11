@@ -64,7 +64,8 @@ class MapContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getUserData(1);
+    const fbUserID = window.localStorage.getItem('SAMUserID')
+    this.props.getUserData(fbUserID);
   }
 
   componentWillReceiveProps(nextProps) {
