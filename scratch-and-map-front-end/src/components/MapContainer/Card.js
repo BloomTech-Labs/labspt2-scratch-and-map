@@ -64,6 +64,7 @@ class Card extends Component {
         }/api/users/fb/${window.localStorage.getItem("SAMUserID")}`
       )
       .then(res => {
+        console.log(res.data)
         const countryData = {
           user_id: res.id,
           country_id: returnId(this.props.country_code),
