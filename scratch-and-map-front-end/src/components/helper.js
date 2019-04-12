@@ -1084,8 +1084,8 @@ countries.forEach(country => {
 });
 
 export function returnCode(id) {
-  let new_id = id - 1;
-  return countries[new_id];
+  // let new_id = id - 1;
+  return countries[id];
 }
 
 export function returnId(code) {

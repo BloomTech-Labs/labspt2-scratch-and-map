@@ -81,14 +81,15 @@ class Card extends Component {
             item.country_id === returnId(this.props.country_code)
           );
         });
-        if (country === []) {
+        console.log('AFTER FILTER', countryData)
+        if (country.length == 0) {
           axios.post(
             `${process.env.REACT_APP_BACKEND_URL}/api/mapview`,
             countryData
           );
         } else {
           axios.put(
-            `${process.env.REACT_APP_BACKEND_URL}/api/mapview`,
+            `${process.env.REACT_APP_BACKEND_URL}/api/mapview/${countryData.user_id}/${countryData.country_id}`,
             countryData
           );
         }
@@ -98,12 +99,13 @@ class Card extends Component {
   onChange = status => {
     this.setState(
       state => ({
-        status: status
+        status: parseInt(status, 10)
       }),
       () => {
         console.log(this.state);
       }
     );
+    console.log(this.state.status)
   };
 
   render() {
