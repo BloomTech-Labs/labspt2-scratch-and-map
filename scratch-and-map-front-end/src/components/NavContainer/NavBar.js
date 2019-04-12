@@ -1,10 +1,9 @@
 import React from "react";
 import { Route, Link, withRouter } from "react-router-dom";
-import { connect } from "react-redux";
 import { Menu, Sidebar, Button, Segment, Icon } from "semantic-ui-react";
 import logo from "../../img/logowhite.png";
 import Auth from "../AuthContainer/Auth";
-import SidebarDrop from "./SidebarDrop";
+import FriendListView from "../NavContainer/FriendListView";
 import Landing from "../Landing";
 import MapContainer from "../MapContainer/MapContainer";
 
@@ -26,13 +25,17 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick }) => (
       <Menu.Item as="a" as={Link} to="/">
         <img src={logo} />
       </Menu.Item>
-
       <Menu.Item as="a" as={Link} to="/map">
         {/* onClick={onClick} */}
-        <Icon name="map" inverted />My Map
+        <Icon name="map" inverted />
+        My Map
+      </Menu.Item>
+      <Menu.Item as="a">
+        {/* onClick={onClick} */}
+        <Icon name="users" inverted /> View Friend Maps
       </Menu.Item>
 
-      <SidebarDrop />
+      <FriendListView visible={visible} />
     </Sidebar>
     <div className="Menu">
       <div className="MenuButton">
@@ -53,6 +56,7 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick }) => (
       <Segment basic>
         <Route path="/" exact render={props => <Landing />} />
         <Route path="/map" exact render={props => <MapContainer />} />
+        <Route path="/friends" exact render={props => <FriendListView />} />
       </Segment>
     </Sidebar.Pusher>
   </Sidebar.Pushable>
