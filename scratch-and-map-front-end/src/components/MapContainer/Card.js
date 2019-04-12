@@ -23,10 +23,10 @@ class Card extends Component {
       countryName: "",
       status: 1,
       notes: "",
-      currency:"",
-      symbol:"",
-      capital:'',
-      language:''
+      currency: "",
+      symbol: "",
+      capital: "",
+      language: ""
     };
   }
 
@@ -50,9 +50,15 @@ class Card extends Component {
           if (currency === "[E]" || currency === "[D]") {
             currency = "United States Dollar";
           }
-          this.setState({ imageUrl: cardCode, countryName: countrySelect, currency: currency, symbol:symbol, language:language, capital:capital });
-        })    
-        
+          this.setState({
+            imageUrl: cardCode,
+            countryName: countrySelect,
+            currency: currency,
+            symbol: symbol,
+            language: language,
+            capital: capital
+          });
+        })
     );
   }
 
@@ -64,9 +70,9 @@ class Card extends Component {
         }/api/users/fb/${window.localStorage.getItem("SAMUserID")}`
       )
       .then(res => {
-        console.log(res.data)
+        console.log("IN ON SAVE", res.data);
         const countryData = {
-          user_id: res.id,
+          user_id: res.data.id,
           country_id: returnId(this.props.country_code),
           status: this.state.status,
           notes: "None"
@@ -125,20 +131,43 @@ class Card extends Component {
     ));
     return (
       <div style={cardStyle}>
-        <Modal style={{width:'40%'}} open={this.props.open} >
-          <Modal.Content image style={{display: "flex", flexDirection:"column"}}>
-            <Header style={{ display:'flex', justifyContent: 'space-between'}}><h1>{this.state.countryName}  </h1>   <Icon name='window close' onClick={() => this.props.onClose()}/> </Header>
-            <div style={{width: "100%", display: "flex", justifyContent: "space-around", margin: "10px"}}>
-            <div>
-              <img
-              style={{border:'1px solid black', height: "90px", width: "150px", marginBottom: '20px' }}
-              src={this.state.imageUrl}
-            /></div>
-            <div style={{width: "40%", height: "30px",  marginLeft: '15px'}}>
-            <h4>Capital: {this.state.capital}</h4>
-            <h4>Language: {this.state.language}</h4>
-            <h4>Currency: {this.state.currency} ({this.state.symbol}) </h4>
-            </div>
+        <Modal style={{ width: "40%" }} open={this.props.open}>
+          <Modal.Content
+            image
+            style={{ display: "flex", flexDirection: "column" }}
+          >
+            <Header
+              style={{ display: "flex", justifyContent: "space-between" }}
+            >
+              <h1>{this.state.countryName} </h1>{" "}
+              <Icon name="window close" onClick={() => this.props.onClose()} />{" "}
+            </Header>
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-around",
+                margin: "10px"
+              }}
+            >
+              <div>
+                <img
+                  style={{
+                    border: "1px solid black",
+                    height: "90px",
+                    width: "150px",
+                    marginBottom: "20px"
+                  }}
+                  src={this.state.imageUrl}
+                />
+              </div>
+              <div style={{ width: "40%", height: "30px", marginLeft: "15px" }}>
+                <h4>Capital: {this.state.capital}</h4>
+                <h4>Language: {this.state.language}</h4>
+                <h4>
+                  Currency: {this.state.currency} ({this.state.symbol}){" "}
+                </h4>
+              </div>
             </div>
 
             <CardSlider status={this.state.status} onChange={this.onChange} />

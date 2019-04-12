@@ -161,7 +161,8 @@ const mapStateToProps = state => {
   return {
     userData: state.getUserDataReducer.userData,
     userCountryData: state.getUserDataReducer.userCountryData,
-    loading: state.getUserDataReducer.loading
+    loading: state.getUserDataReducer.loading,
+    DBUserID: state.getUserDataReducer.id
   };
 };
 export default withRouter(
