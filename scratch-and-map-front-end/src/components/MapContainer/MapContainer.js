@@ -23,10 +23,10 @@ const Wrapper = styled.div`
 
 const colorCodes = {
   0: "lightgrey",
-  1: "#CD5D01",
-  2: "#8FC201",
-  3: "#9B016D",
-  4: "#017B7B"
+  1: "#017B7B",
+  2: "#9B016D",
+  3: "#CD5D01",
+  4: "#8FC201"
 };
 
 function countryColorMatcher(userData, geoJsonCountry) {
@@ -81,8 +81,9 @@ class MapContainer extends React.Component {
             ] || "pink",
           weight: 1,
           opacity: 1,
-          color: "lightgrey",
-          fillOpacity: 0.7
+          color: 'darkgrey',
+          fillOpacity: 1,
+          stroke: 'true'
         };
       }
       this.map = L.map("map", {
@@ -161,7 +162,8 @@ const mapStateToProps = state => {
   return {
     userData: state.getUserDataReducer.userData,
     userCountryData: state.getUserDataReducer.userCountryData,
-    loading: state.getUserDataReducer.loading
+    loading: state.getUserDataReducer.loading,
+    DBUserID: state.getUserDataReducer.id
   };
 };
 export default withRouter(

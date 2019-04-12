@@ -62,6 +62,7 @@ def fbLogin(fbid):
 @app.route('/api/users/fb/<fbid>', methods=['GET'])
 def get_user_by_fbid(fbid):
     user = users.query.filter(users.fb_user_id==fbid).first()
+
     return user_schema.jsonify(user)
 
 @app.route('/api/users/fb/token', methods=['POST'])
@@ -181,6 +182,7 @@ def update_mapView_data(user_id, country_id):
     user_country.notes = request.json['notes']
 
     db.session.commit()
+  
     return user_country_schema.jsonify(user_country)
 
 if __name__ == "__main__":

@@ -23,10 +23,10 @@ class Card extends Component {
       countryName: "",
       status: 1,
       notes: "",
-      currency:"",
-      symbol:"",
-      capital:'',
-      language:''
+      currency: "",
+      symbol: "",
+      capital: "",
+      language: ""
     };
   }
 
@@ -50,9 +50,15 @@ class Card extends Component {
           if (currency === "[E]" || currency === "[D]") {
             currency = "United States Dollar";
           }
-          this.setState({ imageUrl: cardCode, countryName: countrySelect, currency: currency, symbol:symbol, language:language, capital:capital });
-        })    
-        
+          this.setState({
+            imageUrl: cardCode,
+            countryName: countrySelect,
+            currency: currency,
+            symbol: symbol,
+            language: language,
+            capital: capital
+          });
+        })
     );
   }
 
@@ -64,26 +70,26 @@ class Card extends Component {
         }/api/users/fb/${window.localStorage.getItem("SAMUserID")}`
       )
       .then(res => {
-        console.log(res.data)
         const countryData = {
-          user_id: res.id,
+          user_id: res.data.id,
           country_id: returnId(this.props.country_code),
           status: this.state.status,
           notes: "None"
         };
-        let country = res.data.filter(item => {
+        let country = res.data.user_countries.filter(item => {
           return (
-            item.user_countries.country_id === returnId(this.props.country_code)
+            item.country_id === returnId(this.props.country_code)
           );
         });
-        if (country === []) {
+        console.log('AFTER FILTER', countryData)
+        if (country.length == 0) {
           axios.post(
             `${process.env.REACT_APP_BACKEND_URL}/api/mapview`,
             countryData
           );
         } else {
           axios.put(
-            `${process.env.REACT_APP_BACKEND_URL}/api/mapview`,
+            `${process.env.REACT_APP_BACKEND_URL}/api/mapview/${countryData.user_id}/${countryData.country_id}`,
             countryData
           );
         }
@@ -93,12 +99,13 @@ class Card extends Component {
   onChange = status => {
     this.setState(
       state => ({
-        status: status
+        status: parseInt(status, 10)
       }),
       () => {
         console.log(this.state);
       }
     );
+    console.log(this.state.status)
   };
 
   render() {
