@@ -3,7 +3,8 @@ import NavBar from "./NavBar";
 
 class ParentNav extends Component {
   state = {
-    visible: false
+    visible: false,
+    show: false
   };
 
   handlePusher = () => {
@@ -13,15 +14,21 @@ class ParentNav extends Component {
   };
 
   handleToggle = () => this.setState({ visible: !this.state.visible });
+  handleShow = () => this.setState({ show: !this.state.show });
+
+
 
   render() {
     const { visible } = this.state;
+    const { show } = this.state;
 
     return (
         <NavBar
           onPusherClick={this.handlePusher}
           onToggle={this.handleToggle}
           visible={visible}
+          show={show}
+          handleShow={this.handleShow}
         />
     );
   }
