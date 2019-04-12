@@ -81,8 +81,9 @@ class MapContainer extends React.Component {
             ] || "pink",
           weight: 1,
           opacity: 1,
-          color: "lightgrey",
-          fillOpacity: 1
+          color: 'darkgrey',
+          fillOpacity: 1,
+          stroke: 'true'
         };
       }
       this.map = L.map("map", {
