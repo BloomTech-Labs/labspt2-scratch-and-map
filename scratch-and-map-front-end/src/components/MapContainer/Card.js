@@ -70,16 +70,15 @@ class Card extends Component {
         }/api/users/fb/${window.localStorage.getItem("SAMUserID")}`
       )
       .then(res => {
-        console.log("IN ON SAVE", res.data);
         const countryData = {
           user_id: res.data.id,
           country_id: returnId(this.props.country_code),
           status: this.state.status,
           notes: "None"
         };
-        let country = res.data.filter(item => {
+        let country = res.data.user_countries.filter(item => {
           return (
-            item.user_countries.country_id === returnId(this.props.country_code)
+            item.country_id === returnId(this.props.country_code)
           );
         });
         if (country === []) {
