@@ -14,7 +14,7 @@ class App extends Component {
   componentDidMount() {
     //grab FbAcessToken from local storage
     axios
-      .post(`http://${process.env.REACT_APP_BACKEND_URL}/api/users/fb`, {
+      .post(`${process.env.REACT_APP_BACKEND_URL}/api/users/fb/token`, {
         accessToken: window.localStorage.getItem("FbAccessToken")
       })
       .then(res => {
