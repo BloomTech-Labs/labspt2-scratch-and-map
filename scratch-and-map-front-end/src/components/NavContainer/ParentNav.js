@@ -1,10 +1,16 @@
 import React, { Component } from "react";
 import NavBar from "./NavBar";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { refreshMap } from "../../actions/mapActions";
 
 class ParentNav extends Component {
-  state = {
-    visible: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: false
+    };
+  }
 
   handlePusher = () => {
     const { visible } = this.state;
@@ -18,13 +24,19 @@ class ParentNav extends Component {
     const { visible } = this.state;
 
     return (
-        <NavBar
-          onPusherClick={this.handlePusher}
-          onToggle={this.handleToggle}
-          visible={visible}
-        />
+      <NavBar
+        onPusherClick={this.handlePusher}
+        onToggle={this.handleToggle}
+        visible={visible}
+        refreshMap={this.props.refreshMap}
+      />
     );
   }
 }
 
-export default ParentNav;
+export default withRouter(
+  connect(
+    () => {},
+    { refreshMap }
+  )(ParentNav)
+);
