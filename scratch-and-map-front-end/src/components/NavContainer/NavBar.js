@@ -6,6 +6,7 @@ import Auth from "../AuthContainer/Auth";
 import SidebarDrop from "./SidebarDrop";
 import Landing from "../Landing";
 import MapContainer from "../MapContainer/MapContainer";
+import FriendListView from "./FriendListView";
 
 const NavBar = ({ onToggle, visible, onPusherClick, refreshMap }) => (
   <Sidebar.Pushable>

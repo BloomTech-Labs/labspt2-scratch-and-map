@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { getUserData } from "../../actions/mapActions";
 import NavBar from "./NavBar";
-import { withRouter } from "react-router-dom";
 import { refreshMap } from "../../actions/mapActions";
 
 class ParentNav extends Component {
@@ -15,8 +14,8 @@ class ParentNav extends Component {
   }
 
   componentDidMount() {
-    console.log("MAP ICON USERDATA", this.props);
-    this.props.getUserData(1);
+    // console.log("MAP ICON USERDATA", this.props);
+    // this.props.getUserData(1);   ******Is this needed?
   }
 
   // goTo = () => {
