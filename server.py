@@ -173,9 +173,9 @@ def add_mapView_data():
 
   return jsonify(new_user_country.id,new_user_country.user_id, new_user_country.country_id, new_user_country.status, new_user_country.notes)
 
-@app.route('/api/mapview/<int:user_id>/<int:country_id>', methods=['PUT'])
-def update_mapView_data(user_id, country_id):
-    user_country = users_countries_join.query.filter(user_countries_join.country_id==country_id and user_countries_join.user_id==user_id)
+@app.route('/api/mapview/<int:user_id>', methods=['PUT'])
+def update_mapView_data(user_id):
+    user_country = users_countries_join.query.get(user_id)
     user_country.user_id = request.json['user_id']
     user_country.country_id = request.json['country_id']
     user_country.status = request.json['status']
