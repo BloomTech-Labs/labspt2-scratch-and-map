@@ -174,7 +174,6 @@ def add_mapView_data():
 
 @app.route('/api/mapview/<int:user_id>', methods=['PUT'])
 def update_mapView_data(user_id):
-    # user_country = users_countries_join.query.get(id)
     user_country = users_countries_join.query.get(user_id)
     user_country.user_id = request.json['user_id']
     user_country.country_id = request.json['country_id']
