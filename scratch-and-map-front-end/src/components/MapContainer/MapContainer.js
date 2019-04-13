@@ -50,9 +50,10 @@ class MapContainer extends React.Component {
       loading: false,
       isOpen: false,
       clickedCountry: "",
-      alt_code: ""
+      alt_code: "",
+      currentUser: ''
     };
-
+    this.cardSaveHandler = this.cardSaveHandler.bind(this)
     this.toggleModal = this.toggleModal.bind(this);
   }
   openModal() {
@@ -63,9 +64,13 @@ class MapContainer extends React.Component {
     this.setState({ isOpen: false });
   }
 
+  cardSaveHandler(id) {
+    this.props.getUserData(id)
+  }
+
   componentDidMount() {
-    const fbUserID = window.localStorage.getItem('SAMUserID')
-    this.props.getUserData(fbUserID);
+    this.setState({ currentUser: window.localStorage.getItem('SAMUserID') })
+    this.props.getUserData(window.localStorage.getItem('SAMUserID'));
   }
 
   componentWillReceiveProps(nextProps) {
@@ -122,7 +127,6 @@ class MapContainer extends React.Component {
               clickedCountry: feature.properties.BRK_A3,
               isOpen: true,
             });
-            console.log(this.state.clickedCountry)
           });
         },
         style: style,
@@ -146,6 +150,8 @@ class MapContainer extends React.Component {
             onClose={this.toggleModal}
             key={returnId(this.state.clickedCountry)}
             country_code={this.state.clickedCountry}
+            cardSaveHandler={this.cardSaveHandler}
+            currentUser={this.state.currentUser}
           />
         ) : null}
 

@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, TEXT, Boolean, String, CheckConstraint, ForeignKey, ARRAY
+from sqlalchemy import Column, Integer, TEXT, Boolean, String, CheckConstraint, ForeignKey, ARRAY, create_engine
 from flask_marshmallow import Marshmallow
 from models import *
 from dotenv import load_dotenv
@@ -24,6 +24,9 @@ ma = Marshmallow(app)
 
 PORT = int(os.environ.get("PORT",5000))
 DEBUG = "NO_DEBUG" not in os.environ
+
+engine = create_engine(DATABASE_URL,
+                       pool_size=20, max_overflow=0)
 
 #Routes
 @app.route("/api/error")

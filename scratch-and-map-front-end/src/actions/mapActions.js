@@ -10,7 +10,6 @@ export const getUserData = (id) => {
         axios
             .get(`${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${id}`)
             .then(response => {
-                console.log('IN RESPONSE', response)
                 dispatch({ type: SUCCESS, payload: response.data})
             })
             .catch(err => {

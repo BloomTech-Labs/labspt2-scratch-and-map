@@ -86,12 +86,14 @@ class Card extends Component {
           axios.post(
             `${process.env.REACT_APP_BACKEND_URL}/api/mapview`,
             countryData
-          );
+          )
+          .then(res => this.props.cardSaveHandler(this.props.currentUser));
         } else {
           axios.put(
             `${process.env.REACT_APP_BACKEND_URL}/api/mapview/${countryData.user_id}/${countryData.country_id}`,
             countryData
-          );
+          )
+          .then(res => this.props.cardSaveHandler(this.props.currentUser));
         }
       });
   }
