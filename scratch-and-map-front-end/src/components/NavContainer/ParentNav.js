@@ -37,40 +37,19 @@ class ParentNav extends Component {
 
     return (
       <NavBar
-<<<<<<< HEAD
         onPusherClick={this.handlePusher}
         onToggle={this.handleToggle}
         visible={visible}
         refreshMap={this.props.refreshMap}
-=======
         onClick={this.props.userCountryData}
-        // onClick={this.goTo}
-        onPusherClick={this.handlePusher}
-        onToggle={this.handleToggle}
-        visible={visible}
->>>>>>> 15f0217422981dda0f9d79eee2a95ca2e56d3f19
       />
     );
   }
 }
 
-<<<<<<< HEAD
 export default withRouter(
   connect(
     () => {},
     { refreshMap }
-=======
-const mapStateToProps = state => {
-  return {
-    userData: state.getUserDataReducer.userData,
-    userCountryData: state.getUserDataReducer.userCountryData,
-    loading: state.getUserDataReducer.loading
-  };
-};
-export default withRouter(
-  connect(
-    mapStateToProps,
-    { getUserData }
->>>>>>> 15f0217422981dda0f9d79eee2a95ca2e56d3f19
   )(ParentNav)
 );
