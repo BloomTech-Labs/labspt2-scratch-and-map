@@ -98,10 +98,13 @@ class Card extends Component {
             .put(
               `${process.env.REACT_APP_BACKEND_URL}/api/mapview/${
                 countryData.user_id
-              }/${countryData.country_id}`,
+              }`,
               countryData
             )
-            .then(res => this.props.cardSaveHandler(this.props.currentUser));
+            .then(res => {
+              this.props.refreshMap();
+              this.props.cardSaveHandler(this.props.currentUser);
+            });
         }
       });
   }
