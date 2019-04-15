@@ -26,12 +26,6 @@ class FriendListView extends Component {
       });
   }
 
-  toggleHidden() {
-    this.setState({
-      isHidden: !this.state.isHidden
-    });
-  }
-
   resetComponent = () =>
     this.setState({ isLoading: false, friends: [], value: "" });
 
@@ -45,11 +39,11 @@ class FriendListView extends Component {
       if (this.state.value.length < 1) return this.resetComponent();
 
       const re = new RegExp(_.escapeRegExp(this.state.value), "i");
-      const isMatch = friend => re.test(friend.username);
+      const isMatch = friend => re.test(friend.first_name);
 
       this.setState({
         isLoading: false,
-        // results: _.filter(source, isMatch)
+
         friends: _.filter(this.state.friends, isMatch)
       });
     }, 300);
@@ -70,7 +64,7 @@ class FriendListView extends Component {
             // loading={isLoading}
             onResultSelect={this.handleResultSelect}
             onSearchChange={_.debounce(this.handleSearchChange, 500, {
-              leading: true
+              loading: true
             })}
             friends={friends}
             value={value}
