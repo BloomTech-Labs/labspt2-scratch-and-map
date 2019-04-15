@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Menu, Button, Card, Segment, Image, Search } from "semantic-ui-react";
+import { Menu, Button, Segment, Image, Search } from "semantic-ui-react";
 import axios from "axios";
 import _ from "lodash";
 
@@ -50,7 +50,7 @@ class FriendListView extends Component {
       this.setState({
         isLoading: false,
         // results: _.filter(source, isMatch)
-        friends: _.filter(isMatch)
+        friends: _.filter(this.state.friends, isMatch)
       });
     }, 300);
   };
@@ -85,14 +85,12 @@ class FriendListView extends Component {
             {this.state.friends.map(friend => {
               return (
                 <Menu.Item as="a" className="friend-card">
-                  {/* <Card  style={{background: 'black', color: 'white' }} as="a" className="friend-card"> */}
                   <Image src="https://www.fillmurray.com/640/360" avatar />
 
                   <span>
                     {friend.first_name} {friend.last_name}
                   </span>
                 </Menu.Item>
-                /* </Card> */
               );
             })}
           </Segment>
