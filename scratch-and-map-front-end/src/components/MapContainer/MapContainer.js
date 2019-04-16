@@ -72,10 +72,10 @@ class MapContainer extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.refresh && this.map) {
-      this.map.remove();
-      this.props.refreshFalse();
-    }
+    // if (this.props.refresh && this.map) {
+    //   this.map.remove();
+    //   this.props.refreshFalse();
+    // }
     this.setState({ currentUser: window.localStorage.getItem("SAMUserID") });
     this.props.getUserData(window.localStorage.getItem("SAMUserID"));
   }

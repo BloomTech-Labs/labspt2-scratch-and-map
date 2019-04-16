@@ -82,7 +82,7 @@ class Card extends Component {
         let country = res.data.user_countries.filter(item => {
           return item.country_id === returnId(this.props.country_code);
         });
-        console.log("AFTER FILTER", countryData);
+        console.log("AFTER FILTER", this.props.country_code, 'FUNCTION:', returnId(this.props.country_code));
         if (country.length == 0) {
           axios
             .post(
@@ -118,7 +118,6 @@ class Card extends Component {
         console.log(this.state);
       }
     );
-    console.log(this.state.status);
   };
 
   render() {
