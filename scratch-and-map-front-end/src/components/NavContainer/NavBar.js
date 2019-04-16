@@ -13,7 +13,7 @@ import { getUserData } from "../../actions/mapActions";
 import DevCard from './DevCard'
 
 
-const NavBar = ({ onToggle, visible, onPusherClick, onClick }) => (
+const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
   <div>
 
   <Sidebar.Pushable>
