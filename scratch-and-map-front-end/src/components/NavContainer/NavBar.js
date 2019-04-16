@@ -53,7 +53,7 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
     <div className="Menu">
       <div className="MenuButton">
         <Button className="navbutton" inverted onClick={onToggle}>
-          Menu
+          MENU
         </Button>
       </div>
 
@@ -75,11 +75,9 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
     </Sidebar.Pushable>
       <div className="footer" id='footer'>
       <Modal trigger={
-      <Button color='black' inverted size='tiny' compact >
-      <div className="contact"><img src={logo} style={{height: '30px', margin: '5px'}}/><p>DEV TEAM</p></div>
-      </Button>} 
+      <div className="contact"><p> ABOUT THE TEAM </p></div>}
       basic size='small' closeIcon>
-    <Header content={<div style={{display: 'flex'}}><img src={logo} style={{height: '50px', margin: '5px'}}/><p style={{fontSize: '30px', marginTop: '13px'}}>DEV TEAM</p></div>} />
+    <Header content={<div style={{display: 'flex'}}><p style={{fontSize: '15px', marginTop: '13px'}}>THE TEAM</p></div>} />
     <Modal.Content>
         <DevCard />
     </Modal.Content>
