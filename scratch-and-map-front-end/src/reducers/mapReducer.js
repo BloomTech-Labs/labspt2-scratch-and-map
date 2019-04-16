@@ -28,9 +28,9 @@ export const getUserDataReducer = (state = initialState, action) => {
     case ERROR:
       return { ...state, error: action.payload, loading: false };
     case REFRESH:
-      return { ...state, refresh: action.payload };
+      return { ...state, refresh: action.payload, loading: true };
     case REFRESH_FALSE:
-      return { ...state, refresh: action.payload };
+      return { ...state, refresh: false };
     default:
       return state;
   }
