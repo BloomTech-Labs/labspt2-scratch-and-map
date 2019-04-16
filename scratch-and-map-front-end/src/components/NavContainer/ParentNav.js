@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { getUserData } from "../../actions/mapActions";
 import NavBar from "./NavBar";
+import { refreshMap } from "../../actions/mapActions";
+
 
 class ParentNav extends Component {
   state = {
