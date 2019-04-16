@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, TEXT, Boolean, String, CheckConstraint, ForeignKey, ARRAY
+from sqlalchemy import Column, Integer, TEXT, Boolean, String, CheckConstraint, ForeignKey, ARRAY, create_engine
 from flask_marshmallow import Marshmallow
 from models import *
 from dotenv import load_dotenv
@@ -24,6 +24,9 @@ ma = Marshmallow(app)
 
 PORT = int(os.environ.get("PORT",5000))
 DEBUG = "NO_DEBUG" not in os.environ
+
+engine = create_engine(DATABASE_URL,
+                       pool_size=20, max_overflow=0)
 
 #Routes
 @app.route("/api/error")
@@ -173,9 +176,9 @@ def add_mapView_data():
 
   return jsonify(new_user_country.id,new_user_country.user_id, new_user_country.country_id, new_user_country.status, new_user_country.notes)
 
-@app.route('/api/mapview/<int:user_id>/<int:country_id>', methods=['PUT'])
-def update_mapView_data(user_id, country_id):
-    user_country = users_countries_join.query.filter(user_countries_join.country_id==country_id and user_countries_join.user_id==user_id)
+@app.route('/api/mapview/<int:user_id>', methods=['PUT'])
+def update_mapView_data(user_id):
+    user_country = users_countries_join.query.get(user_id)
     user_country.user_id = request.json['user_id']
     user_country.country_id = request.json['country_id']
     user_country.status = request.json['status']

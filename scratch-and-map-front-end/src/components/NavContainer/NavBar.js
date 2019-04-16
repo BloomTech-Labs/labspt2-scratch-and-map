@@ -30,7 +30,7 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick }) => (
       <Button.Group className="closebutton">
         <Button onClick={onToggle} icon="close" inverted />
       </Button.Group>
-      <Menu.Item as="a" as={Link} to="/">
+      <Menu.Item as="a" as={Link} to="/" onClick={() => refreshMap()}>
         <img src={logo} />
       </Menu.Item>
       <Menu.Item as="a" as={Link} to="/map">
@@ -43,6 +43,11 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick }) => (
         <Icon name="users" inverted /> View Friend Maps
       </Menu.Item>
 
+      <Menu.Item as="a" as={Link} to="/map">
+        <Icon name="map" inverted />
+      </Menu.Item>
+
+      <SidebarDrop />
       <FriendListView visible={visible} />
     </Sidebar>
     <div className="Menu">
@@ -84,4 +89,4 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick }) => (
 
 );
 
-export default withRouter(NavBar);
+export default NavBar;
