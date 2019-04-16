@@ -5,7 +5,11 @@ import countrydata from "./countries.geo.json";
 import axios from "axios";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { getUserData } from "../../actions/mapActions";
+import {
+  getUserData,
+  refreshMap,
+  refreshFalse
+} from "../../actions/mapActions";
 import styled from "styled-components";
 import { returnCode, returnId } from "../helper";
 import { getUserDataReducer } from "../../reducers/mapReducer.js";
@@ -47,12 +51,12 @@ class MapContainer extends React.Component {
     super(props);
 
     this.state = {
-      loading: false,
       isOpen: false,
       clickedCountry: "",
-      alt_code: ""
+      alt_code: "",
+      currentUser: ""
     };
-
+    this.cardSaveHandler = this.cardSaveHandler.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
   }
   openModal() {
@@ -63,12 +67,24 @@ class MapContainer extends React.Component {
     this.setState({ isOpen: false });
   }
 
+  cardSaveHandler(id) {
+    this.props.getUserData(id);
+  }
+
   componentDidMount() {
-    const fbUserID = window.localStorage.getItem('SAMUserID')
-    this.props.getUserData(fbUserID);
+    if (this.props.refresh && this.map) {
+      this.map.remove();
+      this.props.refreshFalse();
+    }
+    this.setState({ currentUser: window.localStorage.getItem("SAMUserID") });
+    this.props.getUserData(window.localStorage.getItem("SAMUserID"));
   }
 
   componentWillReceiveProps(nextProps) {
+    if (this.props.refresh && this.map) {
+      this.map.remove();
+      this.props.refreshFalse();
+    }
     if (this.props.loading !== nextProps.loading) {
       function style(feature) {
         return {
@@ -81,9 +97,9 @@ class MapContainer extends React.Component {
             ] || "pink",
           weight: 1,
           opacity: 1,
-          color: 'darkgrey',
+          color: "darkgrey",
           fillOpacity: 1,
-          stroke: 'true'
+          stroke: "true"
         };
       }
       this.map = L.map("map", {
@@ -120,9 +136,8 @@ class MapContainer extends React.Component {
           layer.on("click", () => {
             this.setState({
               clickedCountry: feature.properties.BRK_A3,
-              isOpen: true,
+              isOpen: true
             });
-            console.log(this.state.clickedCountry)
           });
         },
         style: style,
@@ -133,10 +148,6 @@ class MapContainer extends React.Component {
     }
   }
 
-  componentWillUnmount() {
-    this.map.off();
-    this.map.remove();
-  }
   render() {
     return (
       <div className="mapview">
@@ -146,9 +157,10 @@ class MapContainer extends React.Component {
             onClose={this.toggleModal}
             key={returnId(this.state.clickedCountry)}
             country_code={this.state.clickedCountry}
+            cardSaveHandler={this.cardSaveHandler}
+            currentUser={this.state.currentUser}
           />
         ) : null}
-
 
         {this.props.loading ? <Loading /> : <Legend />}
 
@@ -163,12 +175,13 @@ const mapStateToProps = state => {
     userData: state.getUserDataReducer.userData,
     userCountryData: state.getUserDataReducer.userCountryData,
     loading: state.getUserDataReducer.loading,
-    DBUserID: state.getUserDataReducer.id
+    DBUserID: state.getUserDataReducer.id,
+    refresh: state.getUserDataReducer.refresh
   };
 };
 export default withRouter(
   connect(
     mapStateToProps,
-    { getUserData }
+    { getUserData, refreshMap, refreshFalse }
   )(MapContainer)
 );

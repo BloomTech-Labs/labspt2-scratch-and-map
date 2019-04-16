@@ -11,6 +11,12 @@ h1, h2 {
   font-family: 'Anton', sans-serif;
 }
 
+h3 {
+  font-family: 'Anton', sans-serif;
+  font-size: 110%;
+  color: white !important
+}
+
 h4 {
   font-family: 'Roboto', sans-serif;
   margin-bottom: -23px;
@@ -304,5 +310,40 @@ p {
 }
 
 
+.footer {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  background-color: black;
+  color: white;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
 
+  p {
+    font-size: 20px;
+    margin-top: 5px;
+    margin-right: 10px;
+  }
+
+  .contact {
+    display: flex;
+    align-items: center;
+  }
+
+}
+
+.devTeam {
+  background-color: black !important;
+  border: none !important;
+}
+
+a, .devicon {
+  color: white;
+  :hover {
+    color: white !important;
+  }
+}
 
