@@ -53,42 +53,37 @@ class FriendListView extends Component {
     const { isLoading, value, friends } = this.state;
     return (
       <div className="friend-view-wrapper">
-        <Button.Group className="closebutton">
-          <Button onClick={this.props.onToggle} icon="close" inverted />
-        </Button.Group>
-        <div>
-          <Search
-            placeholder="Search Friends"
-            style={{ marginTop: "30px" }}
-            aligned="right"
-            // loading={isLoading}
-            onResultSelect={this.handleResultSelect}
-            onSearchChange={_.debounce(this.handleSearchChange, 500, {
-              loading: true
-            })}
-            friends={friends}
-            value={value}
-            {...this.props}
-          />
+        <Search
+          placeholder="Search Friends"
+          style={{ marginTop: "30px" }}
+          aligned="right"
+          // loading={isLoading}
+          onResultSelect={this.handleResultSelect}
+          onSearchChange={_.debounce(this.handleSearchChange, 500, {
+            loading: true
+          })}
+          friends={friends}
+          value={value}
+          {...this.props}
+        />
 
-          <Segment
-            inverted
-            style={{ overflow: "auto", maxHeight: 500 }}
-            className="friend-card-list"
-          >
-            {this.state.friends.map(friend => {
-              return (
-                <Menu.Item as="a" className="friend-card">
-                  <Image src="https://www.fillmurray.com/640/360" avatar />
+        <Segment
+          inverted
+          style={{ overflow: "auto", maxHeight: 500 }}
+          className="friend-card-list"
+        >
+          {this.state.friends.map(friend => {
+            return (
+              <Menu.Item as="a" className="friend-card">
+                <Image src="https://www.fillmurray.com/640/360" avatar />
 
-                  <span>
-                    {friend.first_name} {friend.last_name}
-                  </span>
-                </Menu.Item>
-              );
-            })}
-          </Segment>
-        </div>
+                <span>
+                  {friend.first_name} {friend.last_name}
+                </span>
+              </Menu.Item>
+            );
+          })}
+        </Segment>
       </div>
     );
   }
