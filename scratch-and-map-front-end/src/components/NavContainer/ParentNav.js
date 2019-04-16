@@ -16,22 +16,19 @@ class ParentNav extends Component {
     console.log("MAP ICON USERDATA", this.props);
     this.props.getUserData(1);
   }
-  // goTo = () => {
-  //   this.history.push("/map");
-  // };
+ 
   handlePusher = () => {
     const { visible } = this.state;
     if (visible) this.setState({ visible: false });
   };
 
   handleToggle = () => this.setState({ visible: !this.state.visible });
-  handleShow = () => this.setState({ show: !this.state.show });
+  handleToggleShow = () => this.setState({ show: !this.state.show });
 
 
 
   render() {
-    const { visible } = this.state;
-    const { show } = this.state;
+    const { visible, show } = this.state;
 
     return (
 
@@ -40,7 +37,7 @@ class ParentNav extends Component {
           onToggle={this.handleToggle}
           visible={visible}
           show={show}
-          handleShow={this.handleShow}
+          handleToggleShow={this.handleToggleShow}
           refreshMap={this.props.refreshMap}
         />);
   }
