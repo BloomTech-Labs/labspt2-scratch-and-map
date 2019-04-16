@@ -3,15 +3,19 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { getUserData } from "../../actions/mapActions";
 import NavBar from "./NavBar";
+import { refreshMap } from "../../actions/mapActions";
 
 class ParentNav extends Component {
-  state = {
-    visible: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: false
+    };
+  }
 
   componentDidMount() {
-    console.log("MAP ICON USERDATA", this.props);
-    this.props.getUserData(1);
+    // console.log("MAP ICON USERDATA", this.props);
+    // this.props.getUserData(1);   ******Is this needed?
   }
 
   // goTo = () => {
@@ -31,26 +35,19 @@ class ParentNav extends Component {
 
     return (
       <NavBar
-        onClick={this.props.userCountryData}
-        // onClick={this.goTo}
         onPusherClick={this.handlePusher}
         onToggle={this.handleToggle}
         visible={visible}
+        refreshMap={this.props.refreshMap}
+        onClick={this.props.userCountryData}
       />
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    userData: state.getUserDataReducer.userData,
-    userCountryData: state.getUserDataReducer.userCountryData,
-    loading: state.getUserDataReducer.loading
-  };
-};
 export default withRouter(
   connect(
-    mapStateToProps,
-    { getUserData }
+    () => {},
+    { refreshMap }
   )(ParentNav)
 );
