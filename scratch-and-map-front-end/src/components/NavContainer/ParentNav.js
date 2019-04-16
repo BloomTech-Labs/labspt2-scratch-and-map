@@ -41,6 +41,7 @@ class ParentNav extends Component {
           visible={visible}
           show={show}
           handleShow={this.handleShow}
+          refreshMap={this.props.refreshMap}
         />);
   }
 }
