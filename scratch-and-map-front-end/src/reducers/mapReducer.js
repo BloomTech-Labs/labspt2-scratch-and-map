@@ -1,9 +1,7 @@
 import {
   FETCHING,
   SUCCESS,
-  ERROR,
-  REFRESH,
-  REFRESH_FALSE
+  ERROR
 } from "../actions/mapActions";
 
 const initialState = {
@@ -11,7 +9,6 @@ const initialState = {
   userCountryData: [],
   loading: true,
   error: "",
-  refresh: false
 };
 
 export const getUserDataReducer = (state = initialState, action) => {
@@ -27,10 +24,6 @@ export const getUserDataReducer = (state = initialState, action) => {
       };
     case ERROR:
       return { ...state, error: action.payload, loading: false };
-    case REFRESH:
-      return { ...state, refresh: action.payload, loading: true };
-    case REFRESH_FALSE:
-      return { ...state, refresh: false };
     default:
       return state;
   }

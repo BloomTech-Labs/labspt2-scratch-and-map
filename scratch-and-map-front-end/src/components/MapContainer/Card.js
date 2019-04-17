@@ -15,7 +15,6 @@ import "../../styles/card.scss";
 import axios from "axios";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { refreshMap } from "../../actions/mapActions";
 
 class Card extends Component {
   constructor(props) {
@@ -90,7 +89,6 @@ class Card extends Component {
               countryData
             )
             .then(res => {
-              this.props.refreshMap();
               this.props.cardSaveHandler(this.props.currentUser);
             });
         } else {
@@ -102,7 +100,6 @@ class Card extends Component {
               countryData
             )
             .then(res => {
-              this.props.refreshMap();
               this.props.cardSaveHandler(this.props.currentUser);
             });
         }
@@ -208,7 +205,6 @@ class Card extends Component {
 
 export default withRouter(
   connect(
-    () => {},
-    { refreshMap }
+    () => {}
   )(Card)
 );

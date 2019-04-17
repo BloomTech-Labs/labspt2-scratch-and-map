@@ -5,11 +5,7 @@ import countrydata from "./countries.geo.json";
 import axios from "axios";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import {
-  getUserData,
-  refreshMap,
-  refreshFalse
-} from "../../actions/mapActions";
+import { getUserData } from "../../actions/mapActions";
 import styled from "styled-components";
 import { returnCode, returnId } from "../helper";
 import { getUserDataReducer } from "../../reducers/mapReducer.js";
@@ -72,17 +68,11 @@ class MapContainer extends React.Component {
   }
 
   componentDidMount() {
-    console.log("COMPDIDMOUNT");
     this.setState({ currentUser: window.localStorage.getItem("SAMUserID") });
     this.props.getUserData(window.localStorage.getItem("SAMUserID"));
   }
 
   componentWillReceiveProps(nextProps) {
-    // if (this.props.refresh && this.map) {
-    //   console.log("COMP WILL IF STATEMENT", this.props.refresh);
-    //   this.map.remove();
-    //   this.props.refreshFalse();
-    // }
     function style(feature) {
       return {
         fillColor:
@@ -101,7 +91,6 @@ class MapContainer extends React.Component {
     }
 
     if (this.map) {
-      console.log("map exists");
       L.geoJson(countrydata, {
         onEachFeature: (feature, layer) => {
           layer.bindPopup("<h3>" + feature.properties.ADMIN + "</h3>", {
@@ -129,23 +118,6 @@ class MapContainer extends React.Component {
       }).addTo(this.map);
     } else {
       if (this.props.loading !== nextProps.loading) {
-        console.log("creating new map");
-        // function style(feature) {
-        //   return {
-        //     fillColor:
-        //       colorCodes[
-        //         countryColorMatcher(
-        //           nextProps.userCountryData,
-        //           feature.properties.BRK_A3
-        //         )
-        //       ] || "pink",
-        //     weight: 1,
-        //     opacity: 1,
-        //     color: "darkgrey",
-        //     fillOpacity: 1,
-        //     stroke: "true"
-        //   };
-        // }
         this.map = L.map("map", {
           center: [30, 0],
           zoom: 3,
@@ -221,12 +193,11 @@ const mapStateToProps = state => {
     userCountryData: state.getUserDataReducer.userCountryData,
     loading: state.getUserDataReducer.loading,
     DBUserID: state.getUserDataReducer.id,
-    refresh: state.getUserDataReducer.refresh
   };
 };
 export default withRouter(
   connect(
     mapStateToProps,
-    { getUserData, refreshMap, refreshFalse }
+    { getUserData }
   )(MapContainer)
 );
