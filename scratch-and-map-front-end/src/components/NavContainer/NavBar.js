@@ -30,7 +30,7 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
       <Button.Group className="closebutton">
         <Button onClick={onToggle} icon="close" inverted />
       </Button.Group>
-      <Menu.Item as="a" as={Link} to="/" onClick={() => refreshMap()}>
+      <Menu.Item as="a" as={Link} to="/" >
         <img src={logo} />
       </Menu.Item>
       <Menu.Item as="a" as={Link} to="/map">
