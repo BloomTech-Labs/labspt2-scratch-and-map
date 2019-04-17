@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { getUserData } from "../../actions/mapActions";
 import NavBar from "./NavBar";
-import { refreshMap } from "../../actions/mapActions";
-
 
 class ParentNav extends Component {
   state = {
@@ -25,21 +23,18 @@ class ParentNav extends Component {
   handleToggle = () => this.setState({ visible: !this.state.visible });
   handleToggleShow = () => this.setState({ show: !this.state.show });
 
-
-
   render() {
     const { visible, show } = this.state;
 
     return (
-
-        <NavBar
-          onPusherClick={this.handlePusher}
-          onToggle={this.handleToggle}
-          visible={visible}
-          show={show}
-          handleToggleShow={this.handleToggleShow}
-          refreshMap={this.props.refreshMap}
-        />);
+      <NavBar
+        onPusherClick={this.handlePusher}
+        onToggle={this.handleToggle}
+        visible={visible}
+        show={show}
+        handleShow={this.handleShow}
+      />
+    );
   }
 }
 const mapStateToProps = state => {
