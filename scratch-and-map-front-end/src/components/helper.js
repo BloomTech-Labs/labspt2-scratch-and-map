@@ -1089,7 +1089,7 @@ export function returnCode(id) {
 }
 
 export function returnId(code) {
-  let id = countries.indexOf(code);
+  let id = countries.indexOf(restCountryConversion(code));
   return id;
 }
 
