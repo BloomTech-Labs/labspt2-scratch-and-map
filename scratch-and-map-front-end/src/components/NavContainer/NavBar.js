@@ -75,8 +75,9 @@ const NavBar = props => (
       </p>
     </Modal.Content>
   </Modal>
-
-
+)
+        <Auth />
+      </div>
       </div>
       <Sidebar.Pusher
         dimmed={props.visible}
