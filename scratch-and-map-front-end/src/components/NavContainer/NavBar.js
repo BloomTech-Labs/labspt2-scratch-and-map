@@ -79,6 +79,7 @@ const NavBar = props => (
         </Segment>
       </Sidebar.Pusher>
     </Sidebar.Pushable>
+
     <div className="footer" id="footer">
       <Modal
         trigger={
