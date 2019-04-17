@@ -78,46 +78,30 @@ class MapContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.refresh && this.map) {
-      console.log("COMP WILL IF STATEMENT", this.props.refresh);
-      this.map.remove();
-      this.props.refreshFalse();
+    // if (this.props.refresh && this.map) {
+    //   console.log("COMP WILL IF STATEMENT", this.props.refresh);
+    //   this.map.remove();
+    //   this.props.refreshFalse();
+    // }
+    function style(feature) {
+      return {
+        fillColor:
+          colorCodes[
+            countryColorMatcher(
+              nextProps.userCountryData,
+              feature.properties.BRK_A3
+            )
+          ] || "pink",
+        weight: 1,
+        opacity: 1,
+        color: "darkgrey",
+        fillOpacity: 1,
+        stroke: "true"
+      };
     }
-    if (this.props.loading !== nextProps.loading) {
-      function style(feature) {
-        return {
-          fillColor:
-            colorCodes[
-              countryColorMatcher(
-                nextProps.userCountryData,
-                feature.properties.BRK_A3
-              )
-            ] || "pink",
-          weight: 1,
-          opacity: 1,
-          color: "darkgrey",
-          fillOpacity: 1,
-          stroke: "true"
-        };
-      }
-      this.map = L.map("map", {
-        center: [30, 0],
-        zoom: 3,
-        zoomControl: false,
-        maxZoom: 20,
-        minZoom: 2.5,
-        maxBounds: [[-90, -180], [90, 180]],
-        maxBoundsViscosity: 1
-      });
-      L.tileLayer(
-        "https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}{r}.png",
-        {
-          attribution:
-            'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-          minZoom: 3,
-          noWrap: true
-        }
-      ).addTo(this.map);
+
+    if (this.map) {
+      console.log("map exists");
       L.geoJson(countrydata, {
         onEachFeature: (feature, layer) => {
           layer.bindPopup("<h3>" + feature.properties.ADMIN + "</h3>", {
@@ -143,6 +127,69 @@ class MapContainer extends React.Component {
           return L.circleMarker(latlng);
         }
       }).addTo(this.map);
+    } else {
+      if (this.props.loading !== nextProps.loading) {
+        console.log("creating new map");
+        // function style(feature) {
+        //   return {
+        //     fillColor:
+        //       colorCodes[
+        //         countryColorMatcher(
+        //           nextProps.userCountryData,
+        //           feature.properties.BRK_A3
+        //         )
+        //       ] || "pink",
+        //     weight: 1,
+        //     opacity: 1,
+        //     color: "darkgrey",
+        //     fillOpacity: 1,
+        //     stroke: "true"
+        //   };
+        // }
+        this.map = L.map("map", {
+          center: [30, 0],
+          zoom: 3,
+          zoomControl: false,
+          maxZoom: 20,
+          minZoom: 2.5,
+          maxBounds: [[-90, -180], [90, 180]],
+          maxBoundsViscosity: 1
+        });
+        L.tileLayer(
+          "https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}{r}.png",
+          {
+            attribution:
+              'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            minZoom: 3,
+            noWrap: true
+          }
+        ).addTo(this.map);
+        L.geoJson(countrydata, {
+          onEachFeature: (feature, layer) => {
+            layer.bindPopup("<h3>" + feature.properties.ADMIN + "</h3>", {
+              closeButton: false,
+              offset: L.point(0, -20)
+            });
+            layer.on("mouseover", e => {
+              let popup = e.target.getPopup();
+              popup.setLatLng(e.latlng).openOn(this.map);
+            });
+            layer.on("mouseout", e => {
+              e.target.closePopup();
+            });
+            layer.on("click", () => {
+              this.setState({
+                clickedCountry: feature.properties.BRK_A3,
+                isOpen: true
+              });
+            });
+          },
+          style: style,
+          pointToLayer: function(feature, latlng) {
+            return L.circleMarker(latlng);
+          }
+        }).addTo(this.map);
+      }
     }
   }
 
