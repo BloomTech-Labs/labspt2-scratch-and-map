@@ -134,14 +134,17 @@ p {
   margin-top: 20px;
   border-radius: 40px;
   color: white;
-  transition: background-color 0.3s ease-out;
+  box-shadow: 0px 0px 0px .8px white !important;
+
   cursor: pointer;
+
 }
 
 .login-btn:hover,
 .login-btn:focus {
   background-color: black;
   color: white;
+  
 }
 
 .forgot-pwd {
@@ -165,6 +168,13 @@ p {
 
 .NavBar, .Nav, .Menu {
   background-color: black;
+  margin:  -20px;
+  
+}
+ .Nav {
+  background-color: black;
+  margin-right:  0px;
+  
 }
 
 .sidebar {
@@ -200,8 +210,8 @@ p {
 
   img {
     margin-top: 150px;
-    height: 210px;
-    width: 900px;
+    height: 110px;
+    width: 500px;
     z-index: 1;
 
     @media screen and (max-width: 800px) {
@@ -217,7 +227,7 @@ p {
 	right: 0;
 	bottom: 0;
 	left: 0;
-	background-image: linear-gradient(to bottom , black, grey);
+	background-image: linear-gradient(to bottom , black, 30%, transparent);
 	opacity: .6; 
   }
 }
@@ -229,6 +239,7 @@ p {
   justify-content: space-between;
   align-items: center;
   padding: 20px;
+  
 
   .icon {
     background-color: black !important;
@@ -239,8 +250,24 @@ p {
       position: relative !important;
       top: -2px;
     }
-
+    
   }
+  .navbutton{
+    font-size: 12px !important;
+    padding: 17px 15px  !important;
+    margin: 10px 15px 10px 0px !important; 
+    line-height: .01em !important;
+  
+  }
+  
+  .navbutton:first-child {
+    font-size: 12px !important;
+    margin-left: 20px !important; 
+    line-height: .1em !important;
+  
+  }
+
+
   
   
   .icon:hover {
@@ -308,24 +335,27 @@ p {
   color: white;
   padding-top: 300px;
 }
-
+//////////////// About the team ////////////////
 
 .footer {
   position: absolute;
   bottom: 0px;
-  width: 100%;
+  width: 125px;
+  margin: 0 auto;
   background-color: black;
   color: white;
   display: flex;
-  flex-direction: row-reverse;
+
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  margin-left: 85%;
+  padding: 8px 0px 5px 0px ;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 
   p {
-    font-size: 20px;
-    margin-top: 5px;
-    margin-right: 10px;
+    font-size: 10px;
+    margin: 5px;
   }
 
   .contact {
@@ -338,6 +368,8 @@ p {
 .devTeam {
   background-color: black !important;
   border: none !important;
+
+
 }
 
 a, .devicon {
@@ -347,3 +379,42 @@ a, .devicon {
   }
 }
 
+
+
+.ui.card, .ui.cards>.card {
+  background: black;
+  width: 200px;
+  height:200px;
+  border-radius: 50%;
+  color: white;
+  border: none;
+  padding: 20px;
+  }
+
+  .ui.card>.content>.description, .ui.cards>.card>.content>.description{
+    color: white;
+  }
+
+
+  .ui.card>.content>.header:not(.ui), .ui.cards>.card>.content>.header:not(.ui){
+    color: white;
+  }
+
+  .ui.card>.content, .ui.cards>.card>.content{
+    margin-top: 20px;
+    text-align: center;
+    font-size: 10px;
+    text-transform: uppercase;
+    font-size: 14px;
+  }
+  .ui.medium.image, .ui.medium.images .image, .ui.medium.images img, .ui.medium.images svg{
+    padding: 25px;
+  }
+  .ui.reveal{
+    margin: 20px;
+
+  }
+
+  .ui.small.modal{
+    width: 800px;
+  }
