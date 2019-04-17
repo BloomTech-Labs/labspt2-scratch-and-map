@@ -47,6 +47,23 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
         <Icon name="map" inverted />
       </Menu.Item>
 
+
+      <div className="AuthButtons">
+    <Modal trigger={<Button color='black' inverted>
+        <Icon name='gem' />
+        Premium
+      </Button>} basic size='small' closeIcon>
+    <Header icon='gem' content='Premium Sign Up' />
+    <Modal.Content>
+      <p>
+        Stripe Form Here
+      </p>
+    </Modal.Content>
+  </Modal>
+)
+        <Auth />
+      </div>
+
       <SidebarDrop />
       <FriendListView visible={visible} />
     </Sidebar>
@@ -55,10 +72,7 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
         <Button className="navbutton" inverted onClick={onToggle}>
           MENU
         </Button>
-      </div>
 
-      <div className="AuthButtons">
-        <Auth />
       </div>
     </div>
     <Sidebar.Pusher
