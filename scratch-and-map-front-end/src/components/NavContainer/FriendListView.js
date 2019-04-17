@@ -69,7 +69,7 @@ class FriendListView extends Component {
 
         <Segment
           inverted
-          style={{ overflow: "scroll", maxHeight: 500 }}
+          style={{ overflow: "auto", maxHeight: 600 }}
           className="friend-card-list"
         >
           {this.state.friends.map(friend => {
