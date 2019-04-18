@@ -51,7 +51,7 @@ class FriendListView extends Component {
             display: "flex",
             flexDirection: "column",
             overflow: "auto",
-            height: 450
+            height: 400
           }}
           className="friend-card-list"
         >
@@ -64,9 +64,9 @@ class FriendListView extends Component {
                   avatar
                 />
 
-                <span style={{ fontSize: 16 }}>
+                <Menu.Header style={{ fontSize: 16 }}>
                   {friend.first_name} {friend.last_name}
-                </span>
+                </Menu.Header>
               </Menu.Item>
             );
           })}
