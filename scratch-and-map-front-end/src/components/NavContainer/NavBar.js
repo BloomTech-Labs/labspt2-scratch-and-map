@@ -21,6 +21,7 @@ import DevCard from "./DevCard";
 
 const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
   <div>
+    
     <Sidebar.Pushable>
       <Sidebar
         as={Menu}
@@ -43,12 +44,22 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
           <Icon name="map" inverted />
           My Map
         </Menu.Item>
-        <div className="AuthButtons">
+        
+
+        <FriendListView />
+      </Sidebar>
+      <div className="Menu">
+        <div className="leftNav">
+          <Button className="navbutton" inverted onClick={onToggle}>
+            MENU
+          </Button>
+          </div>
+          <div className="rightNav">
           <Modal
             trigger={
-              <Button color="black" inverted>
+              <Button inverted className='premium'>
                 <Icon name="gem" />
-                Premium
+                PREMIUM
               </Button>
             }
             basic
@@ -61,18 +72,12 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
             </Modal.Content>
           </Modal>
           )
+          <div className='AuthButtons'>
           <Auth />
-        </div>
-
-        <FriendListView />
-      </Sidebar>
-      <div className="Menu">
-        <div className="MenuButton">
-          <Button className="navbutton" inverted onClick={onToggle}>
-            MENU
-          </Button>
-        </div>
+          </div>
+          </div>
       </div>
+      
       <Sidebar.Pusher
         dimmed={visible}
         onClick={onPusherClick}
@@ -85,6 +90,7 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
         </Segment>
       </Sidebar.Pusher>
     </Sidebar.Pushable>
+
     <div className="footer" id="footer">
       <Modal
         trigger={

@@ -174,8 +174,23 @@ p {
  .Nav {
   background-color: black;
   margin-right:  0px;
-  
+  display: flex;
 }
+
+.rightNav{
+  width: 70%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 20px;
+
+  @media screen and (max-width: 800px) {
+    justify-content: flex-start;
+  }
+}
+
+
+
 
 .sidebar {
   img {
@@ -250,6 +265,10 @@ p {
       position: relative !important;
       top: -2px;
     }
+    @media screen and (max-width: 800px) {
+      display: none;
+    }
+
     
   }
   .navbutton{
@@ -258,13 +277,27 @@ p {
     margin: 10px 15px 10px 0px !important; 
     line-height: .01em !important;
   
+    @media screen and (max-width: 800px) {
+      width: 70px;
+      padding:17px 0px !important;
+    }
+  }
+
+  .premium {
+    font-size: 12px !important;
+    padding: 12px 15px  !important;
+    margin: 10px 15px 10px 0px !important; 
+    @media screen and (max-width: 800px) {
+      width: 75px;
+      padding:12px 7px !important;
+      text-align: center;
+    }
   }
   
   .navbutton:first-child {
     font-size: 12px !important;
     margin-left: 20px !important; 
     line-height: .1em !important;
-  
   }
 
 
@@ -274,11 +307,12 @@ p {
     color: black !important;
     background-color: white !important;
   }
+
+
+
 }
 
-.AuthButtons {
-  display: flex;
-}
+
 
 
 
@@ -352,6 +386,10 @@ p {
   padding: 8px 0px 5px 0px ;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+
+  @media screen and (max-width: 800px) {
+    margin-left: 60%;
+  }
 
   p {
     font-size: 10px;
