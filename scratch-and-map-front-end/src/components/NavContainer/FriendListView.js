@@ -41,7 +41,7 @@ class FriendListView extends Component {
       <div className="friend-view-wrapper">
         <input
           className="search-bar"
-          placeholder="Search Friends         &#x1f50d; &nbsp;"
+          placeholder="Search Friends        &#x1f50d; &nbsp;"
           onChange={this.onChangeHandler}
           value={this.state.query}
         />
