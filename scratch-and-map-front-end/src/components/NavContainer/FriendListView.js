@@ -13,10 +13,6 @@ class FriendListView extends Component {
     };
   }
 
-  // componentWillMount() {
-  //   this.resetComponent();
-  // }
-
   async componentDidMount() {
     await axios
       .get(`${process.env.REACT_APP_BACKEND_URL}/api/users`)
@@ -28,29 +24,6 @@ class FriendListView extends Component {
         });
       });
   }
-
-  // resetComponent = () =>
-  //   this.setState({ isLoading: false, friends: [], value: "" });
-  //
-  // handleResultSelect = (e, { friend }) =>
-  //   this.setState({ value: friend.username });
-  //
-  // handleSearchChange = (e, { value }) => {
-  //   this.setState({ isLoading: true, value });
-  //
-  //   setTimeout(() => {
-  //     if (this.state.value.length < 1) return this.resetComponent();
-  //
-  //     const re = new RegExp(_.escapeRegExp(this.state.value), "i");
-  //     const isMatch = friend => re.test(friend.first_name);
-  //
-  //     this.setState({
-  //       isLoading: false,
-  //
-  //       friends: _.filter(this.state.friends, isMatch)
-  //     });
-  //   }, 300);
-  // };
 
   onChangeHandler = ({ target }) => {
     const res = this.state.friends.filter(friend => {
@@ -64,7 +37,6 @@ class FriendListView extends Component {
   };
 
   render() {
-    const { isLoading, value, friends } = this.state;
     return (
       <div className="friend-view-wrapper">
         <input
@@ -79,7 +51,7 @@ class FriendListView extends Component {
         >
           {this.state.filteredFriends.map(friend => {
             return (
-              <Menu.Item as="a" className="friend-card">
+              <Menu.Item as="a" className="friend-card" key={friend.id}>
                 <Image src="https://www.fillmurray.com/640/360" avatar />
 
                 <span>
