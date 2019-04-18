@@ -51,22 +51,30 @@ class FriendListView extends Component {
             display: "flex",
             flexDirection: "column",
             overflow: "auto",
-            height: 400
+            height: 450
           }}
           className="friend-card-list"
         >
           {this.state.filteredFriends.map(friend => {
             return (
-              <Menu.Item as="a" className="friend-card" key={friend.id}>
-                <Image
-                  style={{ fontSize: 27 }}
-                  src="http://placekitten.com/200/200"
-                  avatar
-                />
+              <Menu.Item
+                as="a"
+                className="friend-card"
+                key={friend.id}
+                style={{display:"flex", flexDirection:"row", justifyContent: "flex-start"}}
+              >
+                <div  style={{ marginLeft: 75}}>
+                  <Image
+                    style={{ fontSize: 27 }}
+                    src="http://placekitten.com/200/200"
+                    avatar
+                  />
+                {/* </div> */}
 
-                <Menu.Header style={{ fontSize: 16 }}>
+                <span style={{ fontSize: 16, marginLeft: 10 }}>
                   {friend.first_name} {friend.last_name}
-                </Menu.Header>
+                </span>
+                </div>
               </Menu.Item>
             );
           })}
