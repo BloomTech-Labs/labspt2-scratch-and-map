@@ -14,13 +14,8 @@ class ParentNav extends Component {
     this.props.getUserData(1);
   }
 
-  // goTo = () => {
-  //   this.history.push("/map");
-  // };
-
   handlePusher = () => {
     const { visible } = this.state;
-
     if (visible) this.setState({ visible: false });
   };
 
@@ -31,8 +26,6 @@ class ParentNav extends Component {
 
     return (
       <NavBar
-        onClick={this.props.userCountryData}
-        // onClick={this.goTo}
         onPusherClick={this.handlePusher}
         onToggle={this.handleToggle}
         visible={visible}
@@ -40,7 +33,6 @@ class ParentNav extends Component {
     );
   }
 }
-
 const mapStateToProps = state => {
   return {
     userData: state.getUserDataReducer.userData,

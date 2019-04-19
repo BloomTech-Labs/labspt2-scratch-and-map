@@ -11,6 +11,12 @@ h1, h2 {
   font-family: 'Anton', sans-serif;
 }
 
+h3 {
+  font-family: 'Anton', sans-serif;
+  font-size: 110%;
+  color: white !important
+}
+
 h4 {
   font-family: 'Roboto', sans-serif;
   margin-bottom: -23px;
@@ -128,14 +134,17 @@ p {
   margin-top: 20px;
   border-radius: 40px;
   color: white;
-  transition: background-color 0.3s ease-out;
+  box-shadow: 0px 0px 0px .8px white !important;
+
   cursor: pointer;
+
 }
 
 .login-btn:hover,
 .login-btn:focus {
   background-color: black;
   color: white;
+  
 }
 
 .forgot-pwd {
@@ -159,7 +168,29 @@ p {
 
 .NavBar, .Nav, .Menu {
   background-color: black;
+  margin:  -20px;
+  
 }
+ .Nav {
+  background-color: black;
+  margin-right:  0px;
+  display: flex;
+}
+
+.rightNav{
+  width: 70%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 20px;
+
+  @media screen and (max-width: 800px) {
+    justify-content: flex-start;
+  }
+}
+
+
+
 
 .sidebar {
   img {
@@ -194,8 +225,8 @@ p {
 
   img {
     margin-top: 150px;
-    height: 210px;
-    width: 900px;
+    height: 110px;
+    width: 500px;
     z-index: 1;
 
     @media screen and (max-width: 800px) {
@@ -211,7 +242,7 @@ p {
 	right: 0;
 	bottom: 0;
 	left: 0;
-	background-image: linear-gradient(to bottom , black, grey);
+	background-image: linear-gradient(to bottom , black, 30%, transparent);
 	opacity: .6; 
   }
 }
@@ -223,6 +254,7 @@ p {
   justify-content: space-between;
   align-items: center;
   padding: 20px;
+  
 
   .icon {
     background-color: black !important;
@@ -233,19 +265,54 @@ p {
       position: relative !important;
       top: -2px;
     }
+    @media screen and (max-width: 800px) {
+      display: none;
+    }
 
+    
   }
+  .navbutton{
+    font-size: 12px !important;
+    padding: 17px 15px  !important;
+    margin: 10px 15px 10px 0px !important; 
+    line-height: .01em !important;
+  
+    @media screen and (max-width: 800px) {
+      width: 70px;
+      padding:17px 0px !important;
+    }
+  }
+
+  .premium {
+    font-size: 12px !important;
+    padding: 12px 15px  !important;
+    margin: 10px 15px 10px 0px !important; 
+    @media screen and (max-width: 800px) {
+      width: 75px;
+      padding:12px 7px !important;
+      text-align: center;
+    }
+  }
+  
+  .navbutton:first-child {
+    font-size: 12px !important;
+    margin-left: 20px !important; 
+    line-height: .1em !important;
+  }
+
+
   
   
   .icon:hover {
     color: black !important;
     background-color: white !important;
   }
+
+
+
 }
 
-.AuthButtons {
-  display: flex;
-}
+
 
 
 
@@ -302,7 +369,92 @@ p {
   color: white;
   padding-top: 300px;
 }
+//////////////// About the team ////////////////
+
+.footer {
+  position: absolute;
+  bottom: 0px;
+  width: 125px;
+  margin: 0 auto;
+  background-color: black;
+  color: white;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  margin-left: 85%;
+  padding: 8px 0px 5px 0px ;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+  @media screen and (max-width: 800px) {
+    margin-left: 60%;
+  }
+
+  p {
+    font-size: 10px;
+    margin: 5px;
+  }
+
+  .contact {
+    display: flex;
+    align-items: center;
+  }
+
+}
+
+.devTeam {
+  background-color: black !important;
+  border: none !important;
+
+
+}
+
+a, .devicon {
+  color: white;
+  :hover {
+    color: white !important;
+  }
+}
 
 
 
+.ui.card, .ui.cards>.card {
+  background: black;
+  width: 200px;
+  height:200px;
+  border-radius: 50%;
+  color: white;
+  border: none;
+  padding: 20px;
+  }
 
+  .ui.card>.content>.description, .ui.cards>.card>.content>.description{
+    color: white;
+  }
+
+
+  .ui.card>.content>.header:not(.ui), .ui.cards>.card>.content>.header:not(.ui){
+    color: white;
+  }
+
+  .ui.card>.content, .ui.cards>.card>.content{
+    margin-top: 20px;
+    text-align: center;
+    font-size: 10px;
+    text-transform: uppercase;
+    font-size: 14px;
+  }
+  .ui.medium.image, .ui.medium.images .image, .ui.medium.images img, .ui.medium.images svg{
+    padding: 25px;
+  }
+  .ui.reveal{
+    margin: 20px;
+
+  }
+
+  .ui.small.modal{
+    width: 800px;
+  }
+  
+  

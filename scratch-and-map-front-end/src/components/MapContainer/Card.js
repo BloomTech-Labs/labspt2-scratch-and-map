@@ -13,6 +13,8 @@ import CardSlider from "./CardSlider";
 import { codeToCountry, restCountryConversion } from "../helper";
 import "../../styles/card.scss";
 import axios from "axios";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 class Card extends Component {
   constructor(props) {
@@ -77,21 +79,29 @@ class Card extends Component {
           notes: "None"
         };
         let country = res.data.user_countries.filter(item => {
-          return (
-            item.country_id === returnId(this.props.country_code)
-          );
+          return item.country_id === returnId(this.props.country_code);
         });
-        console.log('AFTER FILTER', countryData)
+        console.log("AFTER FILTER", this.props.country_code, 'FUNCTION:', returnId(this.props.country_code));
         if (country.length == 0) {
-          axios.post(
-            `${process.env.REACT_APP_BACKEND_URL}/api/mapview`,
-            countryData
-          );
+          axios
+            .post(
+              `${process.env.REACT_APP_BACKEND_URL}/api/mapview`,
+              countryData
+            )
+            .then(res => {
+              this.props.cardSaveHandler(this.props.currentUser);
+            });
         } else {
-          axios.put(
-            `${process.env.REACT_APP_BACKEND_URL}/api/mapview/${countryData.user_id}/${countryData.country_id}`,
-            countryData
-          );
+          axios
+            .put(
+              `${process.env.REACT_APP_BACKEND_URL}/api/mapview/${
+                countryData.user_id
+              }`,
+              countryData
+            )
+            .then(res => {
+              this.props.cardSaveHandler(this.props.currentUser);
+            });
         }
       });
   }
@@ -105,7 +115,6 @@ class Card extends Component {
         console.log(this.state);
       }
     );
-    console.log(this.state.status)
   };
 
   render() {
@@ -123,8 +132,8 @@ class Card extends Component {
     };
 
     const modalStyle = {
-      width: "40%",
-    }
+      width: "40%"
+    };
 
     let friendList = friends.map(friend => (
       <div key={friend.id}>
@@ -136,20 +145,42 @@ class Card extends Component {
     ));
     return (
       <div style={cardStyle}>
-        <Modal style={modalStyle} className="modalStyle" open={this.props.open} >
-          <Modal.Content image style={{display: "flex", flexDirection:"column"}}>
-            <Header style={{ display:'flex', justifyContent: 'space-between'}}><h1>{this.state.countryName}  </h1>   <Icon name='window close' onClick={() => this.props.onClose()}/> </Header>
-            <div style={{width: "100%", display: "flex", justifyContent: "space-around", margin: "10px 10px 30px 10px"}}>
-            <div>
-              <img
-              style={{border:'1px solid black', height: "10vw", marginBottom: '20px' }}
-              src={this.state.imageUrl}
-            /></div>
-            <div style={{width: "40%", height: "30px",  marginLeft: '15px'}}>
-            <h4>Capital: {this.state.capital}</h4>
-            <h4>Language: {this.state.language}</h4>
-            <h4>Currency: {this.state.currency} ({this.state.symbol}) </h4>
-            </div>
+        <Modal style={modalStyle} className="modalStyle" open={this.props.open}>
+          <Modal.Content
+            image
+            style={{ display: "flex", flexDirection: "column" }}
+          >
+            <Header
+              style={{ display: "flex", justifyContent: "space-between" }}
+            >
+              <h1>{this.state.countryName} </h1>{" "}
+              <Icon name="window close" onClick={() => this.props.onClose()} />{" "}
+            </Header>
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-around",
+                margin: "10px 10px 30px 10px"
+              }}
+            >
+              <div>
+                <img
+                  style={{
+                    border: "1px solid black",
+                    height: "10vw",
+                    marginBottom: "20px"
+                  }}
+                  src={this.state.imageUrl}
+                />
+              </div>
+              <div style={{ width: "40%", height: "30px", marginLeft: "15px" }}>
+                <h4>Capital: {this.state.capital}</h4>
+                <h4>Language: {this.state.language}</h4>
+                <h4>
+                  Currency: {this.state.currency} ({this.state.symbol}){" "}
+                </h4>
+              </div>
             </div>
 
             <CardSlider status={this.state.status} onChange={this.onChange} />
@@ -172,4 +203,8 @@ class Card extends Component {
   }
 }
 
-export default Card;
+export default withRouter(
+  connect(
+    () => {}
+  )(Card)
+);
