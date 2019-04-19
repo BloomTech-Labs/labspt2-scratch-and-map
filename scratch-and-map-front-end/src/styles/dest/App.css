@@ -167,6 +167,12 @@ p {
   margin-left: 85% !important;
   margin-top: 5px; }
 
+.search-bar {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  border-radius: 3px;
+  padding: 10px; }
+
 .landingpg {
   position: relative;
   top: -5px;
@@ -296,7 +302,7 @@ p {
   border-top-right-radius: 5px; }
   @media screen and (max-width: 800px) {
     .footer {
-      margin-left: 60%; } }
+      margin-left: 10%; } }
   .footer p {
     font-size: 10px;
     margin: 5px; }
@@ -345,6 +351,9 @@ a :hover, .teamlink :hover {
 
 .ui.small.modal {
   width: 800px; }
+  @media screen and (max-width: 800px) {
+    .ui.small.modal {
+      width: 400px; } }
 
 .ui.card > .content > .header + .description, .ui.card > .content > .meta + .description, .ui.cards > .card > .content > .header + .description, .ui.cards > .card > .content > .meta + .description {
   margin-bottom: 15px;
@@ -354,3 +363,11 @@ a :hover, .teamlink :hover {
 .ui.card > .content p:last-child, .ui.cards > .card > .content p:last-child {
   font-size: 14px;
   text-transform: uppercase; }
+
+p, .teamtext {
+  font-size: 40px;
+  margin-left: 40px; }
+  @media screen and (max-width: 800px) {
+    p, .teamtext {
+      font-size: 40px;
+      margin-left: 23%; } }

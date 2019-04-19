@@ -177,6 +177,8 @@ p {
   display: flex;
 }
 
+
+
 .rightNav{
   width: 70%;
   display: flex;
@@ -376,6 +378,8 @@ p {
   color: white;
   padding-top: 300px;
 }
+
+
 //////////////// About the team ////////////////
 
 .footer {
@@ -395,7 +399,7 @@ p {
   border-top-right-radius: 5px;
 
   @media screen and (max-width: 800px) {
-    margin-left: 60%;
+    margin-left: 10%;
   }
 
   p {
@@ -465,8 +469,10 @@ color:white !important;
 
   .ui.small.modal{
     width: 800px;
+    @media screen and (max-width: 800px) {
+      width: 400px;
+    }
   }
-
 
   .ui.card>.content>.header+.description, .ui.card>.content>.meta+.description, .ui.cards>.card>.content>.header+.description, .ui.cards>.card>.content>.meta+.description{
     margin-bottom: 15px;
@@ -479,3 +485,13 @@ color:white !important;
   }
   
 
+  p, .teamtext{
+    font-size: 40px;
+    margin-left: 40px;
+    @media screen and (max-width: 800px) {
+      font-size: 40px;
+    margin-left: 23%;
+    }
+  }
+
+  //////////////Card styles///////////

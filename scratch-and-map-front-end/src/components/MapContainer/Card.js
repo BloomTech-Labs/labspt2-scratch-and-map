@@ -211,10 +211,10 @@ class Card extends Component {
                 />
               </div>
               <div style={{ width: "40%", height: "30px", marginLeft: "15px" }}>
-                <h4>Capital: {this.state.capital}</h4>
-                <h4>Language: {this.state.language}</h4>
+                <h4>CAPITAL:  {this.state.capital}</h4>
+                <h4>LANGUAGE:  {this.state.language}</h4>
                 <h4>
-                  Currency: {this.state.currency} ({this.state.symbol}){" "}
+                  CURRENCY:  {this.state.currency} ({this.state.symbol}){" "}
                 </h4>
               </div>
             </div>
