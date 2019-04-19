@@ -93,7 +93,7 @@ class MapContainer extends React.Component {
     if (this.map) {
       L.geoJson(countrydata, {
         onEachFeature: (feature, layer) => {
-          layer.bindPopup("<h3>" + feature.properties.ADMIN + "</h3>", {
+          layer.bindPopup("<h4>" + feature.properties.ADMIN + "</h4>", {
             closeButton: false,
             offset: L.point(0, -20)
           });
@@ -120,10 +120,10 @@ class MapContainer extends React.Component {
       if (this.props.loading !== nextProps.loading) {
         this.map = L.map("map", {
           center: [30, 0],
-          zoom: 3,
+          zoom: 1.8,
           zoomControl: false,
           maxZoom: 20,
-          minZoom: 2.5,
+          minZoom: 1.8,
           maxBounds: [[-90, -180], [90, 180]],
           maxBoundsViscosity: 1
         });
@@ -138,7 +138,7 @@ class MapContainer extends React.Component {
         ).addTo(this.map);
         L.geoJson(countrydata, {
           onEachFeature: (feature, layer) => {
-            layer.bindPopup("<h3>" + feature.properties.ADMIN + "</h3>", {
+            layer.bindPopup("<h4>" + feature.properties.ADMIN + "</h4>", {
               closeButton: false,
               offset: L.point(0, -20)
             });
@@ -181,7 +181,7 @@ class MapContainer extends React.Component {
 
         {this.props.loading ? <Loading /> : <Legend />}
 
-        <Wrapper id="map" />
+        <Wrapper className="mapContainer" id="map" />
       </div>
     );
   }
@@ -192,7 +192,7 @@ const mapStateToProps = state => {
     userData: state.getUserDataReducer.userData,
     userCountryData: state.getUserDataReducer.userCountryData,
     loading: state.getUserDataReducer.loading,
-    DBUserID: state.getUserDataReducer.id,
+    DBUserID: state.getUserDataReducer.id
   };
 };
 export default withRouter(

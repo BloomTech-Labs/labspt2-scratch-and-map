@@ -1,24 +1,25 @@
 * {
   box-sizing: border-box;
-  font-family: 'Roboto', sans-serif; }
+  font-family: "Roboto", sans-serif; }
 
 body {
   overflow-y: hidden; }
 
-h1, h2 {
-  font-family: 'Anton', sans-serif; }
+h1,
+h2 {
+  font-family: "Anton", sans-serif; }
 
 h3 {
-  font-family: 'Anton', sans-serif;
+  font-family: "Anton", sans-serif;
   font-size: 110%;
   color: white !important; }
 
 h4 {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   margin-bottom: -23px; }
 
 p {
-  font-family: 'Roboto', sans-serif; }
+  font-family: "Roboto", sans-serif; }
 
 /* LOGIN STYLES */
 .auth-wrapper {
@@ -115,7 +116,7 @@ p {
   margin-top: 20px;
   border-radius: 40px;
   color: white;
-  box-shadow: 0px 0px 0px .8px white !important;
+  box-shadow: 0px 0px 0px 0.8px white !important;
   cursor: pointer; }
 
 .login-btn:hover,
@@ -139,7 +140,9 @@ p {
 .terms-link {
   color: dodgerblue; }
 
-.NavBar, .Nav, .Menu {
+.NavBar,
+.Nav,
+.Menu {
   background-color: black;
   margin: -20px; }
 
@@ -198,14 +201,14 @@ p {
         width: 300px;
         height: 70px; } }
   .landingpg:before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     background-image: linear-gradient(to bottom, black, 30%, transparent);
-    opacity: .6; }
+    opacity: 0.6; }
 
 .Menu {
   display: flex;
@@ -224,16 +227,16 @@ p {
         display: none; } }
   .Menu .navbutton {
     font-size: 12px !important;
-    padding: 17px 15px  !important;
+    padding: 17px 15px !important;
     margin: 10px 15px 10px 0px !important;
-    line-height: .01em !important; }
+    line-height: 0.01em !important; }
     @media screen and (max-width: 800px) {
       .Menu .navbutton {
         width: 70px;
         padding: 17px 0px !important; } }
   .Menu .premium {
     font-size: 12px !important;
-    padding: 12px 15px  !important;
+    padding: 12px 15px !important;
     margin: 10px 15px 10px 0px !important; }
     @media screen and (max-width: 800px) {
       .Menu .premium {
@@ -243,7 +246,7 @@ p {
   .Menu .navbutton:first-child {
     font-size: 12px !important;
     margin-left: 20px !important;
-    line-height: .1em !important; }
+    line-height: 0.1em !important; }
   .Menu .icon:hover {
     color: black !important;
     background-color: white !important; }
@@ -264,16 +267,23 @@ p {
   .legend .notSelected {
     color: lightgrey !important; }
   .legend .wantVisit {
-    color: #CD5D01 !important; }
+    color: #cd5d01 !important; }
   .legend .transited {
-    color: #8FC201 !important; }
+    color: #8fc201 !important; }
   .legend .visited {
-    color: #9B016D !important; }
+    color: #9b016d !important; }
   .legend .lived {
-    color: #017B7B !important; }
+    color: #017b7b !important; }
 
 #map {
-  z-index: 2; }
+  z-index: 2;
+  background: black; }
+
+.mapContainer .leaflet-popup-content-wrapper {
+  background: white;
+  color: black;
+  font-size: 16px;
+  text-align: center; }
 
 .loading {
   position: absolute;
@@ -282,7 +292,7 @@ p {
   width: 110%;
   height: 100vh;
   background-color: black;
-  opacity: .9;
+  opacity: 0.9;
   color: white;
   padding-top: 300px; }
 
@@ -296,7 +306,7 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 5%;
+  margin-left: 10%;
   padding: 8px 0px 5px 0px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px; }
@@ -314,13 +324,12 @@ p {
   background-color: black !important;
   border: none !important; }
 
-a, .devicon {
+a,
+.devicon {
   color: white; }
-  a :hover, .devicon :hover {
+  a :hover,
+  .devicon :hover {
     color: white !important; }
-
-a :hover, .teamlink :hover {
-  color: white !important; }
 
 .ui.card, .ui.cards > .card {
   background: black;
@@ -331,20 +340,27 @@ a :hover, .teamlink :hover {
   border: none;
   padding: 20px; }
 
-.ui.card > .content > .description, .ui.cards > .card > .content > .description {
+.ui.card > .content > .description,
+.ui.cards > .card > .content > .description {
   color: white; }
 
-.ui.card > .content > .header:not(.ui), .ui.cards > .card > .content > .header:not(.ui) {
+.ui.card > .content > .header:not(.ui),
+.ui.cards > .card > .content > .header:not(.ui) {
   color: white; }
 
-.ui.card > .content, .ui.cards > .card > .content {
+.ui.card > .content,
+.ui.cards > .card > .content {
   margin-top: 20px;
-  text-align: center; }
+  text-align: center;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-size: 14px; }
 
-.ui.small.image, .ui.small.images .image, .ui.small.images img, .ui.medium.images svg {
-  padding: 25px;
-  width: 40%;
-  height: 40%; }
+.ui.medium.image,
+.ui.medium.images .image,
+.ui.medium.images img,
+.ui.medium.images svg {
+  padding: 25px; }
 
 .ui.reveal {
   margin: 20px; }
