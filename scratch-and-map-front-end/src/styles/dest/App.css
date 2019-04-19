@@ -145,7 +145,18 @@ p {
 
 .Nav {
   background-color: black;
-  margin-right: 0px; }
+  margin-right: 0px;
+  display: flex; }
+
+.rightNav {
+  width: 70%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 20px; }
+  @media screen and (max-width: 800px) {
+    .rightNav {
+      justify-content: flex-start; } }
 
 .sidebar img {
   margin: 20px auto !important;
@@ -202,11 +213,27 @@ p {
     .Menu .icon .text {
       position: relative !important;
       top: -2px; }
+    @media screen and (max-width: 800px) {
+      .Menu .icon {
+        display: none; } }
   .Menu .navbutton {
     font-size: 12px !important;
     padding: 17px 15px  !important;
     margin: 10px 15px 10px 0px !important;
     line-height: .01em !important; }
+    @media screen and (max-width: 800px) {
+      .Menu .navbutton {
+        width: 70px;
+        padding: 17px 0px !important; } }
+  .Menu .premium {
+    font-size: 12px !important;
+    padding: 12px 15px  !important;
+    margin: 10px 15px 10px 0px !important; }
+    @media screen and (max-width: 800px) {
+      .Menu .premium {
+        width: 75px;
+        padding: 12px 7px !important;
+        text-align: center; } }
   .Menu .navbutton:first-child {
     font-size: 12px !important;
     margin-left: 20px !important;
@@ -214,9 +241,6 @@ p {
   .Menu .icon:hover {
     color: black !important;
     background-color: white !important; }
-
-.AuthButtons {
-  display: flex; }
 
 .mapview {
   width: 100vw;
@@ -259,17 +283,20 @@ p {
 .footer {
   position: absolute;
   bottom: 0px;
-  width: 125px;
+  width: 150px;
   margin: 0 auto;
   background-color: black;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 85%;
+  margin-left: 5%;
   padding: 8px 0px 5px 0px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px; }
+  @media screen and (max-width: 800px) {
+    .footer {
+      margin-left: 60%; } }
   .footer p {
     font-size: 10px;
     margin: 5px; }
@@ -285,6 +312,9 @@ a, .devicon {
   color: white; }
   a :hover, .devicon :hover {
     color: white !important; }
+
+a :hover, .teamlink :hover {
+  color: white !important; }
 
 .ui.card, .ui.cards > .card {
   background: black;
@@ -303,16 +333,24 @@ a, .devicon {
 
 .ui.card > .content, .ui.cards > .card > .content {
   margin-top: 20px;
-  text-align: center;
-  font-size: 10px;
-  text-transform: uppercase;
-  font-size: 14px; }
+  text-align: center; }
 
-.ui.medium.image, .ui.medium.images .image, .ui.medium.images img, .ui.medium.images svg {
-  padding: 25px; }
+.ui.small.image, .ui.small.images .image, .ui.small.images img, .ui.medium.images svg {
+  padding: 25px;
+  width: 40%;
+  height: 40%; }
 
 .ui.reveal {
   margin: 20px; }
 
 .ui.small.modal {
   width: 800px; }
+
+.ui.card > .content > .header + .description, .ui.card > .content > .meta + .description, .ui.cards > .card > .content > .header + .description, .ui.cards > .card > .content > .meta + .description {
+  margin-bottom: 15px;
+  font-size: 14px;
+  font-weight: 10; }
+
+.ui.card > .content p:last-child, .ui.cards > .card > .content p:last-child {
+  font-size: 14px;
+  text-transform: uppercase; }
