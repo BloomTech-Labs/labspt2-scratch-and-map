@@ -72,14 +72,19 @@ class MapContainer extends React.Component {
     this.props.getUserData(window.localStorage.getItem("SAMUserID"));
   }
 
+  componentDidUpdate() {
+    console.log("update", this.props.userCountryData);
+  }
+
   componentWillReceiveProps(nextProps) {
+    console.log("COMP WILL REC");
     function style(feature) {
       return {
         fillColor:
           colorCodes[
             countryColorMatcher(
               nextProps.userCountryData,
-              feature.properties.BRK_A3
+              feature.properties.SOV_A3
             )
           ] || "pink",
         weight: 1,
@@ -106,7 +111,7 @@ class MapContainer extends React.Component {
           });
           layer.on("click", () => {
             this.setState({
-              clickedCountry: feature.properties.BRK_A3,
+              clickedCountry: feature.properties.SOV_A3,
               isOpen: true
             });
           });
@@ -136,6 +141,7 @@ class MapContainer extends React.Component {
             noWrap: true
           }
         ).addTo(this.map);
+        console.log("MAP BUILDER", nextProps);
         L.geoJson(countrydata, {
           onEachFeature: (feature, layer) => {
             layer.bindPopup("<h4>" + feature.properties.ADMIN + "</h4>", {
@@ -151,7 +157,7 @@ class MapContainer extends React.Component {
             });
             layer.on("click", () => {
               this.setState({
-                clickedCountry: feature.properties.BRK_A3,
+                clickedCountry: feature.properties.SOV_A3,
                 isOpen: true
               });
             });
