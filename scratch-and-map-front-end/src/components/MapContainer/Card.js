@@ -30,7 +30,8 @@ class Card extends Component {
       capital: "",
       language: "",
       users: [],
-      traveler: []
+      traveler: [],
+      modalOpen: true
     };
   }
 
@@ -89,7 +90,9 @@ class Card extends Component {
             });
   }
 
-  
+  handleClose(){
+    this.setState({ modalOpen: false })
+  }  
 
 
   onSave() {
@@ -137,6 +140,7 @@ class Card extends Component {
             });
         }
       });
+      this.handleClose()
   }
 
   onChange = status => {
@@ -181,7 +185,7 @@ class Card extends Component {
 
     return (
       <div style={cardStyle}>
-        <Modal style={modalStyle} className="modalStyle" open={this.props.open}>
+        <Modal style={modalStyle} className="modalStyle" open={this.state.modalOpen} onClose={this.handleClose} >
           <Modal.Content
             image
             style={{ display: "flex", flexDirection: "column" }}
@@ -211,10 +215,10 @@ class Card extends Component {
                 />
               </div>
               <div style={{ width: "40%", height: "30px", marginLeft: "15px" }}>
-                <h4>Capital: {this.state.capital}</h4>
-                <h4>Language: {this.state.language}</h4>
+                <h4>CAPITAL:  {this.state.capital}</h4>
+                <h4>LANGUAGE:  {this.state.language}</h4>
                 <h4>
-                  Currency: {this.state.currency} ({this.state.symbol}){" "}
+                  CURRENCY:  {this.state.currency} ({this.state.symbol}){" "}
                 </h4>
               </div>
             </div>
@@ -230,9 +234,9 @@ class Card extends Component {
                   />
                 </Form>
               }
-              <div>Friends Have Status Here: 
+              {/* <div>Friends Have Status Here: 
                 {this.friendsTravel()}
-              </div>
+              </div> */}
               <Button onClick={() => this.onSave()}>Save</Button>
             </Modal.Description>
           </Modal.Content>
