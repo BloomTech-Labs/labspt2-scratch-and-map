@@ -1,5 +1,8 @@
 import React, { Component } from "react";
-import { Menu, Image} from "semantic-ui-react";
+import { Menu, Image } from "semantic-ui-react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { getUserData } from "../../actions/mapActions";
 import axios from "axios";
 
 class FriendListView extends Component {
@@ -8,7 +11,8 @@ class FriendListView extends Component {
     this.state = {
       friends: [],
       filteredFriends: [],
-      query: ""
+      query: "",
+      currentUser: ""
     };
   }
 
@@ -19,10 +23,16 @@ class FriendListView extends Component {
         console.log("Side Bar Users", res);
         this.setState({
           friends: res.data.users,
-          filteredFriends: res.data.users
+          filteredFriends: res.data.users,
+          currentUser: window.localStorage.getItem("SAMUserID")
         });
+        this.props.getUserData(window.localStorage.getItem("SAMUserID"));
       });
   }
+
+  // friendMapHandler(id) {
+  //   this.props.getUserData(id);
+  // }
 
   onChangeHandler = ({ target }) => {
     const res = this.state.friends.filter(friend => {
@@ -85,4 +95,17 @@ class FriendListView extends Component {
   }
 }
 
-export default FriendListView;
+const mapStateToProps = state => {
+  return {
+    userData: state.getUserDataReducer.userData,
+    userCountryData: state.getUserDataReducer.userCountryData,
+    loading: state.getUserDataReducer.loading,
+    DBUserID: state.getUserDataReducer.id
+  };
+};
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getUserData }
+  )(FriendListView)
+);
