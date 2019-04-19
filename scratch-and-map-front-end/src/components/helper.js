@@ -1056,6 +1056,50 @@ export function restCountryConversion(code) {
   }
 }
 
+
+export function reverseCountryConversion(code) {
+  if (code === "NLD") {
+    return "NL1";
+  } else if (code === "NZL") {
+    return "NZ1";
+  } else if (code === "GBR") {
+    return "GB1";
+  } else if (code === "USA") {
+    return "US1";
+  } else if (code === "ESH") {
+    return "SAH";
+  } else if (code === "SOM") {
+    return "SOL";
+  } else if (code === "IND") {
+    return "KAS";
+  } else if (code === "CHN") {
+    return "CH1";
+  } else if (code === "DNK") {
+    return "DN1";
+  } else if (code === "FRA") {
+    return "FR1";
+  } else if (code === "FIN") {
+    return "FI1";
+  } else if (code === "ISR") {
+    return "IS1";
+  } else if (code === "CYP") {
+    return "CYN";
+  } else if (code === "AUS") {
+    return "AU1";
+  } else if (code === "SSD") {
+    return "SDS";
+  } else if (code === "PRT") {
+    return "PR1";
+  } else if (code === "PNL") {
+    return "PH1";
+  } else if (code === "TWN") {
+    return "B77";
+  } else {
+    return code;
+  }
+}
+
+
 //Code for country cards (save for later)
 String.prototype.toProperCase = function() {
   var words = this.split(" ");
