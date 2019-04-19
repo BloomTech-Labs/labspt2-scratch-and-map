@@ -120,10 +120,10 @@ class MapContainer extends React.Component {
       if (this.props.loading !== nextProps.loading) {
         this.map = L.map("map", {
           center: [30, 0],
-          zoom: 3,
+          zoom: 1.8,
           zoomControl: false,
           maxZoom: 20,
-          minZoom: 2.5,
+          minZoom: 1.8,
           maxBounds: [[-90, -180], [90, 180]],
           maxBoundsViscosity: 1
         });
