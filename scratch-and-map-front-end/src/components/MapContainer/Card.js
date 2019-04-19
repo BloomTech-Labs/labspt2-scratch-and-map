@@ -109,7 +109,12 @@ class Card extends Component {
         let country = res.data.user_countries.filter(item => {
           return item.country_id === returnId(this.props.country_code);
         });
-        console.log("AFTER FILTER", this.props.country_code, 'FUNCTION:', returnId(this.props.country_code));
+        console.log(
+          "AFTER FILTER",
+          this.props.country_code,
+          "FUNCTION:",
+          returnId(this.props.country_code)
+        );
         if (country.length == 0) {
           axios
             .post(
@@ -124,7 +129,7 @@ class Card extends Component {
             .put(
               `${process.env.REACT_APP_BACKEND_URL}/api/mapview/${
                 countryData.user_id
-              }`,
+              }/${countryData.country_id}`,
               countryData
             )
             .then(res => {
@@ -237,8 +242,4 @@ class Card extends Component {
   }
 }
 
-export default withRouter(
-  connect(
-    () => {}
-  )(Card)
-);
+export default withRouter(connect(() => {})(Card));
