@@ -10,7 +10,7 @@ import {
   Icon
 } from "semantic-ui-react";
 import CardSlider from "./CardSlider";
-import { codeToCountry, restCountryConversion } from "../helper";
+import { codeToCountry, restCountryConversion, reverseCountryConversion, countries } from "../helper";
 import "../../styles/card.scss";
 import axios from "axios";
 import { connect } from "react-redux";
@@ -28,8 +28,18 @@ class Card extends Component {
       currency: "",
       symbol: "",
       capital: "",
-      language: ""
+      language: "",
+      users: [],
+      traveler: []
     };
+  }
+
+  friendsTravel(){
+    if (this.state.traveler.length !== 0) {
+      return " Yes"
+    } else {
+      return " No"
+    }
   }
 
   componentDidMount() {
@@ -62,7 +72,25 @@ class Card extends Component {
           });
         })
     );
+
+    axios
+            .get(`${process.env.REACT_APP_BACKEND_URL}/api/users`)
+            .then(res => {
+              this.setState({ users: res.data.users });
+            });
+
+            let i = reverseCountryConversion(this.props.country_code);
+            let index = countries.indexOf(i)+2;
+
+            axios
+            .get(`${process.env.REACT_APP_BACKEND_URL}/api/countries/${index}`)
+            .then(res => {
+              this.setState({ traveler: res.data.travelers });
+            });
   }
+
+  
+
 
   onSave() {
     axios
@@ -143,6 +171,9 @@ class Card extends Component {
         </p>
       </div>
     ));
+
+ 
+
     return (
       <div style={cardStyle}>
         <Modal style={modalStyle} className="modalStyle" open={this.props.open}>
@@ -194,6 +225,9 @@ class Card extends Component {
                   />
                 </Form>
               }
+              <div>Friends Have Status Here: 
+                {this.friendsTravel()}
+              </div>
               <Button onClick={() => this.onSave()}>Save</Button>
             </Modal.Description>
           </Modal.Content>
