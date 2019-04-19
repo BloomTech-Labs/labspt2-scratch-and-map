@@ -374,7 +374,7 @@ p {
 .footer {
   position: absolute;
   bottom: 0px;
-  width: 125px;
+  width: 150px;
   margin: 0 auto;
   background-color: black;
   color: white;
@@ -382,7 +382,7 @@ p {
 
   justify-content: center;
   align-items: center;
-  margin-left: 85%;
+  margin-left: 5%;
   padding: 8px 0px 5px 0px ;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -417,7 +417,11 @@ a, .devicon {
   }
 }
 
-
+a, .teamlink{
+  :hover{
+color:white !important;
+}
+}
 
 .ui.card, .ui.cards>.card {
   background: black;
@@ -441,12 +445,11 @@ a, .devicon {
   .ui.card>.content, .ui.cards>.card>.content{
     margin-top: 20px;
     text-align: center;
-    font-size: 10px;
-    text-transform: uppercase;
-    font-size: 14px;
   }
-  .ui.medium.image, .ui.medium.images .image, .ui.medium.images img, .ui.medium.images svg{
+  .ui.small.image, .ui.small.images .image, .ui.small.images img, .ui.medium.images svg{
     padding: 25px;
+    width:40%;
+    height: 40%;
   }
   .ui.reveal{
     margin: 20px;
@@ -456,4 +459,16 @@ a, .devicon {
   .ui.small.modal{
     width: 800px;
   }
+
+
+  .ui.card>.content>.header+.description, .ui.card>.content>.meta+.description, .ui.cards>.card>.content>.header+.description, .ui.cards>.card>.content>.meta+.description{
+    margin-bottom: 15px;
+    font-size: 14px;
+    font-weight: 10;
+  }
+  .ui.card>.content p:last-child, .ui.cards>.card>.content p:last-child{
+    font-size: 14px;
+    text-transform: uppercase;
+  }
   
+
