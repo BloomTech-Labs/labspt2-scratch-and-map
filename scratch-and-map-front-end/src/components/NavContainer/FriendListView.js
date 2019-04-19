@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Menu, Button, Segment, Image, Search } from "semantic-ui-react";
+import { Menu, Image} from "semantic-ui-react";
 import axios from "axios";
-import _ from "lodash";
 
 class FriendListView extends Component {
   constructor(props) {
@@ -59,21 +58,23 @@ class FriendListView extends Component {
             return (
               <Menu.Item
                 as="a"
-                className="friend-card"
+                className="friendCard"
                 key={friend.id}
-                style={{display:"flex", flexDirection:"row", justifyContent: "flex-start"}}
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "flex-start"
+                }}
               >
-                <div  style={{ marginLeft: 75}}>
+                <div style={{ marginLeft: 75 }}>
                   <Image
                     style={{ fontSize: 27 }}
                     src="http://placekitten.com/200/200"
                     avatar
                   />
-                {/* </div> */}
-
-                <span style={{ fontSize: 16, marginLeft: 10 }}>
-                  {friend.first_name} {friend.last_name}
-                </span>
+                  <span style={{ fontSize: 16, marginLeft: 10 }}>
+                    {friend.first_name} {friend.last_name}
+                  </span>
                 </div>
               </Menu.Item>
             );
