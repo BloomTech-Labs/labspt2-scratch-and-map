@@ -19,7 +19,7 @@ import MapContainer from "../MapContainer/MapContainer";
 import { getUserData } from "../../actions/mapActions";
 import DevCard from "./DevCard";
 
-const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
+const NavBar = ({ onToggle, visible, onPusherClick }) => (
   <div>
     
     <Sidebar.Pushable>
@@ -36,11 +36,10 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
         <Button.Group className="closebutton">
           <Button onClick={onToggle} icon="close" inverted />
         </Button.Group>
-        <Menu.Item as="a" as={Link} to="/" onClick={() => refreshMap()}>
+        <Menu.Item as="a" as={Link} to="/">
           <img src={logo} />
         </Menu.Item>
         <Menu.Item as="a" as={Link} to="/map">
-          {/* onClick={onClick} */}
           <Icon name="map" inverted />
           My Map
         </Menu.Item>
