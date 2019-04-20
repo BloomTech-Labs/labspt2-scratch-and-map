@@ -10,8 +10,7 @@ class ParentNav extends Component {
   };
 
   componentDidMount() {
-    console.log("MAP ICON USERDATA", this.props);
-    this.props.getUserData(1);
+    // this.props.getUserData(1);
   }
 
   handlePusher = () => {

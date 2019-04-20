@@ -72,10 +72,6 @@ class MapContainer extends React.Component {
     this.props.getUserData(window.localStorage.getItem("SAMUserID"));
   }
 
-  componentDidUpdate() {
-    console.log("update", this.props.userCountryData);
-  }
-
   componentWillReceiveProps(nextProps) {
     console.log("COMP WILL REC");
     function style(feature) {

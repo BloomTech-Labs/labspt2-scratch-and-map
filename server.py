@@ -6,6 +6,7 @@ from flask_marshmallow import Marshmallow
 from models import *
 from dotenv import load_dotenv
 import os
+from sqlalchemy.orm import sessionmaker
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -27,6 +28,10 @@ DEBUG = "NO_DEBUG" not in os.environ
 
 engine = create_engine(DATABASE_URL,
                        pool_size=20, max_overflow=0)
+
+Session = sessionmaker(bind=engine)
+
+session = Session()
 
 #Routes
 @app.route("/api/error")
@@ -52,7 +57,6 @@ def signup():
     new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch, home_country, fb_user_id, fb_access_token)
     db.session.add(new_user)
     db.session.commit()
-    db.session.close()
     return jsonify(new_user.id)
 
 @app.route('/api/login/fb/<fbid>', methods=['PUT'])
@@ -107,7 +111,6 @@ def update_user(id):
     user.fb_user_id = request.json['fb_user_id']
     user.fb_access_token = request.json['fb_access_token']
     db.session.commit()
-    db.session.close()
     return user_schema.jsonify(user)
 
 #FACEBOOK USERS BY ID
@@ -127,7 +130,6 @@ def fb_user(fbid):
     user.fb_user_id = request.json['fb_user_id']
     user.fb_access_token = request.json['fb_access_token']
     db.session.commit()
-    db.session.close()
     return user_schema.jsonify(user)
 
 #COUNTRIES ENDPOINTS
@@ -151,7 +153,6 @@ def update_country(id):
    country.code = request.json['code']
 
    db.session.commit()
-   db.session.close()
    return country_schema.jsonify(country)
 
 @app.route('/api/countries', methods=['POST'])
@@ -164,7 +165,6 @@ def addCountry():
     new_country = countries(country_name, flag, country_img, code)
     db.session.add(new_country)
     db.session.commit()
-    db.session.close()
     return jsonify(new_country.id,)
 
 #MAPVIEW ENDPOINTS
@@ -178,7 +178,6 @@ def add_mapView_data():
   new_user_country = users_countries_join(user_id, country_id, status, notes)
   db.session.add(new_user_country)
   db.session.commit()
-  db.session.close()
   return jsonify(new_user_country.id,new_user_country.user_id, new_user_country.country_id, new_user_country.status, new_user_country.notes)
 
 @app.route('/api/mapview/<int:user_id>/<int:country_id>', methods=['PUT'])
@@ -190,7 +189,6 @@ def update_mapView_data(user_id, country_id):
     user_country.notes = request.json['notes']
     
     db.session.commit()
-    db.session.close()
     return user_country_schema.jsonify(user_country)
 
 if __name__ == "__main__":
