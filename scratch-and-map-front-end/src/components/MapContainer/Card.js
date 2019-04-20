@@ -73,11 +73,11 @@ class Card extends Component {
         })
     );
 
-    axios
-            .get(`${process.env.REACT_APP_BACKEND_URL}/api/users`)
-            .then(res => {
-              this.setState({ users: res.data.users });
-            });
+    // axios
+    //         .get(`${process.env.REACT_APP_BACKEND_URL}/api/users`) *******Commented out api call, data not currently in use
+    //         .then(res => {
+    //           this.setState({ users: res.data.users });
+    //         });
 
             let i = reverseCountryConversion(this.props.country_code);
             let index = countries.indexOf(i)+2;
