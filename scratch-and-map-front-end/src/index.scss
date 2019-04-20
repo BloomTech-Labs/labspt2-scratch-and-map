@@ -365,6 +365,8 @@ p {
   color: white;
   padding-top: 300px;
 }
+
+
 //////////////// About the team ////////////////
 
 .footer {
@@ -378,13 +380,13 @@ p {
 
   justify-content: center;
   align-items: center;
-  margin-left: 85%;
+  margin-left: 10%;
   padding: 8px 0px 5px 0px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 
   @media screen and (max-width: 800px) {
-    margin-left: 60%;
+    margin-left: 10%;
   }
 
   p {
@@ -452,20 +454,31 @@ a,
 
 
 
-.ui.small.modal {
-  width: 800px
+
+.ui.small.modal{
+  width: 800px;
+  @media screen and (max-width: 800px) {
+    width: 400px;
+  }
+}
+.ui.card>.content>.header+.description, .ui.card>.content>.meta+.description, .ui.cards>.card>.content>.header+.description, .ui.cards>.card>.content>.meta+.description{
+  margin-bottom: 15px;
+  font-size: 14px;
+  font-weight: 10;
+}
+.ui.card>.content p:last-child, .ui.cards>.card>.content p:last-child{
+  font-size: 14px;
+  text-transform: uppercase;
 }
 
-
-  .ui.card>.content>.header+.description, .ui.card>.content>.meta+.description, .ui.cards>.card>.content>.header+.description, .ui.cards>.card>.content>.meta+.description{
-    margin-bottom: 15px;
-    font-size: 14px;
-    font-weight: 10;
-  }
-  .ui.card>.content p:last-child, .ui.cards>.card>.content p:last-child{
-    font-size: 14px;
-    text-transform: uppercase;
-  }
   
 
-
+  p, .teamtext{
+    font-size: 40px;
+    margin-left: 40px;
+    @media screen and (max-width: 800px) {
+      font-size: 40px;
+    margin-left: 23%;
+    }
+  }
+  
