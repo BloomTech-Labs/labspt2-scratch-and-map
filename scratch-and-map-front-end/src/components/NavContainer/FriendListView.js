@@ -1,18 +1,19 @@
 import React, { Component } from "react";
-import { Menu, Button, Segment, Image, Search } from "semantic-ui-react";
+import { Menu, Image } from "semantic-ui-react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { getUserData } from "../../actions/mapActions";
 import axios from "axios";
-import _ from "lodash";
 
 class FriendListView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      friends: []
+      friends: [],
+      filteredFriends: [],
+      query: "",
+      currentUser: ""
     };
-  }
-
-  componentWillMount() {
-    this.resetComponent();
   }
 
   async componentDidMount() {
@@ -21,72 +22,90 @@ class FriendListView extends Component {
       .then(res => {
         console.log("Side Bar Users", res);
         this.setState({
-          friends: res.data.users
+          friends: res.data.users,
+          filteredFriends: res.data.users,
+          currentUser: window.localStorage.getItem("SAMUserID")
         });
+        this.props.getUserData(window.localStorage.getItem("SAMUserID"));
       });
   }
 
-  resetComponent = () =>
-    this.setState({ isLoading: false, friends: [], value: "" });
+  // friendMapHandler(id) {
+  //   this.props.getUserData(id);
+  // }
 
-  handleResultSelect = (e, { friend }) =>
-    this.setState({ value: friend.username });
-
-  handleSearchChange = (e, { value }) => {
-    this.setState({ isLoading: true, value });
-
-    setTimeout(() => {
-      if (this.state.value.length < 1) return this.resetComponent();
-
-      const re = new RegExp(_.escapeRegExp(this.state.value), "i");
-      const isMatch = friend => re.test(friend.first_name);
-
-      this.setState({
-        isLoading: false,
-
-        friends: _.filter(this.state.friends, isMatch)
-      });
-    }, 300);
+  onChangeHandler = ({ target }) => {
+    const res = this.state.friends.filter(friend => {
+      const name = friend.first_name + " " + friend.last_name;
+      return name.includes(target.value);
+    });
+    this.setState({
+      filteredFriends: res,
+      query: target.value
+    });
   };
 
   render() {
-    const { isLoading, value, friends } = this.state;
     return (
       <div className="friend-view-wrapper">
-        <Search
-          placeholder="Search Friends"
-          style={{ marginTop: "30px" }}
-          aligned="right"
-          // loading={isLoading}
-          onResultSelect={this.handleResultSelect}
-          onSearchChange={_.debounce(this.handleSearchChange, 500, {
-            loading: true
-          })}
-          friends={friends}
-          value={value}
-          {...this.props}
+        <input
+          className="search-bar"
+          placeholder="Search Friends        &#x1f50d; &nbsp;"
+          onChange={this.onChangeHandler}
+          value={this.state.query}
         />
-
-        <Segment
+        <Menu
           inverted
-          style={{ overflow: "auto", maxHeight: 600 }}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            overflow: "auto",
+            height: 450
+          }}
           className="friend-card-list"
         >
-          {this.state.friends.map(friend => {
+          {this.state.filteredFriends.map(friend => {
             return (
-              <Menu.Item as="a" className="friend-card">
-                <Image src="https://www.fillmurray.com/640/360" avatar />
-
-                <span>
-                  {friend.first_name} {friend.last_name}
-                </span>
+              <Menu.Item
+                as="a"
+                className="friendCard"
+                key={friend.id}
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "flex-start"
+                }}
+              >
+                <div style={{ marginLeft: 75 }}>
+                  <Image
+                    style={{ fontSize: 27 }}
+                    src="http://placekitten.com/200/200"
+                    avatar
+                  />
+                  <span style={{ fontSize: 16, marginLeft: 10 }}>
+                    {friend.first_name} {friend.last_name}
+                  </span>
+                </div>
               </Menu.Item>
             );
           })}
-        </Segment>
+        </Menu>
       </div>
     );
   }
 }
 
-export default FriendListView;
+const mapStateToProps = state => {
+  return {
+    userData: state.getUserDataReducer.userData,
+    userCountryData: state.getUserDataReducer.userCountryData,
+    loading: state.getUserDataReducer.loading,
+    DBUserID: state.getUserDataReducer.id
+  };
+};
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getUserData }
+  )(FriendListView)
+);

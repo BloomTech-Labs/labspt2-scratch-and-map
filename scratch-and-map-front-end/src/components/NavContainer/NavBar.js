@@ -104,7 +104,7 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
         <Header
           content={
             <div style={{ display: "flex" }}>
-              <p style={{ fontSize: "15px", marginTop: "13px" }}>THE TEAM</p>
+              <p classname="teamtext">THE TEAM</p>
             </div>
           }
         />
