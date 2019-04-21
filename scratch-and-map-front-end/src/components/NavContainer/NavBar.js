@@ -18,6 +18,9 @@ import FriendListView from "../NavContainer/FriendListView";
 import MapContainer from "../MapContainer/MapContainer";
 import { getUserData } from "../../actions/mapActions";
 import DevCard from "./DevCard";
+import {Elements, StripeProvider} from 'react-stripe-elements';
+import CheckoutForm from '../CheckoutForm';
+
 
 const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
   <div>
@@ -55,20 +58,16 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
           </Button>
           </div>
           <div className="rightNav">
-          <Modal
-            trigger={
-              <Button inverted className='premium'>
-                <Icon name="gem" />
-                PREMIUM
-              </Button>
-            }
-            basic
-            size="small"
-            closeIcon
-          >
+          <Modal trigger={<Button inverted className='premium'><Icon name="gem" />PREMIUM</Button>} basic size="small" closeIcon>
             <Header icon="gem" content="Premium Sign Up" />
             <Modal.Content>
-              <p>Stripe Form Here</p>
+              <StripeProvider apiKey="pk_test_krA4dF6Zbe7WEYEqao5EeKmv00SpwNokud">
+              <div>
+                  <Elements>
+                    <CheckoutForm />
+                  </Elements>
+              </div>
+              </StripeProvider>
             </Modal.Content>
           </Modal>
           )
