@@ -233,7 +233,7 @@ class Card extends Component {
                   />
                 </Form>
               }
-              <div>Friends Have Status Here: 
+              <div>Friends' Travels: 
                  <FriendsTravel friends={this.state.traveler} />
               </div>
               <Button onClick={() => this.onSave()}>Save</Button>
