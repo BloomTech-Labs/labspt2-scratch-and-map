@@ -15,6 +15,7 @@ import "../../styles/card.scss";
 import axios from "axios";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import FriendsTravel from './FriendsTravel'
 
 class Card extends Component {
   constructor(props) {
@@ -35,17 +36,11 @@ class Card extends Component {
     };
   }
 
-  friendsTravel(){
-    if (this.state.traveler.length !== 0) {
-      return " Yes"
-    } else {
-      return " No"
-    }
-  }
+
 
   componentDidMount() {
     let code = restCountryConversion(this.props.country_code);
-    let codename = this.props.country_code;
+    let codename =  this.props.country_code;
     fetch(`https://restcountries.eu/rest/v2/alpha/${code}`).then(response =>
       response
         .json()
@@ -88,6 +83,7 @@ class Card extends Component {
             .then(res => {
               this.setState({ traveler: res.data.travelers });
             });
+
   }
 
   handleClose(){
@@ -105,18 +101,18 @@ class Card extends Component {
       .then(res => {
         const countryData = {
           user_id: res.data.id,
-          country_id: returnId(this.props.country_code),
+          country_id: returnId(reverseCountryConversion(this.props.country_code)),
           status: this.state.status,
           notes: "None"
         };
         let country = res.data.user_countries.filter(item => {
-          return item.country_id === returnId(this.props.country_code);
+          return item.country_id === returnId(reverseCountryConversion(this.props.country_code));
         });
         console.log(
           "AFTER FILTER",
-          this.props.country_code,
+          reverseCountryConversion(this.props.country_code),
           "FUNCTION:",
-          returnId(this.props.country_code)
+          returnId(reverseCountryConversion(this.props.country_code))
         );
         if (country.length == 0) {
           axios
@@ -235,7 +231,7 @@ class Card extends Component {
                 </Form>
               }
               {/* <div>Friends Have Status Here: 
-                {this.friendsTravel()}
+                 <FriendsTravel friends={this.state.traveler} status={this.state.status}/>
               </div> */}
               <Button onClick={() => this.onSave()}>Save</Button>
             </Modal.Description>
