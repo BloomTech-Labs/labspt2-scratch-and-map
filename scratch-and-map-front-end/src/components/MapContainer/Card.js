@@ -81,8 +81,11 @@ class Card extends Component {
             axios
             .get(`${process.env.REACT_APP_BACKEND_URL}/api/countries/${index}`)
             .then(res => {
+              console.log(res.data.travelers)
               this.setState({ traveler: res.data.travelers });
             });
+
+            
 
   }
 
@@ -230,9 +233,9 @@ class Card extends Component {
                   />
                 </Form>
               }
-              {/* <div>Friends Have Status Here: 
-                 <FriendsTravel friends={this.state.traveler} status={this.state.status}/>
-              </div> */}
+              <div>Friends Have Status Here: 
+                 <FriendsTravel friends={this.state.traveler} />
+              </div>
               <Button onClick={() => this.onSave()}>Save</Button>
             </Modal.Description>
           </Modal.Content>

@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom'
 
 class FriendsTravel extends React.Component {
   render () {
+      console.log(this.props.friends[0])
     return <div className='message-box'>
-      Hello {this.props.status}
+      Hello
     </div>
   }
 }
