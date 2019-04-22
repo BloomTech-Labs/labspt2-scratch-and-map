@@ -12,7 +12,7 @@ class FriendListView extends Component {
       friends: [],
       filteredFriends: [],
       query: "",
-      clickedFriend: ""
+      // clickedFriend: ""
     };
   }
 
@@ -24,9 +24,9 @@ class FriendListView extends Component {
         this.setState({
           friends: res.data.users,
           filteredFriends: res.data.users,
-          clickedFriend: window.localStorage.getItem("SAMUserID")
+          // clickedFriend: window.localStorage.getItem("SAMUserID")
         });
-        this.props.getUserData(window.localStorage.getItem("SAMUserID"));
+        // this.props.getUserData(window.localStorage.getItem("SAMUserID"));
       });
   }
 
