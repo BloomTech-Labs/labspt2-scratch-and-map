@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import FacebookLogin from "react-facebook-login";
 import axios from "axios";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { getUserDataReducer } from "../../reducers/mapReducer.js";
+import { getUserData } from "../../actions/mapActions";
 require("dotenv").config();
 
 class FbLogin extends Component {
@@ -61,20 +65,36 @@ class FbLogin extends Component {
               axios
                 .post(`${process.env.REACT_APP_BACKEND_URL}/api/signup`, user)
                 .then(res => {
-                  window.localStorage.setItem("FbAccessToken",response.accessToken);
+                  window.localStorage.setItem(
+                    "FbAccessToken",
+                    response.accessToken
+                  );
                   window.localStorage.setItem("SAMUserID", response.userID);
+                  // this.props.getUserData(
+                  //   window.localStorage.getItem("SAMUserID") ***Will add back in later - BM
+                  // );
                   return console.log(res);
-                }); //need a message when user already exist. 
-
+                }); //need a message when user already exist.
             } else {
               console.log("ELSE", res);
               let new_user = res.data;
               new_user.fb_access_token = response.accessToken;
               axios
-                .put(`${process.env.REACT_APP_BACKEND_URL}/api/login/fb/${response.id}`, new_user)
+                .put(
+                  `${process.env.REACT_APP_BACKEND_URL}/api/login/fb/${
+                    response.id
+                  }`,
+                  new_user
+                )
                 .then(res => {
-                  window.localStorage.setItem("FbAccessToken", res.accessToken);
-                  window.localStorage.setItem("SAMUserID", res.userID);
+                  window.localStorage.setItem(
+                    "FbAccessToken",
+                    response.accessToken
+                  );
+                  window.localStorage.setItem("SAMUserID", response.userID);
+                  // this.props.getUserData(
+                  //   window.localStorage.getItem("SAMUserID")***Will add back in later - BM
+                  // );
                   return console.log("LOGIN RES", res);
                 });
             }
@@ -143,4 +163,17 @@ class FbLogin extends Component {
   }
 }
 
-export default FbLogin;
+const mapStateToProps = state => {
+  return {
+    userData: state.getUserDataReducer.userData,
+    userCountryData: state.getUserDataReducer.userCountryData,
+    loading: state.getUserDataReducer.loading,
+    DBUserID: state.getUserDataReducer.id
+  };
+};
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getUserData }
+  )(FbLogin)
+);

@@ -97,7 +97,7 @@ class users_countries_join(db.Model):
 
 class UserCountrySchema(ma.ModelSchema):
     class Meta:
-        fields = ('user_id', 'country_id', 'status', 'notes')
+        fields = ( 'country_id', 'status', 'notes')
         model = users_countries_join
 user_country_schema = UserCountrySchema()
 users_country_schema = UserCountrySchema(many=True)

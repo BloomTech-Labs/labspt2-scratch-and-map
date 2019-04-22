@@ -1,24 +1,19 @@
 import React, { Component } from "react";
-import { Menu, Button, Card, Segment, Image, Search } from "semantic-ui-react";
+import { Menu, Image } from "semantic-ui-react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { getUserData } from "../../actions/mapActions";
 import axios from "axios";
-import _ from "lodash";
-
-// const source = _.times(5, () => ({
-//     name: faker.name.firstName(),
-//     description: faker.company.catchPhrase(),
-//     image: faker.internet.avatar(),
-//   }))
 
 class FriendListView extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      friends: []
+      friends: [],
+      filteredFriends: [],
+      query: "",
+      currentUser: ""
     };
-  }
-
-  componentWillMount() {
-    this.resetComponent();
   }
 
   async componentDidMount() {
@@ -27,82 +22,90 @@ class FriendListView extends Component {
       .then(res => {
         console.log("Side Bar Users", res);
         this.setState({
-          friends: res.data.users
+          friends: res.data.users,
+          filteredFriends: res.data.users,
+          currentUser: window.localStorage.getItem("SAMUserID")
         });
+        // this.props.getUserData(window.localStorage.getItem("SAMUserID"));
       });
   }
 
-  resetComponent = () =>
-    this.setState({ isLoading: false, friends: [], value: "" });
+  // friendMapHandler(id) {
+  //   this.props.getUserData(id);
+  // }
 
-  handleResultSelect = (e, { friend }) => this.setState({ value: friend.username });
-
-  handleSearchChange = (e, { value }) => {
-    this.setState({ isLoading: true, value });
-
-        setTimeout(() => {
-          if (this.state.value.length < 1) return this.resetComponent();
-
-          const re = new RegExp(_.escapeRegExp(this.state.value), "i");
-          const isMatch = friend => re.test(friend.username);
-
-          this.setState({
-            isLoading: false,
-            // results: _.filter(source, isMatch)
-            friends: _.filter(isMatch)
-          });
-        }, 300);
+  onChangeHandler = ({ target }) => {
+    const res = this.state.friends.filter(friend => {
+      const name = friend.first_name + " " + friend.last_name;
+      return name.includes(target.value);
+    });
+    this.setState({
+      filteredFriends: res,
+      query: target.value
+    });
   };
 
   render() {
-    const { isLoading, value, friends } = this.state;
     return (
-      <div className="friend-view-wrapper" >
-      <Button.Group className="closebutton">
-        <Button onClick={this.props.onPusherClick} icon="close" inverted />
-      </Button.Group>
-        <div>
-          <Search
-          placeholder= 'Search Friends'
-            style={{ marginTop: "30px" }}
-            aligned="right"
-            // loading={isLoading}
-            onResultSelect={this.handleResultSelect}
-            onSearchChange={_.debounce(this.handleSearchChange, 500, {
-              leading: true
-            })}
-            friends={friends}
-            value={value}
-            {...this.props}
-          />
-
-          <Segment
-            inverted
-            style={{ overflow: "auto", maxHeight: 500 }}
-            className="friend-card-list"
-          >
-            {this.state.friends.map(friend => {
-              return (
-                <Menu.Item
-                  as="a"
-                  className="friend-card"
-                //   style={{ background: "#2B2B2B", color: "white" }}
-                >
-                  {/* <Card style={{background: 'black', color: 'white' }} as="a" className="friend-card"> */}
-                  <Image src="https://unsplash.com/photos/N-F31aQdAHQ" avatar />
-                  <span>
+      <div className="friend-view-wrapper">
+        <input
+          className="search-bar"
+          placeholder="Search Friends        &#x1f50d; &nbsp;"
+          onChange={this.onChangeHandler}
+          value={this.state.query}
+        />
+        <Menu
+          inverted
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            overflow: "auto",
+            height: 450
+          }}
+          className="friend-card-list"
+        >
+          {this.state.filteredFriends.map(friend => {
+            return (
+              <Menu.Item
+                as="a"
+                className="friendCard"
+                key={friend.id}
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "flex-start"
+                }}
+              >
+                <div style={{ marginLeft: 75 }}>
+                  <Image
+                    style={{ fontSize: 27 }}
+                    src="http://placekitten.com/200/200"
+                    avatar
+                  />
+                  <span style={{ fontSize: 16, marginLeft: 10 }}>
                     {friend.first_name} {friend.last_name}
-                    {/* {friend.username} */}
                   </span>
-                </Menu.Item>
-                // </Card>
-              );
-            })}
-          </Segment>
-        </div>
+                </div>
+              </Menu.Item>
+            );
+          })}
+        </Menu>
       </div>
     );
   }
 }
 
-export default FriendListView;
+const mapStateToProps = state => {
+  return {
+    userData: state.getUserDataReducer.userData,
+    userCountryData: state.getUserDataReducer.userCountryData,
+    loading: state.getUserDataReducer.loading,
+    DBUserID: state.getUserDataReducer.id
+  };
+};
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getUserData }
+  )(FriendListView)
+);
