@@ -26,7 +26,7 @@ class FriendListView extends Component {
           filteredFriends: res.data.users,
           currentUser: window.localStorage.getItem("SAMUserID")
         });
-        this.props.getUserData(window.localStorage.getItem("SAMUserID"));
+        // this.props.getUserData(window.localStorage.getItem("SAMUserID"));
       });
   }
 
