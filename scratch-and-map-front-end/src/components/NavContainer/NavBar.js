@@ -18,10 +18,11 @@ import FriendListView from "../NavContainer/FriendListView";
 import MapContainer from "../MapContainer/MapContainer";
 import { getUserData } from "../../actions/mapActions";
 import DevCard from "./DevCard";
+import {Elements, StripeProvider } from "react-stripe-elements";
+import CheckoutForm from "../CheckoutForm";
 
 const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
   <div>
-    
     <Sidebar.Pushable>
       <Sidebar
         as={Menu}
@@ -44,7 +45,6 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
           <Icon name="map" inverted />
           My Map
         </Menu.Item>
-        
 
         <FriendListView />
       </Sidebar>
@@ -53,11 +53,11 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
           <Button className="navbutton" inverted onClick={onToggle}>
             MENU
           </Button>
-          </div>
-          <div className="rightNav">
+        </div>
+        <div className="rightNav">
           <Modal
             trigger={
-              <Button inverted className='premium'>
+              <Button inverted className="premium">
                 <Icon name="gem" />
                 PREMIUM
               </Button>
@@ -68,16 +68,16 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
           >
             <Header icon="gem" content="Premium Sign Up" />
             <Modal.Content>
-              <p>Stripe Form Here</p>
+                <CheckoutForm/>
             </Modal.Content>
           </Modal>
           )
-          <div className='AuthButtons'>
-          <Auth />
+          <div className="AuthButtons">
+            <Auth />
           </div>
-          </div>
+        </div>
       </div>
-      
+
       <Sidebar.Pusher
         dimmed={visible}
         onClick={onPusherClick}
@@ -105,7 +105,7 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
         <Header
           content={
             <div style={{ display: "flex" }}>
-              <p classname="teamtext">THE TEAM</p>
+              <p className="teamtext">THE TEAM</p>
             </div>
           }
         />
