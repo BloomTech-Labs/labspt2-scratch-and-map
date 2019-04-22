@@ -53,20 +53,6 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
           <Button className="navbutton" inverted onClick={onToggle}>
             MENU
           </Button>
-<<<<<<< HEAD
-          </div>
-          <div className="rightNav">
-          <Modal trigger={<Button inverted className='premium'><Icon name="gem" />PREMIUM</Button>} basic size="small" closeIcon>
-            <Header icon="gem" content="Premium Sign Up" />
-            <Modal.Content>
-              <StripeProvider apiKey="pk_test_krA4dF6Zbe7WEYEqao5EeKmv00SpwNokud">
-              <div>
-                  <Elements>
-                    <CheckoutForm />
-                  </Elements>
-              </div>
-              </StripeProvider>
-=======
         </div>
         <div className="rightNav">
           <Modal
@@ -83,7 +69,6 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
             <Header icon="gem" content="Premium Sign Up" />
             <Modal.Content>
                 <CheckoutForm/>
->>>>>>> stripe
             </Modal.Content>
           </Modal>
           )

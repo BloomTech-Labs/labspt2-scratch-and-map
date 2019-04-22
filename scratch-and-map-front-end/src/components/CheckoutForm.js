@@ -1,12 +1,8 @@
-<<<<<<< HEAD
-import React, { Component } from 'react'
-import {CardElement, injectStripe} from 'react-stripe-elements'
-import '../styles/CheckoutForm.css'
-=======
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import {injectStripe} from 'react-stripe-elements';
+import '../styles/CheckoutForm.css';
 import { Form, Button } from "semantic-ui-react";
-import { injectStripe } from "react-stripe-elements";
->>>>>>> stripe
+
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -109,9 +105,9 @@ class CheckoutForm extends Component {
         <input type="hidden" name="country" />
         <i className="dropdown icon"></i>
     <div className="default text">Select Country</div>
-<div className="menu">
-    <div className="item" data-value="af"><i className="af flag"></i>Afghanistan</div>
-    <div className="item" data-value="ax"><i className="ax flag"></i>Aland Islands</div>
+<select className="menu">
+    <option className="item" data-value="af"><i className="af flag"></i>Afghanistan</option>
+    {/* <div className="item" data-value="ax"><i className="ax flag"></i>Aland Islands</div>
     <div className="item" data-value="al"><i className="al flag"></i>Albania</div>
     <div className="item" data-value="dz"><i className="dz flag"></i>Algeria</div>
     <div className="item" data-value="as"><i className="as flag"></i>American Samoa</div>
@@ -351,8 +347,8 @@ class CheckoutForm extends Component {
     <div className="item" data-value="eh"><i className="eh flag"></i>Western Sahara</div>
     <div className="item" data-value="ye"><i className="ye flag"></i>Yemen</div>
     <div className="item" data-value="zm"><i className="zm flag"></i>Zambia</div>
-    <div className="item" data-value="zw"><i className="zw flag"></i>Zimbabwe</div>
-  </div>
+    <div className="item" data-value="zw"><i className="zw flag"></i>Zimbabwe</div> */}
+  </select>
  </div>
 </div>
         <Button>Back</Button>
