@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import FacebookLogin from "react-facebook-login";
 import axios from "axios";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { getUserDataReducer } from "../../reducers/mapReducer.js";
+import { getUserData } from "../../actions/mapActions";
 require("dotenv").config();
 
 class FbLogin extends Component {
@@ -66,6 +70,9 @@ class FbLogin extends Component {
                     response.accessToken
                   );
                   window.localStorage.setItem("SAMUserID", response.userID);
+                  // this.props.getUserData(
+                  //   window.localStorage.getItem("SAMUserID") ***Will add back in later - BM
+                  // );
                   return console.log(res);
                 }); //need a message when user already exist.
             } else {
@@ -85,6 +92,9 @@ class FbLogin extends Component {
                     response.accessToken
                   );
                   window.localStorage.setItem("SAMUserID", response.userID);
+                  // this.props.getUserData(
+                  //   window.localStorage.getItem("SAMUserID")***Will add back in later - BM
+                  // );
                   return console.log("LOGIN RES", res);
                 });
             }
@@ -153,4 +163,17 @@ class FbLogin extends Component {
   }
 }
 
-export default FbLogin;
+const mapStateToProps = state => {
+  return {
+    userData: state.getUserDataReducer.userData,
+    userCountryData: state.getUserDataReducer.userCountryData,
+    loading: state.getUserDataReducer.loading,
+    DBUserID: state.getUserDataReducer.id
+  };
+};
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getUserData }
+  )(FbLogin)
+);
