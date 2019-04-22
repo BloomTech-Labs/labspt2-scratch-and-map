@@ -31,8 +31,8 @@ const DevCard = () => (
     <Reveal.Content hidden>
     <Card >
       <Card.Content >
-        <Card.Header><p>Brandon Moll</p></Card.Header>
-        <Card.Description>Lorem ipsum dolor sit amet, consectetur elit.</Card.Description>
+        <Card.Header><p>Courtney Buratto</p></Card.Header>
+        <Card.Description>A Full Stack Developer based in NW Montana.</Card.Description>
         <a href="https://github.com/cocoitali"target="_blank" ><Icon  name='github' color='white' size="large"/></a>
       </Card.Content>
     </Card>
