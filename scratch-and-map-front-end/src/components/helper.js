@@ -1133,7 +1133,7 @@ export function returnCode(id) {
 }
 
 export function returnId(code) {
-  let id = countries.indexOf(restCountryConversion(code));
+  let id = countries.indexOf(code);
   return id;
 }
 
