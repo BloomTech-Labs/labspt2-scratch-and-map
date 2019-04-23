@@ -195,6 +195,7 @@ def update_mapView_data(user_id, country_id):
     user_country.status = request.json['status']
     user_country.notes = request.json['notes']
     
+    db.session.merge(user_country)
     db.session.commit()
     return user_country_schema.jsonify(user_country)
 

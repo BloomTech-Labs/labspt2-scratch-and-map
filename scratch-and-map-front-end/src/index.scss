@@ -485,25 +485,21 @@ p,
     font-size: 40px;
     margin-left: 23%;
   }
-
 }
 
+.statusbox {
+  display: flex;
+  justify-content: space-between;
+}
 
-  .statusbox {
-    display: flex;
-    justify-content: space-between;
+.friendStatus {
+  display: flex;
+  align-items: center;
+  width: 40%;
+
+  p {
+    font-size: 1em;
+    padding-top: 1em;
+    margin-right: 10px;
   }
-  
-
-  .friendStatus {
-    display: flex;
-    align-items: center;
-    width: 40%;
-    
-    p{
-      font-size: 1em;
-      padding-top: 1em;
-      margin-right: 10px;
-    }
-  }
-
+}
