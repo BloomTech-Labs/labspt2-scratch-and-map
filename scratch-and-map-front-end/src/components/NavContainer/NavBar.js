@@ -39,11 +39,23 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
         <Menu.Item as="a" as={Link} to="/" onClick={() => refreshMap()}>
           <img src={logo} />
         </Menu.Item>
+        {window.localStorage.getItem("SAMUser") ? 
         <Menu.Item as="a" as={Link} to="/map">
           {/* onClick={onClick} */}
           <Icon name="map" inverted />
           My Map
-        </Menu.Item>
+        </Menu.Item> :
+        <Modal trigger={<Menu.Item>
+        {/* onClick={onClick} */}
+        <Icon name="map" inverted />
+        My Map
+      </Menu.Item>} basic size='large' closeIcon>
+              <Modal.Content>
+                <p style={{textAlign: "center"}}>
+                  Please Log In to Access Map
+                </p>
+              </Modal.Content>
+        </Modal> }
         
 
         <FriendListView />
