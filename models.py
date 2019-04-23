@@ -47,7 +47,7 @@ class UserSchema(ma.ModelSchema):
         model = users
         fields = ('id','username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role', 'auto_scratch', 'home_country', 'user_countries', 'fb_user_id', 'fb_access_token')
     user_countries = fields.Nested('UserCountrySchema', many = True,
-                                    only = ['country_id', 'status', 'notes'])
+                                    only = ['user_id','country_id', 'status', 'notes'])
 
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
@@ -97,7 +97,7 @@ class users_countries_join(db.Model):
 
 class UserCountrySchema(ma.ModelSchema):
     class Meta:
-        fields = ( 'country_id', 'status', 'notes')
+        fields = ( 'user_id', 'country_id', 'status', 'notes')
         model = users_countries_join
 user_country_schema = UserCountrySchema()
 users_country_schema = UserCountrySchema(many=True)
