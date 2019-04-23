@@ -65,6 +65,7 @@ class MapContainer extends React.Component {
 
   cardSaveHandler(id) {
     this.props.getUserData(id);
+    this.setState({ isOpen: false });
   }
 
   componentDidMount() {
