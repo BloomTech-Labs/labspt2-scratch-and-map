@@ -14,6 +14,11 @@ cors = CORS(app)
 def connect_to_db(app, db_uri):
     app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SQLALCHEMY_POOL_SIZE']=17
+    app.config['SQLALCHEMY_POOL_TIMEOUT']=10
+    app.config['SQLALCHEMY_MAX_OVERFLOW']=3
+    app.config['SQLALCHEMY_POOL_RECYCLE']=3
+
 
 load_dotenv('.env')
 DATABASE_URL = os.environ.get("DATABASE_URL")
