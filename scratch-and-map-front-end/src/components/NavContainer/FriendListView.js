@@ -47,6 +47,8 @@ class FriendListView extends Component {
 
   render() {
     return (
+      <div>
+      {window.localStorage.getItem("SAMUserID") ? 
       <div className="friend-view-wrapper">
         <input
           className="search-bar"
@@ -90,6 +92,7 @@ class FriendListView extends Component {
             );
           })}
         </Menu>
+      </div> : null}
       </div>
     );
   }
