@@ -39,7 +39,7 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
         <Menu.Item as="a" as={Link} to="/" onClick={() => refreshMap()}>
           <img src={logo} />
         </Menu.Item>
-        {window.localStorage.getItem("SAMUser") ? 
+        {window.localStorage.getItem("SAMUserID") ? 
         <Menu.Item as="a" as={Link} to="/map">
           {/* onClick={onClick} */}
           <Icon name="map" inverted />
