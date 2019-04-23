@@ -221,7 +221,8 @@ p {
   left: -5px;
   margin: -10px;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   width: 100vw;
   height: 95vh;
   background-image: url("./img/hero.png");
@@ -242,6 +243,7 @@ p {
       width: 300px;
       height: 70px;
     }
+
   }
 
   &:before {
