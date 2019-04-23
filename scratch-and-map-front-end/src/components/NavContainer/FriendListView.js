@@ -12,7 +12,7 @@ class FriendListView extends Component {
       friends: [],
       filteredFriends: [],
       query: "",
-      currentUser: ""
+      // clickedFriend: ""
     };
   }
 
@@ -24,15 +24,11 @@ class FriendListView extends Component {
         this.setState({
           friends: res.data.users,
           filteredFriends: res.data.users,
-          currentUser: window.localStorage.getItem("SAMUserID")
+          // clickedFriend: window.localStorage.getItem("SAMUserID")
         });
         // this.props.getUserData(window.localStorage.getItem("SAMUserID"));
       });
   }
-
-  // friendMapHandler(id) {
-  //   this.props.getUserData(id);
-  // }
 
   onChangeHandler = ({ target }) => {
     const res = this.state.friends.filter(friend => {
@@ -43,6 +39,10 @@ class FriendListView extends Component {
       filteredFriends: res,
       query: target.value
     });
+  };
+
+  friendHandler = id => {
+    this.props.getUserData(id);
   };
 
   render() {
@@ -60,7 +60,7 @@ class FriendListView extends Component {
             display: "flex",
             flexDirection: "column",
             overflow: "auto",
-            height: 450
+            height: 425
           }}
           className="friend-card-list"
         >
@@ -109,3 +109,4 @@ export default withRouter(
     { getUserData }
   )(FriendListView)
 );
+

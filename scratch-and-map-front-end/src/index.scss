@@ -209,6 +209,12 @@ p {
   padding: 10px;
 }
 
+.friend-card-list {
+  @media screen and (max-width: 800px) {
+    height: 300px !important ;
+  }
+}
+
 .landingpg {
   position: relative;
   top: -5px;
@@ -366,7 +372,6 @@ p {
   padding-top: 300px;
 }
 
-
 //////////////// About the team ////////////////
 
 .footer {
@@ -413,7 +418,8 @@ a,
   }
 }
 
-.ui.card, .ui.cards>.card {
+.ui.card,
+.ui.cards > .card {
   background: black;
   width: 200px;
   height: 200px;
@@ -427,7 +433,6 @@ a,
 .ui.cards > .card > .content > .description {
   color: white;
 }
-
 
 .ui.card > .content > .header:not(.ui),
 .ui.cards > .card > .content > .header:not(.ui) {
@@ -452,35 +457,37 @@ a,
   margin: 20px;
 }
 
-
-
-
-.ui.small.modal{
+.ui.small.modal {
   width: 800px;
   @media screen and (max-width: 800px) {
     width: 400px;
   }
 }
-.ui.card>.content>.header+.description, .ui.card>.content>.meta+.description, .ui.cards>.card>.content>.header+.description, .ui.cards>.card>.content>.meta+.description{
+.ui.card > .content > .header + .description,
+.ui.card > .content > .meta + .description,
+.ui.cards > .card > .content > .header + .description,
+.ui.cards > .card > .content > .meta + .description {
   margin-bottom: 15px;
   font-size: 14px;
   font-weight: 10;
 }
-.ui.card>.content p:last-child, .ui.cards>.card>.content p:last-child{
+.ui.card > .content p:last-child,
+.ui.cards > .card > .content p:last-child {
   font-size: 14px;
   text-transform: uppercase;
 }
 
-  
-
-  p, .teamtext{
+p,
+.teamtext {
+  font-size: 40px;
+  margin-left: 40px;
+  @media screen and (max-width: 800px) {
     font-size: 40px;
-    margin-left: 40px;
-    @media screen and (max-width: 800px) {
-      font-size: 40px;
     margin-left: 23%;
-    }
   }
+
+}
+
 
   .statusbox {
     display: flex;
@@ -499,3 +506,4 @@ a,
       margin-right: 10px;
     }
   }
+
