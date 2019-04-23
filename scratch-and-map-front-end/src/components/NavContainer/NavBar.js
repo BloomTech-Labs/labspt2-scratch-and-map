@@ -40,11 +40,17 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
           <img src={logo} />
         </Menu.Item>
         {window.localStorage.getItem("SAMUserID") ? 
-        <Menu.Item as="a" as={Link} to="/map">
+        <Link to={{
+          pathname: '/map',
+          state: {
+            user: window.localStorage.getItem("SAMUserID")
+          }
+        }}>
+        <Menu.Item>
           {/* onClick={onClick} */}
           <Icon name="map" inverted />
           My Map
-        </Menu.Item> :
+        </Menu.Item> </Link>:
         <Modal trigger={<Menu.Item>
         {/* onClick={onClick} */}
         <Icon name="map" inverted />
