@@ -39,10 +39,22 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
         <Menu.Item as="a" as={Link} to="/">
           <img src={logo} />
         </Menu.Item>
+        {window.localStorage.getItem("SAMUser") ? 
         <Menu.Item as="a" as={Link} to="/map">
           <Icon name="map" inverted />
           My Map
-        </Menu.Item>
+        </Menu.Item> :
+        <Modal trigger={<Menu.Item>
+        {/* onClick={onClick} */}
+        <Icon name="map" inverted />
+        My Map
+      </Menu.Item>} basic size='large' closeIcon>
+              <Modal.Content>
+                <p style={{textAlign: "center"}}>
+                  Please Log In to Access Map
+                </p>
+              </Modal.Content>
+        </Modal> }
         
 
         <FriendListView />
@@ -104,7 +116,7 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
         <Header
           content={
             <div style={{ display: "flex" }}>
-              <p style={{ fontSize: "15px", marginTop: "13px" }}>THE TEAM</p>
+              <p classname="teamtext">THE TEAM</p>
             </div>
           }
         />
