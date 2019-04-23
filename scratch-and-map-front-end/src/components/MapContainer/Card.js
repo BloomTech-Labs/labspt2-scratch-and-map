@@ -81,11 +81,16 @@ class Card extends Component {
             axios
             .get(`${process.env.REACT_APP_BACKEND_URL}/api/countries/${index}`)
             .then(res => {
-              console.log(res.data.travelers)
               this.setState({ traveler: res.data.travelers });
             });
 
-            
+            axios
+            .get(
+              `${process.env.REACT_APP_BACKEND_URL}/api/mapview/${returnId(reverseCountryConversion(this.props.country_code))}`,
+            )
+            .then (res => {
+              console.log(res.data)
+            })
 
   }
 
@@ -99,9 +104,10 @@ class Card extends Component {
       .get(
         `${
           process.env.REACT_APP_BACKEND_URL
-        }/api/users/fb/${window.localStorage.getItem("SAMUserID")}`
+        }/api/users/fb/${this.props.currentUser}`
       )
       .then(res => {
+        console.log(res.data)
         const countryData = {
           user_id: res.data.id,
           country_id: returnId(reverseCountryConversion(this.props.country_code)),
@@ -229,7 +235,7 @@ class Card extends Component {
                 <Form>
                   <TextArea
                     style={{ marginBottom: "10px" }}
-                    placeholder="Travel Notes"
+                    placeholder={"Travel Notes"}
                   />
                 </Form>
               }
