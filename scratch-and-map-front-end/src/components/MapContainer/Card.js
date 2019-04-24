@@ -15,6 +15,7 @@ import "../../styles/card.scss";
 import axios from "axios";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import FriendsTravel from './FriendsTravel'
 
 class Card extends Component {
   constructor(props) {
@@ -35,17 +36,11 @@ class Card extends Component {
     };
   }
 
-  friendsTravel(){
-    if (this.state.traveler.length !== 0) {
-      return " Yes"
-    } else {
-      return " No"
-    }
-  }
+
 
   componentDidMount() {
     let code = restCountryConversion(this.props.country_code);
-    let codename = this.props.country_code;
+    let codename =  this.props.country_code;
     fetch(`https://restcountries.eu/rest/v2/alpha/${code}`).then(response =>
       response
         .json()
@@ -74,11 +69,11 @@ class Card extends Component {
         })
     );
 
-    axios
-            .get(`${process.env.REACT_APP_BACKEND_URL}/api/users`)
-            .then(res => {
-              this.setState({ users: res.data.users });
-            });
+    // axios
+    //         .get(`${process.env.REACT_APP_BACKEND_URL}/api/users`) *******Commented out api call, data not currently in use
+    //         .then(res => {
+    //           this.setState({ users: res.data.users });
+    //         });
 
             let i = reverseCountryConversion(this.props.country_code);
             let index = countries.indexOf(i)+2;
@@ -88,6 +83,15 @@ class Card extends Component {
             .then(res => {
               this.setState({ traveler: res.data.travelers });
             });
+
+            axios
+            .get(
+              `${process.env.REACT_APP_BACKEND_URL}/api/mapview/${returnId(reverseCountryConversion(this.props.country_code))}`,
+            )
+            .then (res => {
+              console.log(res.data)
+            })
+
   }
 
   handleClose(){
@@ -100,23 +104,24 @@ class Card extends Component {
       .get(
         `${
           process.env.REACT_APP_BACKEND_URL
-        }/api/users/fb/${window.localStorage.getItem("SAMUserID")}`
+        }/api/users/fb/${this.props.currentUser}`
       )
       .then(res => {
+        console.log(res.data)
         const countryData = {
           user_id: res.data.id,
-          country_id: returnId(this.props.country_code),
+          country_id: returnId(reverseCountryConversion(this.props.country_code)),
           status: this.state.status,
           notes: "None"
         };
         let country = res.data.user_countries.filter(item => {
-          return item.country_id === returnId(this.props.country_code);
+          return item.country_id === returnId(reverseCountryConversion(this.props.country_code));
         });
         console.log(
           "AFTER FILTER",
-          this.props.country_code,
+          reverseCountryConversion(this.props.country_code),
           "FUNCTION:",
-          returnId(this.props.country_code)
+          returnId(reverseCountryConversion(this.props.country_code))
         );
         if (country.length == 0) {
           axios
@@ -230,13 +235,13 @@ class Card extends Component {
                 <Form>
                   <TextArea
                     style={{ marginBottom: "10px" }}
-                    placeholder="Travel Notes"
+                    placeholder={"Travel Notes"}
                   />
                 </Form>
               }
-              {/* <div>Friends Have Status Here: 
-                {this.friendsTravel()}
-              </div> */}
+              <div>Friends' Travels: 
+                 <FriendsTravel friends={this.state.traveler} />
+              </div>
               <Button onClick={() => this.onSave()}>Save</Button>
             </Modal.Description>
           </Modal.Content>

@@ -65,11 +65,14 @@ class MapContainer extends React.Component {
 
   cardSaveHandler(id) {
     this.props.getUserData(id);
+    this.setState({ isOpen: false });
   }
 
   componentDidMount() {
-    this.setState({ currentUser: window.localStorage.getItem("SAMUserID") });
-    this.props.getUserData(window.localStorage.getItem("SAMUserID"));
+    const user = this.props.location.state.user
+    this.setState({ currentUser: user });
+    this.props.getUserData(user);
+    
   }
 
   componentWillReceiveProps(nextProps) {

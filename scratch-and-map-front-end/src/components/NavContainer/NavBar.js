@@ -21,7 +21,7 @@ import DevCard from "./DevCard";
 import {Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "../CheckoutForm";
 
-const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
+const NavBar = ({ onToggle, visible, onPusherClick }) => (
   <div>
     <Sidebar.Pushable>
       <Sidebar
@@ -37,14 +37,39 @@ const NavBar = ({ onToggle, visible, onPusherClick, onClick, refreshMap }) => (
         <Button.Group className="closebutton">
           <Button onClick={onToggle} icon="close" inverted />
         </Button.Group>
-        <Menu.Item as="a" as={Link} to="/" onClick={() => refreshMap()}>
+        <Menu.Item as="a" as={Link} to="/">
           <img src={logo} />
         </Menu.Item>
-        <Menu.Item as="a" as={Link} to="/map">
+
+        {window.localStorage.getItem("SAMUserID") ? 
+        <Link to={{
+          pathname: '/map',
+          state: {
+            user: window.localStorage.getItem("SAMUserID")
+          }
+        }}>
+        <Menu.Item>
           {/* onClick={onClick} */}
+
           <Icon name="map" inverted />
           My Map
+<<<<<<< HEAD
         </Menu.Item>
+=======
+        </Menu.Item> </Link>:
+        <Modal trigger={<Menu.Item>
+        {/* onClick={onClick} */}
+        <Icon name="map" inverted />
+        My Map
+      </Menu.Item>} basic size='large' closeIcon>
+              <Modal.Content>
+                <p style={{textAlign: "center"}}>
+                  Please Log In to Access Map
+                </p>
+              </Modal.Content>
+        </Modal> }
+        
+>>>>>>> 9880b5e4a7042028f1f9a699d679c202bca7d135
 
         <FriendListView />
       </Sidebar>

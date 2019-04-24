@@ -14,24 +14,22 @@ cors = CORS(app)
 def connect_to_db(app, db_uri):
     app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SQLALCHEMY_POOL_SIZE']=17
+    app.config['SQLALCHEMY_POOL_TIMEOUT']=10
+    app.config['SQLALCHEMY_MAX_OVERFLOW']=3
+    app.config['SQLALCHEMY_POOL_RECYCLE']=3
+
 
 load_dotenv('.env')
 DATABASE_URL = os.environ.get("DATABASE_URL")
 connect_to_db(app, DATABASE_URL)
 
 # Init db & mm
-db = SQLAlchemy(app)
+db.init_app(app)
 ma = Marshmallow(app)
 
 PORT = int(os.environ.get("PORT",5000))
 DEBUG = "NO_DEBUG" not in os.environ
-
-engine = create_engine(DATABASE_URL,
-                       pool_size=20, max_overflow=0)
-
-Session = sessionmaker(bind=engine)
-
-session = Session()
 
 #Routes
 @app.route("/api/error")
@@ -177,7 +175,7 @@ def mapview_by_user_id(user_id):
 def add_mapView_data():
   user_id = request.json['user_id'] #JOIN user_id with username of specific id from users
   country_id = request.json['country_id'] #JOIN country_id with country_name in countries
-  user_id = request.json['user_id'] 
+  user_id = request.json['user_id']
   country_id = request.json['country_id']
   status = request.json['status']
   notes = request.json['notes']
@@ -194,7 +192,8 @@ def update_mapView_data(user_id, country_id):
     user_country.country_id = request.json['country_id']
     user_country.status = request.json['status']
     user_country.notes = request.json['notes']
-    
+
+    db.session.merge(user_country)
     db.session.commit()
     return user_country_schema.jsonify(user_country)
 
@@ -246,4 +245,4 @@ def mapView():
   return user_country_schema.jsonify(user)
   user_country_schema = UserCountrySchema(many = True)
   output = user_country_schema.dump(user).data
-  return jsonify({user : output})''' 
+  return jsonify({user : output})'''

@@ -6,8 +6,8 @@ import { Form, Button, Menu, Dropdown } from "semantic-ui-react";
 
 
 class CheckoutForm extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       options: [],
     }
@@ -16,18 +16,31 @@ class CheckoutForm extends Component {
 
   componentDidMount() {
     axios.get(`https://restcountries.eu/rest/v2/all`)
-    .then(res => {console.log("COUNTRIES API", res.data)
-             res.data.map(item => {
-              console.log("RES ITEM", item.name) 
-              this.state.options.push(item.name)
+    .then(res => {console.log("COUNTRIES API", res.data) 
+            res.data.map(country => {
+                this.setState({
+                 options: { key: country.alpha3Code,
+                            value: country.alpha3Code,
+                            flag: country.flag,
+                            text: country.name,
+                  }})
             })
   })
-  }
+}
+
+
+
+
+
+
+
+
+
 
 
 
   render() {
-    console.log("PREMIUM",this.state.countries)
+    console.log("PREMIUM", this.state.options)
     return (
       <Form className="ui form">
         <h1 className="ui centered">Enter Personal Payment Details</h1>
@@ -117,11 +130,15 @@ class CheckoutForm extends Component {
 </div>
 
 
-    
 
-<Menu>
-    <Dropdown text='Country' option={this.state.options}  simple item />
-  </Menu>
+    <Dropdown
+    placeholder='Select Country'
+    fluid
+    search
+    selection
+    options={this.state.options}
+    />
+
         <Button>Back</Button>
         <Button>Save And Continue </Button>
 </Form>
