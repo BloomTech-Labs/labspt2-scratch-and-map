@@ -171,6 +171,7 @@ class MapContainer extends React.Component {
   }
 
   render() {
+    console.log(this.props.userData, this.props.userCountryData)
     return (
       <div className="mapview">
         {this.state.isOpen ? (
