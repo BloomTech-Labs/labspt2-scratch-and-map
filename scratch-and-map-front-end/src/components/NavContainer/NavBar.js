@@ -53,9 +53,6 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
 
           <Icon name="map" inverted />
           My Map
-<<<<<<< HEAD
-        </Menu.Item>
-=======
         </Menu.Item> </Link>:
         <Modal trigger={<Menu.Item>
         {/* onClick={onClick} */}
@@ -69,7 +66,6 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
               </Modal.Content>
         </Modal> }
         
->>>>>>> 9880b5e4a7042028f1f9a699d679c202bca7d135
 
         <FriendListView />
       </Sidebar>

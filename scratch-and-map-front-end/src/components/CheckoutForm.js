@@ -16,28 +16,19 @@ class CheckoutForm extends Component {
 
   componentDidMount() {
     axios.get(`https://restcountries.eu/rest/v2/all`)
-    .then(res => {console.log("COUNTRIES API", res.data) 
-            res.data.map(country => {
-                this.setState({
-                 options: { key: country.alpha3Code,
-                            value: country.alpha3Code,
-                            flag: country.flag,
-                            text: country.name,
-                  }})
-            })
+    .then(res => {console.log("COUNTRIES API", res.data)
+        res.data.forEach(country => {
+            let countryOptions = {
+                key: country.alpha3Code,
+                value: country.alpha3Code,
+                flag: country.flag,
+                text: country.name
+            }
+            this.state.options.push(countryOptions);
+        })
+            
   })
 }
-
-
-
-
-
-
-
-
-
-
-
 
   render() {
     console.log("PREMIUM", this.state.options)
@@ -138,7 +129,6 @@ class CheckoutForm extends Component {
     selection
     options={this.state.options}
     />
-
         <Button>Back</Button>
         <Button>Save And Continue </Button>
 </Form>
