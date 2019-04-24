@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import {injectStripe} from 'react-stripe-elements';
+import {CardElement, injectStripe} from 'react-stripe-elements';
 import '../styles/CheckoutForm.css';
 import { Form, Button, Menu, Dropdown } from "semantic-ui-react";
-
+import _ from 'lodash';
 
 class CheckoutForm extends Component {
   constructor() {
     super();
     this.state = {
       options: [],
+      stateOptions: []
     }
   }
   async submit(ev) {}
@@ -21,13 +22,25 @@ class CheckoutForm extends Component {
             let countryOptions = {
                 key: country.alpha3Code,
                 value: country.alpha3Code,
-                flag: country.flag,
                 text: country.name
             }
             this.state.options.push(countryOptions);
         })
             
   })
+    axios.get(`https://gist.githubusercontent.com/mshafrir/2646763/raw/8b0dbb93521f5d6889502305335104218454c2bf/states_titlecase.json`)
+      .then(res => {console.log('STATES IN FORM',  res)
+        res.data.forEach(state => {
+          let stateOptions = {
+            key: state.abbreviation,
+            text: state.name,
+          }
+            this.state.stateOptions.push(stateOptions)
+        })
+    
+    })
+
+
 }
 
   render() {
@@ -35,102 +48,39 @@ class CheckoutForm extends Component {
     return (
       <Form className="ui form">
         <h1 className="ui centered">Enter Personal Payment Details</h1>
-
-        <div className="field">
-            <label >First and Last Name</label>
-            <div className="two fields">
-                <div className="field">
-                    <input type="text" name="first-name" placeholder="First Name" /> 
-                </div>
-                <div className="field">
-                    <input type="text" name="last-name" placeholder="Last Name" />
-                </div>
-            </div>
-        </div>
-       
-        <div className="field">
-            <label>Billing Address</label>
-            <div className="fields">
-                <div className="twelve wide field">
-                    <input type="text" name="shipping[address]" placeholder="Street Address" />
-                </div>
-                <div className="four wide field">
-                    <input type="text" name="shipping[address-2]" placeholder="Apt #" />
-                </div>
-            </div>
-        </div>
-
-<div className="two fields">
-    <div className="field">
-      <label>State</label>
-      <select className="ui fluid dropdown">
-        <option value="">State</option>
-        <option value="AL">Alabama</option>
-        <option value="AK">Alaska</option>
-        <option value="AZ">Arizona</option>
-        <option value="AR">Arkansas</option>
-        <option value="CA">California</option>
-        <option value="CO">Colorado</option>
-        <option value="CT">Connecticut</option>
-        <option value="DE">Delaware</option>
-        <option value="DC">District Of Columbia</option>
-        <option value="FL">Florida</option>
-        <option value="GA">Georgia</option>
-        <option value="HI">Hawaii</option>
-        <option value="ID">Idaho</option>
-        <option value="IL">Illinois</option>
-        <option value="IN">Indiana</option>
-        <option value="IA">Iowa</option>
-        <option value="KS">Kansas</option>
-        <option value="KY">Kentucky</option>
-        <option value="LA">Louisiana</option>
-        <option value="ME">Maine</option>
-        <option value="MD">Maryland</option>
-        <option value="MA">Massachusetts</option>
-        <option value="MI">Michigan</option>
-        <option value="MN">Minnesota</option>
-        <option value="MS">Mississippi</option>
-        <option value="MO">Missouri</option>
-        <option value="MT">Montana</option>
-        <option value="NE">Nebraska</option>
-        <option value="NV">Nevada</option>
-        <option value="NH">New Hampshire</option>
-        <option value="NJ">New Jersey</option>
-        <option value="NM">New Mexico</option>
-        <option value="NY">New York</option>
-        <option value="NC">North Carolina</option>
-        <option value="ND">North Dakota</option>
-        <option value="OH">Ohio</option>
-        <option value="OK">Oklahoma</option>
-        <option value="OR">Oregon</option>
-        <option value="PA">Pennsylvania</option>
-        <option value="RI">Rhode Island</option>
-        <option value="SC">South Carolina</option>
-        <option value="SD">South Dakota</option>
-        <option value="TN">Tennessee</option>
-        <option value="TX">Texas</option>
-        <option value="UT">Utah</option>
-        <option value="VT">Vermont</option>
-        <option value="VA">Virginia</option>
-        <option value="WA">Washington</option>
-        <option value="WV">West Virginia</option>
-        <option value="WI">Wisconsin</option>
-        <option value="WY">Wyoming</option>
-      </select>
-    </div>
-</div>
+        <Form.Group widths='equal'>
+      <Form.Input fluid label='First name' placeholder='First name' />
+      <Form.Input fluid label='Last name' placeholder='Last name' />
+    </Form.Group>
+    <Form.Group widths='equal'>
+      <Form.Input fluid label='Street Address' placeholder='Street Address' />
+      <Form.Input fluid label='Zip Code' placeholder='Zip Code' />
+    </Form.Group>
 
 
-
-    <Dropdown
+<Form.Group >
+<Dropdown
+    placeholder='Select State'
+    fluid
+    search
+    selection
+    className='StripeDropdown'
+    options={this.state.stateOptions}
+    />
+<Dropdown
     placeholder='Select Country'
     fluid
     search
     selection
+    className='StripeDropdown'
     options={this.state.options}
     />
+</Form.Group>
+
+<CardElement className='StripeElement' placeholder='Card info' input/>
+    
         <Button>Back</Button>
-        <Button>Save And Continue </Button>
+        <Button>Submit</Button>
 </Form>
     );
   }

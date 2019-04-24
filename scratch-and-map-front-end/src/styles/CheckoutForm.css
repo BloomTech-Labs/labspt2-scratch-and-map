@@ -4,9 +4,10 @@
  */
  .StripeElement {
     box-sizing: border-box;
-  
+    margin: 10px 0;
     height: 40px;
-  
+    color: white;
+
     padding: 10px 12px;
   
     border: 1px solid transparent;
@@ -28,4 +29,8 @@
   
   .StripeElement--webkit-autofill {
     background-color: #fefde5 !important;
+  }
+
+  .StripeDropdown {
+    margin: 0 10px;
   }
