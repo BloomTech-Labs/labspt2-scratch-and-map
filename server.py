@@ -25,18 +25,11 @@ DATABASE_URL = os.environ.get("DATABASE_URL")
 connect_to_db(app, DATABASE_URL)
 
 # Init db & mm
-db = SQLAlchemy(app)
+db.init_app(app)
 ma = Marshmallow(app)
 
 PORT = int(os.environ.get("PORT",5000))
 DEBUG = "NO_DEBUG" not in os.environ
-
-engine = create_engine(DATABASE_URL,
-                       pool_size=20, max_overflow=0)
-
-Session = sessionmaker(bind=engine)
-
-session = Session()
 
 #Routes
 @app.route("/api/error")

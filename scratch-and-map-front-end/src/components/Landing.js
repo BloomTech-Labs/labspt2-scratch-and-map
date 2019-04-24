@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import logo from '../img/logowhite.png'
+import { Segment } from "semantic-ui-react"
 
 class Landing extends Component {
   render() {
@@ -7,6 +8,14 @@ class Landing extends Component {
     return (
       <div className="landingpg">
           <img src={logo} />
+          <Segment raised inverted style={{width: "35vw", paddingRight: "50px", marginTop: "50px" }}>
+          <p style={{ fontSize: "1.5em", textAlign: "center" }}>Whether you're a seasoned traveler or 
+          just about to embark on your first big trip, 
+          Scratch&Map is a personal way to trace and 
+          display your world travels. <br/><br/>Indicate the countries you’ve 
+          visited by using this interactive app. <br/><br/>Share your stories 
+          with everyone you know and remember all of your fantastic journeys.</p>
+          </Segment>
       </div>
     );
   }
