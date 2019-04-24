@@ -92,8 +92,10 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
             </Modal.Content>
           </Modal>
           )
+          
           <div className='AuthButtons'>
-          <Auth />
+          {window.localStorage.getItem("SAMUserID") ? <Button inverted >LOG OUT</Button> :
+          <Auth />}
           </div>
           </div>
       </div>
@@ -106,7 +108,6 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
         <Segment basic>
           <Route path="/" exact render={props => <Landing />} />
           <Route path="/map" exact render={props => <MapContainer />} />
-          <Route path="/friends" exact render={props => <FriendListView />} />
         </Segment>
       </Sidebar.Pusher>
     </Sidebar.Pushable>
