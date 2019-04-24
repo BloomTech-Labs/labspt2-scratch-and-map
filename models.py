@@ -4,7 +4,6 @@ from sqlalchemy import Column, Integer, String, CheckConstraint, ForeignKey, ARR
 from sqlalchemy.orm import relationship, backref
 from flask_marshmallow import Marshmallow
 from marshmallow import fields, Schema
-
 db = SQLAlchemy()
 ma = Marshmallow()
 

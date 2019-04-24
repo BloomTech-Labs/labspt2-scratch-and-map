@@ -175,7 +175,7 @@ def mapview_by_user_id(user_id):
 def add_mapView_data():
   user_id = request.json['user_id'] #JOIN user_id with username of specific id from users
   country_id = request.json['country_id'] #JOIN country_id with country_name in countries
-  user_id = request.json['user_id'] 
+  user_id = request.json['user_id']
   country_id = request.json['country_id']
   status = request.json['status']
   notes = request.json['notes']
@@ -192,7 +192,7 @@ def update_mapView_data(user_id, country_id):
     user_country.country_id = request.json['country_id']
     user_country.status = request.json['status']
     user_country.notes = request.json['notes']
-    
+
     db.session.merge(user_country)
     db.session.commit()
     return user_country_schema.jsonify(user_country)
@@ -245,4 +245,4 @@ def mapView():
   return user_country_schema.jsonify(user)
   user_country_schema = UserCountrySchema(many = True)
   output = user_country_schema.dump(user).data
-  return jsonify({user : output})''' 
+  return jsonify({user : output})'''
