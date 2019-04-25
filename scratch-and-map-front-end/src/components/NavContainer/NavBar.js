@@ -18,10 +18,11 @@ import FriendListView from "../NavContainer/FriendListView";
 import MapContainer from "../MapContainer/MapContainer";
 import { getUserData } from "../../actions/mapActions";
 import DevCard from "./DevCard";
+import {Elements, StripeProvider } from "react-stripe-elements";
+import CheckoutForm from "../CheckoutForm";
 
 const NavBar = ({ onToggle, visible, onPusherClick, onLogout }) => (
   <div>
-    
     <Sidebar.Pushable>
       <Sidebar
         as={Menu}
@@ -71,11 +72,11 @@ const NavBar = ({ onToggle, visible, onPusherClick, onLogout }) => (
           <Button className="navbutton" inverted onClick={onToggle}>
             MENU
           </Button>
-          </div>
-          <div className="rightNav">
+        </div>
+        <div className="rightNav">
           <Modal
             trigger={
-              <Button inverted className='premium'>
+              <Button inverted className="premium">
                 <Icon name="gem" />
                 PREMIUM
               </Button>
@@ -86,18 +87,16 @@ const NavBar = ({ onToggle, visible, onPusherClick, onLogout }) => (
           >
             <Header icon="gem" content="Premium Sign Up" />
             <Modal.Content>
-              <p>Stripe Form Here</p>
+                <CheckoutForm/>
             </Modal.Content>
           </Modal>
           )
-          
-          <div className='AuthButtons'>
-          {window.localStorage.getItem("SAMUserID") ? <Button className='premium' inverted onClick={onLogout} >LOG OUT</Button> :
-          <Auth />}
+          <div className="AuthButtons">
+            <Auth />
           </div>
-          </div>
+        </div>
       </div>
-      
+
       <Sidebar.Pusher
         dimmed={visible}
         onClick={onPusherClick}
