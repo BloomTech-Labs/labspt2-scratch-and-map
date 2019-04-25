@@ -10,10 +10,11 @@ class CheckoutForm extends Component {
     super();
     this.state = {
       options: [],
-      stateOptions: []
+      stateOptions: [],
+      completed: false,
     }
   }
-  async submit(ev) {}
+
 
   componentDidMount() {
     axios.get(`https://restcountries.eu/rest/v2/all`)
@@ -40,9 +41,24 @@ class CheckoutForm extends Component {
         })
     
     })
-
-
 }
+
+async submit(ev) {
+  let {token} = await this.props.stripe.createToken({name: "Name"});
+  let response = await fetch("/charge", {
+    method: "POST",
+    headers: {"Content-Type": "text/plain"},
+    body: token.id
+  });
+
+  if (response.ok) console.log("Purchase Complete!")
+}
+
+
+
+
+
+
 
   render() {
     console.log("PREMIUM", this.state.options)
