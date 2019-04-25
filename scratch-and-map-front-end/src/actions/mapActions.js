@@ -3,6 +3,7 @@ import axios from "axios";
 export const FETCHING = "FETCHING";
 export const SUCCESS = "SUCCESS";
 export const ERROR = "ERROR";
+export const UPDATING = "UPDATING";
 
 export const getUserData = id => {
   return dispatch => {
@@ -15,5 +16,11 @@ export const getUserData = id => {
       .catch(err => {
         dispatch({ type: ERROR, payload: "Error in getUserData API call" });
       });
+  };
+};
+
+export const updateDisplayedUser = id => {
+  return dispatch => {
+    dispatch({ type: UPDATING, payload: id });
   };
 };

@@ -10,12 +10,17 @@ import {
   Icon
 } from "semantic-ui-react";
 import CardSlider from "./CardSlider";
-import { codeToCountry, restCountryConversion, reverseCountryConversion, countries } from "../helper";
+import {
+  codeToCountry,
+  restCountryConversion,
+  reverseCountryConversion,
+  countries
+} from "../helper";
 import "../../styles/card.scss";
 import axios from "axios";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import FriendsTravel from './FriendsTravel'
+import FriendsTravel from "./FriendsTravel";
 
 class Card extends Component {
   constructor(props) {
@@ -36,11 +41,9 @@ class Card extends Component {
     };
   }
 
-
-
   componentDidMount() {
     let code = restCountryConversion(this.props.country_code);
-    let codename =  this.props.country_code;
+    let codename = this.props.country_code;
     fetch(`https://restcountries.eu/rest/v2/alpha/${code}`).then(response =>
       response
         .json()
@@ -75,47 +78,52 @@ class Card extends Component {
     //           this.setState({ users: res.data.users });
     //         });
 
-            let i = reverseCountryConversion(this.props.country_code);
-            let index = countries.indexOf(i)+2;
+    let i = reverseCountryConversion(this.props.country_code);
+    let index = countries.indexOf(i) + 2;
 
-            axios
-            .get(`${process.env.REACT_APP_BACKEND_URL}/api/countries/${index}`)
-            .then(res => {
-              this.setState({ traveler: res.data.travelers });
-            });
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/countries/${index}`)
+      .then(res => {
+        this.setState({ traveler: res.data.travelers });
+      });
 
-            axios
-            .get(
-              `${process.env.REACT_APP_BACKEND_URL}/api/mapview/${returnId(reverseCountryConversion(this.props.country_code))}`,
-            )
-            .then (res => {
-              console.log(res.data)
-            })
-
+    axios
+      .get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/mapview/${returnId(
+          reverseCountryConversion(this.props.country_code)
+        )}`
+      )
+      .then(res => {
+        console.log(res.data);
+      });
   }
 
-  handleClose(){
-    this.setState({ modalOpen: false })
-  }  
-
+  handleClose() {
+    this.setState({ modalOpen: false });
+  }
 
   onSave() {
     axios
       .get(
-        `${
-          process.env.REACT_APP_BACKEND_URL
-        }/api/users/fb/${this.props.currentUser}`
+        `${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${
+          this.props.currentUser
+        }`
       )
       .then(res => {
-        console.log(res.data)
+        console.log(res.data);
         const countryData = {
           user_id: res.data.id,
-          country_id: returnId(reverseCountryConversion(this.props.country_code)),
+          country_id: returnId(
+            reverseCountryConversion(this.props.country_code)
+          ),
           status: this.state.status,
           notes: "None"
         };
         let country = res.data.user_countries.filter(item => {
-          return item.country_id === returnId(reverseCountryConversion(this.props.country_code));
+          return (
+            item.country_id ===
+            returnId(reverseCountryConversion(this.props.country_code))
+          );
         });
         console.log(
           "AFTER FILTER",
@@ -145,7 +153,7 @@ class Card extends Component {
             });
         }
       });
-      this.handleClose()
+    this.handleClose();
   }
 
   onChange = status => {
@@ -186,11 +194,14 @@ class Card extends Component {
       </div>
     ));
 
- 
-
     return (
       <div style={cardStyle}>
-        <Modal style={modalStyle} className="modalStyle" open={this.state.modalOpen} onClose={this.handleClose} >
+        <Modal
+          style={modalStyle}
+          className="modalStyle"
+          open={this.state.modalOpen}
+          onClose={this.handleClose}
+        >
           <Modal.Content
             image
             style={{ display: "flex", flexDirection: "column" }}
@@ -220,10 +231,10 @@ class Card extends Component {
                 />
               </div>
               <div style={{ width: "40%", height: "30px", marginLeft: "15px" }}>
-                <h4>CAPITAL:  {this.state.capital}</h4>
-                <h4>LANGUAGE:  {this.state.language}</h4>
+                <h4>CAPITAL: {this.state.capital}</h4>
+                <h4>LANGUAGE: {this.state.language}</h4>
                 <h4>
-                  CURRENCY:  {this.state.currency} ({this.state.symbol}){" "}
+                  CURRENCY: {this.state.currency} ({this.state.symbol}){" "}
                 </h4>
               </div>
             </div>
@@ -239,8 +250,9 @@ class Card extends Component {
                   />
                 </Form>
               }
-              <div>Friends' Travels: 
-                 <FriendsTravel friends={this.state.traveler} />
+              <div>
+                Friends' Travels:
+                <FriendsTravel friends={this.state.traveler} />
               </div>
               <Button onClick={() => this.onSave()}>Save</Button>
             </Modal.Description>
