@@ -50,7 +50,8 @@ class MapContainer extends React.Component {
       isOpen: false,
       clickedCountry: "",
       alt_code: "",
-      currentUser: ""
+      currentUser: "",
+      loading: ""
     };
     this.cardSaveHandler = this.cardSaveHandler.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
@@ -84,12 +85,7 @@ class MapContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(
-      "COMPWILLRECEIVE",
-      this.props.displayedUser,
-      "STATE: ",
-      this.state.currentUser
-    );
+    this.setState({ loading: nextProps.loading });
     function style(feature) {
       return {
         fillColor:
@@ -183,12 +179,7 @@ class MapContainer extends React.Component {
   }
 
   render() {
-    console.log(
-      "RENDER, displayedUser: ",
-      this.props.displayedUser,
-      " currentUser: ",
-      this.props.loggedInUser
-    );
+    console.log("Loading?", this.state.loading);
     return (
       <div className="mapview">
         {this.state.isOpen ? (
@@ -202,7 +193,7 @@ class MapContainer extends React.Component {
           />
         ) : null}
 
-        {this.props.loading ? <Loading /> : <Legend />}
+        {this.state.loading ? <Loading /> : <Legend />}
 
         <Wrapper className="mapContainer" id="map" />
       </div>

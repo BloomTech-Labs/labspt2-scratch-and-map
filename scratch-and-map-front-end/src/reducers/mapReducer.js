@@ -5,7 +5,6 @@ const initialState = {
   userCountryData: [],
   loading: true,
   error: "",
-  loggedInUser: "",
   displayedUser: ""
 };
 
@@ -18,7 +17,6 @@ export const getUserDataReducer = (state = initialState, action) => {
         ...state,
         userData: action.payload,
         userCountryData: action.payload.user_countries,
-        loggedInUser: action.payload.fb_user_id,
         displayedUser: action.payload.fb_user_id,
         loading: false
       };
