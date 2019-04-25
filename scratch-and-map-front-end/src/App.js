@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ParentNav from "./components/NavContainer/ParentNav";
 import "./index.scss";
 import axios from "axios";
+import {Elements, StripeProvider } from "react-stripe-elements";
 require("dotenv").config();
 
 class App extends Component {
@@ -26,7 +27,20 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <ParentNav />
+
+              <StripeProvider apiKey="pk_test_krA4dF6Zbe7WEYEqao5EeKmv00SpwNokud">
+                      <Elements>
+                        <ParentNav/>
+                      </Elements>
+              </StripeProvider>
+
+
+
+       
+
+
+
+
       </div>
     );
   }
