@@ -18,6 +18,8 @@ import FriendListView from "../NavContainer/FriendListView";
 import MapContainer from "../MapContainer/MapContainer";
 import { getUserData } from "../../actions/mapActions";
 import DevCard from "./DevCard";
+import {Elements, StripeProvider } from "react-stripe-elements";
+import CheckoutForm from "../CheckoutForm";
 
 const NavBar = ({
   onToggle,
@@ -104,7 +106,7 @@ const NavBar = ({
           >
             <Header icon="gem" content="Premium Sign Up" />
             <Modal.Content>
-              <p>Stripe Form Here</p>
+                <CheckoutForm/>
             </Modal.Content>
           </Modal>
           )
