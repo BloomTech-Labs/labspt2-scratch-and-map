@@ -19,7 +19,7 @@ import MapContainer from "../MapContainer/MapContainer";
 import { getUserData } from "../../actions/mapActions";
 import DevCard from "./DevCard";
 
-const NavBar = ({ onToggle, visible, onPusherClick }) => (
+const NavBar = ({ onToggle, visible, onPusherClick, onLogout }) => (
   <div>
     
     <Sidebar.Pushable>
@@ -94,7 +94,7 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
           )
           
           <div className='AuthButtons'>
-          {window.localStorage.getItem("SAMUserID") ? <Button inverted >LOG OUT</Button> :
+          {window.localStorage.getItem("SAMUserID") ? <Button className='premium' inverted onClick={onLogout} >LOG OUT</Button> :
           <Auth />}
           </div>
           </div>
@@ -126,7 +126,7 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
         <Header
           content={
             <div style={{ display: "flex" }}>
-              <p classname="teamtext">THE TEAM</p>
+              <p className="teamtext">THE TEAM</p>
             </div>
           }
         />
