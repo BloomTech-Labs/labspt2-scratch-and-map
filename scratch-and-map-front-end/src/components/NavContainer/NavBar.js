@@ -19,9 +19,8 @@ import MapContainer from "../MapContainer/MapContainer";
 import { getUserData } from "../../actions/mapActions";
 import DevCard from "./DevCard";
 
-const NavBar = ({ onToggle, visible, onPusherClick }) => (
+const NavBar = ({ onToggle, visible, onPusherClick, getUserData }) => (
   <div>
-    
     <Sidebar.Pushable>
       <Sidebar
         as={Menu}
@@ -39,30 +38,43 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
         <Menu.Item as="a" as={Link} to="/">
           <img src={logo} />
         </Menu.Item>
-        {window.localStorage.getItem("SAMUserID") ? 
-        <Link to={{
-          pathname: '/map',
-          state: {
-            user: window.localStorage.getItem("SAMUserID")
-          }
-        }}>
-        <Menu.Item>
-          {/* onClick={onClick} */}
-          <Icon name="map" inverted />
-          My Map
-        </Menu.Item> </Link>:
-        <Modal trigger={<Menu.Item>
-        {/* onClick={onClick} */}
-        <Icon name="map" inverted />
-        My Map
-      </Menu.Item>} basic size='large' closeIcon>
-              <Modal.Content>
-                <p style={{textAlign: "center"}}>
-                  Please Log In to Access Map
-                </p>
-              </Modal.Content>
-        </Modal> }
-        
+        {window.localStorage.getItem("SAMUserID") ? (
+          <Link
+            to={{
+              pathname: "/map",
+              state: {
+                user: window.localStorage.getItem("SAMUserID")
+              }
+            }}
+          >
+            <Menu.Item
+              onClick={() =>
+                getUserData(window.localStorage.getItem("SAMUserID"))
+              }
+            >
+              {/* onClick={onClick} */}
+              <Icon name="map" inverted />
+              My Map
+            </Menu.Item>{" "}
+          </Link>
+        ) : (
+          <Modal
+            trigger={
+              <Menu.Item>
+                {/* onClick={onClick} */}
+                <Icon name="map" inverted />
+                My Map
+              </Menu.Item>
+            }
+            basic
+            size="large"
+            closeIcon
+          >
+            <Modal.Content>
+              <p style={{ textAlign: "center" }}>Please Log In to Access Map</p>
+            </Modal.Content>
+          </Modal>
+        )}
 
         <FriendListView />
       </Sidebar>
@@ -71,11 +83,11 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
           <Button className="navbutton" inverted onClick={onToggle}>
             MENU
           </Button>
-          </div>
-          <div className="rightNav">
+        </div>
+        <div className="rightNav">
           <Modal
             trigger={
-              <Button inverted className='premium'>
+              <Button inverted className="premium">
                 <Icon name="gem" />
                 PREMIUM
               </Button>
@@ -90,12 +102,12 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
             </Modal.Content>
           </Modal>
           )
-          <div className='AuthButtons'>
-          <Auth />
+          <div className="AuthButtons">
+            <Auth />
           </div>
-          </div>
+        </div>
       </div>
-      
+
       <Sidebar.Pusher
         dimmed={visible}
         onClick={onPusherClick}

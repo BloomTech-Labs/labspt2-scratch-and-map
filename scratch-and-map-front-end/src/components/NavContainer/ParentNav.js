@@ -28,6 +28,7 @@ class ParentNav extends Component {
         onPusherClick={this.handlePusher}
         onToggle={this.handleToggle}
         visible={visible}
+        getUserData={this.props.getUserData}
       />
     );
   }
