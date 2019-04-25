@@ -243,7 +243,6 @@ p {
       width: 300px;
       height: 70px;
     }
-
   }
 
   &:before {
@@ -372,6 +371,7 @@ p {
   opacity: 0.9;
   color: white;
   padding-top: 300px;
+  z-index: 3;
 }
 
 //////////////// About the team ////////////////

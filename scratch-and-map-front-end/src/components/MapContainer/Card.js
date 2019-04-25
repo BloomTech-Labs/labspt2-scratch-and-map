@@ -41,37 +41,51 @@ class Card extends Component {
       user: null
     };
   }
-  
+
   async componentDidMount() {
-    console.log(this.props.country_code)
     let code = restCountryConversion(this.props.country_code);
-    let codename =  this.props.country_code;
-    
+    let codename = this.props.country_code;
+
     await axios
-     .get(
-        `${
-          process.env.REACT_APP_BACKEND_URL
-        }/api/users/fb/${this.props.currentUser}`
+      .get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${
+          this.props.currentUser
+        }`
       )
       .then(res => {
-        this.setState({ user: res.data.id })
-      })
+        this.setState({ user: res.data.id });
+      });
 
-    axios.get(`${
-      process.env.REACT_APP_BACKEND_URL
-    }/api/users/${this.state.user}`)
-    .then(res => {
-      let userInfo = res.data.user_countries
-      for (i=0; i<userInfo.length; i++){
-        let currentCountry = returnId(reverseCountryConversion(this.props.country_code))
-        if (currentCountry === userInfo[i].country_id){
-          let countryNotes = userInfo[i].notes
-          this.setState({ notes: countryNotes })
-        console.log(this.state.notes)
-      }  
-      }
-    })
-    
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/users/${this.state.user}`)
+      .then(res => {
+        let userInfo = res.data.user_countries;
+        for (i = 0; i < userInfo.length; i++) {
+          let currentCountry = returnId(
+            reverseCountryConversion(this.props.country_code)
+          );
+          if (currentCountry === userInfo[i].country_id) {
+            let countryNotes = userInfo[i].notes;
+            this.setState({ notes: countryNotes });
+          }
+        }
+      });
+
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/users/${this.state.user}`)
+      .then(res => {
+        let userInfo = res.data.user_countries;
+        for (i = 0; i < userInfo.length; i++) {
+          let currentCountry = returnId(
+            reverseCountryConversion(this.props.country_code)
+          );
+          if (currentCountry === userInfo[i].country_id) {
+            let countryNotes = userInfo[i].notes;
+            this.setState({ notes: countryNotes });
+          }
+        }
+      });
+
     fetch(`https://restcountries.eu/rest/v2/alpha/${code}`).then(response =>
       response
         .json()
@@ -100,25 +114,22 @@ class Card extends Component {
         })
     );
 
-            let i = reverseCountryConversion(this.props.country_code);
-            let index = countries.indexOf(i)+2;
+    let i = reverseCountryConversion(this.props.country_code);
+    let index = countries.indexOf(i) + 2;
 
-            axios
-            .get(`${process.env.REACT_APP_BACKEND_URL}/api/countries/${index}`)
-            .then(res => {
-              this.setState({ traveler: res.data.travelers });
-            });
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/countries/${index}`)
+      .then(res => {
+        this.setState({ traveler: res.data.travelers });
+      });
   }
 
   handleClose() {
     this.setState({ modalOpen: false });
   }
 
-
-
   onSave() {
-    let newNotes = document.getElementById("Notes").value
-    console.log(newNotes)
+    let newNotes = document.getElementById("Notes").value;
     axios
       .get(
         `${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${
@@ -126,7 +137,6 @@ class Card extends Component {
         }`
       )
       .then(res => {
-        console.log(res.data);
         const countryData = {
           user_id: res.data.id,
           country_id: returnId(
@@ -141,12 +151,6 @@ class Card extends Component {
             returnId(reverseCountryConversion(this.props.country_code))
           );
         });
-        console.log(
-          "AFTER FILTER",
-          reverseCountryConversion(this.props.country_code),
-          "FUNCTION:",
-          returnId(reverseCountryConversion(this.props.country_code))
-        );
         if (country.length == 0) {
           axios
             .post(
@@ -172,29 +176,14 @@ class Card extends Component {
     this.handleClose();
   }
 
-  
   onChange = status => {
-    this.setState(
-      state => ({
-        status: parseInt(status, 10)
-      }),
-      () => {
-        console.log(this.state);
-      }
-    );
+    this.setState(state => ({
+      status: parseInt(status, 10)
+    }));
   };
 
-  
-  
-
   render() {
-    const friends = [
-      { id: 9, first_name: "Abi", last_name: "French" },
-      { id: 1, first_name: "Javier", last_name: "English" },
-      { id: 2, first_name: "Ryan", last_name: "Adams" },
-      { id: 3, first_name: "Bull", last_name: "Moll" },
-      { id: 4, first_name: "Courtney", last_name: "B Vance" }
-    ];
+    const loggedInUser = window.localStorage.getItem("SAMUserID");
 
     const cardStyle = {
       zIndex: 11,
@@ -204,15 +193,6 @@ class Card extends Component {
     const modalStyle = {
       width: "40%"
     };
-
-    let friendList = friends.map(friend => (
-      <div key={friend.id}>
-        {" "}
-        <p>
-          {friend.first_name} {friend.last_name}
-        </p>
-      </div>
-    ));
 
     return (
       <div style={cardStyle}>
@@ -259,7 +239,10 @@ class Card extends Component {
               </div>
             </div>
 
-            <CardSlider status={this.state.status} onChange={this.onChange} />
+            {loggedInUser === this.props.displayedUser ? (
+              <CardSlider status={this.state.status} onChange={this.onChange} />
+            ) : null}
+
             <Modal.Description>
               <strong>Notes:</strong>
               {
@@ -275,7 +258,10 @@ class Card extends Component {
                 Friends' Travels:
                 <FriendsTravel friends={this.state.traveler} />
               </div>
-              <Button onClick={() => this.onSave()}>Save</Button>
+
+              {loggedInUser === this.props.displayedUser ? (
+                <Button onClick={() => this.onSave()}>Save</Button>
+              ) : null}
             </Modal.Description>
           </Modal.Content>
         </Modal>
@@ -284,4 +270,9 @@ class Card extends Component {
   }
 }
 
-export default withRouter(connect(() => {})(Card));
+const mapStateToProps = state => {
+  return {
+    displayedUser: state.getUserDataReducer.displayedUser
+  };
+};
+export default withRouter(connect(mapStateToProps)(Card));

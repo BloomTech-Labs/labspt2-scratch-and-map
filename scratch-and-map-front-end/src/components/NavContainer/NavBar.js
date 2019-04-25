@@ -21,7 +21,13 @@ import DevCard from "./DevCard";
 import {Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "../CheckoutForm";
 
-const NavBar = ({ onToggle, visible, onPusherClick, onLogout }) => (
+const NavBar = ({
+  onToggle,
+  visible,
+  onPusherClick,
+  getUserData,
+  onLogout
+}) => (
   <div>
     <Sidebar.Pushable>
       <Sidebar
@@ -40,30 +46,43 @@ const NavBar = ({ onToggle, visible, onPusherClick, onLogout }) => (
         <Menu.Item as="a" as={Link} to="/">
           <img src={logo} />
         </Menu.Item>
-        {window.localStorage.getItem("SAMUserID") ? 
-        <Link to={{
-          pathname: '/map',
-          state: {
-            user: window.localStorage.getItem("SAMUserID")
-          }
-        }}>
-        <Menu.Item>
-          {/* onClick={onClick} */}
-          <Icon name="map" inverted />
-          My Map
-        </Menu.Item> </Link>:
-        <Modal trigger={<Menu.Item>
-        {/* onClick={onClick} */}
-        <Icon name="map" inverted />
-        My Map
-      </Menu.Item>} basic size='large' closeIcon>
-              <Modal.Content>
-                <p style={{textAlign: "center"}}>
-                  Please Log In to Access Map
-                </p>
-              </Modal.Content>
-        </Modal> }
-        
+        {window.localStorage.getItem("SAMUserID") ? (
+          <Link
+            to={{
+              pathname: "/map",
+              state: {
+                user: window.localStorage.getItem("SAMUserID")
+              }
+            }}
+          >
+            <Menu.Item
+              onClick={() =>
+                getUserData(window.localStorage.getItem("SAMUserID"))
+              }
+            >
+              {/* onClick={onClick} */}
+              <Icon name="map" inverted />
+              My Map
+            </Menu.Item>{" "}
+          </Link>
+        ) : (
+          <Modal
+            trigger={
+              <Menu.Item>
+                {/* onClick={onClick} */}
+                <Icon name="map" inverted />
+                My Map
+              </Menu.Item>
+            }
+            basic
+            size="large"
+            closeIcon
+          >
+            <Modal.Content>
+              <p style={{ textAlign: "center" }}>Please Log In to Access Map</p>
+            </Modal.Content>
+          </Modal>
+        )}
 
         <FriendListView />
       </Sidebar>
@@ -92,7 +111,13 @@ const NavBar = ({ onToggle, visible, onPusherClick, onLogout }) => (
           </Modal>
           )
           <div className="AuthButtons">
-            <Auth />
+            {window.localStorage.getItem("SAMUserID") ? (
+              <Button className="premium" inverted onClick={onLogout}>
+                LOG OUT
+              </Button>
+            ) : (
+              <Auth />
+            )}
           </div>
         </div>
       </div>
