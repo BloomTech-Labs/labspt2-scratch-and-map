@@ -179,6 +179,7 @@ class MapContainer extends React.Component {
   }
 
   render() {
+    console.log("Loading?", this.state.loading);
     return (
       <div className="mapview">
         {this.state.isOpen ? (
