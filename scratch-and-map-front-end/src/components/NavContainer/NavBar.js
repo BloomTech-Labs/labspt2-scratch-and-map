@@ -21,7 +21,7 @@ import DevCard from "./DevCard";
 import {Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "../CheckoutForm";
 
-const NavBar = ({ onToggle, visible, onPusherClick }) => (
+const NavBar = ({ onToggle, visible, onPusherClick, onLogout }) => (
   <div>
     <Sidebar.Pushable>
       <Sidebar
@@ -40,7 +40,6 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
         <Menu.Item as="a" as={Link} to="/">
           <img src={logo} />
         </Menu.Item>
-
         {window.localStorage.getItem("SAMUserID") ? 
         <Link to={{
           pathname: '/map',
@@ -50,7 +49,6 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
         }}>
         <Menu.Item>
           {/* onClick={onClick} */}
-
           <Icon name="map" inverted />
           My Map
         </Menu.Item> </Link>:
@@ -93,8 +91,16 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
             </Modal.Content>
           </Modal>
           )
+<<<<<<< HEAD
           <div className="AuthButtons">
             <Auth />
+=======
+          
+          <div className='AuthButtons'>
+          {window.localStorage.getItem("SAMUserID") ? <Button className='premium' inverted onClick={onLogout} >LOG OUT</Button> :
+          <Auth />}
+          </div>
+>>>>>>> be718c10827f1adbe8ac4bc6ced8298a73e9a9ba
           </div>
         </div>
       </div>
@@ -107,7 +113,6 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
         <Segment basic>
           <Route path="/" exact render={props => <Landing />} />
           <Route path="/map" exact render={props => <MapContainer />} />
-          <Route path="/friends" exact render={props => <FriendListView />} />
         </Segment>
       </Sidebar.Pusher>
     </Sidebar.Pushable>

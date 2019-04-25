@@ -33,6 +33,7 @@ class CheckoutForm extends Component {
         res.data.forEach(state => {
           let stateOptions = {
             key: state.abbreviation,
+            value: state.abbreviation,
             text: state.name,
           }
             this.state.stateOptions.push(stateOptions)
@@ -54,6 +55,7 @@ class CheckoutForm extends Component {
     </Form.Group>
     <Form.Group widths='equal'>
       <Form.Input fluid label='Street Address' placeholder='Street Address' />
+      <Form.Input fluid label='City' placeholder='city' />
       <Form.Input fluid label='Zip Code' placeholder='Zip Code' />
     </Form.Group>
 
@@ -67,6 +69,7 @@ class CheckoutForm extends Component {
     className='StripeDropdown'
     options={this.state.stateOptions}
     />
+
 <Dropdown
     placeholder='Select Country'
     fluid
