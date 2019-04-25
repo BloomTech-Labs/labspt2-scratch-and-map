@@ -1,14 +1,12 @@
-import {
-  FETCHING,
-  SUCCESS,
-  ERROR
-} from "../actions/mapActions";
+import { FETCHING, SUCCESS, ERROR, UPDATING } from "../actions/mapActions";
 
 const initialState = {
   userData: [],
   userCountryData: [],
   loading: true,
   error: "",
+  loggedInUser: "",
+  displayedUser: ""
 };
 
 export const getUserDataReducer = (state = initialState, action) => {
@@ -20,10 +18,14 @@ export const getUserDataReducer = (state = initialState, action) => {
         ...state,
         userData: action.payload,
         userCountryData: action.payload.user_countries,
+        loggedInUser: action.payload.fb_user_id,
+        displayedUser: action.payload.fb_user_id,
         loading: false
       };
     case ERROR:
       return { ...state, error: action.payload, loading: false };
+    case UPDATING:
+      return { ...state, displayedUser: action.payload };
     default:
       return state;
   }

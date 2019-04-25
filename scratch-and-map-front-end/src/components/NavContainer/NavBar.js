@@ -39,7 +39,6 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
         <Menu.Item as="a" as={Link} to="/">
           <img src={logo} />
         </Menu.Item>
-
         {window.localStorage.getItem("SAMUserID") ? 
         <Link to={{
           pathname: '/map',
@@ -49,7 +48,6 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
         }}>
         <Menu.Item>
           {/* onClick={onClick} */}
-
           <Icon name="map" inverted />
           My Map
         </Menu.Item> </Link>:
