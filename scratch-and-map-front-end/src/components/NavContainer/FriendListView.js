@@ -11,7 +11,7 @@ class FriendListView extends Component {
     this.state = {
       friends: [],
       filteredFriends: [],
-      query: "",
+      query: ""
       // clickedFriend: ""
     };
   }
@@ -23,7 +23,7 @@ class FriendListView extends Component {
         console.log("Side Bar Users", res);
         this.setState({
           friends: res.data.users,
-          filteredFriends: res.data.users,
+          filteredFriends: res.data.users
           // clickedFriend: window.localStorage.getItem("SAMUserID")
         });
         // this.props.getUserData(window.localStorage.getItem("SAMUserID"));
@@ -32,8 +32,9 @@ class FriendListView extends Component {
 
   onChangeHandler = ({ target }) => {
     const res = this.state.friends.filter(friend => {
-      const name = friend.first_name + " " + friend.last_name;
-      return name.includes(target.value);
+      const name =
+        friend.first_name.toLowerCase() + " " + friend.last_name.toLowerCase();
+      return name.includes(target.value.toLowerCase());
     });
     this.setState({
       filteredFriends: res,
@@ -48,51 +49,52 @@ class FriendListView extends Component {
   render() {
     return (
       <div>
-      {window.localStorage.getItem("SAMUserID") ? 
-      <div className="friend-view-wrapper">
-        <input
-          className="search-bar"
-          placeholder="Search Friends        &#x1f50d; &nbsp;"
-          onChange={this.onChangeHandler}
-          value={this.state.query}
-        />
-        <Menu
-          inverted
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            overflow: "auto",
-            height: 425
-          }}
-          className="friend-card-list"
-        >
-          {this.state.filteredFriends.map(friend => {
-            return (
-              <Menu.Item
-                as="a"
-                className="friendCard"
-                key={friend.id}
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "flex-start"
-                }}
-              >
-                <div style={{ marginLeft: 75 }}>
-                  <Image
-                    style={{ fontSize: 27 }}
-                    src="http://placekitten.com/200/200"
-                    avatar
-                  />
-                  <span style={{ fontSize: 16, marginLeft: 10 }}>
-                    {friend.first_name} {friend.last_name}
-                  </span>
-                </div>
-              </Menu.Item>
-            );
-          })}
-        </Menu>
-      </div> : null}
+        {window.localStorage.getItem("SAMUserID") ? (
+          <div className="friend-view-wrapper">
+            <input
+              className="search-bar"
+              placeholder="Search Friends        &#x1f50d; &nbsp;"
+              onChange={this.onChangeHandler}
+              value={this.state.query}
+            />
+            <Menu
+              inverted
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                overflow: "auto",
+                height: 425
+              }}
+              className="friend-card-list"
+            >
+              {this.state.filteredFriends.map(friend => {
+                return (
+                  <Menu.Item
+                    as="a"
+                    className="friendCard"
+                    key={friend.id}
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "flex-start"
+                    }}
+                  >
+                    <div style={{ marginLeft: 75 }}>
+                      <Image
+                        style={{ fontSize: 27 }}
+                        src="http://placekitten.com/200/200"
+                        avatar
+                      />
+                      <span style={{ fontSize: 16, marginLeft: 10 }}>
+                        {friend.first_name} {friend.last_name}
+                      </span>
+                    </div>
+                  </Menu.Item>
+                );
+              })}
+            </Menu>
+          </div>
+        ) : null}
       </div>
     );
   }
@@ -112,4 +114,3 @@ export default withRouter(
     { getUserData }
   )(FriendListView)
 );
-
