@@ -19,7 +19,7 @@ import MapContainer from "../MapContainer/MapContainer";
 import { getUserData } from "../../actions/mapActions";
 import DevCard from "./DevCard";
 
-const NavBar = ({ onToggle, visible, onPusherClick }) => (
+const NavBar = ({ onToggle, visible, onPusherClick, onLogout }) => (
   <div>
     
     <Sidebar.Pushable>
@@ -39,7 +39,6 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
         <Menu.Item as="a" as={Link} to="/">
           <img src={logo} />
         </Menu.Item>
-
         {window.localStorage.getItem("SAMUserID") ? 
         <Link to={{
           pathname: '/map',
@@ -49,7 +48,6 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
         }}>
         <Menu.Item>
           {/* onClick={onClick} */}
-
           <Icon name="map" inverted />
           My Map
         </Menu.Item> </Link>:
@@ -92,8 +90,10 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
             </Modal.Content>
           </Modal>
           )
+          
           <div className='AuthButtons'>
-          <Auth />
+          {window.localStorage.getItem("SAMUserID") ? <Button className='premium' inverted onClick={onLogout} >LOG OUT</Button> :
+          <Auth />}
           </div>
           </div>
       </div>
@@ -106,7 +106,6 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
         <Segment basic>
           <Route path="/" exact render={props => <Landing />} />
           <Route path="/map" exact render={props => <MapContainer />} />
-          <Route path="/friends" exact render={props => <FriendListView />} />
         </Segment>
       </Sidebar.Pusher>
     </Sidebar.Pushable>
@@ -125,7 +124,7 @@ const NavBar = ({ onToggle, visible, onPusherClick }) => (
         <Header
           content={
             <div style={{ display: "flex" }}>
-              <p classname="teamtext">THE TEAM</p>
+              <p className="teamtext">THE TEAM</p>
             </div>
           }
         />

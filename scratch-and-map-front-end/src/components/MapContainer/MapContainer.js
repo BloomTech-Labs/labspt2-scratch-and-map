@@ -69,14 +69,27 @@ class MapContainer extends React.Component {
   }
 
   componentDidMount() {
-    const user = this.props.location.state.user
-    this.setState({ currentUser: user });
-    this.props.getUserData(user);
-    
+    const user = this.props.displayedUser
+      ? this.props.displayedUser
+      : this.props.location.state.user;
+    this.setState({ currentUser: user }, () => {
+      this.props.getUserData(user);
+      console.log("COMPONENTDIDMOUNT", user);
+    });
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.displayedUser != prevProps.displayedUser) {
+      this.props.getUserData(this.props.displayedUser);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("COMP WILL REC");
+    console.log(
+      "COMPWILLRECEIVE",
+      this.props.displayedUser,
+      "STATE: ",
+      this.state.currentUser
+    );
     function style(feature) {
       return {
         fillColor:
@@ -140,7 +153,6 @@ class MapContainer extends React.Component {
             noWrap: true
           }
         ).addTo(this.map);
-        console.log("MAP BUILDER", nextProps);
         L.geoJson(countrydata, {
           onEachFeature: (feature, layer) => {
             layer.bindPopup("<h4>" + feature.properties.ADMIN + "</h4>", {
@@ -156,7 +168,7 @@ class MapContainer extends React.Component {
             });
             layer.on("click", () => {
               this.setState({
-                clickedCountry: feature.properties.SOV_A3,
+                clickedCountry: feature.properties.BRK_A3,
                 isOpen: true
               });
             });
@@ -171,6 +183,12 @@ class MapContainer extends React.Component {
   }
 
   render() {
+    console.log(
+      "RENDER, displayedUser: ",
+      this.props.displayedUser,
+      " currentUser: ",
+      this.props.loggedInUser
+    );
     return (
       <div className="mapview">
         {this.state.isOpen ? (
@@ -180,7 +198,7 @@ class MapContainer extends React.Component {
             key={returnId(this.state.clickedCountry)}
             country_code={this.state.clickedCountry}
             cardSaveHandler={this.cardSaveHandler}
-            currentUser={this.state.currentUser}
+            currentUser={this.props.displayedUser}
           />
         ) : null}
 
@@ -197,7 +215,9 @@ const mapStateToProps = state => {
     userData: state.getUserDataReducer.userData,
     userCountryData: state.getUserDataReducer.userCountryData,
     loading: state.getUserDataReducer.loading,
-    DBUserID: state.getUserDataReducer.id
+    DBUserID: state.getUserDataReducer.id,
+    loggedInUser: state.getUserDataReducer.loggedInUser,
+    displayedUser: state.getUserDataReducer.displayedUser
   };
 };
 export default withRouter(

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Menu, Image } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { getUserData } from "../../actions/mapActions";
+import { getUserData, updateDisplayedUser } from "../../actions/mapActions";
 import axios from "axios";
 
 class FriendListView extends Component {
@@ -42,9 +42,9 @@ class FriendListView extends Component {
     });
   };
 
-  friendHandler = id => {
-    this.props.getUserData(id);
-  };
+  // friendHandler = user => {
+  //   console.log(user.fb_user_id);
+  // };
 
   render() {
     return (
@@ -79,7 +79,12 @@ class FriendListView extends Component {
                       justifyContent: "flex-start"
                     }}
                   >
-                    <div style={{ marginLeft: 75 }}>
+
+                    <div
+                      style={{ marginLeft: 75 }}
+                      onClick={() => this.props.updateDisplayedUser(friend.fb_user_id)
+                      }
+                    >
                       <Image
                         style={{ fontSize: 27 }}
                         src="http://placekitten.com/200/200"
@@ -111,6 +116,6 @@ const mapStateToProps = state => {
 export default withRouter(
   connect(
     mapStateToProps,
-    { getUserData }
+    { getUserData, updateDisplayedUser }
   )(FriendListView)
 );
