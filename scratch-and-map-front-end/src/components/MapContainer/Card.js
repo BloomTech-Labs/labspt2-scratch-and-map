@@ -37,13 +37,40 @@ class Card extends Component {
       language: "",
       users: [],
       traveler: [],
-      modalOpen: true
+      modalOpen: true,
+      user: null
     };
   }
-
-  componentDidMount() {
+  
+  async componentDidMount() {
     let code = restCountryConversion(this.props.country_code);
-    let codename = this.props.country_code;
+    let codename =  this.props.country_code;
+    
+    await axios
+     .get(
+        `${
+          process.env.REACT_APP_BACKEND_URL
+        }/api/users/fb/${this.props.currentUser}`
+      )
+      .then(res => {
+        this.setState({ user: res.data.id })
+      })
+
+    axios.get(`${
+      process.env.REACT_APP_BACKEND_URL
+    }/api/users/${this.state.user}`)
+    .then(res => {
+      let userInfo = res.data.user_countries
+      for (i=0; i<userInfo.length; i++){
+        let currentCountry = returnId(this.props.country_code)+2
+        if (currentCountry === userInfo[i].country_id){
+          let countryNotes = userInfo[71].notes
+          this.setState({ notes: countryNotes })
+        console.log(this.state.notes)
+      }  
+      }
+    })
+    
     fetch(`https://restcountries.eu/rest/v2/alpha/${code}`).then(response =>
       response
         .json()
@@ -71,38 +98,25 @@ class Card extends Component {
           });
         })
     );
+            let i = reverseCountryConversion(this.props.country_code);
+            let index = countries.indexOf(i)+2;
 
-    // axios
-    //         .get(`${process.env.REACT_APP_BACKEND_URL}/api/users`) *******Commented out api call, data not currently in use
-    //         .then(res => {
-    //           this.setState({ users: res.data.users });
-    //         });
-
-    let i = reverseCountryConversion(this.props.country_code);
-    let index = countries.indexOf(i) + 2;
-
-    axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/api/countries/${index}`)
-      .then(res => {
-        this.setState({ traveler: res.data.travelers });
-      });
-
-    axios
-      .get(
-        `${process.env.REACT_APP_BACKEND_URL}/api/mapview/${returnId(
-          reverseCountryConversion(this.props.country_code)
-        )}`
-      )
-      .then(res => {
-        console.log(res.data);
-      });
+            axios
+            .get(`${process.env.REACT_APP_BACKEND_URL}/api/countries/${index}`)
+            .then(res => {
+              this.setState({ traveler: res.data.travelers });
+            });
   }
 
   handleClose() {
     this.setState({ modalOpen: false });
   }
 
+
+
   onSave() {
+    let newNotes = document.getElementById("Notes").value
+    console.log(newNotes)
     axios
       .get(
         `${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${
@@ -117,7 +131,7 @@ class Card extends Component {
             reverseCountryConversion(this.props.country_code)
           ),
           status: this.state.status,
-          notes: "None"
+          notes: newNotes
         };
         let country = res.data.user_countries.filter(item => {
           return (
@@ -156,6 +170,7 @@ class Card extends Component {
     this.handleClose();
   }
 
+  
   onChange = status => {
     this.setState(
       state => ({
@@ -166,6 +181,9 @@ class Card extends Component {
       }
     );
   };
+
+  
+  
 
   render() {
     const friends = [
@@ -246,7 +264,8 @@ class Card extends Component {
                 <Form>
                   <TextArea
                     style={{ marginBottom: "10px" }}
-                    placeholder={"Travel Notes"}
+                    placeholder={this.state.notes}
+                    id="Notes"
                   />
                 </Form>
               }
