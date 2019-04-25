@@ -32,8 +32,9 @@ class FriendListView extends Component {
 
   onChangeHandler = ({ target }) => {
     const res = this.state.friends.filter(friend => {
-      const name = friend.first_name + " " + friend.last_name;
-      return name.includes(target.value);
+      const name =
+        friend.first_name.toLowerCase() + " " + friend.last_name.toLowerCase();
+      return name.includes(target.value.toLowerCase());
     });
     this.setState({
       filteredFriends: res,
@@ -78,6 +79,7 @@ class FriendListView extends Component {
                       justifyContent: "flex-start"
                     }}
                   >
+
                     <div
                       style={{ marginLeft: 75 }}
                       onClick={() => this.props.updateDisplayedUser(friend.fb_user_id)
