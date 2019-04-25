@@ -179,12 +179,6 @@ class MapContainer extends React.Component {
   }
 
   render() {
-    console.log(
-      "RENDER, displayedUser: ",
-      this.props.displayedUser,
-      " currentUser: ",
-      this.props.loggedInUser
-    );
     return (
       <div className="mapview">
         {this.state.isOpen ? (
