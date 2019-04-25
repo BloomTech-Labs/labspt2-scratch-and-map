@@ -20,7 +20,7 @@ class ParentNav extends Component {
 
   handleToggle = () => this.setState({ visible: !this.state.visible });
 
-  onLogout = () => localStorage.clear("SAMUserID")
+  onLogout = () => localStorage.clear("SAMUserID");
 
   render() {
     const { visible } = this.state;
@@ -30,6 +30,7 @@ class ParentNav extends Component {
         onPusherClick={this.handlePusher}
         onToggle={this.handleToggle}
         visible={visible}
+        getUserData={this.props.getUserData}
         onLogout={this.onLogout}
       />
     );
