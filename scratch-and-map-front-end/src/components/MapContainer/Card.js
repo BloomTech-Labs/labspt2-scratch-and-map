@@ -43,6 +43,7 @@ class Card extends Component {
   }
   
   async componentDidMount() {
+    console.log(this.props.country_code)
     let code = restCountryConversion(this.props.country_code);
     let codename =  this.props.country_code;
     
@@ -62,9 +63,9 @@ class Card extends Component {
     .then(res => {
       let userInfo = res.data.user_countries
       for (i=0; i<userInfo.length; i++){
-        let currentCountry = returnId(this.props.country_code)+2
+        let currentCountry = returnId(reverseCountryConversion(this.props.country_code))
         if (currentCountry === userInfo[i].country_id){
-          let countryNotes = userInfo[71].notes
+          let countryNotes = userInfo[i].notes
           this.setState({ notes: countryNotes })
         console.log(this.state.notes)
       }  
@@ -79,7 +80,7 @@ class Card extends Component {
           status: response.status
         }))
         .then(res => {
-          let countrySelect = codeToCountry(codename);
+          let countrySelect = codeToCountry(restCountryConversion(codename));
           let currency = res.data.currencies[0].name.toProperCase();
           let symbol = res.data.currencies[0].symbol;
           let cardCode = res.data.flag;
@@ -98,6 +99,7 @@ class Card extends Component {
           });
         })
     );
+
             let i = reverseCountryConversion(this.props.country_code);
             let index = countries.indexOf(i)+2;
 
