@@ -197,6 +197,10 @@ def update_mapView_data(user_id, country_id):
     db.session.commit()
     return user_country_schema.jsonify(user_country)
 
+
+@app.route('/api/charge', methods=['POST'])
+def charge_post()
+
 if __name__ == "__main__":
   app.run(host="0.0.0.0", port=PORT, debug=DEBUG)
 

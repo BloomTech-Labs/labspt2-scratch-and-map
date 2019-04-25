@@ -45,7 +45,7 @@ class CheckoutForm extends Component {
 
 async submit(ev) {
   let {token} = await this.props.stripe.createToken({name: "Name"});
-  let response = await fetch("/charge", {
+  let response = await axios("/charge", {
     method: "POST",
     headers: {"Content-Type": "text/plain"},
     body: token.id
@@ -99,7 +99,7 @@ async submit(ev) {
 <CardElement className='StripeElement' placeholder='Card info' input/>
     
         <Button>Back</Button>
-        <Button>Submit</Button>
+        <Button onClick={this.submit}>Submit</Button>
 </Form>
     );
   }
