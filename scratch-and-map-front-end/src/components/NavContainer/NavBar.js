@@ -91,16 +91,8 @@ const NavBar = ({ onToggle, visible, onPusherClick, onLogout }) => (
             </Modal.Content>
           </Modal>
           )
-<<<<<<< HEAD
           <div className="AuthButtons">
             <Auth />
-=======
-          
-          <div className='AuthButtons'>
-          {window.localStorage.getItem("SAMUserID") ? <Button className='premium' inverted onClick={onLogout} >LOG OUT</Button> :
-          <Auth />}
-          </div>
->>>>>>> be718c10827f1adbe8ac4bc6ced8298a73e9a9ba
           </div>
         </div>
       </div>
