@@ -32,15 +32,46 @@ class Card extends Component {
       language: "",
       users: [],
       traveler: [],
-      modalOpen: true
+      modalOpen: true,
+      user: null
     };
   }
 
 
 
-  componentDidMount() {
+  
+
+
+  async componentDidMount() {
+    console.log(this.props.country_code)
     let code = restCountryConversion(this.props.country_code);
     let codename =  this.props.country_code;
+    
+    await axios
+     .get(
+        `${
+          process.env.REACT_APP_BACKEND_URL
+        }/api/users/fb/${this.props.currentUser}`
+      )
+      .then(res => {
+        this.setState({ user: res.data.id })
+      })
+
+    axios.get(`${
+      process.env.REACT_APP_BACKEND_URL
+    }/api/users/${this.state.user}`)
+    .then(res => {
+      let userInfo = res.data.user_countries
+      for (i=0; i<userInfo.length; i++){
+        let currentCountry = returnId(reverseCountryConversion(this.props.country_code))
+        if (currentCountry === userInfo[i].country_id){
+          let countryNotes = userInfo[i].notes
+          this.setState({ notes: countryNotes })
+        console.log(this.state.notes)
+      }  
+      }
+    })
+    
     fetch(`https://restcountries.eu/rest/v2/alpha/${code}`).then(response =>
       response
         .json()
@@ -49,7 +80,7 @@ class Card extends Component {
           status: response.status
         }))
         .then(res => {
-          let countrySelect = codeToCountry(codename);
+          let countrySelect = codeToCountry(restCountryConversion(codename));
           let currency = res.data.currencies[0].name.toProperCase();
           let symbol = res.data.currencies[0].symbol;
           let cardCode = res.data.flag;
@@ -69,13 +100,9 @@ class Card extends Component {
         })
     );
 
-    // axios
-    //         .get(`${process.env.REACT_APP_BACKEND_URL}/api/users`) *******Commented out api call, data not currently in use
-    //         .then(res => {
-    //           this.setState({ users: res.data.users });
-    //         });
 
-            let i = reverseCountryConversion(this.props.country_code);
+
+            let i = restCountryConversion(this.props.country_code);
             let index = countries.indexOf(i)+2;
 
             axios
@@ -83,15 +110,6 @@ class Card extends Component {
             .then(res => {
               this.setState({ traveler: res.data.travelers });
             });
-
-            axios
-            .get(
-              `${process.env.REACT_APP_BACKEND_URL}/api/mapview/${returnId(reverseCountryConversion(this.props.country_code))}`,
-            )
-            .then (res => {
-              console.log(res.data)
-            })
-
   }
 
   handleClose(){
@@ -99,7 +117,11 @@ class Card extends Component {
   }  
 
 
+
+
   onSave() {
+    let newNotes = document.getElementById("Notes").value
+    console.log(newNotes)
     axios
       .get(
         `${
@@ -112,7 +134,7 @@ class Card extends Component {
           user_id: res.data.id,
           country_id: returnId(reverseCountryConversion(this.props.country_code)),
           status: this.state.status,
-          notes: "None"
+          notes: newNotes
         };
         let country = res.data.user_countries.filter(item => {
           return item.country_id === returnId(reverseCountryConversion(this.props.country_code));
@@ -148,6 +170,7 @@ class Card extends Component {
       this.handleClose()
   }
 
+  
   onChange = status => {
     this.setState(
       state => ({
@@ -158,6 +181,9 @@ class Card extends Component {
       }
     );
   };
+
+  
+  
 
   render() {
     const friends = [
@@ -186,7 +212,6 @@ class Card extends Component {
       </div>
     ));
 
- 
 
     return (
       <div style={cardStyle}>
@@ -235,7 +260,8 @@ class Card extends Component {
                 <Form>
                   <TextArea
                     style={{ marginBottom: "10px" }}
-                    placeholder={"Travel Notes"}
+                    placeholder={this.state.notes}
+                    id="Notes"
                   />
                 </Form>
               }

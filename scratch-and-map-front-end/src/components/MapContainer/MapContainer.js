@@ -156,7 +156,7 @@ class MapContainer extends React.Component {
             });
             layer.on("click", () => {
               this.setState({
-                clickedCountry: feature.properties.SOV_A3,
+                clickedCountry: feature.properties.BRK_A3,
                 isOpen: true
               });
             });

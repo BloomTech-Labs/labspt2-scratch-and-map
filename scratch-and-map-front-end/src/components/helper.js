@@ -142,7 +142,7 @@ export let countries = [
   "SLB",
   "SOM",
   "ZAF",
-  "SSD",
+  "SDS",
   "ESP",
   "LKA",
   "SDN",
@@ -1068,10 +1068,6 @@ export function reverseCountryConversion(code) {
     return "US1";
   } else if (code === "ESH") {
     return "SAH";
-  } else if (code === "SOM") {
-    return "SOL";
-  } else if (code === "IND") {
-    return "KAS";
   } else if (code === "CHN") {
     return "CH1";
   } else if (code === "DNK") {
