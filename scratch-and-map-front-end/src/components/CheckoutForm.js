@@ -43,15 +43,21 @@ class CheckoutForm extends Component {
     })
 }
 
-async submit(ev) {
-  let {token} = await this.props.stripe.createToken({name: "Name"});
-  console.log({token})
-  let response = await fetch("/charge", {
-    method: "POST",
-    headers: {"Content-Type": "text/plain"},
-    body: token.id
-  });
+handleInputChange = e => {
+  this.setState({ [e.target.name]: e.target.value });
+};
 
+ submit = ev =>  {
+   console.log('CHECKOUT SUBMIT', this.props)
+  let token =  this.props.stripe.createToken({name: "Name"});
+  console.log(token)
+  let response =  axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/charge`, (req, res) => {
+     console.log(req.body, res);
+    // method: "POST",
+    // headers: {"Content-Type": "text/plain"},
+    // body: token.id
+  });
+ console.log(response)
   if (response.ok) console.log("Purchase Complete!")
 }
 
@@ -62,9 +68,9 @@ async submit(ev) {
       <Form className="ui form">
         <h1 className="ui centered">Enter Personal Payment Details</h1>
         <Form.Group widths='equal'>
-      <Form.Input fluid name='First name' placeholder='First name' />
-      <Form.Input fluid name='Last name' placeholder='Last name' />
-      <Form.Input fluid name='email' placeholder='email' />
+      <Form.Input onChange={this.handleInputChange} fluid name='First name' placeholder='First name' />
+      <Form.Input inputChange={this.handleInputChange} fluid name='Last name' placeholder='Last name' />
+      <Form.Input inputChange={this.handleInputChange} email fluid name='email' placeholder='email' />
     </Form.Group>
     <Form.Group widths='equal'>
       <Form.Input fluid name='Street Address' placeholder='Street Address' />

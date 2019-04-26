@@ -206,7 +206,7 @@ def update_mapView_data(user_id, country_id):
     db.session.commit()
     return user_country_schema.jsonify(user_country)
 
-@app.route('/charge', methods=['POST'])
+@app.route('/api/charge', methods=['POST'])
 def index():
     return render_template('index.html', stripe.api_key)
 
