@@ -7,9 +7,9 @@ class Landing extends Component {
 
     return (
       <div className="landingpg">
-          <img src={logo} />
-          <Segment raised inverted style={{width: "35vw", paddingRight: "50px", marginTop: "50px" }}>
-          <p style={{ fontSize: "1.5em", textAlign: "center" }}>Whether you're a seasoned traveler or 
+          <img className="logoimg" src={logo} />
+          <Segment raised inverted className="blurb">
+          <p>Whether you're a seasoned traveler or 
           just about to embark on your first big trip, 
           Scratch&Map is a personal way to trace and 
           display your world travels. <br/><br/>Indicate the countries you’ve 
