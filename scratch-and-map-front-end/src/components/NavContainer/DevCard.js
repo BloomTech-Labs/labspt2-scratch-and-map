@@ -78,7 +78,7 @@ const DevCard = () => (
     <Card >
       <Card.Content >
         <Card.Header><p>Brandon Moll</p></Card.Header>
-        <Card.Description>Lorem ipsum dolor sit amet, consectetur elit.</Card.Description>
+        <Card.Description>A full stack developer, and smoked meat enthusiast</Card.Description>
         <a href="https://github.com/BrandonMoll"target="_blank" ><Icon  name='github' color='white' size="large"/></a>
       </Card.Content>
     </Card>
