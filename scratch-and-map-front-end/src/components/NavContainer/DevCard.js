@@ -67,9 +67,7 @@ const DevCard = () => (
             <Card.Header>
               <p>Ryan Matthews</p>
             </Card.Header>
-            <Card.Description>
-              Lorem ipsum dolor sit amet, consectetur elit.
-            </Card.Description>
+            <Card.Description>A full stack developing smooth operator.</Card.Description>
             <a href="https://github.com/ryntak94" target="_blank">
               <Icon name="github" size="large" />
             </a>
