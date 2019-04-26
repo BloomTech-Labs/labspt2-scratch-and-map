@@ -27,6 +27,18 @@ p {
   font-family: "Roboto", sans-serif;
 }
 
+////////mixin///////
+@mixin btn-theme {
+  .login-btn:hover,
+  .login-btn:focus {
+    background-color: black;
+    color: white;
+  }
+  
+}
+
+
+
 /* LOGIN STYLES */
 .auth-wrapper {
   max-width: 400px;
@@ -229,23 +241,46 @@ p {
   background-size: cover;
   background-repeat: no-repeat;
 
+
   @media screen and (max-width: 800px) {
     background-position: center;
   }
 
-  img {
+  .blurb {
+    width: 35vw;
+  padding-right: 30px; 
+  margin-top: 50px;
+
+    @media screen and (max-width: 800px) {
+      margin-top: 25px;
+      width: 50vw;
+      padding-right: 15px;
+        }
+
+    p {
+      font-size: 1.5em; 
+      text-align: center;
+
+      @media screen and (max-width: 800px) {
+        font-size: 1em;
+       }
+    }
+
+  }
+
+  .logoimg {
     margin-top: 150px;
     height: 110px;
     width: 500px;
     z-index: 1;
 
     @media screen and (max-width: 800px) {
+      margin-top: 75px;
       width: 300px;
       height: 70px;
-    }
-  }
+    }}}
 
-  &:before {
+  .landingpg:before {
     content: "";
     position: absolute;
     top: 0;
@@ -255,7 +290,7 @@ p {
     background-image: linear-gradient(to bottom, black, 30%, transparent);
     opacity: 0.6;
   }
-}
+
 
 .Menu {
   display: flex;
@@ -270,15 +305,15 @@ p {
 
     .text {
       position: relative !important;
-      top: -2px;
-    }
+      top: -2px;}
+
     @media screen and (max-width: 800px) {
       display: none;
     }
   }
   .navbutton {
     font-size: 12px !important;
-    padding: 17px 15px !important;
+    padding: 17px 18px !important;
     margin: 10px 15px 10px 0px !important;
     line-height: 0.01em !important;
 
@@ -288,16 +323,18 @@ p {
     }
   }
 
-  %premium {
+  .premium {
     font-size: 12px !important;
-    padding: 12px 15px !important;
+    padding: 11px 15px !important;
     margin: 10px 15px 10px 0px !important;
     @media screen and (max-width: 800px) {
-      width: 75px;
+      width: 175px;
       padding: 12px 7px !important;
       text-align: center;
     }
   }
+
+  
 
   .navbutton:first-child {
     font-size: 12px !important;
@@ -479,8 +516,8 @@ a,
   text-transform: uppercase;
 }
 
-p,
-.teamtext {
+
+.teamtext p {
   font-size: 40px;
   margin-left: 40px;
   @media screen and (max-width: 800px) {
@@ -488,6 +525,7 @@ p,
     margin-left: 23%;
   }
 }
+
 
 .statusbox {
   display: flex;
