@@ -1,5 +1,5 @@
 import React from "react";
-import { Reveal, Card, Icon, Image, Button } from "semantic-ui-react";
+import { Reveal, Card, Icon, Image } from "semantic-ui-react";
 import abi from "../../img/abi.png";
 import ryan from "../../img/ryan.png";
 import javier from "../../img/javier.png";
