@@ -200,7 +200,7 @@ class Card extends Component {
           style={modalStyle}
           className="modalStyle"
           open={this.state.modalOpen}
-          onClose={this.handleClose}
+          // onClose={this.handleClose}
         >
           <Modal.Content
             image
