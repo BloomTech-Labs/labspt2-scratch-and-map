@@ -22,7 +22,7 @@ const DevCard = () => (
               <p>Abi Franklin</p>
             </Card.Header>
             <Card.Description>
-              A Full Stack Developer South Texas.
+              A Full Stack Dev and member of the largest air guitar ensemble.
             </Card.Description>
             <a href="https://github.com/AbiFranklin" target="_blank">
               <Icon name="github" size="large" />
@@ -45,7 +45,7 @@ const DevCard = () => (
               <p>Courtney Buratto</p>
             </Card.Header>
             <Card.Description>
-              A Full Stack Developer based in NW Montana.
+              A Full Stack dev and aspiring downhill mountain biker.
             </Card.Description>
             <a href="https://github.com/cocoitali" target="_blank">
               <Icon name="github" size="large" />
@@ -68,7 +68,7 @@ const DevCard = () => (
               <p>Ryan Matthews</p>
             </Card.Header>
             <Card.Description>
-              A full stack developing smooth operator.
+            A Full Stack   Web Dev and L33T LARPer.
             </Card.Description>
             <a href="https://github.com/ryntak94" target="_blank">
               <Icon name="github" size="large" />
@@ -91,7 +91,7 @@ const DevCard = () => (
               <p>Javier Alverez</p>
             </Card.Header>
             <Card.Description>
-              Lorem ipsum dolor sit amet, consectetur elit.
+              The Man. oh, and a full stack web developer.
             </Card.Description>
             <a href="https://github.com/jalvarez2020" target="_blank">
               <Icon name="github" size="large" />
@@ -114,7 +114,7 @@ const DevCard = () => (
               <p>Brandon Moll</p>
             </Card.Header>
             <Card.Description>
-              A full stack developer, and smoked meat enthusiast
+              A full stack developer and smoked meat enthusiast
             </Card.Description>
             <a href="https://github.com/BrandonMoll" target="_blank">
               <Icon name="github" size="large" />
