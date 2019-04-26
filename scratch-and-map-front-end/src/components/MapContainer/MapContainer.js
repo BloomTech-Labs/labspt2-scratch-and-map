@@ -75,7 +75,6 @@ class MapContainer extends React.Component {
       : this.props.location.state.user;
     this.setState({ currentUser: user }, () => {
       this.props.getUserData(user);
-      console.log("COMPONENTDIDMOUNT", user);
     });
   }
   componentDidUpdate(prevProps) {
@@ -179,7 +178,6 @@ class MapContainer extends React.Component {
   }
 
   render() {
-    console.log("Loading?", this.state.loading);
     return (
       <div className="mapview">
         {this.state.isOpen ? (
@@ -206,8 +204,6 @@ const mapStateToProps = state => {
     userData: state.getUserDataReducer.userData,
     userCountryData: state.getUserDataReducer.userCountryData,
     loading: state.getUserDataReducer.loading,
-    DBUserID: state.getUserDataReducer.id,
-    loggedInUser: state.getUserDataReducer.loggedInUser,
     displayedUser: state.getUserDataReducer.displayedUser
   };
 };
