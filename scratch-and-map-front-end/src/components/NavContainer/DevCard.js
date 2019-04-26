@@ -11,7 +11,11 @@ const DevCard = () => (
   <Card.Group centered itemsPerRow="3" doubling="true">
     <Reveal animated="fade">
       <Reveal.Content visible className="devimagehide">
-        <a href="https://github.com/AbiFranklin" target="_blank">
+        <a
+          href="https://github.com/AbiFranklin"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <Image src={abi} size="large" />
         </a>
       </Reveal.Content>
@@ -24,7 +28,11 @@ const DevCard = () => (
             <Card.Description>
               A Full Stack Dev and member of the largest air guitar ensemble.
             </Card.Description>
-            <a href="https://github.com/AbiFranklin" target="_blank">
+            <a
+              href="https://github.com/AbiFranklin"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Icon name="github" size="large" />
             </a>
           </Card.Content>
@@ -34,7 +42,11 @@ const DevCard = () => (
 
     <Reveal animated="fade">
       <Reveal.Content visible className="devimagehide">
-        <a href="https://github.com/cocoitali" target="_blank">
+        <a
+          href="https://github.com/cocoitali"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <Image src={courtney} size="large" />
         </a>
       </Reveal.Content>
@@ -47,7 +59,11 @@ const DevCard = () => (
             <Card.Description>
               A Full Stack dev and aspiring downhill mountain biker.
             </Card.Description>
-            <a href="https://github.com/cocoitali" target="_blank">
+            <a
+              href="https://github.com/cocoitali"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Icon name="github" size="large" />
             </a>
           </Card.Content>
@@ -57,7 +73,11 @@ const DevCard = () => (
 
     <Reveal animated="fade">
       <Reveal.Content visible className="devimagehide">
-        <a href="https://github.com/ryntak94" target="_blank">
+        <a
+          href="https://github.com/ryntak94"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <Image src={ryan} size="large" />
         </a>
       </Reveal.Content>
@@ -68,9 +88,13 @@ const DevCard = () => (
               <p>Ryan Matthews</p>
             </Card.Header>
             <Card.Description>
-            A Full Stack   Web Dev and L33T LARPer.
+              A Full Stack Web Dev and L33T LARPer.
             </Card.Description>
-            <a href="https://github.com/ryntak94" target="_blank">
+            <a
+              href="https://github.com/ryntak94"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Icon name="github" size="large" />
             </a>
           </Card.Content>
@@ -80,7 +104,11 @@ const DevCard = () => (
 
     <Reveal animated="fade">
       <Reveal.Content visible className="devimagehide">
-        <a href="https://github.com/jalvarez2020" target="_blank">
+        <a
+          href="https://github.com/jalvarez2020"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <Image src={javier} size="large" />
         </a>
       </Reveal.Content>
@@ -93,7 +121,11 @@ const DevCard = () => (
             <Card.Description>
               The Man. oh, and a full stack web developer.
             </Card.Description>
-            <a href="https://github.com/jalvarez2020" target="_blank">
+            <a
+              href="https://github.com/jalvarez2020"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Icon name="github" size="large" />
             </a>
           </Card.Content>
@@ -103,7 +135,11 @@ const DevCard = () => (
 
     <Reveal animated="fade">
       <Reveal.Content visible className="devimagehide">
-        <a href="https://github.com/BrandonMoll" target="_blank">
+        <a
+          href="https://github.com/BrandonMoll"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <Image src={brandon} size="large" />
         </a>
       </Reveal.Content>
@@ -116,7 +152,11 @@ const DevCard = () => (
             <Card.Description>
               A full stack developer and smoked meat enthusiast
             </Card.Description>
-            <a href="https://github.com/BrandonMoll" target="_blank">
+            <a
+              href="https://github.com/BrandonMoll"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Icon name="github" size="large" />
             </a>
           </Card.Content>
@@ -126,7 +166,11 @@ const DevCard = () => (
 
     <Reveal animated="fade">
       <Reveal.Content visible className="devimagehide">
-        <a href="https://github.com/PSquared0" target="_blank">
+        <a
+          href="https://github.com/PSquared0"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <Image src={pascale} size="large" />
         </a>
       </Reveal.Content>
@@ -139,7 +183,11 @@ const DevCard = () => (
             <Card.Description>
               A Full Stack Developer with a black belt in graphic design.
             </Card.Description>
-            <a href="https://github.com/PSquared0" target="_blank">
+            <a
+              href="https://github.com/PSquared0"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Icon name="github" size="large" />
             </a>
           </Card.Content>
