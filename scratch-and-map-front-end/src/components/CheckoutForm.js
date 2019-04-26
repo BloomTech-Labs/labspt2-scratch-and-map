@@ -50,13 +50,18 @@ handleInputChange = e => {
 
 async submit(ev) {
   console.log('clicked')
-  let {token} = await this.props.stripe.createToken({name: "Name"});
+  let {token} = await this.props.stripe.createToken({
+    name: this.state.name,
+    city: this.state.city,
+
+    
+  });
   let response = await fetch(`${process.env.DATABASE_URL}/api/charge`, {
     method: "POST",
     headers: {"Content-Type": "text/plain"},
     body: token.id
   });
-  console.log('PAYMENT',token)
+  console.log('PAYMENT',token.card)
   if (response.ok) console.log("Purchase Complete!")
 }
 
@@ -68,8 +73,7 @@ async submit(ev) {
       <Form className="ui form">
         <h1 className="ui centered">Enter Personal Payment Details</h1>
         <Form.Group widths='equal'>
-      <Form.Input onChange={this.handleInputChange} fluid name='firstName' placeholder='First name' />
-      <Form.Input onChange={this.handleInputChange} fluid name='Last name' placeholder='Last name' />
+      <Form.Input onChange={this.handleInputChange} fluid name='name' placeholder='Name on card' />
       <Form.Input onChange={this.handleInputChange} type="email" fluid name='email' placeholder='email' />
     </Form.Group>
     <Form.Group widths='equal'>
