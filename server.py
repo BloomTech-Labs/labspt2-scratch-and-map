@@ -34,7 +34,7 @@ DEBUG = "NO_DEBUG" not in os.environ
 
 stripe_keys = {
   'secret_key': os.environ['STRIPE_SECRET_KEY'],
-  'publishable_key': os.environ['STRIPE_PUBLISHABLE_KEY']
+  'publishable_key': os.environ['STRIPE_PUBLIC_KEY']
 }
 
 

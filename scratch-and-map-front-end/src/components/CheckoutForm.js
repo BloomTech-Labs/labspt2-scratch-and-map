@@ -8,6 +8,7 @@ import _ from 'lodash';
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
+    this.submit = this.submit.bind(this)
     this.state = {
       options: [],
       stateOptions: [],
@@ -47,19 +48,18 @@ handleInputChange = e => {
   this.setState({ [e.target.name]: e.target.value });
 };
 
- submit = ev =>  {
-   console.log('CHECKOUT SUBMIT', this.props)
-  let token =  this.props.stripe.createToken({name: "Name"});
-  console.log(token)
-  let response =  axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/charge`, (req, res) => {
-     console.log(req.body, res);
-    // method: "POST",
-    // headers: {"Content-Type": "text/plain"},
-    // body: token.id
+async submit(ev) {
+  console.log('clicked')
+  let {token} = await this.props.stripe.createToken({name: "Name"});
+  let response = await fetch(`${process.env.DATABASE_URL}/api/charge`, {
+    method: "POST",
+    headers: {"Content-Type": "text/plain"},
+    body: token.id
   });
- console.log(response)
+  console.log('PAYMENT',token)
   if (response.ok) console.log("Purchase Complete!")
 }
+
 
 
   render() {
@@ -68,14 +68,14 @@ handleInputChange = e => {
       <Form className="ui form">
         <h1 className="ui centered">Enter Personal Payment Details</h1>
         <Form.Group widths='equal'>
-      <Form.Input onChange={this.handleInputChange} fluid name='First name' placeholder='First name' />
-      <Form.Input inputChange={this.handleInputChange} fluid name='Last name' placeholder='Last name' />
-      <Form.Input inputChange={this.handleInputChange} email fluid name='email' placeholder='email' />
+      <Form.Input onChange={this.handleInputChange} fluid name='firstName' placeholder='First name' />
+      <Form.Input onChange={this.handleInputChange} fluid name='Last name' placeholder='Last name' />
+      <Form.Input onChange={this.handleInputChange} type="email" fluid name='email' placeholder='email' />
     </Form.Group>
     <Form.Group widths='equal'>
-      <Form.Input fluid name='Street Address' placeholder='Street Address' />
-      <Form.Input fluid name='City' placeholder='city' />
-      <Form.Input fluid name='Zip Code' placeholder='Zip Code' />
+      <Form.Input onChange={this.handleInputChange} fluid name='Street Address' placeholder='Street Address' />
+      <Form.Input onChange={this.handleInputChange} fluid name='City' placeholder='city' />
+      <Form.Input onChange={this.handleInputChange} fluid name='Zip Code' placeholder='Zip Code' />
     </Form.Group>
 
 
