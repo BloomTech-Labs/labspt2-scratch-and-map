@@ -6,8 +6,8 @@ import { Form, Button, Menu, Dropdown } from "semantic-ui-react";
 import _ from 'lodash';
 
 class CheckoutForm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       options: [],
       stateOptions: [],
@@ -18,7 +18,7 @@ class CheckoutForm extends Component {
 
   componentDidMount() {
     axios.get(`https://restcountries.eu/rest/v2/all`)
-    .then(res => {console.log("COUNTRIES API", res.data)
+    .then(res => {
         res.data.forEach(country => {
             let countryOptions = {
                 key: country.alpha3Code,
@@ -30,7 +30,7 @@ class CheckoutForm extends Component {
             
   })
     axios.get(`https://gist.githubusercontent.com/mshafrir/2646763/raw/8b0dbb93521f5d6889502305335104218454c2bf/states_titlecase.json`)
-      .then(res => {console.log('STATES IN FORM',  res)
+      .then(res => {
         res.data.forEach(state => {
           let stateOptions = {
             key: state.abbreviation,
@@ -45,7 +45,8 @@ class CheckoutForm extends Component {
 
 async submit(ev) {
   let {token} = await this.props.stripe.createToken({name: "Name"});
-  let response = await axios("/charge", {
+  console.log({token})
+  let response = await fetch("/charge", {
     method: "POST",
     headers: {"Content-Type": "text/plain"},
     body: token.id
@@ -55,24 +56,20 @@ async submit(ev) {
 }
 
 
-
-
-
-
-
   render() {
-    console.log("PREMIUM", this.state.options)
+   
     return (
       <Form className="ui form">
         <h1 className="ui centered">Enter Personal Payment Details</h1>
         <Form.Group widths='equal'>
-      <Form.Input fluid label='First name' placeholder='First name' />
-      <Form.Input fluid label='Last name' placeholder='Last name' />
+      <Form.Input fluid name='First name' placeholder='First name' />
+      <Form.Input fluid name='Last name' placeholder='Last name' />
+      <Form.Input fluid name='email' placeholder='email' />
     </Form.Group>
     <Form.Group widths='equal'>
-      <Form.Input fluid label='Street Address' placeholder='Street Address' />
-      <Form.Input fluid label='City' placeholder='city' />
-      <Form.Input fluid label='Zip Code' placeholder='Zip Code' />
+      <Form.Input fluid name='Street Address' placeholder='Street Address' />
+      <Form.Input fluid name='City' placeholder='city' />
+      <Form.Input fluid name='Zip Code' placeholder='Zip Code' />
     </Form.Group>
 
 
