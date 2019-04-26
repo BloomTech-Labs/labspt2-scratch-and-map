@@ -67,7 +67,9 @@ const DevCard = () => (
             <Card.Header>
               <p>Ryan Matthews</p>
             </Card.Header>
-            <Card.Description>A full stack developing smooth operator.</Card.Description>
+            <Card.Description>
+              A full stack developing smooth operator.
+            </Card.Description>
             <a href="https://github.com/ryntak94" target="_blank">
               <Icon name="github" size="large" />
             </a>
@@ -135,7 +137,7 @@ const DevCard = () => (
               <p>Pascale Pierre</p>
             </Card.Header>
             <Card.Description>
-              A Full Stack Developer with a design background.
+              A Full Stack Developer with a black belt in graphic design.
             </Card.Description>
             <a href="https://github.com/PSquared0" target="_blank">
               <Icon name="github" size="large" />
