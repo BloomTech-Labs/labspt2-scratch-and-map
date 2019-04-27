@@ -48,11 +48,19 @@ handleInputChange = e => {
   this.setState({ [e.target.name]: e.target.value });
 };
 
+
+
+handleChange = (e, { value }) => this.setState({ [e.target.name]: value })
+
 async submit(ev) {
-  console.log('clicked')
+  console.log('clicked', this.state)
   let {token} = await this.props.stripe.createToken({
     name: this.state.name,
-    city: this.state.city,
+    address_line1: this.state.streetAddress,
+    address_city: this.state.city,
+    address_state: this.state.stateSelection,
+    address_country: this.state.countrySelection
+    
 
     
   });
@@ -68,24 +76,28 @@ async submit(ev) {
 
 
   render() {
+    const { value } = this.state;
    
     return (
       <Form className="ui form">
         <h1 className="ui centered">Enter Personal Payment Details</h1>
         <Form.Group widths='equal'>
       <Form.Input onChange={this.handleInputChange} fluid name='name' placeholder='Name on card' />
-      <Form.Input onChange={this.handleInputChange} type="email" fluid name='email' placeholder='email' />
+      <Form.Input onChange={this.handleInputChange} type="email" fluid name='email' placeholder='Email' />
     </Form.Group>
     <Form.Group widths='equal'>
-      <Form.Input onChange={this.handleInputChange} fluid name='Street Address' placeholder='Street Address' />
-      <Form.Input onChange={this.handleInputChange} fluid name='City' placeholder='city' />
-      <Form.Input onChange={this.handleInputChange} fluid name='Zip Code' placeholder='Zip Code' />
+      <Form.Input onChange={this.handleInputChange} fluid name='streetAddress' placeholder='Street Address' />
+      <Form.Input onChange={this.handleInputChange} fluid name='city' placeholder='city' />
+      <Form.Input onChange={this.handleInputChange} fluid name='zipCode' placeholder='Zip Code' />
     </Form.Group>
 
 
 <Form.Group >
 <Dropdown
     placeholder='Select State'
+    onChange={this.handleChange}
+    name='stateSelection'
+    value={value}
     fluid
     search
     selection
@@ -95,6 +107,9 @@ async submit(ev) {
 
 <Dropdown
     placeholder='Select Country'
+    onChange={this.handleChange}
+    name='countrySelection'
+    value={value}
     fluid
     search
     selection
