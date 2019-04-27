@@ -50,7 +50,11 @@ handleInputChange = e => {
 
 
 
-handleChange = (e, { value }) => this.setState({ [e.target.name]: value })
+handleStateSelection = (e, {value}) => this.setState({ stateSelection: value })
+
+handleCountrySelection = (e, {value}) => this.setState({ countrySelection: value })
+
+
 
 async submit(ev) {
   console.log('clicked', this.state)
@@ -95,9 +99,7 @@ async submit(ev) {
 <Form.Group >
 <Dropdown
     placeholder='Select State'
-    onChange={this.handleChange}
-    name='stateSelection'
-    value={value}
+    onChange={this.handleStateSelection}
     fluid
     search
     selection
@@ -107,9 +109,7 @@ async submit(ev) {
 
 <Dropdown
     placeholder='Select Country'
-    onChange={this.handleChange}
-    name='countrySelection'
-    value={value}
+    onChange={this.handleCountrySelection}
     fluid
     search
     selection
