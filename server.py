@@ -10,7 +10,7 @@ from sqlalchemy.orm import sessionmaker
 import stripe
 
 app = Flask(__name__)
-cors = CORS(app)
+CORS(app)
 
 def connect_to_db(app, db_uri):
     app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
@@ -19,6 +19,7 @@ def connect_to_db(app, db_uri):
     app.config['SQLALCHEMY_POOL_TIMEOUT']=10
     app.config['SQLALCHEMY_MAX_OVERFLOW']=3
     app.config['SQLALCHEMY_POOL_RECYCLE']=3
+    app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 load_dotenv('.env')
@@ -47,6 +48,7 @@ def error():
 
 #AUTH ENDPOINTS
 @app.route('/api/signup', methods=['POST'])
+@cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
 def signup():
     username = request.json['username']
     password = request.json['password']

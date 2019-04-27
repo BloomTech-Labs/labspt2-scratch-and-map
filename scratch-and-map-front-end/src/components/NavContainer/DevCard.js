@@ -54,7 +54,7 @@ const DevCard = () => (
         <Card>
           <Card.Content>
             <Card.Header>
-              <p>Courtney Buratto</p>
+              <p>Court Buratto</p>
             </Card.Header>
             <Card.Description>
               A Full Stack dev and aspiring downhill mountain biker.
