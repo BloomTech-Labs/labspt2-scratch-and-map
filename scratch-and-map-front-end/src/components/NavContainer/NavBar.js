@@ -1,7 +1,5 @@
 import React from "react";
-import { Route, Link, withRouter } from "react-router-dom";
-
-import { connect } from "react-redux";
+import { Route, Link } from "react-router-dom";
 import {
   Menu,
   Sidebar,
@@ -16,9 +14,7 @@ import Auth from "../AuthContainer/Auth";
 import Landing from "../Landing";
 import FriendListView from "../NavContainer/FriendListView";
 import MapContainer from "../MapContainer/MapContainer";
-import { getUserData } from "../../actions/mapActions";
 import DevCard from "./DevCard";
-import {Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "../CheckoutForm";
 
 const NavBar = ({
@@ -43,8 +39,8 @@ const NavBar = ({
         <Button.Group className="closebutton">
           <Button onClick={onToggle} icon="close" inverted />
         </Button.Group>
-        <Menu.Item as="a" as={Link} to="/">
-          <img src={logo} />
+        <Menu.Item as={Link} to="/">
+          <img src={logo} alt="" />
         </Menu.Item>
         {window.localStorage.getItem("SAMUserID") ? (
           <Link
@@ -106,7 +102,7 @@ const NavBar = ({
           >
             <Header icon="gem" content="Premium Sign Up" />
             <Modal.Content>
-                <CheckoutForm/>
+              <CheckoutForm />
             </Modal.Content>
           </Modal>
           )
