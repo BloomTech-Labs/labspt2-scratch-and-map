@@ -4,6 +4,7 @@ import {CardElement, injectStripe} from 'react-stripe-elements';
 import '../styles/CheckoutForm.css';
 import { Form, Button, Menu, Dropdown } from "semantic-ui-react";
 import _ from 'lodash';
+require("dotenv").config();
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -57,42 +58,43 @@ handleCountrySelection = (e, {value}) => this.setState({ countrySelection: value
 
 
 async submit(ev) {
-  console.log('clicked', this.state)
+  console.log('clicked', `${process.env}`)
+  try {
   let {token} = await this.props.stripe.createToken({
     name: this.state.name,
     address_line1: this.state.streetAddress,
     address_city: this.state.city,
     address_state: this.state.stateSelection,
     address_country: this.state.countrySelection
-    
-
-    
   });
+
   let response = await fetch(`${process.env.DATABASE_URL}/api/charge`, {
     method: "POST",
     headers: {"Content-Type": "text/plain"},
     body: token.id
   });
-  console.log('PAYMENT',token.card)
-  if (response.ok) console.log("Purchase Complete!")
+  console.log('PAYMENT',response)
+  if (response.ok) console.log("Purchase Complete!") }
+  catch(error) {
+    console.log("PAYMENT ERROR", error);
+  }
 }
 
 
 
   render() {
-    const { value } = this.state;
    
     return (
       <Form className="ui form">
         <h1 className="ui centered">Enter Personal Payment Details</h1>
         <Form.Group widths='equal'>
-      <Form.Input onChange={this.handleInputChange} fluid name='name' placeholder='Name on card' />
-      <Form.Input onChange={this.handleInputChange} type="email" fluid name='email' placeholder='Email' />
+      <Form.Input onChange={this.handleInputChange} fluid name='name' placeholder='Name on card' required/>
+      <Form.Input onChange={this.handleInputChange} type="email" fluid name='email' placeholder='Email' required />
     </Form.Group>
     <Form.Group widths='equal'>
-      <Form.Input onChange={this.handleInputChange} fluid name='streetAddress' placeholder='Street Address' />
-      <Form.Input onChange={this.handleInputChange} fluid name='city' placeholder='city' />
-      <Form.Input onChange={this.handleInputChange} fluid name='zipCode' placeholder='Zip Code' />
+      <Form.Input onChange={this.handleInputChange} fluid name='streetAddress' placeholder='Street Address' required />
+      <Form.Input onChange={this.handleInputChange} fluid name='city' placeholder='city' required/>
+      <Form.Input onChange={this.handleInputChange} fluid name='zipCode' placeholder='Zip Code' required />
     </Form.Group>
 
 
@@ -100,6 +102,7 @@ async submit(ev) {
 <Dropdown
     placeholder='Select State'
     onChange={this.handleStateSelection}
+    required
     fluid
     search
     selection
@@ -110,6 +113,7 @@ async submit(ev) {
 <Dropdown
     placeholder='Select Country'
     onChange={this.handleCountrySelection}
+    required
     fluid
     search
     selection
