@@ -62,7 +62,7 @@ class FbLogin extends Component {
             console.log("DATA I HOPE", res.data);
             if (!res.data.fb_user_id) {
               //signup second phase component here
-              const url = `${process.env.REACT_APP_BACKEND_URL}/api/signup${
+              const url = `${process.env.REACT_APP_BACKEND_URL}/api/signup/${
                 response.userID
               }`;
               const proxyurl = "https://cors-anywhere.herokuapp.com/";
