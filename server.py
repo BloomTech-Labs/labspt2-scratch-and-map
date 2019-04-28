@@ -209,8 +209,8 @@ def update_mapView_data(user_id, country_id):
     return user_country_schema.jsonify(user_country)
 
 @app.route('/api/charge', methods=['POST'])
-def index():
-    return render_template('index.html', stripe.api_key)
+def premium():
+    return "IS THIS WORKING?"
 
 
 

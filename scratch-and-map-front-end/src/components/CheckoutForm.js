@@ -58,7 +58,6 @@ handleCountrySelection = (e, {value}) => this.setState({ countrySelection: value
 
 
 async submit(ev) {
-  console.log('clicked', `${process.env}`)
   try {
   let {token} = await this.props.stripe.createToken({
     name: this.state.name,
@@ -68,7 +67,7 @@ async submit(ev) {
     address_country: this.state.countrySelection
   });
 
-  let response = await fetch(`${process.env.DATABASE_URL}/api/charge`, {
+  let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/charge`, {
     method: "POST",
     headers: {"Content-Type": "text/plain"},
     body: token.id
