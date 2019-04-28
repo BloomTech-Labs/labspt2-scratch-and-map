@@ -7,7 +7,7 @@ class Landing extends Component {
 
     return (
       <div className="landingpg">
-          <img className="logoimg" src={logo} />
+          <img className="logoimg" src={logo} alt="" />
           <Segment raised inverted className="blurb">
           <p>Whether you're a seasoned traveler or 
           just about to embark on your first big trip, 
