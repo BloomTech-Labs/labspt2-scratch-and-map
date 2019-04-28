@@ -208,9 +208,10 @@ def update_mapView_data(user_id, country_id):
     db.session.commit()
     return user_country_schema.jsonify(user_country)
 
-@app.route('/api/charge', methods=['POST'])
+@app.route('/api/charge/', methods=['POST'])
 def premium():
-    return "IS THIS WORKING?"
+    token = request.json['token']
+    return jsonify(token)
 
 
 
