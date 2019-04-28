@@ -4,20 +4,23 @@ import {CardElement, injectStripe} from 'react-stripe-elements';
 import '../styles/CheckoutForm.css';
 import { Form, Button, Menu, Dropdown } from "semantic-ui-react";
 import _ from 'lodash';
+require("dotenv").config();
 
 class CheckoutForm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.submit = this.submit.bind(this)
     this.state = {
       options: [],
-      stateOptions: []
+      stateOptions: [],
+      completed: false,
     }
   }
-  async submit(ev) {}
+
 
   componentDidMount() {
     axios.get(`https://restcountries.eu/rest/v2/all`)
-    .then(res => {console.log("COUNTRIES API", res.data)
+    .then(res => {
         res.data.forEach(country => {
             let countryOptions = {
                 key: country.alpha3Code,
@@ -29,7 +32,7 @@ class CheckoutForm extends Component {
             
   })
     axios.get(`https://gist.githubusercontent.com/mshafrir/2646763/raw/8b0dbb93521f5d6889502305335104218454c2bf/states_titlecase.json`)
-      .then(res => {console.log('STATES IN FORM',  res)
+      .then(res => {
         res.data.forEach(state => {
           let stateOptions = {
             key: state.abbreviation,
@@ -40,29 +43,65 @@ class CheckoutForm extends Component {
         })
     
     })
-
-
 }
 
+handleInputChange = e => {
+  this.setState({ [e.target.name]: e.target.value });
+};
+
+
+
+handleStateSelection = (e, {value}) => this.setState({ stateSelection: value })
+
+handleCountrySelection = (e, {value}) => this.setState({ countrySelection: value })
+
+
+
+async submit(ev) {
+  try {
+  let {token} = await this.props.stripe.createToken({
+    name: this.state.name,
+    address_line1: this.state.streetAddress,
+    address_city: this.state.city,
+    address_state: this.state.stateSelection,
+    address_country: this.state.countrySelection
+  });
+
+  let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/charge`, {
+    method: "POST",
+    headers: {"Content-Type": "text/plain"},
+    body: token.id
+  });
+  console.log('PAYMENT',response)
+  if (response.ok) console.log("Purchase Complete!") }
+  catch(error) {
+    console.log("PAYMENT ERROR", error);
+  }
+}
+
+
+
   render() {
-    console.log("PREMIUM", this.state.options)
+   
     return (
       <Form className="ui form">
         <h1 className="ui centered">Enter Personal Payment Details</h1>
         <Form.Group widths='equal'>
-      <Form.Input fluid label='First name' placeholder='First name' />
-      <Form.Input fluid label='Last name' placeholder='Last name' />
+      <Form.Input onChange={this.handleInputChange} fluid name='name' placeholder='Name on card' required/>
+      <Form.Input onChange={this.handleInputChange} type="email" fluid name='email' placeholder='Email' required />
     </Form.Group>
     <Form.Group widths='equal'>
-      <Form.Input fluid label='Street Address' placeholder='Street Address' />
-      <Form.Input fluid label='City' placeholder='city' />
-      <Form.Input fluid label='Zip Code' placeholder='Zip Code' />
+      <Form.Input onChange={this.handleInputChange} fluid name='streetAddress' placeholder='Street Address' required />
+      <Form.Input onChange={this.handleInputChange} fluid name='city' placeholder='city' required/>
+      <Form.Input onChange={this.handleInputChange} fluid name='zipCode' placeholder='Zip Code' required />
     </Form.Group>
 
 
 <Form.Group >
 <Dropdown
     placeholder='Select State'
+    onChange={this.handleStateSelection}
+    required
     fluid
     search
     selection
@@ -72,6 +111,8 @@ class CheckoutForm extends Component {
 
 <Dropdown
     placeholder='Select Country'
+    onChange={this.handleCountrySelection}
+    required
     fluid
     search
     selection
@@ -83,7 +124,7 @@ class CheckoutForm extends Component {
 <CardElement className='StripeElement' placeholder='Card info' input/>
     
         <Button>Back</Button>
-        <Button>Submit</Button>
+        <Button onClick={this.submit}>Submit</Button>
 </Form>
     );
   }
