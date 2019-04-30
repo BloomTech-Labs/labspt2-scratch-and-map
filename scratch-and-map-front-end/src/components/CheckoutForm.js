@@ -1,24 +1,22 @@
-import React, { Component } from 'react';
-import axios from 'axios'
-import {CardElement, injectStripe} from 'react-stripe-elements';
-import '../styles/CheckoutForm.css';
-import { Form, Button, Menu, Dropdown } from "semantic-ui-react";
-import _ from 'lodash';
+import React, { Component } from "react";
+import axios from "axios";
+import { CardElement, injectStripe } from "react-stripe-elements";
+import "../styles/CheckoutForm.css";
+import { Form, Button, Dropdown } from "semantic-ui-react";
 require("dotenv").config();
 
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
-    this.submit = this.submit.bind(this)
+    this.submit = this.submit.bind(this);
     this.state = {
       options: [],
       stateOptions: [],
-      completed: false,
-    }
+      completed: false
+    };
   }
 
-
-  componentDidMount() {
+    componentDidMount() {
     axios.get(`https://restcountries.eu/rest/v2/all`)
     .then(res => {
         res.data.forEach(country => {
@@ -58,77 +56,101 @@ handleCountrySelection = (e, {value}) => this.setState({ countrySelection: value
 
 
 async submit(ev) {
-  console.log("STRIPE PROPS", this.props)
   try {
-      let {token} = await this.props.stripe.createToken({
-        name: this.state.name,
-        address_line1: this.state.streetAddress,
-        address_city: this.state.city,
-        address_state: this.state.stateSelection,
-        address_country: this.state.countrySelection
+  let {token} = await this.props.stripe.createToken({
+    name: this.state.name,
+    address_line1: this.state.streetAddress,
+    address_city: this.state.city,
+    address_state: this.state.stateSelection,
+    address_country: this.state.countrySelection
   });
 
-  let response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/charge/`, {token});
-    
-  if(response.status === 200){
-      this.setState({
-        completed: true,
-        premium: response.data.id,
-      })
-  }
-}
-
+  let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/charge`, {
+    method: "POST",
+    headers: {"Content-Type": "text/plain"},
+    body: token.id
+  });
+  console.log('PAYMENT',response)
+  if (response.ok) console.log("Purchase Complete!") }
   catch(error) {
     console.log("PAYMENT ERROR", error);
   }
 }
 
-
-
   render() {
     return (
       <Form className="ui form">
         <h1 className="ui centered">Enter Personal Payment Details</h1>
-        <Form.Group widths='equal'>
-      <Form.Input onChange={this.handleInputChange} fluid name='name' placeholder='Name on card' required/>
-      <Form.Input onChange={this.handleInputChange} type="email" fluid name='email' placeholder='Email' required />
-    </Form.Group>
-    <Form.Group widths='equal'>
-      <Form.Input onChange={this.handleInputChange} fluid name='streetAddress' placeholder='Street Address' required />
-      <Form.Input onChange={this.handleInputChange} fluid name='city' placeholder='city' required/>
-      <Form.Input onChange={this.handleInputChange} fluid name='zipCode' placeholder='Zip Code' required />
-    </Form.Group>
+        <Form.Group widths="equal">
+          <Form.Input
+            onChange={this.handleInputChange}
+            fluid
+            name="name"
+            placeholder="Name on card"
+            required
+          />
+          <Form.Input
+            onChange={this.handleInputChange}
+            type="email"
+            fluid
+            name="email"
+            placeholder="Email"
+            required
+          />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <Form.Input
+            onChange={this.handleInputChange}
+            fluid
+            name="streetAddress"
+            placeholder="Street Address"
+            required
+          />
+          <Form.Input
+            onChange={this.handleInputChange}
+            fluid
+            name="city"
+            placeholder="city"
+            required
+          />
+          <Form.Input
+            onChange={this.handleInputChange}
+            fluid
+            name="zipCode"
+            placeholder="Zip Code"
+            required
+          />
+        </Form.Group>
 
+        <Form.Group>
+          <Dropdown
+            placeholder="Select State"
+            onChange={this.handleStateSelection}
+            required
+            fluid
+            search
+            selection
+            className="StripeDropdown"
+            options={this.state.stateOptions}
+          />
 
-<Form.Group >
-<Dropdown
-    placeholder='Select State'
-    onChange={this.handleStateSelection}
-    required
-    fluid
-    search
-    selection
-    className='StripeDropdown'
-    options={this.state.stateOptions}
-    />
+          <Dropdown
+            placeholder="Select Country"
+            onChange={this.handleCountrySelection}
+            required
+            fluid
+            search
+            selection
+            className="StripeDropdown"
+            options={this.state.options}
+          />
+        </Form.Group>
 
-<Dropdown
-    placeholder='Select Country'
-    onChange={this.handleCountrySelection}
-    required
-    fluid
-    search
-    selection
-    className='StripeDropdown'
-    options={this.state.options}
-    />
-</Form.Group>
+        <CardElement className="StripeElement" placeholder="Card info" input />
 
-<CardElement className='StripeElement' placeholder='Card info' input/>
-    
         <Button>Back</Button>
         <Button onClick={this.submit}>Submit</Button>
-</Form>
+      </Form>
     );
   }
 }

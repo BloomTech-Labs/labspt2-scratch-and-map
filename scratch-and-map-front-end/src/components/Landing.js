@@ -15,8 +15,14 @@ class Landing extends Component {
 
     return (
       <div className="landingpg">
-        <Segment raised inverted className="blurb">
-          <p className="blurb-text">Get ready to travel the world, one scratch at a time…</p>
+          <img className="logoimg" src={logo} alt="" />
+          <Segment raised inverted className="blurb">
+          <p>Whether you're a seasoned traveler or 
+          just about to embark on your first big trip, 
+          Scratch&Map is a personal way to trace and 
+          display your world travels. <br/><br/>Indicate the countries you’ve 
+          visited by using this interactive app. <br/><br/>Share your stories 
+          with everyone you know and remember all of your fantastic journeys.</p>
           </Segment>
           <img className="logoimg" src={logo} />
 
