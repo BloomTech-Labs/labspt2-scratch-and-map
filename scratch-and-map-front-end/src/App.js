@@ -30,7 +30,7 @@ class App extends Component {
 
               <StripeProvider apiKey="pk_test_krA4dF6Zbe7WEYEqao5EeKmv00SpwNokud">
                       <Elements>
-                        <ParentNav/>
+                         <ParentNav/>
                       </Elements>
               </StripeProvider>
 
