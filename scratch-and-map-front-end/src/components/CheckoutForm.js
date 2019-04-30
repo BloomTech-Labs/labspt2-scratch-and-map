@@ -36,11 +36,49 @@ class CheckoutForm extends Component {
           let stateOptions = {
             key: state.abbreviation,
             value: state.abbreviation,
+
             text: state.name
           };
           this.state.stateOptions.push(stateOptions);
         });
       });
+}
+
+handleInputChange = e => {
+  this.setState({ [e.target.name]: e.target.value });
+};
+
+
+
+handleStateSelection = (e, {value}) => this.setState({ stateSelection: value })
+
+handleCountrySelection = (e, {value}) => this.setState({ countrySelection: value })
+
+
+
+async submit(ev) {
+  console.log("STRIPE PROPS", this.props)
+  try {
+      let {token} = await this.props.stripe.createToken({
+        name: this.state.name,
+        address_line1: this.state.streetAddress,
+        address_city: this.state.city,
+        address_state: this.state.stateSelection,
+        address_country: this.state.countrySelection
+  });
+
+  let response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/charge/`, {token});
+    
+  if(response.status === 200){
+      this.setState({
+        completed: true,
+        premium: response.data.id,
+      })
+  }
+}
+
+  catch(error) {
+    console.log("PAYMENT ERROR", error);
   }
 
   handleInputChange = e => {

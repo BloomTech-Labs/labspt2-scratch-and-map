@@ -3,6 +3,14 @@ import logo from '../img/logowhite.png'
 import { Segment } from "semantic-ui-react"
 
 class Landing extends Component {
+ 
+  componentDidMount(){
+    let el = document.querySelector('.blurb');
+    let text = document.querySelector('.blurb-text');
+  el.classList.add('fade-out');
+  text.classList.add('fade-out-text');
+  }
+
   render() {
 
     return (
@@ -16,6 +24,8 @@ class Landing extends Component {
           visited by using this interactive app. <br/><br/>Share your stories 
           with everyone you know and remember all of your fantastic journeys.</p>
           </Segment>
+          <img className="logoimg" src={logo} />
+
       </div>
     );
   }
