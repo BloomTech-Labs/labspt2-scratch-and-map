@@ -57,7 +57,7 @@ const DevCard = () => (
               <p>Court Buratto</p>
             </Card.Header>
             <Card.Description>
-              A Full Stack dev and aspiring downhill mountain biker.
+              A Full Stack Dev and aspiring downhill mountain biker.
             </Card.Description>
             <a
               href="https://github.com/cocoitali"
@@ -119,7 +119,7 @@ const DevCard = () => (
               <p>Javier Alverez</p>
             </Card.Header>
             <Card.Description>
-              The Man. oh, and a full stack web developer.
+              The Man. oh, and a Full Stack Web Developer.
             </Card.Description>
             <a
               href="https://github.com/jalvarez2020"
@@ -150,7 +150,7 @@ const DevCard = () => (
               <p>Brandon Moll</p>
             </Card.Header>
             <Card.Description>
-              A full stack developer and smoked meat enthusiast
+              A Full Stack Developer and smoked meat enthusiast
             </Card.Description>
             <a
               href="https://github.com/BrandonMoll"
@@ -181,7 +181,7 @@ const DevCard = () => (
               <p>Pascale Pierre</p>
             </Card.Header>
             <Card.Description>
-              A Full Stack Developer with a black belt in graphic design.
+              A Full Stack Dev with a black belt in graphic design.
             </Card.Description>
             <a
               href="https://github.com/PSquared0"
