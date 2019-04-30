@@ -77,7 +77,7 @@ def check_user_by_token():
     token = request.json['accessToken']
     user = users.query.filter(users.fb_access_token==token).first()
     
-    return user_schema.jsonify(user)
+    return jsonify(user)
 
 #USERS ENDPOINTS
 @app.route('/api/users', methods =['GET'])
