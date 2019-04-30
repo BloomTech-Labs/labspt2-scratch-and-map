@@ -24,6 +24,7 @@ class CheckoutForm extends Component {
           value: country.alpha3Code,
           text: country.name
         };
+        
         this.state.options.push(countryOptions);
       });
     });
@@ -37,11 +38,12 @@ class CheckoutForm extends Component {
             key: state.abbreviation,
             value: state.abbreviation,
 
-            text: state.name
-          };
-          this.state.stateOptions.push(stateOptions);
-        });
-      });
+                     text: state.name,
+          }
+            this.state.stateOptions.push(stateOptions)
+        })
+
+    })
 }
 
 handleInputChange = e => {
