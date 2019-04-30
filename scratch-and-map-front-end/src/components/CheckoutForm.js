@@ -16,33 +16,30 @@ class CheckoutForm extends Component {
     };
   }
 
-  componentDidMount() {
-    axios.get(`https://restcountries.eu/rest/v2/all`).then(res => {
-      res.data.forEach(country => {
-        let countryOptions = {
-          key: country.alpha3Code,
-          value: country.alpha3Code,
-          text: country.name
-        };
-        
-        this.state.options.push(countryOptions);
-      });
-    });
-    axios
-      .get(
-        `https://gist.githubusercontent.com/mshafrir/2646763/raw/8b0dbb93521f5d6889502305335104218454c2bf/states_titlecase.json`
-      )
+    componentDidMount() {
+    axios.get(`https://restcountries.eu/rest/v2/all`)
+    .then(res => {
+        res.data.forEach(country => {
+            let countryOptions = {
+                key: country.alpha3Code,
+                value: country.alpha3Code,
+                text: country.name
+            }
+            this.state.options.push(countryOptions);
+        })
+            
+  })
+    axios.get(`https://gist.githubusercontent.com/mshafrir/2646763/raw/8b0dbb93521f5d6889502305335104218454c2bf/states_titlecase.json`)
       .then(res => {
         res.data.forEach(state => {
           let stateOptions = {
             key: state.abbreviation,
             value: state.abbreviation,
-
-                     text: state.name,
+            text: state.name,
           }
             this.state.stateOptions.push(stateOptions)
         })
-
+    
     })
 }
 
@@ -59,64 +56,26 @@ handleCountrySelection = (e, {value}) => this.setState({ countrySelection: value
 
 
 async submit(ev) {
-  console.log("STRIPE PROPS", this.props)
   try {
-      let {token} = await this.props.stripe.createToken({
-        name: this.state.name,
-        address_line1: this.state.streetAddress,
-        address_city: this.state.city,
-        address_state: this.state.stateSelection,
-        address_country: this.state.countrySelection
+  let {token} = await this.props.stripe.createToken({
+    name: this.state.name,
+    address_line1: this.state.streetAddress,
+    address_city: this.state.city,
+    address_state: this.state.stateSelection,
+    address_country: this.state.countrySelection
   });
 
-  let response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/charge/`, {token});
-    
-  if(response.status === 200){
-      this.setState({
-        completed: true,
-        premium: response.data.id,
-      })
-  }
-}
-
+  let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/charge`, {
+    method: "POST",
+    headers: {"Content-Type": "text/plain"},
+    body: token.id
+  });
+  console.log('PAYMENT',response)
+  if (response.ok) console.log("Purchase Complete!") }
   catch(error) {
     console.log("PAYMENT ERROR", error);
   }
-
-  handleInputChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  handleStateSelection = (e, { value }) =>
-    this.setState({ stateSelection: value });
-
-  handleCountrySelection = (e, { value }) =>
-    this.setState({ countrySelection: value });
-
-  async submit(ev) {
-    try {
-      let { token } = await this.props.stripe.createToken({
-        name: this.state.name,
-        address_line1: this.state.streetAddress,
-        address_city: this.state.city,
-        address_state: this.state.stateSelection,
-        address_country: this.state.countrySelection
-      });
-
-      let response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/api/charge`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "text/plain" },
-          body: token.id
-        }
-      );
-      console.log("PAYMENT", response);
-      if (response.ok) console.log("Purchase Complete!");
-    } catch (error) {
-      console.log("PAYMENT ERROR", error);
-    }
-  }
+}
 
   render() {
     return (
