@@ -58,22 +58,26 @@ handleCountrySelection = (e, {value}) => this.setState({ countrySelection: value
 
 
 async submit(ev) {
+  console.log("STRIPE PROPS", this.props)
   try {
-  let {token} = await this.props.stripe.createToken({
-    name: this.state.name,
-    address_line1: this.state.streetAddress,
-    address_city: this.state.city,
-    address_state: this.state.stateSelection,
-    address_country: this.state.countrySelection
+      let {token} = await this.props.stripe.createToken({
+        name: this.state.name,
+        address_line1: this.state.streetAddress,
+        address_city: this.state.city,
+        address_state: this.state.stateSelection,
+        address_country: this.state.countrySelection
   });
 
-  let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/charge`, {
-    method: "POST",
-    headers: {"Content-Type": "text/plain"},
-    body: token.id
-  });
-  console.log('PAYMENT',response)
-  if (response.ok) console.log("Purchase Complete!") }
+  let response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/charge/`, {token});
+    
+  if(response.status === 200){
+      this.setState({
+        completed: true,
+        premium: response.data.id,
+      })
+  }
+}
+
   catch(error) {
     console.log("PAYMENT ERROR", error);
   }
@@ -82,7 +86,6 @@ async submit(ev) {
 
 
   render() {
-   
     return (
       <Form className="ui form">
         <h1 className="ui centered">Enter Personal Payment Details</h1>
