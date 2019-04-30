@@ -499,7 +499,7 @@ a,
 
 .ui.card > .content,
 .ui.cards > .card > .content {
-  margin-top: 20px;
+  margin-top: 10px;
   text-align: center;
   font-size: 10px;
   text-transform: uppercase;
@@ -525,14 +525,17 @@ a,
 .ui.card > .content > .meta + .description,
 .ui.cards > .card > .content > .header + .description,
 .ui.cards > .card > .content > .meta + .description {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   font-size: 14px;
   font-weight: 10;
+  text-transform: none;
+  line-height: 17px;
 }
 .ui.card > .content p:last-child,
 .ui.cards > .card > .content p:last-child {
-  font-size: 14px;
+  font-size: 17px;
   text-transform: uppercase;
+
 }
 
 
