@@ -7,6 +7,8 @@ from models import *
 from dotenv import load_dotenv
 import os
 from sqlalchemy.orm import sessionmaker
+import stripe
+import logging
 
 app = Flask(__name__)
 CORS(app)
@@ -31,6 +33,14 @@ ma = Marshmallow(app)
 
 PORT = int(os.environ.get("PORT",5000))
 DEBUG = "NO_DEBUG" not in os.environ
+
+stripe_keys = {
+  'secret_key': os.environ['STRIPE_SECRET_KEY'],
+  'publishable_key': os.environ['STRIPE_PUBLIC_KEY']
+}
+
+
+stripe.api_key = stripe_keys['secret_key']
 
 #Routes
 @app.route("/api/error")
@@ -195,6 +205,13 @@ def update_mapView_data(user_id, country_id):
     db.session.merge(user_country)
     db.session.commit()
     return user_country_schema.jsonify(user_country)
+
+@app.route('/api/charge/', methods=['POST'])
+def premium():
+    token = request.json['token']
+    return jsonify(token)
+
+logging.getLogger('flask_cors').level = logging.DEBUG
 
 if __name__ == "__main__":
   app.run(host="0.0.0.0", port=PORT, debug=DEBUG)

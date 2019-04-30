@@ -52,11 +52,10 @@ const NavBar = ({
             }}
           >
             <Menu.Item
-              onClick={() =>
-                getUserData(window.localStorage.getItem("SAMUserID"))
-              }
+            // onClick={() =>
+            //   getUserData(window.localStorage.getItem("SAMUserID"))
+            // }
             >
-              {/* onClick={onClick} */}
               <Icon name="map" inverted />
               My Map
             </Menu.Item>{" "}

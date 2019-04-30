@@ -1,14 +1,6 @@
 import React, { Component } from "react";
-import { returnCode, returnId } from "../helper";
-import {
-  Button,
-  Header,
-  Image,
-  Modal,
-  Form,
-  TextArea,
-  Icon
-} from "semantic-ui-react";
+import { returnId } from "../helper";
+import { Button, Header, Modal, Form, TextArea, Icon } from "semantic-ui-react";
 import CardSlider from "./CardSlider";
 import {
   codeToCountry,
@@ -151,7 +143,7 @@ class Card extends Component {
             returnId(reverseCountryConversion(this.props.country_code))
           );
         });
-        if (country.length == 0) {
+        if (country.length === 0) {
           axios
             .post(
               `${process.env.REACT_APP_BACKEND_URL}/api/mapview`,
@@ -227,6 +219,7 @@ class Card extends Component {
                     height: "10vw",
                     marginBottom: "20px"
                   }}
+                  alt =""
                   src={this.state.imageUrl}
                 />
               </div>
