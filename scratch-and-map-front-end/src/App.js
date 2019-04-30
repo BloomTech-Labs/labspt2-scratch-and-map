@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ParentNav from "./components/NavContainer/ParentNav";
 import "./index.scss";
 import axios from "axios";
-import {Elements, StripeProvider } from "react-stripe-elements";
+import { Elements, StripeProvider } from "react-stripe-elements";
 require("dotenv").config();
 
 class App extends Component {
@@ -21,26 +21,17 @@ class App extends Component {
       .then(res => {
         // this.setState(state => ({
         //   isLoggedIn: res.data.isLoggedIn
-        }));
+        // }));
       });
   }
   render() {
     return (
       <div className="App">
-
-              <StripeProvider apiKey="pk_test_krA4dF6Zbe7WEYEqao5EeKmv00SpwNokud">
-                      <Elements>
-                        <ParentNav/>
-                      </Elements>
-              </StripeProvider>
-
-
-
-       
-
-
-
-
+        <StripeProvider apiKey="pk_test_krA4dF6Zbe7WEYEqao5EeKmv00SpwNokud">
+          <Elements>
+            <ParentNav />
+          </Elements>
+        </StripeProvider>
       </div>
     );
   }
