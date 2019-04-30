@@ -8,9 +8,10 @@ from dotenv import load_dotenv
 import os
 from sqlalchemy.orm import sessionmaker
 import stripe
+import logging
 
 app = Flask(__name__)
-CORS(app)
+# CORS(app)
 
 def connect_to_db(app, db_uri):
     app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
@@ -213,7 +214,7 @@ def premium():
     token = request.json['token']
     return jsonify(token)
 
-
+logging.getLogger('flask_cors').level = logging.DEBUG
 
 if __name__ == "__main__":
   app.run(host="0.0.0.0", port=PORT, debug=DEBUG)
