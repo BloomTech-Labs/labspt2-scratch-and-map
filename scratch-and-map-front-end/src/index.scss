@@ -240,6 +240,7 @@ p {
   background-image: url("./img/hero.png");
   background-size: cover;
   background-repeat: no-repeat;
+  filter: grayscale(100%);
 
 
   @media screen and (max-width: 800px) {
@@ -247,31 +248,50 @@ p {
   }
 
   .blurb {
-    width: 35vw;
-  padding-right: 30px; 
-  margin-top: 50px;
-
+    width: 100vw;
+    height: 1000vw;
+    opacity: 10;
+    z-index: -9;
+    position: absolute;
+    background-color: #000;
     @media screen and (max-width: 800px) {
       margin-top: 25px;
       width: 50vw;
       padding-right: 15px;
+      width: 100vw;
+      height: 1000vw;
         }
-
     p {
-      font-size: 1.5em; 
-      text-align: center;
-
+      color: #fff; 
+      font-size: 40px;
+      margin-top: 440px;
+     text-align: center;
+    
       @media screen and (max-width: 800px) {
-        font-size: 1em;
+        font-size: 1.3em;
+        margin-top: 240px;
        }
+     
     }
 
   }
+  @keyframes type{ 
+    from { width: 0; } 
+  } 
+  .fade-out {
+    opacity: 0;
+    transition: 13s opacity;
+    transition-delay: 2s;
+  }
+.fade-out-text {
+    opacity: 0;
+    transition: 10s opacity;
+  }
 
   .logoimg {
-    margin-top: 150px;
-    height: 110px;
-    width: 500px;
+    margin-top: 180px;
+    height: auto;
+    width: 600px;
     z-index: 1;
 
     @media screen and (max-width: 800px) {
@@ -480,7 +500,7 @@ a,
 
 .ui.card > .content,
 .ui.cards > .card > .content {
-  margin-top: 20px;
+  margin-top: 10px;
   text-align: center;
   font-size: 10px;
   text-transform: uppercase;
@@ -506,14 +526,17 @@ a,
 .ui.card > .content > .meta + .description,
 .ui.cards > .card > .content > .header + .description,
 .ui.cards > .card > .content > .meta + .description {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   font-size: 14px;
   font-weight: 10;
+  text-transform: none;
+  line-height: 17px;
 }
 .ui.card > .content p:last-child,
 .ui.cards > .card > .content p:last-child {
-  font-size: 14px;
+  font-size: 17px;
   text-transform: uppercase;
+
 }
 
 

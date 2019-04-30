@@ -3,7 +3,6 @@ import FacebookLogin from "react-facebook-login";
 import axios from "axios";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { getUserDataReducer } from "../../reducers/mapReducer.js";
 import { getUserData } from "../../actions/mapActions";
 require("dotenv").config();
 
@@ -65,7 +64,7 @@ class FbLogin extends Component {
               const url = `${process.env.REACT_APP_BACKEND_URL}/api/signup`;
               const proxyurl = "https://cors-anywhere.herokuapp.com/";
               axios
-                .post(proxyurl + url, user)
+                .post(url, user)
 
                 .then(res => {
                   window.localStorage.setItem(

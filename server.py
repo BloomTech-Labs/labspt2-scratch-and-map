@@ -20,7 +20,7 @@ def connect_to_db(app, db_uri):
     app.config['SQLALCHEMY_POOL_TIMEOUT']=10
     app.config['SQLALCHEMY_MAX_OVERFLOW']=3
     app.config['SQLALCHEMY_POOL_RECYCLE']=3
-    app.config['CORS_HEADERS'] = 'Content-Type'
+    app.config['CORS_HEADERS'] = '*'
 
 
 load_dotenv('.env')
@@ -49,7 +49,6 @@ def error():
 
 #AUTH ENDPOINTS
 @app.route('/api/signup', methods=['POST'])
-@cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
 def signup():
     username = request.json['username']
     password = request.json['password']
@@ -87,10 +86,8 @@ def get_user_by_fbid(fbid):
 def check_user_by_token():
     token = request.json['accessToken']
     user = users.query.filter(users.fb_access_token==token).first()
-    if user:
-        return jsonify({'isLoggedIn': 'true'})
-    else:
-        return jsonify({'isLoggedIn': 'false'})
+    
+    return jsonify(user)
 
 #USERS ENDPOINTS
 @app.route('/api/users', methods =['GET'])
