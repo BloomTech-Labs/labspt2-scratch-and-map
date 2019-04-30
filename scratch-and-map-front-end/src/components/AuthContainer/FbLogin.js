@@ -64,7 +64,7 @@ class FbLogin extends Component {
               const url = `${process.env.REACT_APP_BACKEND_URL}/api/signup`;
               const proxyurl = "https://cors-anywhere.herokuapp.com/";
               axios
-                .post(proxyurl + url, user)
+                .post(url, user)
 
                 .then(res => {
                   window.localStorage.setItem(

@@ -19,7 +19,7 @@ def connect_to_db(app, db_uri):
     app.config['SQLALCHEMY_POOL_TIMEOUT']=10
     app.config['SQLALCHEMY_MAX_OVERFLOW']=3
     app.config['SQLALCHEMY_POOL_RECYCLE']=3
-    app.config['CORS_HEADERS'] = 'Content-Type'
+    app.config['CORS_HEADERS'] = '*'
 
 
 load_dotenv('.env')
@@ -48,7 +48,7 @@ def error():
 
 #AUTH ENDPOINTS
 @app.route('/api/signup', methods=['POST'])
-@cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
+# @cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
 def signup():
     username = request.json['username']
     password = request.json['password']
@@ -77,14 +77,14 @@ def fbLogin(fbid):
 
 #NOT SURE IF WE NEED THIS, BECAUSE WE CAN PULL THE FB_USER_ID DATA FROM THE USERS ENDPOINT.
 @app.route('/api/users/fb/<fbid>', methods=['GET'])
-@cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
+# @cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
 def get_user_by_fbid(fbid):
     user = users.query.filter(users.fb_user_id==fbid).first()
 
     return user_schema.jsonify(user)
 
 @app.route('/api/users/fb/token', methods=['POST'])
-@cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
+# @cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
 def check_user_by_token():
     token = request.json['accessToken']
     user = users.query.filter(users.fb_access_token==token).first()
@@ -95,7 +95,7 @@ def check_user_by_token():
 
 #USERS ENDPOINTS
 @app.route('/api/users', methods =['GET'])
-@cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
+# @cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
 def get_users():
   user = users.query.all()
   user_schema = UserSchema(many = True)
