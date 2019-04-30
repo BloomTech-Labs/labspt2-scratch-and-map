@@ -19,8 +19,8 @@ class App extends Component {
         accessToken: window.localStorage.getItem("FbAccessToken")
       })
       .then(res => {
-        this.setState(state => ({
-          isLoggedIn: res.data.isLoggedIn
+        // this.setState(state => ({
+        //   isLoggedIn: res.data.isLoggedIn
         }));
       });
   }
