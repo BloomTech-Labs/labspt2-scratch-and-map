@@ -280,7 +280,8 @@ p {
   } 
   .fade-out {
     opacity: 0;
-    transition: 16s opacity;
+    transition: 13s opacity;
+    transition-delay: 2s;
   }
 .fade-out-text {
     opacity: 0;
