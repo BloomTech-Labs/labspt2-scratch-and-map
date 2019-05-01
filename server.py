@@ -63,7 +63,8 @@ def signup():
     home_country = request.json['home_country']
     fb_user_id = request.json['fb_user_id']
     fb_access_token = request.json['fb_access_token']
-    new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role, home_country, fb_user_id, fb_access_token)
+    premium = request.json['premium']
+    new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role, home_country, fb_user_id, fb_access_token, premium)
     db.session.add(new_user)
     db.session.commit()
     return jsonify(new_user.id)
@@ -116,6 +117,7 @@ def update_user(id):
     user.role = request.json['role']
     user.fb_user_id = request.json['fb_user_id']
     user.fb_access_token = request.json['fb_access_token']
+    user.premium = request.json['premium']
     db.session.commit()
     return user_schema.jsonify(user)
 
@@ -141,6 +143,7 @@ def fb_user(fbid):
     user.role = request.json['role']
     user.fb_user_id = request.json['fb_user_id']
     user.fb_access_token = request.json['fb_access_token']
+    user.premium = request.json['premium']
     db.session.commit()
     return user_schema.jsonify(user)
 

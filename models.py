@@ -15,14 +15,15 @@ class users(db.Model):
     last_name = db.Column(String, nullable=False)
     age = db.Column(Integer, CheckConstraint( 'age>=14' ), nullable=False)
     nationality = db.Column(String, nullable=True)
-    picture_url = db.Column(String)
+    picture_url = db.Column(String, nullable=True)
     email = db.Column(String, unique=True, nullable=False)
     role = db.Column(String, nullable=False)
     home_country = db.Column(String, nullable=False)
     fb_user_id = db.Column(String, nullable=False)
     fb_access_token = db.Column(String, nullable=False)
+    premium = db.Column(Boolean, default=False)
 
-    def __init__(self, username, password, first_name, last_name, age, nationality, picture_url, email, role, home_country, fb_user_id, fb_access_token):
+    def __init__(self, username, password, first_name, last_name, age, nationality, picture_url, email, role, home_country, fb_user_id, fb_access_token, premium):
         self.username = username
         self.password = password
         self.first_name = first_name
@@ -35,6 +36,7 @@ class users(db.Model):
         self.home_country = home_country
         self.fb_user_id = fb_user_id
         self.fb_access_token = fb_access_token
+        self.premium = premium
 
     def __repr__(self):
         return '<{}>' % self.__name__
@@ -42,7 +44,7 @@ class users(db.Model):
 class UserSchema(ma.ModelSchema):
     class Meta:
         model = users
-        fields = ('id','username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role', 'home_country', 'user_countries', 'fb_user_id', 'fb_access_token')
+        fields = ('id','username', 'email', 'first_name', 'last_name', 'age', 'nationality', 'picture_url', 'role', 'home_country', 'user_countries', 'fb_user_id', 'fb_access_token', 'premium')
     user_countries = fields.Nested('UserCountrySchema', many = True,
                                     only = ['user_id','country_id', 'status', 'notes'])
 
