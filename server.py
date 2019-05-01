@@ -27,7 +27,8 @@ connect_to_db(app, DATABASE_URL)
 
 # Init db & mm
 db.init_app(app)
-ma = Marshmallow(app)
+# ma = Marshmallow(app)
+ma.init_app(app)
 
 PORT = int(os.environ.get("PORT",5000))
 DEBUG = "NO_DEBUG" not in os.environ
