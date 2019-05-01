@@ -3,7 +3,6 @@ import FacebookLogin from "react-facebook-login";
 import axios from "axios";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { getUserDataReducer } from "../../reducers/mapReducer.js";
 import { getUserData } from "../../actions/mapActions";
 require("dotenv").config();
 

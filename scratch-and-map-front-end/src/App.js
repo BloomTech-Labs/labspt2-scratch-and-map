@@ -27,11 +27,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <StripeProvider apiKey="pk_test_krA4dF6Zbe7WEYEqao5EeKmv00SpwNokud">
-          <Elements>
-            <ParentNav />
-          </Elements>
-        </StripeProvider>
+              <StripeProvider apiKey="pk_test_krA4dF6Zbe7WEYEqao5EeKmv00SpwNokud">
+                      <Elements>
+                         <ParentNav/>
+                      </Elements>
+              </StripeProvider>
       </div>
     );
   }

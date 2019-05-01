@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import Login from "./Login";
-import Register from "./Register";
 import FbLogin from "./FbLogin";
 import axios from "axios";
-import { Button, Header, Image, Modal } from "semantic-ui-react";
+import { Button, Modal } from "semantic-ui-react";
 
 class Auth extends Component {
   constructor() {

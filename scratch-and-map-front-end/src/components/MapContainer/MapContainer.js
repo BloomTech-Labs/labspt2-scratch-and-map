@@ -2,13 +2,11 @@ import React from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import countrydata from "./countries.geo.json";
-import axios from "axios";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { getUserData } from "../../actions/mapActions";
 import styled from "styled-components";
 import { returnCode, returnId } from "../helper";
-import { getUserDataReducer } from "../../reducers/mapReducer.js";
 import Card from "./Card";
 import Legend from "./Legend";
 import Loading from "../Loading";
@@ -78,7 +76,7 @@ class MapContainer extends React.Component {
     });
   }
   componentDidUpdate(prevProps) {
-    if (this.props.displayedUser != prevProps.displayedUser) {
+    if (this.props.displayedUser !== prevProps.displayedUser) {
       this.props.getUserData(this.props.displayedUser);
     }
   }
