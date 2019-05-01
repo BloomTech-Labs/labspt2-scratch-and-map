@@ -2,37 +2,34 @@
 
 Oh, the places you've gone! And the adventures that are still ahead of you! Travel can make the world feel smaller, but also more grand and beautiful—which is exactly how this interactive art presents it.
 
+### Prerequisites
+
+You will need to install [Python](wwww.python.org) and [pip](https://pip.pypa.io/en/stable/installing/).
+
+If you are running a version of Python older than 3.4, you will also need to install [virtualenv](https://virtualenv.pypa.io/en/latest/installation/)
+
+### Installing
+
+1. For Python 3.4 or newer:
+   Run ```python3 -m venv venv```.
+
+For versions of Python older than 3.4, see above for virtualenv installation.
+
+Continuing for all versions:
+
+2. Run ```virtualenv venv```
+
+3. Mac - Run ```source venv/bin/activate```
+   Windows - Run ```venv\Scripts\activate```
+
+4. Run ```pip install -r requirements.txt```
+
+
 ## Getting Started
 
 Start backend server with command: python server.py in root directory of project.
 
 Start frontend server with command: yarn start in root of frontend folder.
-
-### Prerequisites
-
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
-
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Running the tests
 
@@ -60,7 +57,10 @@ Ryan to fill in
 
 ## Built With
 
-* [XXX](XXXX) - The web framework used
+[Python](www.python.org)
+[Flask](http://flask.pocoo.org/)
+[React](www.reactjs.org)
+[Semantic UI React](https://react.semantic-ui.com/)
 
 ## Contributing
 
@@ -72,8 +72,19 @@ We use XXXXX for versioning. For the versions available, see the [tags on this r
 
 ## Authors
 
+![Abi](https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/abi.png?raw=true) [Abi Franklin](https://github.com/AbiFranklin)
 
-See the list of [contributors](https://github.com/Lambda-School-Labs/labspt2-scratch-and-map) who participated in this project.
+![Brandon](https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/brandon.png?raw=true) [Brandon Moll](https://github.com/BrandonMoll)
+
+![Courtney](https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/courtney.png?raw=true) [Courtney Buratto](https://github.com/cocoitali)
+
+![Javier](https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/javier.png?raw=true) [Javier Alvarez](https://github.com/jalvarez2020)
+
+![Pascale](https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/pascale.png?raw=true) [Pascale Pierre](https://github.com/PSquared0)
+
+![Ryan](https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/ryan.png?raw=true) [Ryan Matthews](https://github.com/ryntak94)
+
+
 
 ## License
 
@@ -81,6 +92,5 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+@gakko1 - Thank you for being at our beck and call.
+F.J. - Thank you for your guidance and cheerleading.
