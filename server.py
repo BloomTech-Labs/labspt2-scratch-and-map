@@ -11,7 +11,7 @@ import stripe
 import logging
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources=r'/api/*')
 
 def connect_to_db(app, db_uri):
     app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
