@@ -11,7 +11,7 @@ import stripe
 import logging
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources=r'/api/*')
 
 def connect_to_db(app, db_uri):
     app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
@@ -20,7 +20,7 @@ def connect_to_db(app, db_uri):
     app.config['SQLALCHEMY_POOL_TIMEOUT']=10
     app.config['SQLALCHEMY_MAX_OVERFLOW']=3
     app.config['SQLALCHEMY_POOL_RECYCLE']=3
-    app.config['CORS_HEADERS'] = '*'
+    # app.config['CORS_HEADERS'] = '*'
 
 
 load_dotenv('.env')
@@ -29,7 +29,8 @@ connect_to_db(app, DATABASE_URL)
 
 # Init db & mm
 db.init_app(app)
-ma = Marshmallow(app)
+# ma = Marshmallow(app)
+ma.init_app(app)
 
 PORT = int(os.environ.get("PORT",5000))
 DEBUG = "NO_DEBUG" not in os.environ
