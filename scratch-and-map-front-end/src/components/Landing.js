@@ -19,7 +19,6 @@ class Landing extends Component {
           <p className="blurb-text">Get ready to travel the world, one scratch at a time…</p>
           </Segment>
           <img className="logoimg" src={logo} />
-
       </div>
     );
   }
