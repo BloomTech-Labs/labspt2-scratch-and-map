@@ -60,11 +60,10 @@ def signup():
     picture_url = request.json['picture_url']
     email = request.json['email']
     role = request.json['role']
-    auto_scratch = request.json['auto_scratch']
     home_country = request.json['home_country']
     fb_user_id = request.json['fb_user_id']
     fb_access_token = request.json['fb_access_token']
-    new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role, auto_scratch, home_country, fb_user_id, fb_access_token)
+    new_user = users(username, password, first_name, last_name, age, nationality, picture_url, email, role, home_country, fb_user_id, fb_access_token)
     db.session.add(new_user)
     db.session.commit()
     return jsonify(new_user.id)
@@ -115,7 +114,6 @@ def update_user(id):
     user.nationality = request.json['nationality']
     user.picture_url = request.json['picture_url']
     user.role = request.json['role']
-    user.auto_scratch = request.json['auto_scratch']
     user.fb_user_id = request.json['fb_user_id']
     user.fb_access_token = request.json['fb_access_token']
     db.session.commit()
@@ -141,7 +139,6 @@ def fb_user(fbid):
     user.nationality = request.json['nationality']
     user.picture_url = request.json['picture_url']
     user.role = request.json['role']
-    user.auto_scratch = request.json['auto_scratch']
     user.fb_user_id = request.json['fb_user_id']
     user.fb_access_token = request.json['fb_access_token']
     db.session.commit()
