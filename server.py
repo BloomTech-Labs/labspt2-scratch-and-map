@@ -11,7 +11,7 @@ import stripe
 import logging
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources=r'/api/*')
 
 def connect_to_db(app, db_uri):
     app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
@@ -20,7 +20,7 @@ def connect_to_db(app, db_uri):
     app.config['SQLALCHEMY_POOL_TIMEOUT']=10
     app.config['SQLALCHEMY_MAX_OVERFLOW']=3
     app.config['SQLALCHEMY_POOL_RECYCLE']=3
-    app.config['CORS_HEADERS'] = '*'
+    # app.config['CORS_HEADERS'] = '*'
 
 
 load_dotenv('.env')
@@ -29,7 +29,8 @@ connect_to_db(app, DATABASE_URL)
 
 # Init db & mm
 db.init_app(app)
-ma = Marshmallow(app)
+# ma = Marshmallow(app)
+ma.init_app(app)
 
 PORT = int(os.environ.get("PORT",5000))
 DEBUG = "NO_DEBUG" not in os.environ
@@ -119,6 +120,13 @@ def update_user(id):
     user.fb_access_token = request.json['fb_access_token']
     db.session.commit()
     return user_schema.jsonify(user)
+
+@app.route('/api/users/<int:id>', methods=['DELETE']) 
+def delete_user(id):
+    user = users.query.get(id)
+    db.session.delete(user)
+    db.session.commit()
+    return user_schema.jsonify(user)    
 
 #FACEBOOK USERS BY ID
 @app.route('/api/users/<fbid>', methods=['PUT'])
@@ -246,19 +254,4 @@ def username(username):
 def signout():
   session.pop('username')
   return redirect(url_for('index'))
-@app.route('/api/users/<int:id>', methods=['DELETE']) #BUGGY, but do we need this if we do away with admin?
-def delete_user(id):
-    user = users.query.get(id)
-    db.delete(user)
-    db.session.commit()
-    return user_schema.jsonify(user)
-@app.route('/mapview/<int:id>') #This may refer to the relationship with users, working on displaying collection of mapview by user id objects as a field in users table
-def mapViewId(id):
-  return '<h1>User map info by ID</h1>' 'user ID %d' % id
-  @app.route('/api/mapview', methods=['GET'])
-def mapView():
-  user = users_countries_join.query.all()
-  return user_country_schema.jsonify(user)
-  user_country_schema = UserCountrySchema(many = True)
-  output = user_country_schema.dump(user).data
-  return jsonify({user : output})'''
+'''
