@@ -20,7 +20,7 @@ def connect_to_db(app, db_uri):
     app.config['SQLALCHEMY_POOL_TIMEOUT']=10
     app.config['SQLALCHEMY_MAX_OVERFLOW']=3
     app.config['SQLALCHEMY_POOL_RECYCLE']=3
-    app.config['CORS_HEADERS'] = '*'
+    # app.config['CORS_HEADERS'] = '*'
 
 
 load_dotenv('.env')
