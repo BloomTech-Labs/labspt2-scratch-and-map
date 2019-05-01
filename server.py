@@ -121,6 +121,13 @@ def update_user(id):
     db.session.commit()
     return user_schema.jsonify(user)
 
+@app.route('/api/users/<int:id>', methods=['DELETE']) 
+def delete_user(id):
+    user = users.query.get(id)
+    db.session.delete(user)
+    db.session.commit()
+    return user_schema.jsonify(user)    
+
 #FACEBOOK USERS BY ID
 @app.route('/api/users/<fbid>', methods=['PUT'])
 def fb_user(fbid):
@@ -247,19 +254,4 @@ def username(username):
 def signout():
   session.pop('username')
   return redirect(url_for('index'))
-@app.route('/api/users/<int:id>', methods=['DELETE']) #BUGGY, but do we need this if we do away with admin?
-def delete_user(id):
-    user = users.query.get(id)
-    db.delete(user)
-    db.session.commit()
-    return user_schema.jsonify(user)
-@app.route('/mapview/<int:id>') #This may refer to the relationship with users, working on displaying collection of mapview by user id objects as a field in users table
-def mapViewId(id):
-  return '<h1>User map info by ID</h1>' 'user ID %d' % id
-  @app.route('/api/mapview', methods=['GET'])
-def mapView():
-  user = users_countries_join.query.all()
-  return user_country_schema.jsonify(user)
-  user_country_schema = UserCountrySchema(many = True)
-  output = user_country_schema.dump(user).data
-  return jsonify({user : output})'''
+'''
