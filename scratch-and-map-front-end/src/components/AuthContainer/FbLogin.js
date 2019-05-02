@@ -58,52 +58,55 @@ class FbLogin extends Component {
               response.userID
             }`
           )
-          .then(res => {
-            console.log("DATA I HOPE", res.data);
-            if (!res.data.fb_user_id) {
-              //signup second phase component here
-              const url = `${process.env.REACT_APP_BACKEND_URL}/api/signup`;
-              const proxyurl = "https://cors-anywhere.herokuapp.com/";
-              axios
-                .post(url, user)
+          .then(
+            res => {
+              console.log("DATA I HOPE", res.data);
+              if (!res.data.fb_user_id) {
+                //signup second phase component here
+                const url = `${process.env.REACT_APP_BACKEND_URL}/api/signup`;
+                const proxyurl = "https://cors-anywhere.herokuapp.com/";
+                axios
+                  .post(url, user)
 
-                .then(res => {
-                  window.localStorage.setItem(
-                    "FbAccessToken",
-                    response.accessToken
-                  );
-                  window.localStorage.setItem("SAMUserID", response.userID);
-                  // this.props.getUserData(
-                  //   window.localStorage.getItem("SAMUserID") ***Will add back in later - BM
-                  // );
-                  return console.log(res);
-                }); //need a message when user already exist.
-            } else {
-              console.log("ELSE", res);
-              let new_user = res.data;
-              new_user.fb_access_token = response.accessToken;
-              axios
-                .put(
-                  `${process.env.REACT_APP_BACKEND_URL}/api/login/fb/${
-                    response.id
-                  }`,
-                  new_user
-                )
-                .then(res => {
-                  window.localStorage.setItem(
-                    "FbAccessToken",
-                    response.accessToken
-                  );
-                  window.localStorage.setItem("SAMUserID", response.userID);
-                  // this.props.getUserData(
-                  //   window.localStorage.getItem("SAMUserID")***Will add back in later - BM
-                  // );
-                  return console.log("LOGIN RES", res);
-                });
+                  .then(res => {
+                    window.localStorage.setItem(
+                      "FbAccessToken",
+                      response.accessToken
+                    );
+                    window.localStorage.setItem("SAMUserID", response.userID);
+                    // this.props.getUserData(
+                    //   window.localStorage.getItem("SAMUserID") ***Will add back in later - BM
+                    // );
+                    return console.log(res);
+                  }); //need a message when user already exist.
+              } else {
+                console.log("ELSE", res);
+                let new_user = res.data;
+                new_user.fb_access_token = response.accessToken;
+                axios
+                  .put(
+                    `${process.env.REACT_APP_BACKEND_URL}/api/login/fb/${
+                      response.id
+                    }`,
+                    new_user
+                  )
+                  .then(res => {
+                    window.localStorage.setItem(
+                      "FbAccessToken",
+                      response.accessToken
+                    );
+                    window.localStorage.setItem("SAMUserID", response.userID);
+                    // this.props.getUserData(
+                    //   window.localStorage.getItem("SAMUserID")***Will add back in later - BM
+                    // );
+                    return console.log("LOGIN RES", res);
+                  });
+              }
+            },
+            () => {
+              document.location.reload(true);
             }
-        } ()    =>  {
-            document.location.reload(true);
-        })
+          );
       }
     );
   };
