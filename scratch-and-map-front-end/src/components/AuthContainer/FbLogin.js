@@ -101,10 +101,9 @@ class FbLogin extends Component {
                   return console.log("LOGIN RES", res);
                 });
             }
-          })
-          .then(res => {
+        } ()    =>  {
             document.location.reload(true);
-          });
+        })
       }
     );
   };
