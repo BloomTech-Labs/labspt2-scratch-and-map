@@ -33,8 +33,7 @@ if __name__ == "__main__":
     load_dotenv('.env')
     DATABASE_URL = os.environ.get("DATABASE_URL")
     connect_to_db(app, DATABASE_URL)
-    db.create_all()
-    user_filename = "seed_files/MOCK_DATA.csv"
-    countries_filename = "seed_files/COUNTRY_DATA.csv"
-    load_users(user_filename)
-    load_countries(countries_filename)
+    with app.app_context():
+        db.init_app(app)
+        countries_filename = "seed_files/COUNTRY_DATA.csv"
+        load_countries(countries_filename)
