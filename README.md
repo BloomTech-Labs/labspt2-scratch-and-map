@@ -58,7 +58,7 @@ Give an example
 
 ## Deployment
 
-Ryan to fill in
+Deployed via Heroku and Netlify. [www.scratchandmap.club](www.scratchandmap.club)
 
 ## Built With
 
