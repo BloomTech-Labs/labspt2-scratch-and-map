@@ -8,6 +8,8 @@ You will need to install [Python](wwww.python.org) and [pip](https://pip.pypa.io
 
 If you are running a version of Python older than 3.4, you will also need to install [virtualenv](https://virtualenv.pypa.io/en/latest/installation/)
 
+.env files are not included in the repository. Please contact a dev team member for access.
+
 ### Installing
 
 1. For Python 3.4 or newer:
@@ -33,27 +35,30 @@ Start frontend server with command: yarn start in root of frontend folder.
 
 ## Running the tests
 
-Explain how to run the automated tests for this system (pytest)
+From the root folder, within the virtual environment, run:
+```
+pytest  -v  --setup-show tests
+```
+
+Netlify predeployment tests run with each PR.
 
 ### Break down into end to end tests
 
-Explain what these tests test and why (why pytest)
+conftest.py - creates new instances of data for use in test cases within test_models.py
 
-```
-Give an example
-```
+test_models.py - tests for correct table schema
 
-### And coding style tests
+<!-- ### And coding style tests
 
 Explain what these tests test and why
 
 ```
 Give an example
-```
+``` -->
 
 ## Deployment
 
-Ryan to fill in
+Deployed via Heroku and Netlify. [www.scratchandmap.club](www.scratchandmap.club)
 
 ## Built With
 
@@ -68,23 +73,21 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 ## Versioning
 
-We use XXXXX for versioning. For the versions available, see the [tags on this repository](https://github.com/Lambda-School-Labs/labspt2-scratch-and-map). 
+We use date of release for versioning (YY.MM). Current version [Version 19.05](https://github.com/Lambda-School-Labs/labspt2-scratch-and-map). 
 
 ## Authors
-
-![Abi](https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/abi.png?raw=true) [Abi Franklin](https://github.com/AbiFranklin)
-
-![Brandon](https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/brandon.png?raw=true) [Brandon Moll](https://github.com/BrandonMoll)
-
-![Courtney](https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/courtney.png?raw=true) [Courtney Buratto](https://github.com/cocoitali)
-
-![Javier](https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/javier.png?raw=true) [Javier Alvarez](https://github.com/jalvarez2020)
-
-![Pascale](https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/pascale.png?raw=true) [Pascale Pierre](https://github.com/PSquared0)
-
-![Ryan](https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/ryan.png?raw=true) [Ryan Matthews](https://github.com/ryntak94)
-
-
+<table style="border-collapse: collapse;"><tr style="border: none;"><td style="border: none;">
+<center><img src="https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/abi.png?raw=true" width="150"/><br> [Abi Franklin](https://github.com/AbiFranklin)</center>
+</td><td style="border: none;">
+<center><img src="https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/brandon.png?raw=true" width="150"/><br> [Brandon Moll](https://github.com/BrandonMoll)</center>
+</td><td style="border: none;">
+<center><img src="https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/courtney.png?raw=true" width="150"/><br> [Courtney Buratto](https://github.com/cocoitali)</center>
+</td></tr><tr style="border: none;"><td style="border: none;">
+<center><img src="https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/javier.png?raw=true" width="150"/><br>  [Javier Alvarez](https://github.com/jalvarez2020)</center>
+</td><td style="border: none;">
+<center><img src="https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/pascale.png?raw=true" width="150"/> <br> [Pascale Pierre](https://github.com/PSquared0)</center>
+</td><td style="border: none;">
+<center><img src="https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/ryan.png?raw=true" width="150"/> <br>[Ryan Matthews](https://github.com/ryntak94)</center></td></tr></table>
 
 ## License
 
