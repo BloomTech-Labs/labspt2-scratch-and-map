@@ -40,7 +40,7 @@ From the root folder, within the virtual environment, run:
 pytest  -v  --setup-show tests
 ```
 
-Heroku predeployment tests run with each PR.
+Netlify predeployment tests run with each PR.
 
 ### Break down into end to end tests
 
