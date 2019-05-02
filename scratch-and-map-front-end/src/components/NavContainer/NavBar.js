@@ -107,7 +107,7 @@ const NavBar = ({
           )
           <div className="AuthButtons">
             {window.localStorage.getItem("SAMUserID") ? (
-              <Button className="premium" inverted onClick={onLogout}>
+              <Button className="navbutton" inverted onClick={onLogout}>
                 LOG OUT
               </Button>
             ) : (

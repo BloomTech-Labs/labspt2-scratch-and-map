@@ -194,12 +194,16 @@ p {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin-right: 20px;
+  margin-right: 0px;
+
 
   @media screen and (max-width: 800px) {
-    justify-content: flex-start;
+    justify-content: space-between;
+    align-content: center;
+    width: 40%;
+    margin-right: 20px;
   }
-}
+}xf
 
 .sidebar {
   img {
@@ -340,17 +344,21 @@ p {
     @media screen and (max-width: 800px) {
       width: 70px;
       padding: 17px 0px !important;
+
     }
   }
 
   .premium {
     font-size: 12px !important;
     padding: 11px 15px !important;
-    margin: 10px 15px 10px 0px !important;
+    margin: 11px 1px 10px 0px !important;
     @media screen and (max-width: 800px) {
-      width: 175px;
-      padding: 12px 7px !important;
+      width: 85px;
+      padding: 12px 11px !important;
       text-align: center;
+      justify-content: flex-end;
+      margin: 11px 1px 12px 0px !important;
+    
     }
   }
 
@@ -371,18 +379,26 @@ p {
 .mapview {
   width: 100vw;
   height: 90vh;
+  
 }
 
 .legend {
   width: 170px;
   z-index: 40 !important;
   position: relative !important;
-  top: 60%;
+  top: 50%;
   left: 85%;
+  @media screen and (max-width: 800px) {
+    left: 47%;
+    top: 69%;
+   
+  }
 
   .listItem {
     display: flex !important;
     align-items: center !important;
+    left: 50%;
+   
   }
 
   .notSelected {
