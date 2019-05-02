@@ -47,7 +47,8 @@ class FbLogin extends Component {
           home_country: "RUS",
           fb_user_id: response.userID,
           fb_access_token: response.accessToken,
-          picture_url: "http://placekitten.com/200/200"
+          picture_url: "http://placekitten.com/200/200",
+          premium: "false"
         };
 
         //Checks DB If FB User Exist
@@ -100,6 +101,9 @@ class FbLogin extends Component {
                   return console.log("LOGIN RES", res);
                 });
             }
+          })
+          .then(res => {
+            document.location.reload(true);
           });
       }
     );

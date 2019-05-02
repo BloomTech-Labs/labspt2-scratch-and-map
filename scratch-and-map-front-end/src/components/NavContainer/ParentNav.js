@@ -20,7 +20,10 @@ class ParentNav extends Component {
 
   handleToggle = () => this.setState({ visible: !this.state.visible });
 
-  onLogout = () => localStorage.clear("SAMUserID");
+  onLogout = () => {
+    localStorage.clear("SAMUserID");
+    document.location.reload(true);
+  };
 
   render() {
     const { visible } = this.state;
