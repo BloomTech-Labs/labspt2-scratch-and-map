@@ -20,7 +20,6 @@ class FriendListView extends Component {
     await axios
       .get(`${process.env.REACT_APP_BACKEND_URL}/api/users`)
       .then(res => {
-        console.log("Side Bar Users", res);
         this.setState({
           friends: res.data.users,
           filteredFriends: res.data.users
@@ -79,10 +78,10 @@ class FriendListView extends Component {
                       justifyContent: "flex-start"
                     }}
                   >
-
                     <div
                       style={{ marginLeft: 75 }}
-                      onClick={() => this.props.updateDisplayedUser(friend.fb_user_id)
+                      onClick={() =>
+                        this.props.updateDisplayedUser(friend.fb_user_id)
                       }
                     >
                       <Image
