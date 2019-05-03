@@ -3,6 +3,7 @@ import axios from "axios";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import "../styles/CheckoutForm.css";
 import { Form, Button, Dropdown } from "semantic-ui-react";
+import {Route, Link} from 'react-router-dom'
 require("dotenv").config();
 
 class CheckoutForm extends Component {
@@ -48,33 +49,36 @@ handleInputChange = e => {
 };
 
 
-
 handleStateSelection = (e, {value}) => this.setState({ stateSelection: value })
 
 handleCountrySelection = (e, {value}) => this.setState({ countrySelection: value })
 
-handleCheckout = () => {
-  checkoutButton.addEventListener('click', function () {
-    // When the customer clicks on the button, redirect
-    // them to Checkout.
-    stripe.redirectToCheckout({
-      items: [{sku: 'sku_EzIHRsK0Gl5QOc', quantity: 1}],
+// handleCheckout = () => {
+//   checkoutButton.addEventListener('click', function () {
+//     // When the customer clicks on the button, redirect
+//     // them to Checkout.
+//     this.props.stripe.redirectToCheckout({
+//       items: [{sku: 'sku_EzIHRsK0Gl5QOc', quantity: 1}],
   
-      // Note that it is not guaranteed your customers will be redirected to this
-      // URL *100%* of the time, it's possible that they could e.g. close the
-      // tab between form submission and the redirect.
-      successUrl: 'https://your-website.com/success',
-      cancelUrl: 'https://your-website.com/canceled',
-    })
-    .then(function (result) {
-      if (result.error) {
-        // If `redirectToCheckout` fails due to a browser or network
-        // error, display the localized error message to your customer.
-        var displayError = document.getElementById('error-message');
-        displayError.textContent = result.error.message;
-      }
-    });
-  });
+//       // Note that it is not guaranteed your customers will be redirected to this
+//       // URL *100%* of the time, it's possible that they could e.g. close the
+//       // tab between form submission and the redirect.
+//       successUrl: 'https://your-website.com/success',
+//       cancelUrl: 'https://your-website.com/canceled',
+//     })
+//     .then(function (result) {
+//       if (result.error) {
+//         // If `redirectToCheckout` fails due to a browser or network
+//         // error, display the localized error message to your customer.
+//         var displayError = document.getElementById('error-message');
+//         displayError.textContent = result.error.message;
+//       }
+//     });
+//   });
+// }
+
+redirect = () =>{
+  
 }
 
 
@@ -90,6 +94,16 @@ async submit(ev) {
     address_country: this.state.countrySelection
   });
 
+
+  this.props.stripe.redirectToCheckout({
+          items: [{sku: 'sku_EzIHRsK0Gl5QOc', quantity: 1}],
+          // Note that it is not guaranteed your customers will be redirected to this
+          // URL *100%* of the time, it's possible that they could e.g. close the
+          // tab between form submission and the redirect.
+          successUrl: 'https://scratchandmap.club',
+          cancelUrl: 'https://scratchandmap.club',
+        })
+
   let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/charge`, {
     method: "POST",
     headers: {"Content-Type": "text/plain"},
@@ -103,10 +117,6 @@ async submit(ev) {
 }
 
   render() {
-
-    console.log("CHARGE", this.props.stripe.createPaymentMethod)
-
-
     return (
       <Form className="ui form">
         <h1 className="ui centered">Enter Personal Payment Details</h1>
@@ -177,8 +187,8 @@ async submit(ev) {
 
         <CardElement className="StripeElement" placeholder="Card info" input />
 
-        <Button>Back</Button>
-        <Button onClick={this.submit} id="checkout-button-sku_EzIHRsK0Gl5QOc" >Checkout</Button>
+        <Link to="/"><Button>Back</Button></Link>
+        <Button onClick={this.submit}>Checkout</Button>
       </Form>
     );
   }
