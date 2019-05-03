@@ -161,12 +161,13 @@ async submit(ev) {
           />
         </Form.Group>
 
-        <Form.Group>
-          <Dropdown
+        <Form.Group widths="equal">
+          <Dropdown 
             placeholder="Select State"
             onChange={this.handleStateSelection}
             required
             fluid
+            width={3}
             search
             selection
             className="StripeDropdown"
@@ -186,10 +187,19 @@ async submit(ev) {
         </Form.Group>
 
         <CardElement className="StripeElement" placeholder="Card info" input />
+<<<<<<< HEAD
 
         <Link to="/"><Button>Back</Button></Link>
         <Button onClick={this.submit}>Checkout</Button>
       </Form>
+=======
+<div>
+        <Button className="stripe-buttons">Back</Button>
+        <Button onClick={this.submit}>Submit</Button>
+        </div>
+         </Form>
+     
+>>>>>>> 6254e4f5c94f5e71d1311580e7169fe9c53a704d
     );
   }
 }
