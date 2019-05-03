@@ -100,13 +100,11 @@ class FbLogin extends Component {
                     //   window.localStorage.getItem("SAMUserID")***Will add back in later - BM
                     // );
                     return console.log("LOGIN RES", res);
-                  });
-              }
-            },
-            () => {
-              document.location.reload(true);
+         });
             }
-          );
+          },()=>{
+            document.location.reload(true);
+            })
       }
     );
   };
