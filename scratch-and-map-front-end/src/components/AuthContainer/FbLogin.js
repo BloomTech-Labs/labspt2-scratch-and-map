@@ -73,10 +73,6 @@ class FbLogin extends Component {
                     // this.props.getUserData(
                     //   window.localStorage.getItem("SAMUserID") ***Will add back in later - BM
                     // );
-<<<<<<< HEAD
-=======
-
->>>>>>> 6254e4f5c94f5e71d1311580e7169fe9c53a704d
                   }); //need a message when user already exist.
               } else {
                 let new_user = res.data;
@@ -97,10 +93,6 @@ class FbLogin extends Component {
                     // this.props.getUserData(
                     //   window.localStorage.getItem("SAMUserID")***Will add back in later - BM
                     // );
-<<<<<<< HEAD
-=======
-
->>>>>>> 6254e4f5c94f5e71d1311580e7169fe9c53a704d
                   });
               }
             },
