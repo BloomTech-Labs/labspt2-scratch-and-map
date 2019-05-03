@@ -20,9 +20,10 @@ class FriendListView extends Component {
     await axios
       .get(`${process.env.REACT_APP_BACKEND_URL}/api/users`)
       .then(res => {
+        const friends = res.data.users.filter(user => {return user.fb_user_id !== window.localStorage.getItem("SAMUserID") })
         this.setState({
-          friends: res.data.users,
-          filteredFriends: res.data.users
+          friends: friends,
+          filteredFriends: friends
           // clickedFriend: window.localStorage.getItem("SAMUserID")
         });
         // this.props.getUserData(window.localStorage.getItem("SAMUserID"));
