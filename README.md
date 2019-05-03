@@ -76,18 +76,18 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 We use date of release for versioning (YY.MM). Current version [Version 19.05](https://github.com/Lambda-School-Labs/labspt2-scratch-and-map). 
 
 ## Authors
-<table style="border-collapse: collapse;"><tr style="border: none;"><td style="border: none;">
-<center><img src="https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/abi.png?raw=true" width="150"/><br> [Abi Franklin](https://github.com/AbiFranklin)</center>
+<table style="border-collapse: collapse;"><tr style="border: none;"><td style= "border: none;">
+<center><img src="https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/abi.png?raw=true" width="150"/><br> <a href="https://github.com/AbiFranklin">Abi Franklin</a></center>
 </td><td style="border: none;">
-<center><img src="https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/brandon.png?raw=true" width="150"/><br> [Brandon Moll](https://github.com/BrandonMoll)</center>
+<center><img src="https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/brandon.png?raw=true" width="150"/><br> <a href="https://github.com/BrandonMoll">Brandon Moll</a></center>
 </td><td style="border: none;">
-<center><img src="https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/courtney.png?raw=true" width="150"/><br> [Courtney Buratto](https://github.com/cocoitali)</center>
+<center><img src="https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/courtney.png?raw=true" width="150"/><br> <a href="https://github.com/cocoitali">Courtney Buratto</a></center>
 </td></tr><tr style="border: none;"><td style="border: none;">
-<center><img src="https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/javier.png?raw=true" width="150"/><br>  [Javier Alvarez](https://github.com/jalvarez2020)</center>
+<center><img src="https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/javier.png?raw=true" width="150"/><br>  <a href="https://github.com/jalvarez2020">Javier Alvarez</a></center>
 </td><td style="border: none;">
-<center><img src="https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/pascale.png?raw=true" width="150"/> <br> [Pascale Pierre](https://github.com/PSquared0)</center>
+<center><img src="https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/pascale.png?raw=true" width="150"/> <br> <a href="https://github.com/PSquared0">Pascale Pierre</a></center>
 </td><td style="border: none;">
-<center><img src="https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/ryan.png?raw=true" width="150"/> <br>[Ryan Matthews](https://github.com/ryntak94)</center></td></tr></table>
+<center><img src="https://github.com/Lambda-School-Labs/labspt2-scratch-and-map/blob/master/scratch-and-map-front-end/src/img/ryan.png?raw=true" width="150"/> <br><a href="https://github.com/ryntak94">Ryan Matthews</a></center></td></tr></table>
 
 ## License
 

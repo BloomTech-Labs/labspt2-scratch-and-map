@@ -57,6 +57,10 @@ class FbLogin extends Component {
           )
           .then(
             res => {
+<<<<<<< HEAD
+=======
+              console.log("DATA I HOPE", res.data);
+>>>>>>> 82e423aaf4583dd7c212eb4209fa86be46289975
               if (!res.data.fb_user_id) {
                 //signup second phase component here
                 const url = `${process.env.REACT_APP_BACKEND_URL}/api/signup`;
@@ -73,8 +77,15 @@ class FbLogin extends Component {
                     // this.props.getUserData(
                     //   window.localStorage.getItem("SAMUserID") ***Will add back in later - BM
                     // );
+<<<<<<< HEAD
                   }); //need a message when user already exist.
               } else {
+=======
+                    return console.log(res);
+                  }); //need a message when user already exist.
+              } else {
+                console.log("ELSE", res);
+>>>>>>> 82e423aaf4583dd7c212eb4209fa86be46289975
                 let new_user = res.data;
                 new_user.fb_access_token = response.accessToken;
                 axios
@@ -93,11 +104,16 @@ class FbLogin extends Component {
                     // this.props.getUserData(
                     //   window.localStorage.getItem("SAMUserID")***Will add back in later - BM
                     // );
+<<<<<<< HEAD
                   });
               }
             },
             () => {
               document.location.reload(true);
+=======
+                    return console.log("LOGIN RES", res);
+         });
+>>>>>>> 82e423aaf4583dd7c212eb4209fa86be46289975
             }
           );
       }
