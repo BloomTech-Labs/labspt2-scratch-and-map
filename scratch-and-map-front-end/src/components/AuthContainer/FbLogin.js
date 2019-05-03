@@ -73,6 +73,7 @@ class FbLogin extends Component {
                     // this.props.getUserData(
                     //   window.localStorage.getItem("SAMUserID") ***Will add back in later - BM
                     // );
+
                   }); //need a message when user already exist.
               } else {
                 let new_user = res.data;
@@ -93,6 +94,7 @@ class FbLogin extends Component {
                     // this.props.getUserData(
                     //   window.localStorage.getItem("SAMUserID")***Will add back in later - BM
                     // );
+
                   });
               }
             },
