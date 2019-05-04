@@ -52,9 +52,11 @@ class NavBar extends React.Component {
                 }}
               >
                 <Menu.Item
-                // onClick={() =>
-                //   getUserData(window.localStorage.getItem("SAMUserID"))
-                // }
+                  onClick={() =>
+                    this.props.getUserData(
+                      window.localStorage.getItem("SAMUserID")
+                    )
+                  }
                 >
                   <Icon name="map" inverted />
                   My Map
