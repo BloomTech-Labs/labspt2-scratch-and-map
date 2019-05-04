@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { getUserData } from "../../actions/mapActions";
+import { updateIsLoggedIn } from "../../actions/isLoggedInAction";
 import NavBar from "./NavBar";
 
 class ParentNav extends Component {
@@ -23,6 +24,7 @@ class ParentNav extends Component {
   onLogout = () => {
     localStorage.clear("SAMUserID");
     document.location.reload(true);
+    this.props.updateIsLoggedIn();
   };
 
   render() {
@@ -49,6 +51,6 @@ const mapStateToProps = state => {
 export default withRouter(
   connect(
     mapStateToProps,
-    { getUserData }
+    { getUserData, updateIsLoggedIn }
   )(ParentNav)
 );

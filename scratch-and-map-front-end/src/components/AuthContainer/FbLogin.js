@@ -4,6 +4,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { getUserData } from "../../actions/mapActions";
+import { updateIsLoggedIn } from "../../actions/isLoggedInAction";
 require("dotenv").config();
 
 class FbLogin extends Component {
@@ -91,7 +92,7 @@ class FbLogin extends Component {
                       response.accessToken
                     );
                     window.localStorage.setItem("SAMUserID", response.userID);
-                    this.setState({ isLoggedIn: true });
+                    this.props.updateIsLoggedIn();
                     // this.props.getUserData(
                     //   window.localStorage.getItem("SAMUserID")***Will add back in later - BM
                     // );
@@ -170,12 +171,13 @@ const mapStateToProps = state => {
     userData: state.getUserDataReducer.userData,
     userCountryData: state.getUserDataReducer.userCountryData,
     loading: state.getUserDataReducer.loading,
-    DBUserID: state.getUserDataReducer.id
+    DBUserID: state.getUserDataReducer.id,
+    isLoggedIn: state.updateLoginReducer.isLoggedIn
   };
 };
 export default withRouter(
   connect(
     mapStateToProps,
-    { getUserData }
+    { getUserData, updateIsLoggedIn }
   )(FbLogin)
 );
