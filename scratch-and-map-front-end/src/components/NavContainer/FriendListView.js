@@ -10,7 +10,7 @@ class FriendListView extends Component {
     super(props);
     this.state = {
       friends: [],
-      filteredFriends: [],
+      filteredFriends: "",
       query: ""
       // clickedFriend: ""
     };
@@ -49,7 +49,8 @@ class FriendListView extends Component {
   render() {
     return (
       <div>
-        {window.localStorage.getItem("SAMUserID") ? (
+        {window.localStorage.getItem("SAMUserID") &&
+        this.state.filteredFriends ? (
           <div className="friend-view-wrapper">
             <input
               className="search-bar"
