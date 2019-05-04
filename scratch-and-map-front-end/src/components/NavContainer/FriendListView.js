@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Menu, Image } from "semantic-ui-react";
 import FacebookLogin from "react-facebook-login";
 import axios from "axios";
 import { connect } from "react-redux";

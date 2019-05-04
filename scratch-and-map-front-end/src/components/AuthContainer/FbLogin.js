@@ -19,7 +19,6 @@ class FbLogin extends Component {
   }
 
   responseFacebook = response => {
-    console.log("FACEBOOK RESPONSE", response);
     this.setState(
       {
         username: response.email,
@@ -29,8 +28,6 @@ class FbLogin extends Component {
       },
 
       () => {
-        console.log("THIS STATE", this.state);
-
         const name = response.name.split(" ");
         const first = name[0];
         const last = name[1];
@@ -60,7 +57,6 @@ class FbLogin extends Component {
           )
           .then(
             res => {
-              console.log("DATA I HOPE", res.data);
               if (!res.data.fb_user_id) {
                 //signup second phase component here
                 const url = `${process.env.REACT_APP_BACKEND_URL}/api/signup`;
@@ -74,17 +70,11 @@ class FbLogin extends Component {
                       response.accessToken
                     );
                     window.localStorage.setItem("SAMUserID", response.userID);
-                
                     // this.props.getUserData(
                     //   window.localStorage.getItem("SAMUserID") ***Will add back in later - BM
                     // );
-<<<<<<< HEAD
-                    return console.log(res);
-=======
->>>>>>> 9e8e6646908f96f7d3143981fae258937503e8b6
                   }); //need a message when user already exist.
               } else {
-                console.log("ELSE", res);
                 let new_user = res.data;
                 new_user.fb_access_token = response.accessToken;
                 axios
@@ -100,22 +90,16 @@ class FbLogin extends Component {
                       response.accessToken
                     );
                     window.localStorage.setItem("SAMUserID", response.userID);
-                    document.location.reload(true);
                     // this.props.getUserData(
                     //   window.localStorage.getItem("SAMUserID")***Will add back in later - BM
                     // );
-<<<<<<< HEAD
-<<<<<<< HEAD
-                    return console.log("LOGIN RES", res);
-         });
-=======
-=======
->>>>>>> 9e8e6646908f96f7d3143981fae258937503e8b6
                   });
               }
->>>>>>> re commiting previous merge.
+            },
+            () => {
+              document.location.reload(true);
             }
-          })
+          );
       }
     );
   };
@@ -131,7 +115,6 @@ class FbLogin extends Component {
       });
 
       window.FB.getLoginStatus(response => {
-        console.log(response);
         if (response.status === "connected") {
           // axios login call
           console.log("init", response);
