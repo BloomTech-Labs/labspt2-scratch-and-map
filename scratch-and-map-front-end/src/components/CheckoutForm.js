@@ -77,9 +77,6 @@ handleCountrySelection = (e, {value}) => this.setState({ countrySelection: value
 //   });
 // }
 
-redirect = () =>{
-  
-}
 
 
 
@@ -187,19 +184,12 @@ async submit(ev) {
         </Form.Group>
 
         <CardElement className="StripeElement" placeholder="Card info" input />
-<<<<<<< HEAD
-
-        <Link to="/"><Button>Back</Button></Link>
-        <Button onClick={this.submit}>Checkout</Button>
-      </Form>
-=======
 <div>
         <Button className="stripe-buttons">Back</Button>
         <Button onClick={this.submit}>Submit</Button>
         </div>
          </Form>
      
->>>>>>> 6254e4f5c94f5e71d1311580e7169fe9c53a704d
     );
   }
 }
