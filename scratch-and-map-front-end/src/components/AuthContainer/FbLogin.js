@@ -78,7 +78,10 @@ class FbLogin extends Component {
                     // this.props.getUserData(
                     //   window.localStorage.getItem("SAMUserID") ***Will add back in later - BM
                     // );
+<<<<<<< HEAD
                     return console.log(res);
+=======
+>>>>>>> 9e8e6646908f96f7d3143981fae258937503e8b6
                   }); //need a message when user already exist.
               } else {
                 console.log("ELSE", res);
@@ -102,9 +105,12 @@ class FbLogin extends Component {
                     //   window.localStorage.getItem("SAMUserID")***Will add back in later - BM
                     // );
 <<<<<<< HEAD
+<<<<<<< HEAD
                     return console.log("LOGIN RES", res);
          });
 =======
+=======
+>>>>>>> 9e8e6646908f96f7d3143981fae258937503e8b6
                   });
               }
 >>>>>>> re commiting previous merge.

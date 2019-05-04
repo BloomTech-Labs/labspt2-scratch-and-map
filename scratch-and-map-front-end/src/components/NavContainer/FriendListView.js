@@ -10,11 +10,10 @@ class FbLogin extends Component {
   constructor() {
     super();
     this.state = {
-      isLoggedIn: false,
-      userID: "",
-      name: "",
-      email: "",
-      picture: ""
+      friends: [],
+      filteredFriends: "",
+      query: ""
+      // clickedFriend: ""
     };
   }
 
@@ -128,38 +127,62 @@ class FbLogin extends Component {
   };
 
   render() {
-    let fbContent;
-
-    if (this.state.isLoggedIn) {
-      fbContent = (
-        <div
-          style={{
-            width: "100%",
-            margin: "auto",
-            background: "#f4f4f4",
-            padding: "20px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            textAlign: "center"
-          }}
-        >
-          <img src={this.state.picture} alt={this.state.name} />
-          <h2>Welcome {this.state.name} </h2>
-        </div>
-      );
-    } else {
-      fbContent = (
-        <FacebookLogin
-          appId={process.env.REACT_APP_FB_APP_ID}
-          autoLoad={true}
-          fields="name,email,picture"
-          onClick={this.componentClicked}
-          callback={this.responseFacebook}
-        />
-      );
-    }
-    return <div>{fbContent}</div>;
+    return (
+      <div>
+        {window.localStorage.getItem("SAMUserID") &&
+        this.state.filteredFriends ? (
+          <div className="friend-view-wrapper">
+            <input
+              className="search-bar"
+              placeholder="Search Friends        &#x1f50d; &nbsp;"
+              onChange={this.onChangeHandler}
+              value={this.state.query}
+            />
+            <Menu
+              inverted
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                overflow: "auto",
+                height: 425
+              }}
+              className="friend-card-list"
+            >
+              {this.state.filteredFriends.map(friend => {
+                return (
+                  <Menu.Item
+                    as="a"
+                    className="friendCard"
+                    key={friend.id}
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "flex-start"
+                    }}
+                  >
+                    <div
+                      style={{ marginLeft: 75 }}
+                      onClick={() =>
+                        this.props.updateDisplayedUser(friend.fb_user_id)
+                      }
+                    >
+                      <Image
+                        style={{ fontSize: 27 }}
+                        src="http://placekitten.com/200/200"
+                        avatar
+                      />
+                      <span style={{ fontSize: 16, marginLeft: 10 }}>
+                        {friend.first_name} {friend.last_name}
+                      </span>
+                    </div>
+                  </Menu.Item>
+                );
+              })}
+            </Menu>
+          </div>
+        ) : null}
+      </div>
+    );
   }
 }
 
