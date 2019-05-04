@@ -71,7 +71,7 @@ class FbLogin extends Component {
                       response.accessToken
                     );
                     window.localStorage.setItem("SAMUserID", response.userID);
-                    this.setState({ isLoggedIn: true });
+                    this.props.updateIsLoggedIn();
                     // this.props.getUserData(
                     //   window.localStorage.getItem("SAMUserID") ***Will add back in later - BM
                     // );
@@ -132,8 +132,8 @@ class FbLogin extends Component {
 
   render() {
     let fbContent;
-
-    if (this.state.isLoggedIn) {
+    console.log("TESTING LOGIN", this.props.isLoggedIn);
+    if (this.props.isLoggedIn) {
       fbContent = (
         <div
           style={{

@@ -25,7 +25,6 @@ class NavBar extends React.Component {
   }
 
   render() {
-    console.log("TESTING REDUX", this.props.isLoggedIn);
     return (
       <div>
         <Sidebar.Pushable>
