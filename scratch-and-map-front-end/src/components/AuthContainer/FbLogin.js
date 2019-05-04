@@ -101,8 +101,13 @@ class FbLogin extends Component {
                     // this.props.getUserData(
                     //   window.localStorage.getItem("SAMUserID")***Will add back in later - BM
                     // );
+<<<<<<< HEAD
                     return console.log("LOGIN RES", res);
          });
+=======
+                  });
+              }
+>>>>>>> re commiting previous merge.
             }
           })
       }
