@@ -48,13 +48,11 @@ conftest.py - creates new instances of data for use in test cases within test_mo
 
 test_models.py - tests for correct table schema
 
-<!-- ### And coding style tests
+### And coding style tests
 
-Explain what these tests test and why
+Tested predeployment via Netlify for header rules, pages changed, mixed content, and redirect rules.
 
-```
-Give an example
-``` -->
+Team utilized Prettier.
 
 ## Deployment
 
