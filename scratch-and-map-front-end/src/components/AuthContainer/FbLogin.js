@@ -70,6 +70,7 @@ class FbLogin extends Component {
                       response.accessToken
                     );
                     window.localStorage.setItem("SAMUserID", response.userID);
+                    document.location.reload(true);
                     // this.props.getUserData(
                     //   window.localStorage.getItem("SAMUserID") ***Will add back in later - BM
                     // );
