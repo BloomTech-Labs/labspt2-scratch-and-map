@@ -16,6 +16,8 @@ import FriendListView from "../NavContainer/FriendListView";
 import MapContainer from "../MapContainer/MapContainer";
 import DevCard from "./DevCard";
 import CheckoutForm from "../CheckoutForm";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -42,7 +44,7 @@ class NavBar extends React.Component {
             <Menu.Item as={Link} to="/">
               <img src={logo} alt="" />
             </Menu.Item>
-            {window.localStorage.getItem("SAMUserID") ? (
+            {this.props.isLoggedIn ? (
               <Link
                 to={{
                   pathname: "/map",
@@ -169,4 +171,9 @@ class NavBar extends React.Component {
   }
 }
 
-export default NavBar;
+const mapStateToProps = state => {
+  return {
+    isLoggedIn: state.updateLoginReducer.isLoggedIn
+  };
+};
+export default withRouter(connect(mapStateToProps)(NavBar));
