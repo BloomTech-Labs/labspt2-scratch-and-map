@@ -17,44 +17,6 @@ class CheckoutForm extends Component {
     };
   }
 
-    componentDidMount() {
-    axios.get(`https://restcountries.eu/rest/v2/all`)
-    .then(res => {
-        res.data.forEach(country => {
-            let countryOptions = {
-                key: country.alpha3Code,
-                value: country.alpha3Code,
-                text: country.name
-            }
-            this.state.options.push(countryOptions);
-        })
-            
-  })
-    axios.get(`https://gist.githubusercontent.com/mshafrir/2646763/raw/8b0dbb93521f5d6889502305335104218454c2bf/states_titlecase.json`)
-      .then(res => {
-        res.data.forEach(state => {
-          let stateOptions = {
-            key: state.abbreviation,
-            value: state.abbreviation,
-            text: state.name,
-          }
-            this.state.stateOptions.push(stateOptions)
-        })
-    
-    })
-}
-
-handleInputChange = e => {
-  this.setState({ [e.target.name]: e.target.value });
-};
-
-
-handleStateSelection = (e, {value}) => this.setState({ stateSelection: value })
-
-handleCountrySelection = (e, {value}) => this.setState({ countrySelection: value })
-
-
-
 
 
 async submit(ev) {
