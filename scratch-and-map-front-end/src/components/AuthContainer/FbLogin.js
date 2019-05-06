@@ -51,11 +51,7 @@ class FbLogin extends Component {
 
         //Checks DB If FB User Exist
         axios
-          .get(
-            `${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${
-              response.userID
-            }`
-          )
+          .get(`${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${response.userID}`)
           .then(
             res => {
               if (!res.data.fb_user_id) {

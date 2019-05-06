@@ -17,7 +17,9 @@ class CheckoutForm extends Component {
     };
   }
 
-
+componentWillMount() {
+  axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/users`)
+}
 
 async submit(ev) {
   try {
