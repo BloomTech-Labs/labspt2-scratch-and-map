@@ -26,12 +26,28 @@ Continuing for all versions:
 
 4. Run ```pip install -r requirements.txt```
 
+5. Set up environment variables for backend in the `.env` file.
+```python
+DATABASE_URL= postgres://abcd1234ABCD:abcd1234ABCD1234@ec2-54-113-211-12.compute-1.amazonaws.com:5432/db7nordid9sd8
+STRIPE_PUBLIC_KEY=pk_test_abcd1234ABCD1234
+STRIPE_SECRET_KEY= sk_test_abcd1234ABCD1234
+```
+6. Change directory to front end ```cd scratch-and-map-front-end```
+
+7. Build dependencies with ```yarn install```
+
+6. Set up environment variables for backend in the ```.env``` file in ```~/scratch-and-map-front-end/.env```
+```python
+REACT_APP_BACKEND_URL=localhost:5000
+REACT_APP_FB_APP_ID=123412341234
+
+```
 
 ## Getting Started
 
-Start backend server with command: python server.py in root directory of project.
+Start backend server with command: ```python server.py``` in root directory of project.
 
-Start frontend server with command: yarn start in root of frontend folder.
+Start frontend server with command: ```yarn start``` in root of frontend folder.
 
 ## Running the tests
 
@@ -71,7 +87,7 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 ## Versioning
 
-We use date of release for versioning (YY.MM). Current version [Version 19.05](https://github.com/Lambda-School-Labs/labspt2-scratch-and-map). 
+We use date of release for versioning (YY.MM). Current version [Version 19.05](https://github.com/Lambda-School-Labs/labspt2-scratch-and-map).
 
 ## Authors
 <table style="border-collapse: collapse;"><tr style="border: none;"><td style= "border: none;">
