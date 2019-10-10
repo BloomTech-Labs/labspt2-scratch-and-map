@@ -123,7 +123,9 @@ class NavBar extends React.Component {
                   >
                     LOG OUT
                   </Button>
-                ) : null}
+                ) : (
+                  <Auth />
+                )}
               </div>
             </div>
           </div>
