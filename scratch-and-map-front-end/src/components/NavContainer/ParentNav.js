@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { getUserData } from "../../actions/mapActions";
-import { updateIsLoggedIn } from "../../actions/isLoggedInAction";
+import { updateIsLoggedInFalse } from "../../actions/isLoggedInAction";
 import NavBar from "./NavBar";
+import axios from "axios";
 
 class ParentNav extends Component {
   state = {
@@ -11,7 +12,14 @@ class ParentNav extends Component {
   };
 
   componentDidMount() {
-    // this.props.getUserData(1);
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/users`)
+      .then(response => {
+        console.log("USERS: ", response);
+      })
+      .catch(err => {
+        console.log("NEW ERROR", err);
+      });
   }
 
   handlePusher = () => {
@@ -24,7 +32,7 @@ class ParentNav extends Component {
   onLogout = () => {
     localStorage.clear("SAMUserID");
     document.location.reload(true);
-    this.props.updateIsLoggedIn();
+    this.props.updateIsLoggedInFalse();
   };
 
   render() {
@@ -51,6 +59,6 @@ const mapStateToProps = state => {
 export default withRouter(
   connect(
     mapStateToProps,
-    { getUserData, updateIsLoggedIn }
+    { getUserData, updateIsLoggedInFalse }
   )(ParentNav)
 );

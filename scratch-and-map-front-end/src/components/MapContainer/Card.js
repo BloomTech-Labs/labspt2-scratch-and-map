@@ -40,9 +40,7 @@ class Card extends Component {
 
     await axios
       .get(
-        `${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${
-          this.props.currentUser
-        }`
+        `${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${this.props.currentUser}`
       )
       .then(res => {
         this.setState({ user: res.data.id });
@@ -124,9 +122,7 @@ class Card extends Component {
     let newNotes = document.getElementById("Notes").value;
     axios
       .get(
-        `${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${
-          this.props.currentUser
-        }`
+        `${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${this.props.currentUser}`
       )
       .then(res => {
         const countryData = {
@@ -155,9 +151,7 @@ class Card extends Component {
         } else {
           axios
             .put(
-              `${process.env.REACT_APP_BACKEND_URL}/api/mapview/${
-                countryData.user_id
-              }/${countryData.country_id}`,
+              `${process.env.REACT_APP_BACKEND_URL}/api/mapview/${countryData.user_id}/${countryData.country_id}`,
               countryData
             )
             .then(res => {
@@ -175,7 +169,7 @@ class Card extends Component {
   };
 
   render() {
-    const loggedInUser = window.localStorage.getItem("SAMUserID");
+    const loggedInUser = this.props.displayedUser;
 
     const cardStyle = {
       zIndex: 11,
@@ -219,7 +213,7 @@ class Card extends Component {
                     height: "10vw",
                     marginBottom: "20px"
                   }}
-                  alt =""
+                  alt=""
                   src={this.state.imageUrl}
                 />
               </div>
