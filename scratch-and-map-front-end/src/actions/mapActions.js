@@ -9,7 +9,11 @@ export const getUserData = id => {
   return dispatch => {
     dispatch({ type: FETCHING });
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${id}`)
+      .get(
+        `${
+          process.env.REACT_APP_BACKEND_URL
+        }/api/users/fb/${"2230667693622967"}`
+      )
       .then(response => {
         dispatch({ type: SUCCESS, payload: response.data });
       })
@@ -21,6 +25,6 @@ export const getUserData = id => {
 
 export const updateDisplayedUser = id => {
   return dispatch => {
-    dispatch({ type: UPDATING, payload: id });
+    dispatch({ type: UPDATING, payload: "2230667693622967" });
   };
 };

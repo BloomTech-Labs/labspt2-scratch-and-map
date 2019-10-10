@@ -68,7 +68,6 @@ class NavBar extends React.Component {
               <Modal
                 trigger={
                   <Menu.Item>
-                    {/* onClick={onClick} */}
                     <Icon name="map" inverted />
                     My Map
                   </Menu.Item>
@@ -124,9 +123,7 @@ class NavBar extends React.Component {
                   >
                     LOG OUT
                   </Button>
-                ) : (
-                  <Auth />
-                )}
+                ) : null}
               </div>
             </div>
           </div>
