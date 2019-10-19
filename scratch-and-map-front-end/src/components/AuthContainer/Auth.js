@@ -1,126 +1,176 @@
-// import React, { Component } from "react";
-// import FbLogin from "./FbLogin";
-// import axios from "axios";
-// import { Button, Modal } from "semantic-ui-react";
+import React, { Component } from "react";
+import auth0 from "auth0-js";
+import jwtDecode from "jwt-decode";
+import axios from "axios";
+import { Button, Modal } from "semantic-ui-react";
+require("dotenv").config();
 
-// class Auth extends Component {
-//   constructor() {
-//     super();
-//     this.state = {
-//       isLoginOpen: true,
-//       isRegisterOpen: false,
-//       username: "",
-//       password: "",
-//       email: ""
-//     };
-//   }
+const LOGIN_SUCCESS_PAGE = "/";
+const LOGIN_FAIL_PAGE = "/fail";
 
-//   clearState = () => {
-//     this.setState({ username: "", password: "", email: "" });
-//   };
+export default class Auth {
+  auth0 = new auth0.WebAuth({
+    domain: "dev-ose6zus8.auth0.com",
+    clientID: "YIsbwxbfI59b7ZVcrenZ9gFZCObXpI79",
+    redirectUri: "http://localhost:3000/callback",
+    audience: "https://dev-ose6zus8.auth0.com/userinfo",
+    responseType: "token id_token",
+    scope: "openid profile"
+  });
 
-//   showLogin = e => {
-//     this.clearState();
-//     this.setState({ isLoginOpen: true, isRegisterOpen: false });
-//   };
+  constructor() {
+    this.login = this.login.bind(this);
+  }
 
-//   showRegister = e => {
-//     this.clearState();
-//     this.setState({ isRegisterOpen: true, isLoginOpen: false });
-//   };
+  login() {
+    this.auth0.authorize();
+  }
 
-//   handleInputChange = e => {
-//     this.setState({ [e.target.name]: e.target.value });
-//   };
+  handleAuthentication() {
+    this.auth0.parseHash((err, authResults) => {
+      if (authResults && authResults.accessToken && authResults.idToken) {
+        let expiresAt = JSON.stringify(
+          authResults.expiresIn * 1000 + new Date().getTime()
+        );
+        localStorage.setItem("access_token", authResults.accessToken);
+        localStorage.setItem("SAMUserID", authResults.idToken);
+        localStorage.setItem("expires_at", expiresAt);
+        window.location.hash = "";
+        window.location.pathname = LOGIN_SUCCESS_PAGE;
+      } else if (err) {
+        window.location.pathname = LOGIN_FAIL_PAGE;
+        console.log(err);
+      }
+    });
+  }
 
-//   onSubmitHandler = e => {
-//     e.preventDefault();
-//     e.stopPropagation();
-//     const action = this.state.isLoginOpen ? "login" : "signup";
-//     axios
-//       .post(`${process.env.REACT_APP_BACKEND_URL}/${action}`, {
-//         username: this.state.username,
-//         email: this.state.email,
-//         password: this.state.password
-//       })
-//       .then(response => {
-//         console.log(response);
-//         this.props.history.push("/map"); //Not currently redirecting
-//       });
-//   };
+  getProfile(cb) {
+    if (localStorage.getItem("SAMUserID")) {
+      return jwtDecode(localStorage.getItem("SAMUserID"));
+    } else {
+      return {};
+    }
+  }
 
-//   render() {
-//     return (
-//       <div className="landing">
-//         <div className="Nav">
-//           <Modal
-//             size="mini"
-//             trigger={
-//               <Button className="navbutton" inverted>
-//                 SIGN UP
-//               </Button>
-//             }
-//             closeIcon
-//           >
-//             <Modal.Content>
-//               <div className="box-wrapper">
-//                 {this.state.isLoginOpen && (
-//                   <FbLogin
-//                     inputChange={this.handleInputChange}
-//                     submit={this.onSubmitHandler}
-//                   />
-//                 )}
-//               </div>
-//             </Modal.Content>
-//           </Modal>
+  isAuthenticated() {
+    let expiresAt = JSON.parse(localStorage.getItem("expires_at"));
+    return new Date().getTime() < expiresAt;
+  }
 
-//           <Modal
-//             size="mini"
-//             trigger={
-//               <Button className="navbutton" inverted>
-//                 LOG IN
-//               </Button>
-//             }
-//             closeIcon
-//           >
-//             <Modal.Content image>
-//               <div className="box-wrapper">
-//                 {this.state.isLoginOpen && (
-//                   <FbLogin
-//                     inputChange={this.handleInputChange}
-//                     submit={this.onSubmitHandler}
-//                   />
-//                 )}
-//               </div>
-//             </Modal.Content>
-//           </Modal>
+  logout() {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("SAMUserID");
+    localStorage.removeItem("expires_at");
+    localStorage.removeItem("userInfo");
+    window.location.pathname = LOGIN_SUCCESS_PAGE;
+  }
+  //old funtions start here
+  // clearState = () => {
+  //   this.setState({ username: "", password: "", email: "" });
+  // };
 
-//           {/* <div className="auth-wrapper">
-//         <div className="auth-controller">
-//           <div
-//             className={
-//               "controller" +
-//               (this.state.isRegisterOpen ? "selected-controller" : "")
-//             }
-//             onClick={this.showRegister}
-//           >
-//             Sign Up
-//           </div>
-//           <div
-//             className={
-//               "login-controller" +
-//               (this.state.isLoginOpen ? "selected-controller" : "")
-//             }
-//             onClick={this.showLogin}
-//           >
-//             Log In
-//           </div>
+  // showLogin = e => {
+  //   this.clearState();
+  //   this.setState({ isLoginOpen: true, isRegisterOpen: false });
+  // };
+
+  // showRegister = e => {
+  //   this.clearState();
+  //   this.setState({ isRegisterOpen: true, isLoginOpen: false });
+  // };
+
+  // handleInputChange = e => {
+  //   this.setState({ [e.target.name]: e.target.value });
+  // };
+
+  // onSubmitHandler = e => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   const action = this.state.isLoginOpen ? "login" : "signup";
+  //   axios
+  //     .post(`${process.env.REACT_APP_BACKEND_URL}/${action}`, {
+  //       username: this.state.username,
+  //       email: this.state.email,
+  //       password: this.state.password
+  //     })
+  //     .then(response => {
+  //       console.log(response);
+  //       this.props.history.push("/map"); //Not currently redirecting
+  //     });
+  // };
+}
+
+//***OLD AUTH CODE */
+
+// <div className="landing">
+//   <div className="Nav">
+//     <Modal
+//       size="mini"
+//       trigger={
+//         <Button className="navbutton" inverted>
+//           SIGN UP
+//         </Button>
+//       }
+//       closeIcon
+//     >
+//       <Modal.Content>
+//         <div className="box-wrapper">
+//           {this.state.isLoginOpen && (
+//             <FbLogin
+//               inputChange={this.handleInputChange}
+//               submit={this.onSubmitHandler}
+//             />
+//           )}
 //         </div>
-//       </div> */}
-//         </div>
-//       </div>
-//     );
-//   }
-// }
+//       </Modal.Content>
+//     </Modal>
 
-// export default Auth;
+//     <Modal
+//       size="mini"
+//       trigger={
+//         <Button className="navbutton" inverted>
+//           LOG IN
+//         </Button>
+//       }
+//       closeIcon
+//     >
+//       <Modal.Content image>
+//         <div className="box-wrapper">
+//           {this.state.isLoginOpen && (
+//             <FbLogin
+//               inputChange={this.handleInputChange}
+//               submit={this.onSubmitHandler}
+//             />
+//           )}
+//         </div>
+//       </Modal.Content>
+//     </Modal>
+
+{
+  /* <div className="auth-wrapper">
+        <div className="auth-controller">
+          <div
+            className={
+              "controller" +
+              (this.state.isRegisterOpen ? "selected-controller" : "")
+            }
+            onClick={this.showRegister}
+          >
+            Sign Up
+          </div>
+          <div
+            className={
+              "login-controller" +
+              (this.state.isLoginOpen ? "selected-controller" : "")
+            }
+            onClick={this.showLogin}
+          >
+            Log In
+          </div>
+        </div>
+      </div> */
+}
+{
+  /* </div>
+      </div> */
+}

@@ -11,6 +11,8 @@ import {
 } from "semantic-ui-react";
 import logo from "../../img/logowhite.png";
 import Auth from "../AuthContainer/Auth";
+import Callback from "../AuthContainer/Callback";
+import Fail from "../AuthContainer/Fail";
 import Landing from "../Landing";
 import FriendListView from "../NavContainer/FriendListView";
 import MapContainer from "../MapContainer/MapContainer";
@@ -25,6 +27,7 @@ class NavBar extends React.Component {
   }
 
   render() {
+    const auth = new Auth();
     return (
       <div>
         <Sidebar.Pushable>
@@ -116,14 +119,16 @@ class NavBar extends React.Component {
               )
               <div className="AuthButtons">
                 {window.localStorage.getItem("SAMUserID") ? (
-                  <Button
-                    className="logout"
-                    inverted
-                    onClick={this.props.onLogout}
-                  >
+                  <Button className="logout" inverted onClick={auth.logout}>
                     LOG OUT
                   </Button>
-                ) : null}
+                ) : (
+                  <div className="AuthButtons">
+                    <Button className="logout" inverted onClick={auth.login}>
+                      LOG IN
+                    </Button>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -136,6 +141,8 @@ class NavBar extends React.Component {
             <Segment basic>
               <Route path="/" exact render={props => <Landing />} />
               <Route path="/map" exact render={props => <MapContainer />} />
+              <Route path="/callback" exact render={props => <Callback />} />
+              <Route path="/fail" component={Fail} />
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
