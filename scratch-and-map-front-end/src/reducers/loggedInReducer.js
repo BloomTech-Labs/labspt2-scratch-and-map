@@ -2,7 +2,7 @@ import { UPDATE_LOGIN_TRUE } from "../actions/isLoggedInAction";
 import { UPDATE_LOGIN_FALSE } from "../actions/isLoggedInAction";
 
 const initialState = {
-  isLoggedIn: true
+  isLoggedIn: false
 };
 
 export const updateLoginReducer = (state = initialState, action) => {

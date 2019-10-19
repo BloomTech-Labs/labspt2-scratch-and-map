@@ -1,92 +1,104 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import GoogleLogin from "react-google-login";
+import auth0 from "auth0-js";
+import jwtDecode from "jwt-decode";
 import axios from "axios";
 import { Button, Modal } from "semantic-ui-react";
+require("dotenv").config();
 
-class Auth extends Component {
+const LOGIN_SUCCESS_PAGE = "/";
+const LOGIN_FAIL_PAGE = "/fail";
+
+export default class Auth {
+  auth0 = new auth0.WebAuth({
+    domain: "dev-ose6zus8.auth0.com",
+    clientID: "YIsbwxbfI59b7ZVcrenZ9gFZCObXpI79",
+    redirectUri: "http://localhost:3000/callback",
+    audience: "https://dev-ose6zus8.auth0.com/userinfo",
+    responseType: "token id_token",
+    scope: "openid profile"
+  });
+
   constructor() {
-    super();
-    this.state = {
-      isLoginOpen: true,
-      isRegisterOpen: false,
-      username: "",
-      password: "",
-      email: "",
-      isAuthenticated: false,
-      user: null,
-      token: ""
-    };
+    this.login = this.login.bind(this);
   }
 
-  logout = () => {
-    this.setState({ isAuthenticated: false, token: "", user: null });
-  };
-
-  googleResponse = e => {};
-
-  onFailure = error => {
-    alert(error);
-  };
-
-  clearState = () => {
-    this.setState({ username: "", password: "", email: "" });
-  };
-
-  showLogin = e => {
-    this.clearState();
-    this.setState({ isLoginOpen: true, isRegisterOpen: false });
-  };
-
-  showRegister = e => {
-    this.clearState();
-    this.setState({ isRegisterOpen: true, isLoginOpen: false });
-  };
-
-  handleInputChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  onSubmitHandler = e => {
-    e.preventDefault();
-    e.stopPropagation();
-    const action = this.state.isLoginOpen ? "login" : "signup";
-    axios
-      .post(`${process.env.REACT_APP_BACKEND_URL}/${action}`, {
-        username: this.state.username,
-        email: this.state.email,
-        password: this.state.password
-      })
-      .then(response => {
-        console.log(response);
-        this.props.history.push("/map"); //Not currently redirecting
-      });
-  };
-
-  render() {
-    let content = !!this.state.isAuthenticated ? (
-      <div>
-        <p> Authenticated </p>
-        <div>{this.state.user.email}</div>
-        <div>
-          <button onClick={this.logout} className="button">
-            Log Out
-          </button>
-        </div>
-      </div>
-    ) : (
-      <GoogleLogin
-        clientId={process.env.GOOGLE_CLIENT_ID}
-        buttonText="Login"
-        onSuccess={this.googleResponse}
-        onFailure={this.googleResponse}
-      />
-    );
-    return <div>{content}</div>;
+  login() {
+    this.auth0.authorize();
   }
+
+  handleAuthentication() {
+    this.auth0.parseHash((err, authResults) => {
+      if (authResults && authResults.accessToken && authResults.idToken) {
+        let expiresAt = JSON.stringify(
+          authResults.expiresIn * 1000 + new Date().getTime()
+        );
+        localStorage.setItem("access_token", authResults.accessToken);
+        localStorage.setItem("SAMUserID", authResults.idToken);
+        localStorage.setItem("expires_at", expiresAt);
+        window.location.hash = "";
+        window.location.pathname = LOGIN_SUCCESS_PAGE;
+      } else if (err) {
+        window.location.pathname = LOGIN_FAIL_PAGE;
+        console.log(err);
+      }
+    });
+  }
+
+  getProfile(cb) {
+    if (localStorage.getItem("SAMUserID")) {
+      return jwtDecode(localStorage.getItem("SAMUserID"));
+    } else {
+      return {};
+    }
+  }
+
+  isAuthenticated() {
+    let expiresAt = JSON.parse(localStorage.getItem("expires_at"));
+    return new Date().getTime() < expiresAt;
+  }
+
+  logout() {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("SAMUserID");
+    localStorage.removeItem("expires_at");
+    localStorage.removeItem("userInfo");
+    window.location.pathname = LOGIN_SUCCESS_PAGE;
+  }
+  //old funtions start here
+  // clearState = () => {
+  //   this.setState({ username: "", password: "", email: "" });
+  // };
+
+  // showLogin = e => {
+  //   this.clearState();
+  //   this.setState({ isLoginOpen: true, isRegisterOpen: false });
+  // };
+
+  // showRegister = e => {
+  //   this.clearState();
+  //   this.setState({ isRegisterOpen: true, isLoginOpen: false });
+  // };
+
+  // handleInputChange = e => {
+  //   this.setState({ [e.target.name]: e.target.value });
+  // };
+
+  // onSubmitHandler = e => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   const action = this.state.isLoginOpen ? "login" : "signup";
+  //   axios
+  //     .post(`${process.env.REACT_APP_BACKEND_URL}/${action}`, {
+  //       username: this.state.username,
+  //       email: this.state.email,
+  //       password: this.state.password
+  //     })
+  //     .then(response => {
+  //       console.log(response);
+  //       this.props.history.push("/map"); //Not currently redirecting
+  //     });
+  // };
 }
-
-export default Auth;
 
 //***OLD AUTH CODE */
 
