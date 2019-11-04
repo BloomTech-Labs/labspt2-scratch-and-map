@@ -36,6 +36,14 @@ export default class Auth {
         localStorage.setItem("access_token", authResults.accessToken);
         localStorage.setItem("SAMUserID", authResults.idToken);
         localStorage.setItem("expires_at", expiresAt);
+        let keys = Object.keys(authResults)
+        let keys2 = Object.keys(authResults.idTokenPayload)
+        keys.forEach(key    =>  {
+            console.log(key, authResults.key)
+        })
+        keys2.forEach(key    =>  {
+            console.log(key, authResults.idTokenPayload.key)
+        })
         axios
           .post(`${process.env.REACT_APP_BACKEND_URL}/api/signup`,  {
               username: authResults.idTokenPayload.nickname,
