@@ -17,10 +17,7 @@ class App extends Component {
     //grab FbAcessToken from local storage
     if(localStorage.getItem("SAMUserID"))   {
         console.log("hit userid")
-        this.setState({
-            ...this.state,
-            isLoggedIn: true
-        })
+        updateIsLoggedInTrue()
     }
   }
   render() {
