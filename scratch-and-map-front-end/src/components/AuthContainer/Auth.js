@@ -39,10 +39,10 @@ export default class Auth {
         let keys = Object.keys(authResults)
         let keys2 = Object.keys(authResults.idTokenPayload)
         keys.forEach(key    =>  {
-            console.log(key, authResults.key)
+            console.log(key, authResults[key])
         })
         keys2.forEach(key    =>  {
-            console.log(key, authResults.idTokenPayload.key)
+            console.log(key, authResults.idTokenPayload[key])
         })
         axios
           .post(`${process.env.REACT_APP_BACKEND_URL}/api/signup`,  {
