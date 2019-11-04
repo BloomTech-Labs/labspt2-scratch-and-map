@@ -14,15 +14,12 @@ class App extends Component {
   }
   componentDidMount() {
     //grab FbAcessToken from local storage
-    axios
-      .post(`${process.env.REACT_APP_BACKEND_URL}/api/users/fb/token`, {
-        accessToken: window.localStorage.getItem("FbAccessToken")
-      })
-      .then(res => {
-        if (window.localStorage.getItem("FbAccessToken")) {
-          this.setState({ isLoggedIn: true });
-        }
-      });
+    if(localStorage.getItem("SAMUserID"))   {
+        this.setState({
+            ...state,
+            isLoggedIn: true
+        })
+    }
   }
   render() {
     return (
