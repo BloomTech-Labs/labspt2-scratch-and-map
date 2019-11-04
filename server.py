@@ -80,14 +80,15 @@ def fbLogin(fbid):
 @app.route('/api/users/fb/<fbid>', methods=['GET'])
 def get_user_by_fbid(fbid):
     user = users.query.filter(users.fb_user_id==fbid).first()
-
+    print(user)
+    print(fbid)
     return user_schema.jsonify(user)
 
 @app.route('/api/users/fb/token', methods=['POST'])
 def check_user_by_token():
     token = request.json['accessToken']
     user = users.query.filter(users.fb_access_token==token).first()
-    
+
     return jsonify(user)
 
 #USERS ENDPOINTS
@@ -121,12 +122,12 @@ def update_user(id):
     db.session.commit()
     return user_schema.jsonify(user)
 
-@app.route('/api/users/<int:id>', methods=['DELETE']) 
+@app.route('/api/users/<int:id>', methods=['DELETE'])
 def delete_user(id):
     user = users.query.get(id)
     db.session.delete(user)
     db.session.commit()
-    return user_schema.jsonify(user)    
+    return user_schema.jsonify(user)
 
 #FACEBOOK USERS BY ID
 @app.route('/api/users/<fbid>', methods=['PUT'])
