@@ -12,7 +12,7 @@ export const getUserData = id => {
       .get(
         `${
           process.env.REACT_APP_BACKEND_URL
-        }/api/users/fb/${"2230667693622967"}`
+        }/api/users/fb/${localStorage.getItem("SAMUserID")}`
       )
       .then(response => {
         dispatch({ type: SUCCESS, payload: response.data });
@@ -25,6 +25,6 @@ export const getUserData = id => {
 
 export const updateDisplayedUser = id => {
   return dispatch => {
-    dispatch({ type: UPDATING, payload: "2230667693622967" });
+    dispatch({ type: UPDATING, payload: localStorage.getItem("SAMUserID") });
   };
 };
