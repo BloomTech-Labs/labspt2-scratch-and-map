@@ -3,6 +3,7 @@ import ParentNav from "./components/NavContainer/ParentNav";
 import "./index.scss";
 import axios from "axios";
 import { Elements, StripeProvider } from "react-stripe-elements";
+import { updateIsLoggedInTrue } from './actions/isLoggedInAction.js'
 require("dotenv").config();
 
 class App extends Component {
@@ -15,9 +16,12 @@ class App extends Component {
   componentDidMount() {
     //grab FbAcessToken from local storage
     if(localStorage.getItem("SAMUserID"))   {
+        console.log("hit userid")
         this.setState({
             ...state,
             isLoggedIn: true
+        },  ()  =>  {
+            updateIsLoggedInTrue()
         })
     }
   }
