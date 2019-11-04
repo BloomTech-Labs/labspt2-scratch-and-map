@@ -37,6 +37,10 @@ export default class Auth {
         localStorage.setItem("SAMUserID", authResults.idToken);
         localStorage.setItem("expires_at", expiresAt);
         console.log(authResults)
+        let keys = Object.keys(authResults)
+        keys.forEach(key    =>  {
+            console.log(`${key}`, authResults[key])
+        })
         updateIsLoggedInTrue()
         console.log("hit update")
         window.location.hash = "";
