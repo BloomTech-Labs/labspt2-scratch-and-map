@@ -36,7 +36,9 @@ export default class Auth {
         localStorage.setItem("access_token", authResults.accessToken);
         localStorage.setItem("SAMUserID", authResults.idToken);
         localStorage.setItem("expires_at", expiresAt);
+        console.log(authResults)
         updateIsLoggedInTrue()
+        console.log("hit update")
         window.location.hash = "";
         window.location.pathname = LOGIN_SUCCESS_PAGE;
       } else if (err) {
