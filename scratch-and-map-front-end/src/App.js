@@ -20,7 +20,7 @@ class App extends Component {
         this.setState({
             ...this.state,
             isLoggedIn: true
-        }
+        })
     }
   }
   render() {
