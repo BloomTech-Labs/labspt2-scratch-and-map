@@ -3,6 +3,7 @@ import auth0 from "auth0-js";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
 import { Button, Modal } from "semantic-ui-react";
+import updateIsLoggedInTrue from "../../actions/isLoggedInAction.js"
 require("dotenv").config();
 
 const LOGIN_SUCCESS_PAGE = "/";
@@ -35,6 +36,7 @@ export default class Auth {
         localStorage.setItem("access_token", authResults.accessToken);
         localStorage.setItem("SAMUserID", authResults.idToken);
         localStorage.setItem("expires_at", expiresAt);
+        updateIsLoggedInTrue()
         window.location.hash = "";
         window.location.pathname = LOGIN_SUCCESS_PAGE;
       } else if (err) {
