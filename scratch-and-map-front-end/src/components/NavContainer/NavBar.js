@@ -177,7 +177,7 @@ class NavBar extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    isLoggedIn: state.updateLoginReducer.isLoggedIn
+    isLoggedIn: state.isLoggedIn
   };
 };
 export default withRouter(connect(mapStateToProps)(NavBar));
