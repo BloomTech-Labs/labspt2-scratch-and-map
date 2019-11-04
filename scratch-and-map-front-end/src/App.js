@@ -18,7 +18,7 @@ class App extends Component {
     if(localStorage.getItem("SAMUserID"))   {
         console.log("hit userid")
         this.setState({
-            ...state,
+            ...this.state,
             isLoggedIn: true
         },  ()  =>  {
             updateIsLoggedInTrue()
