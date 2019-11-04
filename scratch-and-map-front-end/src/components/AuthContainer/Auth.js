@@ -12,7 +12,7 @@ export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: "dev-ose6zus8.auth0.com",
     clientID: "YIsbwxbfI59b7ZVcrenZ9gFZCObXpI79",
-    redirectUri: "http://scratchandmap.club/callback",
+    redirectUri: "https://scratchandmap.club/callback",
     audience: "https://dev-ose6zus8.auth0.com/userinfo",
     responseType: "token id_token",
     scope: "openid profile"
