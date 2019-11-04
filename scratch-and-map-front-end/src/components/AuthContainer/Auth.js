@@ -3,7 +3,7 @@ import auth0 from "auth0-js";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
 import { Button, Modal } from "semantic-ui-react";
-import updateIsLoggedInTrue from "../../actions/isLoggedInAction.js"
+import {updateIsLoggedInTrue} from "../../actions/isLoggedInAction.js"
 require("dotenv").config();
 
 const LOGIN_SUCCESS_PAGE = "/";
