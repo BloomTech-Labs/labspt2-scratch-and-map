@@ -36,12 +36,25 @@ export default class Auth {
         localStorage.setItem("access_token", authResults.accessToken);
         localStorage.setItem("SAMUserID", authResults.idToken);
         localStorage.setItem("expires_at", expiresAt);
-        console.log(authResults)
-        let keys = Object.keys(authResults)
-        keys.forEach(key    =>  {
-            console.log(`${key}`, authResults[key])
-        })
-        updateIsLoggedInTrue()
+        axios
+          .post(`${process.env.REACT_APP_BACKEND_URL}/api/signup`,  {
+              username: authResults.idTokenPayload.nickname,
+              password: "123456789",
+              first_name: authResults.idTokenPayload.given_name,
+              last_name: authResults.idTokenPayload.family_name,
+              age: 24,
+              nationality: "american",
+              picture_url: authResults.idTokenPayload.picture,
+              email: authResults.idTokenPayload.nickname + "@gmail.com",
+              role: "user",
+              home_country: "United States of America",
+              fb_user_id: authResults.idToken,
+              fb_access_token: authResults.accessToken,
+              premium: "false",
+          })
+          .then(data    =>  {
+              console.log(data)
+          })
         console.log("hit update")
         window.location.hash = "";
         window.location.pathname = LOGIN_SUCCESS_PAGE;
