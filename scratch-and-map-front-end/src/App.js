@@ -4,6 +4,7 @@ import "./index.scss";
 import axios from "axios";
 import { Elements, StripeProvider } from "react-stripe-elements";
 import { updateIsLoggedInTrue } from './actions/isLoggedInAction.js'
+import { connect } from 'react-redux'
 require("dotenv").config();
 
 class App extends Component {
@@ -33,4 +34,8 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps   =   state   =>  {
+    return {}
+}
+
+export default connect(mapStateToProps, { updateIsLoggedInTrue })(App);
