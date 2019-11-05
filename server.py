@@ -83,7 +83,6 @@ def get_user_by_fbid():
     fbid = request.json['fb_user_id']
     print(fbid)
     user = users.query.filter(users.fb_user_id==fbid).first()
-    print(user)
     return user_schema.jsonify(user)
 
 @app.route('/api/users/fb/token', methods=['POST'])
