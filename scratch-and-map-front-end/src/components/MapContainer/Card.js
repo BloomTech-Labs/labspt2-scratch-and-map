@@ -61,7 +61,7 @@ class Card extends Component {
       });
 
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/api/users/${this.state.user}`)
+      .post(`${process.env.REACT_APP_BACKEND_URL}/api/users/fb`, { fb_user_id: localStorage.getItem("SAMUserID")})
       .then(res => {
         let userInfo = res.data.user_countries;
         for (i = 0; i < userInfo.length; i++) {
@@ -120,9 +120,7 @@ class Card extends Component {
   onSave() {
     let newNotes = document.getElementById("Notes").value;
     axios
-      .get(
-        `${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${this.props.currentUser}`
-      )
+      .post(`${process.env.REACT_APP_BACKEND_URL}/api/users/fb`, { fb_user_id: localStorage.getItem("SAMUserID")})
       .then(res => {
         const countryData = {
           user_id: res.data.id,
