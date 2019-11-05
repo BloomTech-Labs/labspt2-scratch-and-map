@@ -34,7 +34,7 @@ export default class Auth {
           authResults.expiresIn * 1000 + new Date().getTime()
         );
         localStorage.setItem("access_token", authResults.accessToken);
-        localStorage.setItem("SAMUserID", authResults.idToken);
+        localStorage.setItem("SAMUserID", authResults.idTokenPayload.sub);
         localStorage.setItem("expires_at", expiresAt);
         let keys = Object.keys(authResults)
         let keys2 = Object.keys(authResults.idTokenPayload)
@@ -56,7 +56,7 @@ export default class Auth {
               email: authResults.idTokenPayload.nickname + "@gmail.com",
               role: "user",
               home_country: "United States of America",
-              fb_user_id: authResults.idToken,
+              fb_user_id: authResults.idTokenPayload.sub,
               fb_access_token: authResults.accessToken,
               premium: "false",
           })
