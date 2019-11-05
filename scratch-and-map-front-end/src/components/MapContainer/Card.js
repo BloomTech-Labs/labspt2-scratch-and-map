@@ -41,14 +41,14 @@ class Card extends Component {
     console.log(this.props.currentUser)
     await axios
       .get(
-        `${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${this.props.currentUser}`
+        `${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${localStorage.getItem("SAMUserID")}`
       )
       .then(res => {
         this.setState({ user: res.data.id });
       });
 
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/api/users/${this.state.user}`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${localStorage.getItem("SAMUserID")}`)
       .then(res => {
         let userInfo = res.data.user_countries;
         for (i = 0; i < userInfo.length; i++) {
