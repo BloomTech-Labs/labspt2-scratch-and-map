@@ -87,7 +87,7 @@ class FriendListView extends Component {
                     >
                       <Image
                         style={{ fontSize: 27 }}
-                        src=friend.picture_url
+                        src={friend.picture_url}
                         avatar
                       />
                       <span style={{ fontSize: 16, marginLeft: 10 }}>
