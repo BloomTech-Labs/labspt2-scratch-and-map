@@ -37,7 +37,7 @@ class Card extends Component {
   async componentDidMount() {
     let code = restCountryConversion(this.props.country_code);
     let codename = this.props.country_code;
-
+    console.log("this is where the /fb/ happens")
     await axios
       .get(
         `${process.env.REACT_APP_BACKEND_URL}/api/users/fb/${this.props.currentUser}`
