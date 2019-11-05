@@ -9,11 +9,7 @@ export const getUserData = id => {
   return dispatch => {
     dispatch({ type: FETCHING });
     axios
-      .get(
-        `${
-          process.env.REACT_APP_BACKEND_URL
-        }/api/users/fb/${localStorage.getItem("SAMUserID")}`
-      )
+      .post(`${process.env.REACT_APP_BACKEND_URL}/api/users/fb`, { fb_user_id: localStorage.getItem("SAMUserID")})
       .then(response => {
         dispatch({ type: SUCCESS, payload: response.data });
       })
