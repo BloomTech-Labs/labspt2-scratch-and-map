@@ -77,12 +77,6 @@ def fbLogin(fbid):
     else: return print('User Name Or Password Incorrect')
 
 #NOT SURE IF WE NEED THIS, BECAUSE WE CAN PULL THE FB_USER_ID DATA FROM THE USERS ENDPOINT.
-@app.route('/api/users/fb/<fbid>', methods=['GET'])
-def get_user_by_fbid(fbid):
-    user = users.query.filter(users.fb_user_id==fbid).first()
-    print(user)
-    print(fbid)
-    return user_schema.jsonify(user)
 
 @app.route('/api/users/fb', methods=['POST'])
 def get_user_by_fbid():
