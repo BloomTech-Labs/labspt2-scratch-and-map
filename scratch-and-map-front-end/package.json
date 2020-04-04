@@ -9,7 +9,7 @@
     "express": "^4.16.4",
     "jwt-decode": "^2.2.0",
     "leaflet": "^1.4.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "logger": "^0.0.1",
     "node-sass": "^4.11.0",
     "pg-promise": "^8.6.4",
