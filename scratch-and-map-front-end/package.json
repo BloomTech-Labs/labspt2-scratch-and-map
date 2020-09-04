@@ -11,7 +11,7 @@
     "leaflet": "^1.4.0",
     "lodash": "^4.17.13",
     "logger": "^0.0.1",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "pg-promise": "^8.6.4",
     "react": "^16.8.3",
     "react-compound-slider": "^1.2.1",
